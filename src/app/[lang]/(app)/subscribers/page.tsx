@@ -1,6 +1,5 @@
-import { Products } from "@/components/app/SubscribersRequests/Subscribers";
 const SubscribersPage = () => {
-  return <Products />;
+  return <div></div>;
 };
 
 export default SubscribersPage;
