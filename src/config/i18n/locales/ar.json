@@ -1,0 +1,251 @@
+{
+  "header": {
+    "logout": "تسجيل خروج"
+  },
+
+  "common": {
+    "system_name": "نظام الرابط الذهبي",
+    "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "contactUsSuccessMessage": "تم إرسال رسالتك بنجاح. سنعود إليك قريبًا.",
+    "warehouseOwner": "صاحب مستودع",
+    "supplier": "مورد",
+    "actions": {
+      "cancel": "الغاء",
+      "export": "تصدير",
+      "search": "البحث",
+      "print": "طباعة",
+      "download": "تحميل",
+      "upload": "تحميل",
+      "add": "اضافة",
+      "save": "حفظ",
+      "filter": "تصفية",
+      "next": "التالي",
+      "confirm": "تأكيد",
+      "action": "الاجراء",
+      "actions": "الاجراء",
+      "saveAndPrint": "حفظ وطباعة"
+    },
+
+    "timeFilters": {
+      "all": "الكل",
+      "12months": "12 شهر",
+      "30days": "30 يوم",
+      "7days": "7 ايام",
+      "today": "اليوم",
+      "customPeriod": "فترة محددة"
+    },
+
+    "fields": {
+      "orderNumber": "رقم الامر",
+      "clientName": "اسم العميل",
+      "supplierName": "اسم المورد",
+      "productName": "اسم المنتج",
+      "itemCode": "كود الصنف",
+      "itemName": "اسم الصنف",
+      "productCode": "كود المنتج",
+      "quantity": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "subtotal": "السعر الفرعي",
+      "total": "الاجمالي",
+      "date": "التاريخ",
+      "creationDate": "تاريخ الإنشاء",
+      "responsible": "المسئول",
+      "requestStatus": "حالة الطلب",
+      "invoiceStatus": "حالة الفاتورة",
+      "unitsCount": "عدد الوحدات",
+      "totalUnits": "اجمالي عدد الوحدات",
+      "optional": "(اختياري)"
+    },
+
+    "company": {
+      "name": "شركة جولدن لينك",
+      "address": "جدة - شارع الامير سلطان"
+    },
+
+    "documents": {
+      "attachDocuments": "ارفق مستندات",
+      "supportedFormats": "الصيغ المدعومة: Jpg, PDF, Png"
+    },
+
+    "statuses": {
+      "partiallyPaid": "مدفوعة جزئيًا",
+      "fullyPaid": "مدفوعة بالكامل",
+      "unpaid": "غير مدفوع",
+      "received": "مستلم",
+      "partiallyReceived": "مستلم جزئي",
+      "notReceived": "غير مستلم",
+      "completed": "مكتمل",
+      "pendingReview": "في انتظار المراجعة",
+      "pendingReviewApprove": "قبول",
+      "pendingReviewReject": "رفض",
+      "underReview": "قيد المراجعة",
+      "offerSent": "عرض مرسل",
+      "accepted": "مقبول",
+      "rejected": "مرفوض"
+    }
+  },
+  "auth": {
+    "welcome_back": "أهلا بعودتك من جديد",
+    "email": "البريد الإلكتروني",
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "sign_in": "تسجيل الدخول"
+  },
+  "forgot_password": {
+    "title": "استعادة كلمة المرور",
+    "send_code": "أرسل كود التحقق"
+  },
+  "verify_code": {
+    "title": "رمز التحقق",
+    "description": "من فضلك أدخل الكود هنا",
+    "resend_code": "إعادة إرسال الرمز",
+    "confirm": "تأكيد"
+  },
+  "reset_password": {
+    "title": "تغيير كلمة المرور",
+    "password": "كلمة المرور",
+    "confirm_password": "تأكيد كلمة المرور",
+    "sign_in": "تسجيل الدخول"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "system_managers": "إدارة مديري النظام",
+    "subscribers": "إدارة المشتركين",
+    "subscription_requests": "طلبات الاشتراكات",
+    "sellers": "إدارة البائعات",
+    "reports": "التقارير",
+    "clients": "إدارة عملائنا",
+    "settings": "الإعدادات",
+    "website_content": "إدارة محتوى الموقع",
+    "logos": "إدارة الشعارات",
+    "logout": "تسجيل الخروج",
+    "package_management": "إدارة الباقات",
+    "contact_admin": "التواصل مع الإدارة",
+    "about": "عن المنصة",
+    "terms_and_conditions": "سياسة الشروط والأحكام",
+    "privacy_policy": "سياسة الخصوصية",
+    "features_management": "إدارة مميزات المنصة",
+    "contact_us": "إدارة رسائل تواصل معنا",
+    "notifications": "إدارة الإشعارات"
+  },
+  "subscription_requests_page": {
+    "title": "طلبات الاشتراكات",
+    "total_requests": "إجمالي طلبات الاشتراكات",
+    "total_count": "اشتراك",
+    "filters": {
+      "all": "الكل",
+      "12_months": "12 شهر",
+      "30_days": "30 يوم",
+      "7_days": "7 أيام",
+      "today": "اليوم"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "name": "الاسم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "request_date": "تاريخ الطلب",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "pending": "قيد الانتظار",
+      "approved": "موافق",
+      "rejected": "مرفوض"
+    },
+    "actions": {
+      "view": "عرض",
+      "approve": "الموافقة",
+      "reject": "الرفض"
+    }
+  },
+  "subscribers_page": {
+    "title": "إدارة المشتركين",
+    "total_subscribers": "إجمالي عدد المشتركين",
+    "total_count": "مشترك",
+    "filters": {
+      "all": "الكل",
+      "12_months": "12 شهر",
+      "30_days": "30 يوم",
+      "7_days": "7 أيام",
+      "today": "اليوم"
+    },
+    "buttons": {
+      "export": "تصدير",
+      "add_subscriber": "إضافة مشترك جديد"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "الحالة",
+    "type_placeholder": "النوع",
+    "table_headers": {
+      "checkbox": "",
+      "name": "الاسم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "registration_date": "تاريخ التسجيل",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "موقوف"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+  "subscription_request_detail_page": {
+    "title": "بيانات طلب الانضمام",
+    "buttons": {
+      "reject": "رفض",
+      "approve": "قبول",
+      "created_date": "تاريخ الإنشاء"
+    },
+    "resource_information": "معلومات المورد",
+    "sections": {
+      "general_info": "المعلومات العامة",
+      "commercial_registration": "معلومات التسجيل التجاري"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "organization_name": "اسم المؤسسة",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "commercial_registration_document": "مستند التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي"
+    }
+  },
+  "messages": {
+    "success": {
+      "subscription_approved": "تم قبول طلب الانضمام بنجاح.",
+      "subscription_rejected": "تم رفض طلب الانضمام بنجاح."
+    }
+  },
+  "reject_subscription_form": {
+    "title": "رفض طلب الانضمام",
+    "labels": {
+      "reason": "سبب الرفض"
+    },
+    "placeholders": {
+      "reason": "ادخل سبب الرفض ..."
+    },
+    "buttons": {
+      "send": "إرسال"
+    }
+  },
+  "noData": {
+    "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
+    "subscribers": "لا يوجد مشتركون متاحون"
+  }
+}

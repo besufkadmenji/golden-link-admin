@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@plugin "./../config/hero.ts";
+@source "../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-dark-main: #0f0428;
+  --color-primary: #d4af37;
+
+  --color-title: #333843;
+  --color-subTitle: #667085;
+  --color-subTitle-alt: #9fa2b4;
+  --color-black: #202020;
+  --color-white: #ffffff;
+  --color-secondary: #2e2e2e;
+  --color-dark-gray: #575757;
+  --color-gray-background: #f8f7fc;
+  --color-gray-border: #f9f9fc;
+  --color-gray-border-alt: #e0e2e7;
+  --color-light-bg: #f5f5f6;
+  --color-primary-50: #faf7ea;
+  --color-border: #eeeeee;
+  --color-gray: #a2a2a2;
+  --color-gray-2: #d9d9d9;
+  --color-gray-3: #c5c7cd;
+  --color-gray-4: #545454;
+  --color-green-main: #1eb564;
+  --color-light-gray: #a5a7a5;
+
+  --color-app-primary: #2563eb;
+  --color-app-background: #f8f7fc;
+  --shadow-hero: 0 0 120px 100px rgba(237, 222, 171, 0.2);
+
+  --color-dashboard-title: #001543;
+  --color-dashboard-border: #E0E2E7;
+
+  --color-dark-app-background: #2d2d2d;
+  --color-dark-title: #e5e5e5;
+  --color-dark-subTitle: #a1a1a1;
+  --color-dark-subTitle-alt: #8a8c94;
+  --color-dark-black: #1a1a1a;
+  --color-dark-white: #f5f5f5;
+  --color-dark-secondary: #3a3a3a;
+  --color-dark-gray: #6b6b6b;
+  --color-dark-gray-background: #1f1f1f;
+  --color-dark-gray-border: #2a2a2a;
+  --color-dark-gray-border-alt: #3a3a3a;
+  --color-dark-light-bg: #252525;
+  --color-dark-border: #404040;
+  --color-dark-gray-2: #4a4a4a;
+  --color-dark-gray-3: #555555;
+  --color-dark-gray-4: #7a7a7a;
+  --color-dark-light-gray: #909090;
+
+  --color-dark-dashboard-title: #ffffff;
+  --color-dark-dashboard-border: #3a3a3a;
+}
+
+* {
+  scroll-behavior: smooth;
+}

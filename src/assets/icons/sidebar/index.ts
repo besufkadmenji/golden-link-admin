@@ -1,0 +1,12 @@
+export { default as AdminsIcon } from "./admins.svg";
+export { default as ChevronDownIcon } from "./chevron.down.svg";
+export { default as ChevronUpIcon } from "./chevron.up.svg";
+export { default as CmsIcon } from "./cms.svg";
+export { default as CustomersIcon } from "./customers.svg";
+export { default as GiftIcon } from "./gift.svg";
+export { default as HomeIcon } from "./home.svg";
+export { default as LogoutIcon } from "./logout.svg";
+export { default as NotificationIcon } from "./notification.svg";
+export { default as ReportsIcon } from "./reports.svg";
+export { default as SettingsIcon } from "./settings.svg";
+export { default as SubscribersIcon } from "./subscribers.svg";

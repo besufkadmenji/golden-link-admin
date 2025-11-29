@@ -1,0 +1,253 @@
+{
+  "header": {
+    "logout": "Log out"
+  },
+
+  "common": {
+    "system_name": "Golden Link System",
+    "errorOccurred": "An error occurred. Please try again.",
+    "contactUsSuccessMessage": "Your message has been sent successfully. We will get back to you soon.",
+    "warehouseOwner": "Warehouse Owner",
+    "supplier": "Supplier",
+    "actions": {
+      "cancel": "Cancel",
+      "export": "Export",
+      "search": "Search",
+      "print": "Print",
+      "download": "Download",
+      "upload": "Upload",
+      "add": "Add",
+      "save": "Save",
+      "filter": "Filter",
+      "next": "Next",
+      "confirm": "Confirm",
+      "action": "Action",
+      "actions": "Actions",
+      "saveAndPrint": "Save and Print"
+    },
+
+    "timeFilters": {
+      "all": "All",
+      "12months": "12 Months",
+      "30days": "30 Days",
+      "7days": "7 Days",
+      "today": "Today",
+      "customPeriod": "Custom Period"
+    },
+
+    "fields": {
+      "orderNumber": "Order Number",
+      "clientName": "Client Name",
+      "supplierName": "Supplier Name",
+      "productName": "Product Name",
+      "itemCode": "Item Code",
+      "itemName": "Item Name",
+      "productCode": "Product Code",
+      "quantity": "Quantity",
+      "unitPrice": "Unit Price",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "date": "Date",
+      "creationDate": "Creation Date",
+      "responsible": "Responsible",
+      "requestStatus": "Request Status",
+      "invoiceStatus": "Invoice Status",
+      "unitsCount": "Units Count",
+      "totalUnits": "Total Units",
+      "optional": "(Optional)"
+    },
+
+    "company": {
+      "name": "Golden Link Company",
+      "address": "Jeddah - Prince Sultan Street"
+    },
+
+    "documents": {
+      "attachDocuments": "Attach Documents",
+      "supportedFormats": "Supported Formats: Jpg, PDF, Png"
+    },
+
+    "statuses": {
+      "partiallyPaid": "Partially Paid",
+      "fullyPaid": "Fully Paid",
+      "paid": "Fully Paid",
+      "unpaid": "Unpaid",
+      "received": "Received",
+      "partiallyReceived": "Partially Received",
+      "partialReceived": "Partial Received",
+      "notReceived": "Not Received",
+      "completed": "Completed",
+      "pendingReview": "Pending Review",
+      "pendingReviewApprove": "Approve",
+      "pendingReviewReject": "Reject",
+      "underReview": "Under Review",
+      "offerSent": " Offer Sent",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    }
+  },
+  "auth": {
+    "welcome_back": "Welcome back again",
+    "email": "Email",
+    "email_placeholder": "Enter your email",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "sign_in": "Sign in"
+  },
+  "forgot_password": {
+    "title": "Reset Password",
+    "send_code": "Send Verification Code"
+  },
+  "verify_code": {
+    "title": "Verification Code",
+    "description": "Please enter the code here",
+    "resend_code": "Resend Code",
+    "confirm": "Confirm"
+  },
+  "reset_password": {
+    "title": "Change Password",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "sign_in": "Sign in"
+  },
+  "navigation": {
+    "home": "Home",
+    "system_managers": "System Managers Management",
+    "subscribers": "Subscribers Management",
+    "subscription_requests": "Subscription Requests",
+    "sellers": "Sellers Management",
+    "reports": "Reports",
+    "clients": "Our Clients Management",
+    "settings": "Settings",
+    "website_content": "Website Content Management",
+    "logos": "Logos Management",
+    "logout": "Logout",
+    "package_management": "Package Management",
+    "contact_admin": "Contact Admin",
+    "about": "About the Platform",
+    "terms_and_conditions": "Terms and Conditions Policy",
+    "privacy_policy": "Privacy Policy",
+    "features_management": "Platform Features Management",
+    "contact_us": "Contact Us Messages Management",
+    "notifications": "Notifications Management"
+  },
+  "subscription_requests_page": {
+    "title": "Subscription Requests",
+    "total_requests": "Total Subscription Requests",
+    "total_count": "requests",
+    "filters": {
+      "all": "All",
+      "12_months": "12 Months",
+      "30_days": "30 Days",
+      "7_days": "7 Days",
+      "today": "Today"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "checkbox": "",
+      "name": "Name",
+      "organization_name": "Organization Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "request_date": "Request Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "actions": {
+      "view": "View",
+      "approve": "Approve",
+      "reject": "Reject"
+    }
+  },
+  "subscribers_page": {
+    "title": "Subscribers Management",
+    "total_subscribers": "Total Subscribers Count",
+    "total_count": "subscribers",
+    "filters": {
+      "all": "All",
+      "12_months": "12 Months",
+      "30_days": "30 Days",
+      "7_days": "7 Days",
+      "today": "Today"
+    },
+    "buttons": {
+      "export": "Export",
+      "add_subscriber": "Add New Subscriber"
+    },
+    "search_placeholder": "Search",
+    "filter_placeholder": "Status",
+    "type_placeholder": "Type",
+    "table_headers": {
+      "checkbox": "",
+      "name": "Name",
+      "organization_name": "Organization Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "registration_date": "Registration Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "subscription_request_detail_page": {
+    "title": "Subscription Request Details",
+    "buttons": {
+      "reject": "Reject",
+      "approve": "Approve",
+      "created_date": "Created Date"
+    },
+    "resource_information": "Resource Information",
+    "sections": {
+      "general_info": "General Information",
+      "commercial_registration": "Commercial Registration Information"
+    },
+    "labels": {
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "organization_name": "Organization Name",
+      "commercial_registration_number": "Commercial Registration Number",
+      "commercial_registration_document": "Commercial Registration Document",
+      "tax_number": "Tax Number"
+    }
+  },
+  "messages": {
+    "success": {
+      "subscription_approved": "Subscription request has been approved successfully.",
+      "subscription_rejected": "Subscription request has been rejected successfully."
+    }
+  },
+  "reject_subscription_form": {
+    "title": "Reject Subscription Request",
+    "labels": {
+      "reason": "Reason for Rejection"
+    },
+    "placeholders": {
+      "reason": "Enter reason for rejection..."
+    },
+    "buttons": {
+      "send": "Send"
+    }
+  },
+  "noData": {
+    "subscriberRequests": "No subscription requests available",
+    "subscribers": "No subscribers available"
+  }
+}
