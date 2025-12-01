@@ -11,6 +11,7 @@ import Image from "next/image";
 import { RequestAction } from "@/components/app/SubscribersRequests/Detail/RequestAction";
 import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
+import { DocumentDisplay } from "@/components/app/SubscribersRequests/Detail/DocumentDisplay";
 
 export const SubscriberRequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
@@ -98,17 +99,9 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
                 readOnly
               />
               <div className="col-start-1 col-end-3 grid justify-center p-10">
-                {request.commercialRegistrationImagePath && (
-                  <div
-                    className="bg-dashboard-border size-20 rounded-lg"
-                    onClick={() => {
-                      window.open(
-                        request.commercialRegistrationImagePath,
-                        "_blank",
-                      );
-                    }}
-                  ></div>
-                )}
+                <DocumentDisplay
+                  documentPath={request.commercialRegistrationImagePath}
+                />
               </div>
             </div>
           </FormSection>
@@ -130,14 +123,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
               />
 
               <div className="col-start-1 col-end-3 grid justify-center p-10">
-                {request.taxRegistrationImagePath && (
-                  <div
-                    className="bg-dashboard-border size-20 rounded-lg"
-                    onClick={() => {
-                      window.open(request.taxRegistrationImagePath, "_blank");
-                    }}
-                  ></div>
-                )}
+                <DocumentDisplay documentPath={request.taxRegistrationImagePath} />
               </div>
             </div>
           </FormSection>
