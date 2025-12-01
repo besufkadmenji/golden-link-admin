@@ -17,7 +17,7 @@ function getLocale(req: NextRequest) {
   return acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
 }
 
-const publicPaths = (locale: string) => [`/${locale}/login`];
+const preAuthPaths = (locale: string) => [`/${locale}/login`];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -34,17 +34,22 @@ export async function proxy(request: NextRequest) {
       ),
     );
   }
-
+  const isPreAuthPath = preAuthPaths(currentLocale ?? "ar").some(
+    (path) => pathname === path,
+  );
   const isLoggedIn = await getUser(request);
   if (!isLoggedIn) {
-    const isPublicPath = publicPaths(currentLocale ?? "ar").some(
-      (path) => pathname === path,
-    );
-    if (!isPublicPath) {
+    if (!isPreAuthPath) {
       return NextResponse.redirect(
         new URL(`/${currentLocale}/login`, request.url),
       );
     }
+  }
+
+  if (isPreAuthPath && isLoggedIn) {
+    return NextResponse.redirect(
+      new URL(`/${currentLocale}/dashboard`, request.url),
+    );
   }
 
   return NextResponse.next();

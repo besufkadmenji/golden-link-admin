@@ -25,6 +25,7 @@ export const useLogIn = () => {
         Cookie.set("refreshToken", response.refreshToken);
         Cookie.set("accessTokenExpiry", response.accessTokenExpiry);
         Cookie.set("refreshTokenExpiry", response.refreshTokenExpiry);
+        window.history.replaceState(null, "", "/");
         window.location.href = "/";
       }
     } catch (error) {

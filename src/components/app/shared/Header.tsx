@@ -52,7 +52,7 @@ export const Header = ({ showLogo }: { showLogo?: boolean }) => {
 };
 
 const LoggedUser = () => {
-  const { me } = useMe();
+  const { me, logout } = useMe();
   const dict = useDict();
   return (
     me && (
@@ -66,7 +66,14 @@ const LoggedUser = () => {
             {me?.fullName}
           </Button>
         </DropdownTrigger>
-        <DropdownMenu aria-label="Options">
+        <DropdownMenu
+          aria-label="Options"
+          onAction={(k) => {
+            if (k === "logout") {
+              logout();
+            }
+          }}
+        >
           <DropdownItem key="logout">{dict.header.logout}</DropdownItem>
         </DropdownMenu>
       </Dropdown>

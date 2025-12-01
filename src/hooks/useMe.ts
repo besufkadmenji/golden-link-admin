@@ -18,7 +18,10 @@ export const useMe = (): {
   });
 
   const logout = async (): Promise<void> => {
-    Cookie.remove("token");
+    Cookie.remove("accessToken");
+    Cookie.remove("refreshToken");
+    Cookie.remove("accessTokenExpiry");
+    Cookie.remove("refreshTokenExpiry");
     window.location.reload();
   };
 
