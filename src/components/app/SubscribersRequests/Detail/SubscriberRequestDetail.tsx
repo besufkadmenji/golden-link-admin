@@ -93,7 +93,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
                   dict.subscription_request_detail_page.labels
                     .commercial_registration_number
                 }
-                value={"-"}
+                value={request.commercialRegistrationNumber || "-"}
                 onChange={(value: string): void => {}}
                 readOnly
               />
@@ -124,7 +124,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
                 placeholder={
                   dict.subscription_request_detail_page.labels.tax_number
                 }
-                value={"-"}
+                value={request.taxRegistrationNumber || "-"}
                 onChange={(value: string): void => {}}
                 readOnly
               />

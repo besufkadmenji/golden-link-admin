@@ -18,6 +18,8 @@ export interface SubscriptionRequest {
 export interface SubscriptionRequestDetail extends SubscriptionRequest {
   commercialRegistrationImagePath?: string;
   taxRegistrationImagePath?: string;
+  commercialRegistrationNumber?: string;
+  taxRegistrationNumber?: string;
 }
 
 export interface ApprovedSubscriptionData {
