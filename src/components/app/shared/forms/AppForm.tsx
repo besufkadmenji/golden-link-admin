@@ -5,6 +5,7 @@ import { TitleBar } from "./TitleBar";
 export enum FormType {
   SubscriberRequests,
   Subscribers,
+  Admins
 }
 export const AppForm = ({
   type,

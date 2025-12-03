@@ -295,7 +295,8 @@
     "total_managers": "Total System/Admin Managers",
     "total_count": "admins",
     "buttons": {
-      "add_new_manager": "Add New Manager"
+      "add_new_manager": "Add New Manager",
+      "save": "Save"
     },
     "search_placeholder": "Search",
     "filter_placeholder": "Manager Status",
@@ -319,6 +320,11 @@
       "view": "View",
       "edit": "Edit",
       "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Admin created successfully.",
+      "updateSuccess": "Admin updated successfully.",
+      "deleteSuccess": "Admin deleted successfully."
     }
   },
   "add_new_admin_form": {
@@ -330,6 +336,10 @@
       "admin_information": "Admin Information",
       "login_information": "Login Information",
       "permissions": "Permissions"
+    },
+    "image": {
+      "attach": "Attach Image",
+      "desc": "Upload a profile image for the admin"
     },
     "labels": {
       "admin_name": "Admin Name",
@@ -350,6 +360,23 @@
     "upload_info": {
       "title": "Upload Successfully",
       "description": "Your file has been successfully uploaded"
+    },
+    "validation": {
+      "fullNameRequired": "Admin name is required",
+      "fullNameMinLength": "Admin name must be at least 3 characters long",
+      "fullNameMaxLength": "Admin name must not exceed 100 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneNumberRequired": "Phone number is required",
+      "phoneNumberInvalid": "Phone number format is invalid",
+      "phoneNumberTooShort": "Phone number must be at least 7 digits",
+      "phoneNumberTooLong": "Phone number must not exceed 20 digits",
+      "countryCodeRequired": "Country code is required",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordWeak": "Password must contain uppercase, lowercase, and numeric characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "confirmPasswordMismatch": "Passwords do not match"
     }
   },
   "admin_permissions_management": {

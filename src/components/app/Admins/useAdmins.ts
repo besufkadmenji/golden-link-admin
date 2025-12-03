@@ -2,14 +2,10 @@
 import { useLang } from "@/hooks/useLang";
 import { UserService } from "@/services/user.service";
 import {
-  CreateUserDto,
-  DeactivateUserDto,
-  GetUsersParams,
-  UpdateUserDto,
-  UserStatus,
+    GetUsersParams,
+    UserStatus
 } from "@/types/user";
-import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
 export const useUsers = (initialParams?: GetUsersParams) => {
@@ -57,120 +53,6 @@ export const useUserById = (id: string | null) => {
   return {
     user,
     isLoading,
-    isError,
-    error,
-  };
-};
-
-export const useCreateUser = () => {
-  const lang = useLang();
-  const queryClient = useQueryClient();
-
-  const {
-    mutate: createUser,
-    isPending,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: (data: CreateUserDto) => UserService.createUser(data, lang),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      showSuccessMessage("Admin added successfully");
-    },
-    onError: (error: Error) => {
-      showErrorMessage(error);
-    },
-  });
-
-  return {
-    createUser,
-    isPending,
-    isError,
-    error,
-  };
-};
-
-export const useUpdateUser = () => {
-  const lang = useLang();
-  const queryClient = useQueryClient();
-
-  const {
-    mutate: updateUser,
-    isPending,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateUserDto }) =>
-      UserService.updateUser(id, data, lang),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      showSuccessMessage("User updated successfully");
-    },
-    onError: (error: Error) => {
-      showErrorMessage(error);
-    },
-  });
-
-  return {
-    updateUser,
-    isPending,
-    isError,
-    error,
-  };
-};
-
-export const useDeactivateUser = () => {
-  const lang = useLang();
-  const queryClient = useQueryClient();
-
-  const {
-    mutate: deactivateUser,
-    isPending,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: ({ id, data }: { id: string; data?: DeactivateUserDto }) =>
-      UserService.deactivateUser(id, data, lang),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      showSuccessMessage("User deactivated successfully");
-    },
-    onError: (error: Error) => {
-      showErrorMessage(error);
-    },
-  });
-
-  return {
-    deactivateUser,
-    isPending,
-    isError,
-    error,
-  };
-};
-
-export const useDeleteUser = () => {
-  const lang = useLang();
-  const queryClient = useQueryClient();
-
-  const {
-    mutate: deleteUser,
-    isPending,
-    isError,
-    error,
-  } = useMutation({
-    mutationFn: (id: string) => UserService.deleteUser(id, lang),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      showSuccessMessage("User deleted successfully");
-    },
-    onError: (error: Error) => {
-      showErrorMessage(error);
-    },
-  });
-
-  return {
-    deleteUser,
-    isPending,
     isError,
     error,
   };

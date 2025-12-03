@@ -13,6 +13,7 @@ export const TitleBar = ({
   const labelMap = {
     [FormType.SubscriberRequests]: dict.subscription_request_detail_page.title,
     [FormType.Subscribers]: dict.subscribers_page.title,
+    [FormType.Admins]: dict.add_new_admin_form.title,
   };
 
   return (

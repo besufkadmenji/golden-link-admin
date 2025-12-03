@@ -293,7 +293,8 @@
     "total_managers": "إجمالي مديري النظام/الادمين",
     "total_count": "ادمين",
     "buttons": {
-      "add_new_manager": "إضافة مستخدم جديد"
+      "add_new_manager": "إضافة مستخدم جديد",
+      "save": "حفظ"
     },
     "search_placeholder": "البحث",
     "filter_placeholder": "حالة المستخدم",
@@ -317,12 +318,21 @@
       "view": "عرض",
       "edit": "تعديل",
       "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الادمين بنجاح.",
+      "updateSuccess": "تم تحديث الادمين بنجاح.",
+      "deleteSuccess": "تم حذف الادمين بنجاح."
     }
   },
   "add_new_admin_form": {
     "title": "إضافة ادمين جديد",
     "buttons": {
       "save": "حفظ"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": " Png  يحتوي على صورة المستخدم"
     },
     "sections": {
       "admin_information": "معلومات الادمين",
@@ -348,6 +358,23 @@
     "upload_info": {
       "title": "ارفق بهمبة",
       "description": "تم رفع ملفك بنجاح"
+    },
+    "validation": {
+      "fullNameRequired": "اسم الادمين مطلوب",
+      "fullNameMinLength": "يجب أن يكون اسم الادمين 3 أحرف على الأقل",
+      "fullNameMaxLength": "لا يجب أن يتجاوز اسم الادمين 100 حرف",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+      "phoneNumberRequired": "رقم الهاتف مطلوب",
+      "phoneNumberInvalid": "صيغة رقم الهاتف غير صحيحة",
+      "phoneNumberTooShort": "يجب أن يحتوي رقم الهاتف على 7 أرقام على الأقل",
+      "phoneNumberTooLong": "لا يجب أن يتجاوز رقم الهاتف 20 رقم",
+      "countryCodeRequired": "رمز الدولة مطلوب",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordWeak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+      "confirmPasswordMismatch": "كلمات المرور غير متطابقة"
     }
   },
   "admin_permissions_management": {

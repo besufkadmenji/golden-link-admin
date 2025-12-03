@@ -6,6 +6,7 @@ import Dropzone from "react-dropzone";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import TrashIcon from "@/assets/icons/app/trash.svg";
 import { Button } from "@heroui/react";
+import { SelectedFile } from "./SelectedFile";
 
 export const MultipleUploadInput = ({
   files,
@@ -37,7 +38,7 @@ export const MultipleUploadInput = ({
         {({ getRootProps, getInputProps }) => (
           <div
             className={
-              "bg-gray-background relative cursor-pointer grid min-h-41.5 w-full grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
+              "bg-gray-background relative grid min-h-41.5 w-full cursor-pointer grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
               (hasError ? " ring-danger-500 ring-2" : "")
             }
             {...getRootProps()}
@@ -78,46 +79,6 @@ export const MultipleUploadInput = ({
           />
         ))}
       </div>
-    </div>
-  );
-};
-
-const SelectedFile = ({
-  file,
-  onRemove,
-}: {
-  file: File;
-  onRemove: () => void;
-}) => {
-  const url = URL.createObjectURL(file);
-  const extension = file?.name.split(".").pop() || "";
-  return (
-    <div className="bg-dashboard-border relative z-10 grid size-20 grid-cols-1 overflow-hidden rounded-xl">
-      {file && (file.type === "image/jpeg" || file.type === "image/png") ? (
-        <Image
-          src={url}
-          layout="fill"
-          className="object-contain"
-          alt=""
-          unoptimized
-        />
-      ) : (
-        <div className="grid h-full w-full auto-rows-max grid-cols-1 content-center justify-items-center gap-2 px-4">
-          <div className="grid size-8">
-            <FileIcon extension={extension} {...defaultStyles.pdf} />
-          </div>
-          <p className="text-secondary line-clamp-1 w-full text-sm leading-5 font-normal text-ellipsis">
-            {file?.name}
-          </p>
-        </div>
-      )}
-      <Button
-        isIconOnly
-        onPress={onRemove}
-        className="absolute end-1 top-1 size-6 min-h-0 min-w-0 bg-white p-0"
-      >
-        <TrashIcon className="size-4 cursor-pointer text-[#EA5455]" />
-      </Button>
     </div>
   );
 };

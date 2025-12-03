@@ -10,6 +10,11 @@ import {
   UserResponse,
 } from "@/types/user";
 
+export interface CreateUserWithFileDto extends CreateUserDto {
+  confirmPassword: string;
+  profileImage?: File;
+}
+
 export class UserService {
   /**
    * Get list of users with optional search and pagination
@@ -53,17 +58,39 @@ export class UserService {
   }
 
   /**
-   * Create a new user
+   * Create a new user with FormData support for file upload
    */
   static async createUser(
-    data: CreateUserDto,
+    data: CreateUserWithFileDto,
     lang?: string,
   ): Promise<UserResponse | null> {
     try {
-      const response = await axiosClient.post("/users", data, {
-        headers: lang ? { "Accept-Language": lang } : {},
+      const formData = new FormData();
+
+      // Append file if provided
+      if (data.profileImage) {
+        formData.append("profileImage", data.profileImage);
+      }
+
+      // Append form fields
+      formData.append("fullName", data.fullName);
+      formData.append("email", data.email);
+      formData.append("countryCode", data.countryCode);
+      formData.append("phoneNumber", data.phoneNumber);
+      formData.append("password", data.password);
+      formData.append("confirmPassword", data.confirmPassword);
+
+      if (data.permissionType) {
+        formData.append("permissionType", data.permissionType);
+      }
+
+      const response = await axiosClient.post("/users", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...(lang ? { "Accept-Language": lang } : {}),
+        },
       });
-      return unwrapAxiosResponse(response);
+      return unwrapAxiosResponse(response.data);
     } catch (error) {
       console.error(
         "Error creating user:",
@@ -85,7 +112,7 @@ export class UserService {
       const response = await axiosClient.patch(`/users/${id}`, data, {
         headers: lang ? { "Accept-Language": lang } : {},
       });
-      return unwrapAxiosResponse(response);
+      return unwrapAxiosResponse(response.data);
     } catch (error) {
       console.error(
         "Error updating user:",

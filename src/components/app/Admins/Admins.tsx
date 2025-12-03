@@ -12,6 +12,7 @@ import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
 import { AdminsFilter } from "./AdminsFilter";
 import { useUsers } from "./useAdmins";
+import { AddButton, AddButtonType } from "../shared/button/AddButton";
 export const Admins = () => {
   const dict = useDict();
   const router = useRouter();
@@ -20,7 +21,14 @@ export const Admins = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.subscription_requests_page.title} />
+      <PageBar title={dict.subscription_requests_page.title}>
+        <AddButton
+          type={AddButtonType.Admin}
+          onPress={() => {
+            router.push(`${pathname}/add`);
+          }}
+        />
+      </PageBar>
       <Gap className="h-8" />
       {isLoading ? (
         <SummaryCardSkeleton />
