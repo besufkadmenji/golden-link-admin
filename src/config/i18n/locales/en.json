@@ -92,7 +92,8 @@
     "email_placeholder": "Enter your email",
     "password": "Password",
     "forgot_password": "Forgot password?",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "password_reset_success": "Your password has been reset successfully."
   },
   "forgot_password": {
     "title": "Reset Password",
@@ -249,5 +250,38 @@
   "noData": {
     "subscriberRequests": "No subscription requests available",
     "subscribers": "No subscribers available"
+  },
+  "admin_forgot_password_form": {
+    "title": "Recover Password",
+    "subtitle": "Golden Link System",
+    "labels": {
+      "email": "Email"
+    },
+    "placeholders": {
+      "email": "Enter your email"
+    },
+    "buttons": {
+      "send_verification_code": "Send Verification Code"
+    }
+  },
+  "admin_verify_code_form": {
+    "title": "Verification Code",
+    "subtitle": "Golden Link System",
+    "description": "Please enter the code here",
+    "resend_code": "Resend Code",
+    "buttons": {
+      "confirm": "Confirm"
+    }
+  },
+  "admin_reset_password_form": {
+    "title": "Change Password",
+    "subtitle": "Golden Link System",
+    "labels": {
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    },
+    "buttons": {
+      "sign_in": "Sign in"
+    }
   }
 }

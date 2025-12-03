@@ -48,7 +48,7 @@ export const LogIn = () => {
               }}
             />
             <Link
-              href="/auth/forgot-password"
+              href="/forgot-password"
               className="text-app-primary justify-self-end text-sm leading-5 font-medium tracking-tight"
             >
               {dict.auth.forgot_password}

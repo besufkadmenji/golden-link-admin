@@ -90,7 +90,8 @@
     "email_placeholder": "أدخل بريدك الإلكتروني",
     "password": "كلمة المرور",
     "forgot_password": "هل نسيت كلمة المرور؟",
-    "sign_in": "تسجيل الدخول"
+    "sign_in": "تسجيل الدخول",
+    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح."
   },
   "forgot_password": {
     "title": "استعادة كلمة المرور",
@@ -247,5 +248,38 @@
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
     "subscribers": "لا يوجد مشتركون متاحون"
+  },
+  "admin_forgot_password_form": {
+    "title": "استعادة كلمة المرور",
+    "subtitle": "Golden Link System",
+    "labels": {
+      "email": "البريد الإلكتروني"
+    },
+    "placeholders": {
+      "email": "ادخل بريدك الإلكتروني"
+    },
+    "buttons": {
+      "send_verification_code": "إرسل كود التحقق"
+    }
+  },
+  "admin_verify_code_form": {
+    "title": "رمز التحقق",
+    "subtitle": "Golden Link System",
+    "description": "من فضلك أدخل الكود هنا",
+    "resend_code": "إعادة إرسال الرمز",
+    "buttons": {
+      "confirm": "تأكيد"
+    }
+  },
+  "admin_reset_password_form": {
+    "title": "تغيير كلمة المرور",
+    "subtitle": "Golden Link System",
+    "labels": {
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "sign_in": "تسجيل الدخول"
+    }
   }
 }

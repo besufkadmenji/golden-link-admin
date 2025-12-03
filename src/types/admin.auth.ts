@@ -36,6 +36,52 @@ export interface AdminLoginResponse {
   data: AdminAuthData;
 }
 
+export interface ForgotPasswordDto {
+  email: string;
+}
+
+export interface ForgotPasswordData {
+  sessionId: string;
+}
+
+export interface ForgotPasswordResponse {
+  status: "success" | "error";
+  statusCode: number;
+  message: string;
+  data: ForgotPasswordData;
+}
+
+export interface VerifyResetCodeDto {
+  email: string;
+  verificationCode: string;
+  sessionId: string;
+}
+
+export interface VerifyResetCodeData {
+  verifiedSessionId: string;
+}
+
+export interface VerifyResetCodeResponse {
+  status: "success" | "error";
+  statusCode: number;
+  message: string;
+  data: VerifyResetCodeData;
+}
+
+export interface ResetPasswordDto {
+  email: string;
+  newPassword: string;
+  confirmPassword: string;
+  sessionId: string;
+}
+
+export interface ResetPasswordResponse {
+  status: "success" | "error";
+  statusCode: number;
+  message: string;
+  data: null;
+}
+
 export interface AdminAuthPayload {
   id: string;
   email: string;

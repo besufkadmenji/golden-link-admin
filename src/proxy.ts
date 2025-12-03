@@ -17,7 +17,12 @@ function getLocale(req: NextRequest) {
   return acceptLanguage.get(req.headers.get("Accept-Language")) || fallbackLng;
 }
 
-const preAuthPaths = (locale: string) => [`/${locale}/login`];
+const preAuthPaths = (locale: string) => [
+  `/${locale}/login`,
+  `/${locale}/forgot-password`,
+  `/${locale}/verify-reset-code`,
+  `/${locale}/reset-password`,
+];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
