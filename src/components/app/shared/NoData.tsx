@@ -4,6 +4,7 @@ import { useDict } from "@/hooks/useDict";
 export enum NoDataType {
   SubscriberRequests = "SubscriberRequests",
   Subscribers = "Subscribers",
+  Admins = "Admins",
 }
 
 export const NoData = ({ type }: { type: NoDataType }) => {
@@ -12,6 +13,7 @@ export const NoData = ({ type }: { type: NoDataType }) => {
   const messageMap = {
     [NoDataType.SubscriberRequests]: dict.noData.subscriberRequests,
     [NoDataType.Subscribers]: dict.noData.subscribers,
+    [NoDataType.Admins]: dict.noData.admins,
   };
 
   return (

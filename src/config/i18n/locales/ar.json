@@ -81,7 +81,11 @@
       "underReview": "قيد المراجعة",
       "offerSent": "عرض مرسل",
       "accepted": "مقبول",
-      "rejected": "مرفوض"
+      "rejected": "مرفوض",
+      "ACTIVE": "نشط",
+      "INACTIVE": "غير نشط",
+      "SUSPENDED": "موقوف",
+      "PENDING_APPROVAL": "في انتظار الموافقة"
     }
   },
   "auth": {
@@ -230,7 +234,8 @@
   "messages": {
     "success": {
       "subscription_approved": "تم قبول طلب الانضمام بنجاح.",
-      "subscription_rejected": "تم رفض طلب الانضمام بنجاح."
+      "subscription_rejected": "تم رفض طلب الانضمام بنجاح.",
+      "admin_added_successfully": "تم إضافة ادمين بنجاح."
     }
   },
   "reject_subscription_form": {
@@ -247,7 +252,8 @@
   },
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
-    "subscribers": "لا يوجد مشتركون متاحون"
+    "subscribers": "لا يوجد مشتركون متاحون",
+    "admins": "لا يوجد مستخدمون متاحون"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -280,6 +286,124 @@
     },
     "buttons": {
       "sign_in": "تسجيل الدخول"
+    }
+  },
+  "system_managers_page": {
+    "title": "إدارة مديري النظام/الادمين",
+    "total_managers": "إجمالي مديري النظام/الادمين",
+    "total_count": "ادمين",
+    "buttons": {
+      "add_new_manager": "إضافة مستخدم جديد"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "حالة المستخدم",
+    "table_headers": {
+      "checkbox": "",
+      "number": "#",
+      "name": "اسم المستخدم",
+      "organization_name": "اسم المؤسسة",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "status": "الحالة",
+      "role": "اسم الصلاحية",
+      "created_date": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    }
+  },
+  "add_new_admin_form": {
+    "title": "إضافة ادمين جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول",
+      "permissions": "الصلاحيات"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "phone_number": "رقم الهاتف",
+      "status": "الحالة",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "admin_name": "ادخل اسم الادمين",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "permissions": {
+      "full_access": "الوصول الكامل",
+      "limited_access": "وصول محدود"
+    },
+    "upload_info": {
+      "title": "ارفق بهمبة",
+      "description": "تم رفع ملفك بنجاح"
+    }
+  },
+  "admin_permissions_management": {
+    "title": "إدارة صلاحيات الادمين",
+    "permissions_label": "الصلاحيات",
+    "restricted_permissions": "الصلاحيات المقيدة",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "permission_modules": {
+      "system_managers_management": "إدارة مديري النظام/الادمين",
+      "sellers_management": "إدارة البائعات",
+      "subscription_requests": "طلبات الاشتراكات",
+      "reports": "التقارير",
+      "data_management": "إدارة البيانات",
+      "about_platform": "عن المنصة",
+      "contact_with_management": "التواصل مع الإدارة",
+      "privacy_and_terms": "الخصوصية والشروط",
+      "custom_privacy_policy": "سياسة الخصوصية المخصصة",
+      "contact_us_messages": "رسائل تواصل معنا",
+      "our_clients_management": "إدارة عملائنا"
+    },
+    "permission_actions": {
+      "view": "عرض",
+      "add": "إضافة",
+      "delete": "حذف"
+    }
+  },
+  "deactivate_admin_confirmation": {
+    "title": "تعطيل الادمين",
+    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "buttons": {
+      "cancel": "تراجع",
+      "deactivate": "تعطيل"
+    }
+  },
+  "delete_admin_confirmation": {
+    "title": "حذف الادمين",
+    "description": "هل أنت تريد بحذف هذا الادمين ?",
+    "buttons": {
+      "cancel": "تراجع",
+      "delete": "حذف"
+    }
+  },
+  "deactivate_admin_reason_form": {
+    "title": "تعطيل الادمين",
+    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل ..."
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "deactivate": "تعطيل"
     }
   }
 }

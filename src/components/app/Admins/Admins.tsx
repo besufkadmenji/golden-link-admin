@@ -1,5 +1,5 @@
 "use client";
-import { RequestsFilter } from "@/components/app/SubscribersRequests/RequestsFilter";
+import { AdminsList } from "@/components/app/Admins/AdminsList";
 import { Gap } from "@/components/app/shared/Gap";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -7,18 +7,16 @@ import {
   SummaryCard,
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
+import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
 import { usePathname, useRouter } from "next/navigation";
-
-import { RequestsList } from "@/components/app/SubscribersRequests/RequestsList";
-import { useRequests } from "@/components/app/SubscribersRequests/useRequest";
-import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
-
-export const SubscriberRequests = () => {
+import { AdminsFilter } from "./AdminsFilter";
+import { useUsers } from "./useAdmins";
+export const Admins = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { data, isLoading } = useRequests();
+  const { users, pagination, isLoading } = useUsers();
 
   return (
     <PageWrapper>
@@ -28,15 +26,15 @@ export const SubscriberRequests = () => {
         <SummaryCardSkeleton />
       ) : (
         <SummaryCard
-          type={SummaryCardType.SUBSCRIBERS_REQUESTS}
-          value={data?.pagination.totalItems ?? 0}
+          type={SummaryCardType.ADMINS}
+          value={pagination?.totalItems || 0}
         />
       )}
 
       <Gap className="h-6" />
       <div className="grid grid-cols-1 gap-4">
-        <RequestsFilter />
-        <RequestsList />
+        <AdminsFilter />
+        <AdminsList />
       </div>
     </PageWrapper>
   );

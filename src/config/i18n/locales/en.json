@@ -83,7 +83,11 @@
       "underReview": "Under Review",
       "offerSent": " Offer Sent",
       "accepted": "Accepted",
-      "rejected": "Rejected"
+      "rejected": "Rejected",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "SUSPENDED": "Suspended",
+      "PENDING_APPROVAL": "Pending Approval"
     }
   },
   "auth": {
@@ -232,7 +236,8 @@
   "messages": {
     "success": {
       "subscription_approved": "Subscription request has been approved successfully.",
-      "subscription_rejected": "Subscription request has been rejected successfully."
+      "subscription_rejected": "Subscription request has been rejected successfully.",
+      "admin_added_successfully": "Admin has been added successfully."
     }
   },
   "reject_subscription_form": {
@@ -249,7 +254,8 @@
   },
   "noData": {
     "subscriberRequests": "No subscription requests available",
-    "subscribers": "No subscribers available"
+    "subscribers": "No subscribers available",
+    "admins": "No admins available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -282,6 +288,124 @@
     },
     "buttons": {
       "sign_in": "Sign in"
+    }
+  },
+  "system_managers_page": {
+    "title": "System/Admin Managers Management",
+    "total_managers": "Total System/Admin Managers",
+    "total_count": "admins",
+    "buttons": {
+      "add_new_manager": "Add New Manager"
+    },
+    "search_placeholder": "Search",
+    "filter_placeholder": "Manager Status",
+    "table_headers": {
+      "checkbox": "",
+      "number": "#",
+      "name": "Name",
+      "organization_name": "Organization Name",
+      "role": "Role",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "status": "Status",
+      "created_date": "Created Date",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "add_new_admin_form": {
+    "title": "Add New Admin",
+    "buttons": {
+      "save": "Save"
+    },
+    "sections": {
+      "admin_information": "Admin Information",
+      "login_information": "Login Information",
+      "permissions": "Permissions"
+    },
+    "labels": {
+      "admin_name": "Admin Name",
+      "phone_number": "Phone Number",
+      "status": "Status",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    },
+    "placeholders": {
+      "admin_name": "Enter admin name",
+      "phone_number": "Enter phone number"
+    },
+    "permissions": {
+      "full_access": "Full Access",
+      "limited_access": "Limited Access"
+    },
+    "upload_info": {
+      "title": "Upload Successfully",
+      "description": "Your file has been successfully uploaded"
+    }
+  },
+  "admin_permissions_management": {
+    "title": "Admin Permissions Management",
+    "permissions_label": "Permissions",
+    "restricted_permissions": "Restricted Permissions",
+    "buttons": {
+      "save": "Save"
+    },
+    "permission_modules": {
+      "system_managers_management": "System/Admin Managers Management",
+      "sellers_management": "Sellers Management",
+      "subscription_requests": "Subscription Requests",
+      "reports": "Reports",
+      "data_management": "Data Management",
+      "about_platform": "About the Platform",
+      "contact_with_management": "Contact with Management",
+      "privacy_and_terms": "Privacy and Terms",
+      "custom_privacy_policy": "Custom Privacy Policy",
+      "contact_us_messages": "Contact Us Messages",
+      "our_clients_management": "Our Clients Management"
+    },
+    "permission_actions": {
+      "view": "View",
+      "add": "Add",
+      "delete": "Delete"
+    }
+  },
+  "deactivate_admin_confirmation": {
+    "title": "Deactivate Admin",
+    "description": "Are you sure you want to deactivate this admin?",
+    "buttons": {
+      "cancel": "Cancel",
+      "deactivate": "Deactivate"
+    }
+  },
+  "delete_admin_confirmation": {
+    "title": "Delete Admin",
+    "description": "Are you sure you want to delete this admin?",
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
+  },
+  "deactivate_admin_reason_form": {
+    "title": "Deactivate Admin",
+    "description": "Are you sure you want to deactivate this admin?",
+    "labels": {
+      "deactivation_reason": "Deactivation Reason"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter deactivation reason..."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "deactivate": "Deactivate"
     }
   }
 }
