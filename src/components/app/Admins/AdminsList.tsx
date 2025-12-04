@@ -8,7 +8,7 @@ import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
-import { statusMap } from "@/components/app/Admins/renderCell";
+import { statusMap, roleMap } from "@/components/app/Admins/renderCell";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
 import { useManageAdmin } from "./manage/useManageAdmin";
 
@@ -68,7 +68,7 @@ export const AdminsList = () => {
           name: user.fullName,
           phone: user.phoneNumber,
           email: user.email,
-          role: user.permissionType ?? "-",
+          role: roleMap(dict)[user.permissionType],
           status: statusMap(dict)[user.status],
           date: DateTimeHelpers.formatDate(user.createdAt),
         }))}

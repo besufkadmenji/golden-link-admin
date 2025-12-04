@@ -4,6 +4,8 @@ export type UserStatus =
   | "SUSPENDED"
   | "PENDING_APPROVAL";
 
+export type UserRole = "ADMINISTRATOR" | "SUPER_ADMIN" | "CUSTOM";
+
 export interface User {
   id: string;
   fullName: string;
@@ -14,7 +16,7 @@ export interface User {
   status: UserStatus;
   createdAt: string;
   roleName: string | null;
-  permissionType: string;
+  permissionType: UserRole;
   isOwner: boolean;
   loginAttempts: number;
   lastLoginAt: string | null;
