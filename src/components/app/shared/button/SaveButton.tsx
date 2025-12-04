@@ -19,7 +19,7 @@ export const SaveButton = ({
 }) => {
   const dict = useDict();
   const labelMap = {
-    [SaveButtonType.Admin]: dict.system_managers_page.buttons.save,
+    [SaveButtonType.Admin]: dict.common.actions.save,
   };
   return (
     <PrimaryButton

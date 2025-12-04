@@ -322,7 +322,13 @@
     "messages": {
       "createSuccess": "تم إنشاء الادمين بنجاح.",
       "updateSuccess": "تم تحديث الادمين بنجاح.",
+      "activateSuccess": "تم إضافة مورد/صاحب مستودع بنجاح.",
+      "deactivateSuccess": "تم تعطيل الادمين بنجاح.",
       "deleteSuccess": "تم حذف الادمين بنجاح."
+    },
+    "status_labels": {
+      "approved": "موافق",
+      "pending": "قيد الانتظار"
     }
   },
   "add_new_admin_form": {
@@ -332,7 +338,9 @@
     },
     "image": {
       "attach": "ارفق صورة",
-      "desc": " Png  يحتوي على صورة المستخدم"
+      "desc": " Png  يحتوي على صورة المستخدم",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي"
     },
     "sections": {
       "admin_information": "معلومات الادمين",
@@ -341,6 +349,10 @@
     },
     "labels": {
       "admin_name": "اسم الادمين",
+      "organization_name": "اسم المؤسسة",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
       "phone_number": "رقم الهاتف",
       "status": "الحالة",
       "email": "البريد الإلكتروني",
@@ -398,9 +410,41 @@
       "our_clients_management": "إدارة عملائنا"
     },
     "permission_actions": {
-      "view": "عرض",
-      "add": "إضافة",
+      "create": "إضافة",
+      "read": "عرض",
+      "update": "تعديل",
       "delete": "حذف"
+    },
+    "modules": {
+      "auth": "المصادقة",
+      "user": "مديري النظام",
+      "supplier": "البائعات",
+      "customer": "المشترين",
+      "subscriptionRequest": "طلبات الاشتراك",
+      "category": "الفئات",
+      "subcategory": "الفئات الفرعية",
+      "product": "المنتجات",
+      "order": "الطلبات",
+      "return": "المرتجعات",
+      "driver": "السائقين",
+      "client": "العملاء",
+      "message": "رسائل تواصل معنا",
+      "notification": "الاشعارات",
+      "settings": "الاعدادات",
+      "subscription": "الاشتراكات",
+      "inventory": "المخزون",
+      "dashboard_admin": "لوحة تحكم المدير",
+      "dashboard_user": "لوحة تحكم المستخدم",
+      "countryCode": "رموز البلدان",
+      "queue": "قائمة الانتظار"
+    }
+  },
+  "activate_admin_confirmation": {
+    "title": "تفعيل المشترك المعطل",
+    "description": "هل تريد بتأكيد تفعيل المشترك المعطل ؟",
+    "buttons": {
+      "cancel": "تراجع",
+      "activate": "تفعيل"
     }
   },
   "deactivate_admin_confirmation": {
@@ -432,5 +476,60 @@
       "cancel": "تراجع",
       "deactivate": "تعطيل"
     }
+  },
+  "admin_detail_page": {
+    "title": "بيانات المشترك",
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول",
+      "commercial_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "organization_name": "اسم المؤسسة",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    }
+  },
+  "edit_admin": {
+    "title": "تعديل الادمين"
+  },
+  "edit_admin_form": {
+    "sections": {
+      "admin_information": "معلومات الادمين",
+      "login_information": "معلومات الدخول"
+    },
+    "labels": {
+      "admin_name": "اسم الادمين",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "admin_name": "ادخل اسم الادمين",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": "ارفع صورة ملف شخصي للادمين"
+    }
+  },
+  "view_admin": {
+    "viewMainCategory": {
+      "title": "عرض الادمين"
+    }
+  },
+  "deleteConfirmation": {
+    "deleteAdmin": {
+      "title": "حذف الادمين",
+      "message": "هل تريد بتأكيد حذف هذا الادمين؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "confirm": "حذف",
+    "cancel": "تراجع"
   }
 }

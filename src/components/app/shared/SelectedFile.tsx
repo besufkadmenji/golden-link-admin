@@ -5,18 +5,21 @@ import { Button } from "@heroui/react";
 
 export const SelectedFile = ({
   file,
+  initUrl,
   onRemove,
 }: {
-  file: File;
+  file?: File;
+  initUrl?: string;
   onRemove: () => void;
 }) => {
-  const url = URL.createObjectURL(file);
+  const url = file ? URL.createObjectURL(file) : initUrl;
   const extension = file?.name.split(".").pop() || "";
   return (
     <div className="bg-dashboard-border relative z-10 grid size-20 grid-cols-1 overflow-hidden rounded-xl">
-      {file && (file.type === "image/jpeg" || file.type === "image/png") ? (
+      {(file && (file.type === "image/jpeg" || file.type === "image/png")) ||
+      initUrl ? (
         <Image
-          src={url}
+          src={url!}
           layout="fill"
           className="object-contain"
           alt=""

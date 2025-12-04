@@ -13,7 +13,10 @@ interface FormWithPassword extends CreateUserDto {
   confirmPassword?: string;
 }
 
-export const useFormValidation = (form: FormWithPassword) => {
+export const useFormValidation = (
+  form: FormWithPassword,
+  mode: "add" | "edit" = "add",
+) => {
   const dict = useDict();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
@@ -119,14 +122,18 @@ export const useFormValidation = (form: FormWithPassword) => {
     const countryCodeError = validateCountryCode(form.countryCode);
     if (countryCodeError) newErrors.countryCode = countryCodeError;
 
-    const passwordError = validatePassword(form.password);
-    if (passwordError) newErrors.password = passwordError;
+    // Only validate password in add mode
+    if (mode === "add") {
+      const passwordError = validatePassword(form.password);
+      if (passwordError) newErrors.password = passwordError;
 
-    const confirmPasswordError = validateConfirmPassword(
-      form.password,
-      form.confirmPassword || "",
-    );
-    if (confirmPasswordError) newErrors.confirmPassword = confirmPasswordError;
+      const confirmPasswordError = validateConfirmPassword(
+        form.password,
+        form.confirmPassword || "",
+      );
+      if (confirmPasswordError)
+        newErrors.confirmPassword = confirmPasswordError;
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -137,6 +144,7 @@ export const useFormValidation = (form: FormWithPassword) => {
     form.countryCode,
     form.password,
     form.confirmPassword,
+    mode,
     validateFullName,
     validateEmail,
     validatePhoneNumber,
@@ -150,6 +158,12 @@ export const useFormValidation = (form: FormWithPassword) => {
     const emailError = validateEmail(form.email);
     const phoneError = validatePhoneNumber(form.phoneNumber);
     const countryCodeError = validateCountryCode(form.countryCode);
+
+    // Skip password validation in edit mode
+    if (mode === "edit") {
+      return !fullNameError && !emailError && !phoneError && !countryCodeError;
+    }
+
     const passwordError = validatePassword(form.password);
     const confirmPasswordError = validateConfirmPassword(
       form.password,
@@ -171,6 +185,7 @@ export const useFormValidation = (form: FormWithPassword) => {
     form.countryCode,
     form.password,
     form.confirmPassword,
+    mode,
     validateFullName,
     validateEmail,
     validatePhoneNumber,

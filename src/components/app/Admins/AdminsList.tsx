@@ -8,10 +8,14 @@ import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
+import { statusMap } from "@/components/app/Admins/renderCell";
+import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
+import { useManageAdmin } from "./manage/useManageAdmin";
 
 export const AdminsList = () => {
   const dict = useDict();
   const { users, pagination, isLoading } = useUsers();
+  const { deleteAdmin, busy } = useManageAdmin();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -64,8 +68,8 @@ export const AdminsList = () => {
           name: user.fullName,
           phone: user.phoneNumber,
           email: user.email,
-          role: user.roleName ?? "-",
-          status: user.status,
+          role: user.permissionType ?? "-",
+          status: statusMap(dict)[user.status],
           date: DateTimeHelpers.formatDate(user.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
@@ -88,6 +92,17 @@ export const AdminsList = () => {
             setPage(p, { history: "push" });
           },
         }}
+      />
+      <DeleteWarning
+        isOpen={!!isDeleteWarningOpen}
+        onClose={() => setIsDeleteWarningOpen(null)}
+        onConfirm={() => {
+          if (isDeleteWarningOpen) {
+            deleteAdmin(isDeleteWarningOpen);
+          }
+        }}
+        busy={busy}
+        type={DeleteWarningType.ADMIN}
       />
     </>
   );

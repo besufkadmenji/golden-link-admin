@@ -1,86 +1,129 @@
 "use client";
 
-import {
-  useForm,
-  useManageForm,
-} from "@/components/app/Categories/Main/manage/useForm";
-import { useManageCategory } from "@/components/app/Categories/Main/manage/useManageCategory";
-import { useMainCategory } from "@/components/app/Categories/Main/useMainCategory";
-import { AppLoading } from "@/components/app/shared/AppLoading";
+import { Permissions } from "@/components/app/Admins/manage/Permissions";
+import { statusMap } from "@/components/app/Admins/renderCell";
 import {
   AppForm,
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
-import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
-import { FormInput } from "@/components/app/shared/forms/FormInput";
+import {
+  FormInput
+} from "@/components/app/shared/forms/FormInput";
+import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { UploadInput } from "../../shared/UploadInput";
+import { useUserById } from "../useAdmins";
+import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
+import { useManageAdmin } from "./useManageAdmin";
 
-export const EditCategory = ({ categoryId }: { categoryId: string }) => {
-  const { data } = useMainCategory(categoryId);
-  const category = data?.data;
-  const { form, setForm, reset } = useManageForm(category);
+export const EditAdmin = ({ id }: { id: string }) => {
+  const { user } = useUserById(id);
+  console.log("Edit Admin User:", user);
+  const { form, setForm } = useManageForm(id, user);
+  const existingPicture = useForm((state) => state.existingPicture);
+  const setExistingPicture = useForm((state) => state.setExistingPicture);
   const dict = useDict();
   const router = useRouter();
-  const { busy, updateCategory } = useManageCategory();
-  const { errors, validateForm, clearError } = useFormValidation(form);
-  const ready = useForm((state) => state.ready);
-
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
-
-  return !ready ? (
-    <AppLoading className="h-[84vh]" />
-  ) : (
+  const { busy, updateAdmin } = useManageAdmin();
+  const { errors, validateForm, clearError } = useFormValidation(form, "edit");
+  console.log("existingPicture:", existingPicture, user?.profileImagePath);
+  return (
     <div className="grid grid-cols-1">
       <AppForm
-        type={FormType.MainCategory}
+        type={FormType.Admins}
         onSubmit={() => {
           if (validateForm()) {
-            updateCategory(categoryId);
+            updateAdmin(id);
           }
         }}
         onCancel={() => {
-          reset();
-          router.push("/categories/main");
+          router.push("/admins");
         }}
         busy={busy}
         action="edit"
       >
-        <FormSection type={FormType.MainCategory}>
-          <FormInput
-            label={dict.categories.addMainCategory.categoryName}
-            placeholder={
-              dict.categories.addMainCategory.categoryNamePlaceholder
-            }
-            value={form.name}
-            onChange={(value: string): void => {
-              setForm({ name: value, nameAr: value });
-              clearError("name");
-            }}
-            errorMessage={errors.name}
-          />
-          <FormAreaInput
-            label={dict.categories.addMainCategory.shortDescription}
-            placeholder={
-              dict.categories.addMainCategory.shortDescriptionPlaceholder
-            }
-            value={form.description}
-            onChange={(value: string): void => {
-              setForm({ description: value });
-              clearError("description");
-            }}
-          />
-          {errors.description && (
-            <p className="text-sm text-red-500">{errors.description}</p>
-          )}
+        <FormSection title={dict.edit_admin_form.sections.admin_information}>
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput
+              label={dict.edit_admin_form.labels.admin_name}
+              placeholder={dict.edit_admin_form.placeholders.admin_name}
+              value={form.fullName}
+              onChange={(value: string): void => {
+                setForm({ fullName: value });
+                clearError("fullName");
+              }}
+              errorMessage={errors.fullName}
+            />
+            <FormInput
+              label={dict.edit_admin_form.labels.phone_number}
+              placeholder={dict.edit_admin_form.placeholders.phone_number}
+              value={form.phoneNumber}
+              onChange={(value: string): void => {
+                setForm({ phoneNumber: value });
+                clearError("phoneNumber");
+              }}
+              errorMessage={errors.phoneNumber}
+            />
+            <FormSelect
+              label={dict.add_new_admin_form.labels.status}
+              placeholder={dict.add_new_admin_form.labels.status}
+              value={form.status}
+              onChange={(value: string): void => {
+                setForm({
+                  status: value as
+                    | "ACTIVE"
+                    | "INACTIVE"
+                    | "SUSPENDED"
+                    | "PENDING_APPROVAL",
+                });
+                clearError("status");
+              }}
+              options={Object.entries(statusMap(dict)).map(([key, value]) => ({
+                label: value,
+                key: key,
+              }))}
+              errorMessage={errors.status}
+            />
+          </div>
         </FormSection>
+        <FormSection title={dict.edit_admin_form.sections.login_information}>
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput
+              label={dict.edit_admin_form.labels.email}
+              placeholder={dict.edit_admin_form.labels.email}
+              value={form.email}
+              onChange={(value: string): void => {
+                setForm({ email: value });
+                clearError("email");
+              }}
+              errorMessage={errors.email}
+            />
+          </div>
+        </FormSection>
+        <FormSection title="">
+          <div className="grid grid-cols-1 gap-4">
+            <UploadInput
+              label={dict.edit_admin_form.image.attach}
+              desc={dict.edit_admin_form.image.desc}
+              file={form.profileImage}
+              onChange={(file?: File): void => {
+                setForm({ profileImage: file });
+                if (!file) {
+                  setExistingPicture(null);
+                }
+              }}
+              accept={{
+                "image/jpeg": [],
+                "image/png": [],
+              }}
+              initUrl={existingPicture || undefined}
+            />
+          </div>
+        </FormSection>
+        <Permissions />
       </AppForm>
     </div>
   );

@@ -11,6 +11,7 @@ export const UploadInput = ({
   onChange,
   errorMessage,
   accept,
+  initUrl,
 }: {
   label: string;
   desc: string;
@@ -18,6 +19,7 @@ export const UploadInput = ({
   onChange: (file?: File) => void;
   errorMessage?: string;
   accept?: Accept;
+  initUrl?: string;
 }) => {
   const hasError = Boolean(errorMessage);
   const dict = useDict();
@@ -70,9 +72,10 @@ export const UploadInput = ({
         )}
       </Dropzone>
       <div className="flex flex-wrap justify-center gap-4">
-        {file && (
+        {(file || initUrl) && (
           <SelectedFile
-            file={file}
+            file={file ?? undefined}
+            initUrl={initUrl}
             onRemove={() => {
               onChange(undefined);
             }}

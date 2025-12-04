@@ -5,7 +5,7 @@ import { TitleBar } from "./TitleBar";
 export enum FormType {
   SubscriberRequests,
   Subscribers,
-  Admins
+  Admins,
 }
 export const AppForm = ({
   type,
@@ -13,6 +13,10 @@ export const AppForm = ({
   className,
   classNames,
   titleChildren,
+  action,
+  busy,
+  onSubmit,
+  onCancel,
 }: {
   type: FormType;
   children: ReactNode;
@@ -33,7 +37,15 @@ export const AppForm = ({
         className,
       )}
     >
-      <TitleBar type={type}>{titleChildren}</TitleBar>
+      <TitleBar
+        type={type}
+        action={action}
+        busy={busy}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+      >
+        {titleChildren}
+      </TitleBar>
       <form
         className={twMerge("grid grid-cols-1 gap-4", classNames?.form)}
         onSubmit={(e) => {

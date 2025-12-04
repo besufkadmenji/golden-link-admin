@@ -1,21 +1,26 @@
 "use client";
 
+import { Permissions } from "@/components/app/Admins/manage/Permissions";
 import {
   AppForm,
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
-import { FormInput } from "@/components/app/shared/forms/FormInput";
+import {
+  FormInput,
+  PasswordInput,
+} from "@/components/app/shared/forms/FormInput";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
-import { useManageForm } from "./useForm";
+import { UploadInput } from "../../shared/UploadInput";
+import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 import { FormSelect } from "../../shared/forms/FormSelect";
-import { UploadInput } from "../../shared/UploadInput";
+import { statusMap } from "@/components/app/Admins/renderCell";
 
 export const AddAdmin = () => {
-  const { form, setForm } = useManageForm();
+  const { form, setForm } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createAdmin } = useManageAdmin();
@@ -31,7 +36,7 @@ export const AddAdmin = () => {
           }
         }}
         onCancel={() => {
-          router.push("/categories/main");
+          router.push("/admins");
         }}
         busy={busy}
         action="add"
@@ -58,18 +63,26 @@ export const AddAdmin = () => {
               }}
               errorMessage={errors.phoneNumber}
             />
-            {/* <FormSelect
+            <FormSelect
               label={dict.add_new_admin_form.labels.status}
-              placeholder={dict.add_new_admin_form.placeholders.status}
-              value={form.}
+              placeholder={dict.add_new_admin_form.labels.status}
+              value={form.status}
               onChange={(value: string): void => {
-                setForm({ mainCategoryId: value });
-                clearError("mainCategoryId");
+                setForm({
+                  status: value as
+                    | "ACTIVE"
+                    | "INACTIVE"
+                    | "SUSPENDED"
+                    | "PENDING_APPROVAL",
+                });
+                clearError("status");
               }}
-              options={mainCategories}
-              isDisabled={isLoading}
-              errorMessage={errors.mainCategoryId}
-            /> */}
+              options={Object.entries(statusMap(dict)).map(([key, value]) => ({
+                label: value,
+                key: key,
+              }))}
+              errorMessage={errors.status}
+            />
           </div>
         </FormSection>
         <FormSection title={dict.add_new_admin_form.sections.login_information}>
@@ -84,7 +97,7 @@ export const AddAdmin = () => {
               }}
               errorMessage={errors.email}
             />
-            <FormInput
+            <PasswordInput
               label={dict.add_new_admin_form.labels.password}
               placeholder={"********"}
               value={form.password}
@@ -94,7 +107,7 @@ export const AddAdmin = () => {
               }}
               errorMessage={errors.password}
             />
-            <FormInput
+            <PasswordInput
               label={dict.add_new_admin_form.labels.confirm_password}
               placeholder={"********"}
               value={form.confirmPassword ?? ""}
@@ -122,6 +135,7 @@ export const AddAdmin = () => {
             />
           </div>
         </FormSection>
+        <Permissions />
       </AppForm>
     </div>
   );

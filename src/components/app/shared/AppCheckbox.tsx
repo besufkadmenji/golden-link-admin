@@ -10,6 +10,7 @@ export const AppCheckbox = ({ ...rest }: CheckboxProps) => {
       classNames={{
         wrapper:
           "text-white group-data-[selected=true]:after:bg-app-primary before:border-[#858D9D]",
+        ...rest.classNames,
       }}
     />
   );

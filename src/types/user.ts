@@ -1,4 +1,8 @@
-export type UserStatus = "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
+export type UserStatus =
+  | "ACTIVE"
+  | "INACTIVE"
+  | "SUSPENDED"
+  | "PENDING_APPROVAL";
 
 export interface User {
   id: string;
@@ -7,7 +11,7 @@ export interface User {
   phoneNumber: string;
   countryCode: string;
   profileImagePath: string;
-  status: string;
+  status: UserStatus;
   createdAt: string;
   roleName: string | null;
   permissionType: string;
@@ -44,6 +48,7 @@ export interface CreateUserDto {
   countryCode: string;
   password: string;
   permissionType?: string;
+  status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
 }
 
 export interface UpdateUserDto {

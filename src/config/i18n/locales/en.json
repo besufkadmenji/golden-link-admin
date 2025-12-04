@@ -324,7 +324,13 @@
     "messages": {
       "createSuccess": "Admin created successfully.",
       "updateSuccess": "Admin updated successfully.",
+      "activateSuccess": "Admin activated successfully.",
+      "deactivateSuccess": "Admin deactivated successfully.",
       "deleteSuccess": "Admin deleted successfully."
+    },
+    "status_labels": {
+      "approved": "Approved",
+      "pending": "Pending"
     }
   },
   "add_new_admin_form": {
@@ -339,10 +345,16 @@
     },
     "image": {
       "attach": "Attach Image",
-      "desc": "Upload a profile image for the admin"
+      "desc": "Upload a profile image for the admin",
+      "upload_commercial_registration_document": "Upload commercial registration document",
+      "upload_tax_document": "Upload tax document"
     },
     "labels": {
       "admin_name": "Admin Name",
+      "organization_name": "Organization Name",
+      "type": "Type",
+      "commercial_registration_number": "Commercial Registration Number",
+      "tax_number": "Tax Number",
       "phone_number": "Phone Number",
       "status": "Status",
       "email": "Email",
@@ -400,9 +412,41 @@
       "our_clients_management": "Our Clients Management"
     },
     "permission_actions": {
-      "view": "View",
-      "add": "Add",
+      "create": "Add",
+      "read": "View",
+      "update": "Edit",
       "delete": "Delete"
+    },
+    "modules": {
+      "auth": "Authentication",
+      "user": "System Managers",
+      "supplier": "Sellers",
+      "customer": "Subscribers",
+      "subscriptionRequest": "Subscription Requests",
+      "category": "Categories",
+      "subcategory": "Subcategories",
+      "product": "Products",
+      "order": "Orders",
+      "return": "Returns",
+      "driver": "Drivers",
+      "client": "Clients",
+      "message": "Contact Messages",
+      "notification": "Notifications",
+      "settings": "Settings",
+      "subscription": "Subscriptions",
+      "inventory": "Inventory",
+      "dashboard_admin": "Admin Dashboard",
+      "dashboard_user": "User Dashboard",
+      "countryCode": "Country Codes",
+      "queue": "Queue"
+    }
+  },
+  "activate_admin_confirmation": {
+    "title": "Activate Admin",
+    "description": "Are you sure you want to activate this admin?",
+    "buttons": {
+      "cancel": "Cancel",
+      "activate": "Activate"
     }
   },
   "deactivate_admin_confirmation": {
@@ -434,5 +478,60 @@
       "cancel": "Cancel",
       "deactivate": "Deactivate"
     }
+  },
+  "admin_detail_page": {
+    "title": "Admin Details",
+    "sections": {
+      "admin_information": "Admin Information",
+      "login_information": "Login Information",
+      "commercial_registration_information": "Commercial Registration Information"
+    },
+    "labels": {
+      "admin_name": "Admin Name",
+      "organization_name": "Organization Name",
+      "type": "Type",
+      "commercial_registration_number": "Commercial Registration Number",
+      "tax_number": "Tax Number",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    }
+  },
+  "edit_admin": {
+    "title": "Edit Admin"
+  },
+  "edit_admin_form": {
+    "sections": {
+      "admin_information": "Admin Information",
+      "login_information": "Login Information"
+    },
+    "labels": {
+      "admin_name": "Admin Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    },
+    "placeholders": {
+      "admin_name": "Enter admin name",
+      "phone_number": "Enter phone number"
+    },
+    "image": {
+      "attach": "Attach Image",
+      "desc": "Upload a profile image for the admin"
+    }
+  },
+  "view_admin": {
+    "viewMainCategory": {
+      "title": "View Admin"
+    }
+  },
+  "deleteConfirmation": {
+    "deleteAdmin": {
+      "title": "Delete Admin",
+      "message": "Are you sure you want to delete this admin? This action cannot be undone."
+    },
+    "confirm": "Delete",
+    "cancel": "Cancel"
   }
 }

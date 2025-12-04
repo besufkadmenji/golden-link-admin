@@ -47,7 +47,7 @@ export class UserService {
       const response = await axiosClient.get(`/users/${id}`, {
         headers: lang ? { "Accept-Language": lang } : {},
       });
-      return unwrapAxiosResponse(response);
+      return unwrapAxiosResponse(response.data);
     } catch (error) {
       console.error(
         "Error fetching user:",
@@ -109,7 +109,7 @@ export class UserService {
     lang?: string,
   ): Promise<UserResponse | null> {
     try {
-      const response = await axiosClient.patch(`/users/${id}`, data, {
+      const response = await axiosClient.put(`/users/${id}`, data, {
         headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
@@ -158,7 +158,7 @@ export class UserService {
         "Error deleting user:",
         extractAxiosErrorMessage(error, "Failed to delete user"),
       );
-      return null;
+      throw extractAxiosErrorMessage(error, "Failed to delete user");
     }
   }
 }

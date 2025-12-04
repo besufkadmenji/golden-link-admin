@@ -88,7 +88,7 @@ export interface AdminAuthPayload {
   roleName: string;
   permissionType: "ADMINISTRATOR" | "MODERATOR" | "VIEWER";
   userType: "PLATFORM" | "ORGANIZATION";
-  status: "ACTIVE" | "INACTIVE" | "SUSPENDED";
+  status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
   fullName: string;
   organizationName: string;
   jti: string;

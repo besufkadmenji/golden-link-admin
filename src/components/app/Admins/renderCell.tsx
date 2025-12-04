@@ -3,6 +3,16 @@ import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
+export const statusMap = (
+  dict: Dictionary,
+): {
+  [key: string]: string;
+} => ({
+  ACTIVE: dict.common.statuses.ACTIVE,
+  INACTIVE: dict.common.statuses.INACTIVE,
+  SUSPENDED: dict.common.statuses.SUSPENDED,
+  PENDING_APPROVAL: dict.common.statuses.PENDING_APPROVAL,
+});
 export const renderCell = (
   row: RowType,
   column: Key,

@@ -1,3 +1,4 @@
+import { useUserPermission } from "@/hooks/usePermissions";
 import { CreateUserWithFileDto } from "@/services/user.service";
 import { User } from "@/types/user";
 import { useEffect } from "react";
@@ -9,6 +10,10 @@ interface FormState {
   form: CreateUserWithFileDto;
   setForm: (form: Partial<CreateUserWithFileDto>) => void;
   reset: () => void;
+  permissionIds: number[];
+  setPermissionIds: (ids: number[]) => void;
+  existingPicture: string | null;
+  setExistingPicture: (picture: string | null) => void;
 }
 
 export const useForm = create<FormState>((set) => ({
@@ -18,9 +23,11 @@ export const useForm = create<FormState>((set) => ({
     fullName: "",
     email: "",
     phoneNumber: "",
-    countryCode: "",
+    countryCode: "+966",
     password: "",
     confirmPassword: "",
+    permissionType: "ADMINISTRATOR",
+    status: "ACTIVE",
   },
   setForm: (form) =>
     set((state) => ({
@@ -36,19 +43,35 @@ export const useForm = create<FormState>((set) => ({
         fullName: "",
         email: "",
         phoneNumber: "",
-        countryCode: "",
+        countryCode: "+966",
         password: "",
         confirmPassword: "",
+        permissionType: "ADMINISTRATOR",
+        status: "ACTIVE",
       },
+    })),
+  permissionIds: [],
+  setPermissionIds: (ids) =>
+    set(() => ({
+      permissionIds: ids,
+    })),
+  existingPicture: null,
+  setExistingPicture: (picture) =>
+    set(() => ({
+      existingPicture: picture,
     })),
 }));
 
-export const useManageForm = (admin?: User) => {
+export const useManageForm = (id: string, admin?: User | null) => {
+  const { permissions } = useUserPermission(id);
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
+  const setExistingPicture = useForm((state) => state.setExistingPicture);
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
+  const permissionIds = useForm((state) => state.permissionIds);
+  const setPermissionIds = useForm((state) => state.setPermissionIds);
 
   useEffect(() => {
     if (!ready && admin) {
@@ -56,11 +79,22 @@ export const useManageForm = (admin?: User) => {
         fullName: admin.fullName,
         email: admin.email,
         phoneNumber: admin.phoneNumber,
-        countryCode: admin.countryCode,
+        status: admin.status,
       });
+      setExistingPicture(admin.profileImagePath || null);
       setReady(true);
     }
-  }, [admin, ready, setForm, setReady]);
+  }, [admin, ready, setExistingPicture, setForm, setReady]);
+
+  useEffect(() => {
+    if (permissions && permissions.length > 0 && permissionIds.length === 0) {
+      const newPermissionIds = permissions.map((p) => p.id);
+      setPermissionIds(newPermissionIds);
+      setForm({
+        permissionType: "CUSTOM",
+      });
+    }
+  }, [permissions, permissionIds.length, setPermissionIds, setForm]);
 
   return { form, setForm, reset };
 };
