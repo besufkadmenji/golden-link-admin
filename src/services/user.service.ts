@@ -143,6 +143,30 @@ export class UserService {
       return null;
     }
   }
+  /**
+   * Deactivate user with optional reason
+   */
+  static async activateUser(
+    id: string,
+    lang?: string,
+  ): Promise<boolean | null> {
+    try {
+      await axiosClient.post(
+        `/users/${id}/activate`,
+        {},
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
+      return true;
+    } catch (error) {
+      console.error(
+        "Error activating user:",
+        extractAxiosErrorMessage(error, "Failed to activate user"),
+      );
+      return null;
+    }
+  }
 
   /**
    * Delete user permanently

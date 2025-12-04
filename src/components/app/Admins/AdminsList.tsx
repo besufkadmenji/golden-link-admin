@@ -69,7 +69,7 @@ export const AdminsList = () => {
           phone: user.phoneNumber,
           email: user.email,
           role: roleMap(dict)[user.permissionType],
-          status: statusMap(dict)[user.status],
+          status: user.status,
           date: DateTimeHelpers.formatDate(user.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>

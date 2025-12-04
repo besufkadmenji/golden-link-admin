@@ -3,6 +3,7 @@ import { Modal, ModalContent } from "@heroui/react";
 import { PrimaryButton } from "./button/PrimaryButton";
 export enum DeleteWarningType {
   ADMIN = "ADMIN",
+  SUBSCRIBER = "SUBSCRIBER",
 }
 
 export const DeleteWarning = ({
@@ -21,9 +22,13 @@ export const DeleteWarning = ({
   const dict = useDict();
   const title = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.title,
+    [DeleteWarningType.SUBSCRIBER]:
+      dict.deleteConfirmation.deleteSubscriber.title,
   };
   const message = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.message,
+    [DeleteWarningType.SUBSCRIBER]:
+      dict.deleteConfirmation.deleteSubscriber.message,
   };
 
   return (
