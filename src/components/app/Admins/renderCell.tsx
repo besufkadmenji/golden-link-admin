@@ -32,6 +32,7 @@ export const renderCell = (
     onView: () => void;
     onEdit: () => void;
     onDelete: () => void;
+    onActivate: (value: boolean) => void;
   },
 ) => {
   if (column === "action") {
@@ -45,7 +46,12 @@ export const renderCell = (
   } else if (column === "status") {
     console.log("row status:", row.status);
     return (
-      <AppSwitch isSelected={row.status === "ACTIVE"} onChange={(checked) => {}} />
+      <AppSwitch
+        isSelected={row.status === "ACTIVE"}
+        onValueChange={(checked) => {
+          action.onActivate(checked);
+        }}
+      />
     );
   }
   return row[column as string];

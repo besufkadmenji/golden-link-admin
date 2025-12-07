@@ -1,16 +1,18 @@
+import { ActivateAdmin } from "@/components/app/Admins/manage/ActivateAdmin";
+import { DeactivateAdmin } from "@/components/app/Admins/manage/DeactivateAdmin";
+import { roleMap } from "@/components/app/Admins/renderCell";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
 import { usePathname, useRouter } from "next/navigation";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { Key, ReactNode } from "react";
+import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
+import { useManageAdmin } from "./manage/useManageAdmin";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
-import { statusMap, roleMap } from "@/components/app/Admins/renderCell";
-import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
-import { useManageAdmin } from "./manage/useManageAdmin";
 
 export const AdminsList = () => {
   const dict = useDict();
@@ -19,6 +21,10 @@ export const AdminsList = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [activateAdmin, setActivateAdmin] = useQueryState("activateAdmin");
+  const [deactivateAdmin, setDeactivateAdmin] =
+    useQueryState("deactivateAdmin");
+
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
   const router = useRouter();
@@ -83,6 +89,13 @@ export const AdminsList = () => {
             onDelete: () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             },
+            onActivate: (value: boolean) => {
+              if (value) {
+                setActivateAdmin(row.key, { history: "push" });
+              } else {
+                setDeactivateAdmin(row.key, { history: "push" });
+              }
+            },
           })
         }
         pagination={{
@@ -104,6 +117,8 @@ export const AdminsList = () => {
         busy={busy}
         type={DeleteWarningType.ADMIN}
       />
+      <ActivateAdmin />
+      <DeactivateAdmin />
     </>
   );
 };

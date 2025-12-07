@@ -129,7 +129,7 @@ export class UserService {
     id: string,
     data?: DeactivateUserDto,
     lang?: string,
-  ): Promise<boolean | null> {
+  ): Promise<boolean> {
     try {
       await axiosClient.post(`/users/${id}/deactivate`, data || {}, {
         headers: lang ? { "Accept-Language": lang } : {},
@@ -140,16 +140,14 @@ export class UserService {
         "Error deactivating user:",
         extractAxiosErrorMessage(error, "Failed to deactivate user"),
       );
-      return null;
+      return false;
     }
   }
+
   /**
-   * Deactivate user with optional reason
+   * Activate user
    */
-  static async activateUser(
-    id: string,
-    lang?: string,
-  ): Promise<boolean | null> {
+  static async activateUser(id: string, lang?: string): Promise<boolean> {
     try {
       await axiosClient.post(
         `/users/${id}/activate`,
@@ -164,14 +162,14 @@ export class UserService {
         "Error activating user:",
         extractAxiosErrorMessage(error, "Failed to activate user"),
       );
-      return null;
+      return false;
     }
   }
 
   /**
    * Delete user permanently
    */
-  static async deleteUser(id: string, lang?: string): Promise<boolean | null> {
+  static async deleteUser(id: string, lang?: string): Promise<boolean> {
     try {
       await axiosClient.delete(`/users/${id}`, {
         headers: lang ? { "Accept-Language": lang } : {},
@@ -182,7 +180,7 @@ export class UserService {
         "Error deleting user:",
         extractAxiosErrorMessage(error, "Failed to delete user"),
       );
-      throw extractAxiosErrorMessage(error, "Failed to delete user");
+      return false;
     }
   }
 }

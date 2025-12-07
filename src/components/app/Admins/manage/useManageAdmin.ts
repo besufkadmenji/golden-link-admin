@@ -8,6 +8,7 @@ import { useQueryState } from "nuqs";
 import { UserService } from "@/services/user.service";
 import { PermissionService } from "@/services/permission.service";
 import { useLang } from "@/hooks/useLang";
+import { DeactivateUserDto } from "@/types/user";
 
 export const useManageAdmin = () => {
   const [busy, setBusy] = useState(false);
@@ -20,6 +21,9 @@ export const useManageAdmin = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
+  const [, setActivateAdmin] = useQueryState("activateAdmin");
+  const [, setDeactivateAdmin] = useQueryState("deactivateAdmin");
 
   const createAdmin = async () => {
     setBusy(true);
@@ -35,7 +39,6 @@ export const useManageAdmin = () => {
             lang,
           );
         }
-        showSuccessMessage(dict.system_managers_page.messages.createSuccess);
         resetForm();
         queryClient.invalidateQueries({
           queryKey: ["users"],
@@ -43,7 +46,7 @@ export const useManageAdmin = () => {
         queryClient.invalidateQueries({
           queryKey: ["user"],
         });
-        router.push("/admins");
+        setShowSuccess("true");
       }
     } catch (error) {
       showErrorMessage(
@@ -80,8 +83,8 @@ export const useManageAdmin = () => {
   const deleteAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const response = await UserService.deleteUser(id);
-      if (response) {
+      const success = await UserService.deleteUser(id);
+      if (success) {
         showSuccessMessage(dict.system_managers_page.messages.deleteSuccess);
         queryClient.invalidateQueries({
           queryKey: ["users"],
@@ -90,17 +93,71 @@ export const useManageAdmin = () => {
           queryKey: ["user", id],
         });
         router.push("/admins");
+      } else {
+        showErrorMessage("Failed to delete admin.");
       }
     } catch (error) {
-      console.error("Delete admin error wtf:", error);
+      console.error("Delete admin error:", error);
       showErrorMessage(
-        error instanceof Error
-          ? error
-          : (error as string) || "An error occurred.",
+        error instanceof Error ? error.message : "An error occurred.",
       );
     } finally {
       setBusy(false);
       setIsDeleteWarningOpen(null);
+    }
+  };
+
+  const activateAdmin = async (id: string) => {
+    setBusy(true);
+    try {
+      const success = await UserService.activateUser(id, lang);
+      if (success) {
+        showSuccessMessage(dict.system_managers_page.messages.activateSuccess);
+        queryClient.invalidateQueries({
+          queryKey: ["users"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["user", id],
+        });
+        setActivateAdmin(null);
+      } else {
+        showErrorMessage("Failed to activate admin.");
+      }
+    } catch (error) {
+      console.error("Activate admin error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const deactivateAdmin = async (id: string, data: DeactivateUserDto) => {
+    setBusy(true);
+    try {
+      const success = await UserService.deactivateUser(id, data, lang);
+      if (success) {
+        showSuccessMessage(
+          dict.system_managers_page.messages.deactivateSuccess,
+        );
+        queryClient.invalidateQueries({
+          queryKey: ["users"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["user", id],
+        });
+        setDeactivateAdmin(null);
+      } else {
+        showErrorMessage("Failed to deactivate admin.");
+      }
+    } catch (error) {
+      console.error("Deactivate admin error:", error);
+      showErrorMessage(
+        error instanceof Error ? error.message : "An error occurred.",
+      );
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -109,5 +166,7 @@ export const useManageAdmin = () => {
     createAdmin,
     updateAdmin,
     deleteAdmin,
+    activateAdmin,
+    deactivateAdmin,
   };
 };
