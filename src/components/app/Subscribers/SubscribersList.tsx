@@ -14,6 +14,8 @@ import {
   DeleteWarning,
   DeleteWarningType,
 } from "@/components/app/shared/DeleteWarning";
+import { ActivateSubscriber } from "./ActivateSubscriber";
+import { DeactivateSubscriber } from "./DeactivateSubscriber";
 
 export const SubscribersList = () => {
   const dict = useDict();
@@ -21,6 +23,11 @@ export const SubscribersList = () => {
   const { deleteSubscriber, busy } = useManageSubscriber();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
+  );
+  const [activateSubscriber, setActivateSubscriber] =
+    useQueryState("activateSubscriber");
+  const [deactivateSubscriber, setDeactivateSubscriber] = useQueryState(
+    "deactivateSubscriber",
   );
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
   // const { approveRequest, rejectRequest, busy } = useManageRequest();
@@ -57,6 +64,11 @@ export const SubscribersList = () => {
       align: "center",
     },
     {
+      key: "status",
+      label: dict.subscribers_page.table_headers.status,
+      align: "center",
+    },
+    {
       key: "action",
       label: dict.subscribers_page.table_headers.actions,
       align: "center",
@@ -80,6 +92,7 @@ export const SubscribersList = () => {
           email: subscriber.email,
           type: subscriber.roleName,
           date: DateTimeHelpers.formatDate(subscriber.createdAt),
+          status: subscriber.status,
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {
@@ -88,6 +101,13 @@ export const SubscribersList = () => {
             },
             onDelete: () => {
               setIsDeleteWarningOpen(row.key as string, { history: "push" });
+            },
+            onActivate: (value: boolean) => {
+              if (value) {
+                setActivateSubscriber(row.key as string, { history: "push" });
+              } else {
+                setDeactivateSubscriber(row.key as string, { history: "push" });
+              }
             },
           })
         }
@@ -110,6 +130,8 @@ export const SubscribersList = () => {
         busy={busy}
         type={DeleteWarningType.SUBSCRIBER}
       />
+      <ActivateSubscriber />
+      <DeactivateSubscriber />
     </>
   );
 };

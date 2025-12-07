@@ -543,5 +543,19 @@
     },
     "confirm": "Delete",
     "cancel": "Cancel"
+  },
+  "activate_subscriber_confirmation": {
+    "title": "Activate Subscriber",
+    "description": "Are you sure you want to activate this subscriber?"
+  },
+  "deactivate_subscriber_reason_form": {
+    "title": "Deactivate Subscriber",
+    "description": "Please provide a reason for deactivating this subscriber",
+    "labels": {
+      "deactivation_reason": "Reason for Deactivation"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter reason for deactivation"
+    }
   }
 }

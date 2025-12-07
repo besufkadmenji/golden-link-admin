@@ -133,10 +133,11 @@ export const useManageAdmin = () => {
     }
   };
 
-  const deactivateAdmin = async (id: string, data: DeactivateUserDto) => {
+  const deactivateAdmin = async (id: string, reason?: string) => {
     setBusy(true);
     try {
-      const success = await UserService.deactivateUser(id, data, lang);
+      const deactivateData: DeactivateUserDto = reason ? { reason } : {};
+      const success = await UserService.deactivateUser(id, deactivateData, lang);
       if (success) {
         showSuccessMessage(
           dict.system_managers_page.messages.deactivateSuccess,

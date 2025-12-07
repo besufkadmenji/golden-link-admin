@@ -159,17 +159,19 @@ export class SubscriberService {
    * Deactivate subscriber
    * POST /admin/subscribers/:id/deactivate
    * @param id - Subscriber ID
+   * @param reason - Reason for deactivation
    * @param lang - Language preference
    * @returns boolean - true on success, false on error
    */
   static async deactivateSubscriber(
     id: string,
+    reason: string,
     lang?: string,
   ): Promise<boolean> {
     try {
       await axiosClient.post(
         `/admin/subscribers/${id}/deactivate`,
-        {},
+        { reason },
         {
           headers: lang ? { "Accept-Language": lang } : {},
         },

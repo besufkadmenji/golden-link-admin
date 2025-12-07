@@ -541,5 +541,19 @@
     },
     "confirm": "حذف",
     "cancel": "تراجع"
+  },
+  "activate_subscriber_confirmation": {
+    "title": "تفعيل المشترك",
+    "description": "هل تريد بتأكيد تفعيل هذا المشترك؟"
+  },
+  "deactivate_subscriber_reason_form": {
+    "title": "إلغاء تفعيل المشترك",
+    "description": "يرجى تقديم سبب لإلغاء تفعيل هذا المشترك",
+    "labels": {
+      "deactivation_reason": "سبب الإلغاء"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب الإلغاء"
+    }
   }
 }
