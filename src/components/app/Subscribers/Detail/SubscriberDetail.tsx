@@ -99,11 +99,20 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                 className="col-span-2"
                 readOnly
               />
-              <div className="col-span-2 grid grid-cols-1 gap-4">
+              <div className="col-span-2 grid grid-cols-1 justify-items-center gap-4">
                 {subscriber.commercialRegistrationImagePath && (
-                  <SelectedFile
-                    initUrl={subscriber.commercialRegistrationImagePath}
-                  />
+                  <div
+                    onClick={() => {
+                      window.open(
+                        subscriber.commercialRegistrationImagePath,
+                        "_blank",
+                      );
+                    }}
+                  >
+                    <SelectedFile
+                      initUrl={subscriber.commercialRegistrationImagePath}
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -136,9 +145,20 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                 onChange={(value: string): void => {}}
                 readOnly
               />
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 justify-items-center gap-4">
                 {subscriber.taxRegistrationImagePath && (
-                  <SelectedFile initUrl={subscriber.taxRegistrationImagePath} />
+                  <div
+                    onClick={() => {
+                      window.open(
+                        subscriber.taxRegistrationImagePath,
+                        "_blank",
+                      );
+                    }}
+                  >
+                    <SelectedFile
+                      initUrl={subscriber.taxRegistrationImagePath}
+                    />
+                  </div>
                 )}
               </div>
             </div>

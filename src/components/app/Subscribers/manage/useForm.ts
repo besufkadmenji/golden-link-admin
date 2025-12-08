@@ -7,10 +7,6 @@ interface FormState {
   form: CreateSubscriberDto;
   setForm: (form: Partial<CreateSubscriberDto>) => void;
   reset: () => void;
-  commercialRegistrationImageFile?: File;
-  taxRegistrationImageFile?: File;
-  setCommercialRegistrationImageFile: (file?: File) => void;
-  setTaxRegistrationImageFile: (file?: File) => void;
 }
 
 export const useForm = create<FormState>((set) => ({
@@ -53,10 +49,4 @@ export const useForm = create<FormState>((set) => ({
       commercialRegistrationImageFile: undefined,
       taxRegistrationImageFile: undefined,
     })),
-  commercialRegistrationImageFile: undefined,
-  taxRegistrationImageFile: undefined,
-  setCommercialRegistrationImageFile: (file) =>
-    set(() => ({ commercialRegistrationImageFile: file })),
-  setTaxRegistrationImageFile: (file) =>
-    set(() => ({ taxRegistrationImageFile: file })),
 }));

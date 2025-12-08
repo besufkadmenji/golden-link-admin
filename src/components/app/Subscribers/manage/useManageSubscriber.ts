@@ -2,22 +2,16 @@ import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { SubscriberService } from "@/services/subscriber.service";
 import { queryClient } from "@/utils/query.client";
-import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
+import { showErrorMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
-import { useQueryState } from "nuqs";
 
 export const useManageSubscriber = () => {
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
-  const commercialRegistrationImageFile = useForm(
-    (state) => state.commercialRegistrationImageFile,
-  );
 
-  const taxRegistrationImageFile = useForm(
-    (state) => state.taxRegistrationImageFile,
-  );
   const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
 
   const resetForm = useForm((state) => state.reset);
@@ -28,14 +22,7 @@ export const useManageSubscriber = () => {
   const createSubscriber = async () => {
     setBusy(true);
     try {
-      const response = await SubscriberService.createSubscriber(
-        {
-          ...form,
-          commercialRegistrationImagePath: commercialRegistrationImageFile,
-          taxRegistrationImagePath: taxRegistrationImageFile,
-        },
-        lang,
-      );
+      const response = await SubscriberService.createSubscriber(form, lang);
       if (response) {
         resetForm();
         queryClient.invalidateQueries({
