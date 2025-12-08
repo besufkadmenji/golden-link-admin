@@ -266,7 +266,8 @@
   "noData": {
     "subscriberRequests": "No subscription requests available",
     "subscribers": "No subscribers available",
-    "admins": "No admins available"
+    "admins": "No admins available",
+    "notifications": "No notifications available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -642,5 +643,81 @@
   },
   "view_subscriber": {
     "title": "Subscriber data"
+  },
+  "notifications_page": {
+    "title": "Notifications Management",
+    "total_notifications": "Total Notifications Count",
+    "total_count": "notifications",
+    "buttons": {
+      "add_notification": "Add New Notification"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "checkbox": "",
+      "notification_title": "Title",
+      "notification_content": "Content",
+      "recipients_count": "Recipients Count",
+      "sent_date": "Sent Date",
+      "created_by": "Created By",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Notification created successfully.",
+      "deleteSuccess": "Notification deleted successfully."
+    },
+    "no_notifications_yet": "No notifications yet"
+  },
+  "add_new_notification_form": {
+    "title": "Add New Notification",
+    "buttons": {
+      "save": "Save"
+    },
+    "sections": {
+      "notification_information": "Notification Information",
+      "recipients": "Recipients"
+    },
+    "labels": {
+      "title": "Notification Title",
+      "content": "Notification Content",
+      "sender_id": "Sender Username",
+      "recipients": "Select Recipients"
+    },
+    "placeholders": {
+      "title": "Enter notification title",
+      "content": "Enter notification content"
+    },
+    "messages": {
+      "createSuccess": "Notification created successfully."
+    }
+  },
+  "notification_detail_page": {
+    "title": "New Notification",
+    "sections": {
+      "notification_information": "Notification Information",
+      "recipients_information": "Recipients Information"
+    },
+    "labels": {
+      "title": "Notification Title",
+      "content": "Notification Content",
+      "sent_date": "Sent Date",
+      "sender_id": "Sender Username",
+      "created_by": "Created By",
+      "recipients_count": "Recipients Count"
+    },
+    "table_headers": {
+      "recipient_name": "Recipient Name",
+      "delivery_status": "Delivery Status",
+      "delivered_date": "Delivered Date",
+      "read_date": "Read Date"
+    },
+    "delivery_status": {
+      "delivered": "Delivered",
+      "pending": "Pending",
+      "failed": "Failed"
+    }
   }
 }

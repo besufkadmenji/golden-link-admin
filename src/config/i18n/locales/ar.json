@@ -264,7 +264,8 @@
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
     "subscribers": "لا يوجد مشتركون متاحون",
-    "admins": "لا يوجد مستخدمون متاحون"
+    "admins": "لا يوجد مستخدمون متاحون",
+    "notifications": "لا توجد إشعارات متاحة"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -637,5 +638,81 @@
   },
   "view_subscriber": {
     "title": "بيانات المشترك"
+  },
+  "notifications_page": {
+    "title": "إدارة الإشعارات",
+    "total_notifications": "إجمالي عدد الإشعارات",
+    "total_count": "إشعار",
+    "buttons": {
+      "add_notification": "إضافة إشعار جديد"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "checkbox": "",
+      "notification_title": "العنوان",
+      "notification_content": "المحتوى",
+      "recipients_count": "عدد المستقبلين",
+      "sent_date": "تاريخ الإرسال",
+      "created_by": "من إنشاء",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الإشعار بنجاح.",
+      "deleteSuccess": "تم حذف الإشعار بنجاح."
+    },
+    "no_notifications_yet": "لا توجد إشعارات بعد"
+  },
+  "add_new_notification_form": {
+    "title": "إضافة إشعار جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "notification_information": "معلومات الإشعار",
+      "recipients": "المستقبلون"
+    },
+    "labels": {
+      "title": "عنوان الإشعار",
+      "content": "محتوى الإشعار",
+      "sender_id": "اسم المستخدم المُرسل",
+      "recipients": "اختر المستقبلين"
+    },
+    "placeholders": {
+      "title": "ادخل عنوان الإشعار",
+      "content": "ادخل محتوى الإشعار"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء الإشعار بنجاح."
+    }
+  },
+  "notification_detail_page": {
+    "title": "إشعار جديد",
+    "sections": {
+      "notification_information": "معلومات الإشعار",
+      "recipients_information": "معلومات المستقبلين"
+    },
+    "labels": {
+      "title": "عنوان الإشعار",
+      "content": "محتوى الإشعار",
+      "sent_date": "تاريخ الإرسال",
+      "sender_id": "اسم المستخدم المُرسل",
+      "created_by": "من إنشاء",
+      "recipients_count": "عدد المستقبلين"
+    },
+    "table_headers": {
+      "recipient_name": "اسم المستقبل",
+      "delivery_status": "حالة الإرسال",
+      "delivered_date": "تاريخ الإرسال",
+      "read_date": "تاريخ القراءة"
+    },
+    "delivery_status": {
+      "delivered": "مُسلم",
+      "pending": "قيد الانتظار",
+      "failed": "فشل"
+    }
   }
 }

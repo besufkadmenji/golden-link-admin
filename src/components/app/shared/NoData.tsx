@@ -5,6 +5,7 @@ export enum NoDataType {
   SubscriberRequests = "SubscriberRequests",
   Subscribers = "Subscribers",
   Admins = "Admins",
+  Notifications = "Notifications",
 }
 
 export const NoData = ({ type }: { type: NoDataType }) => {
@@ -14,6 +15,7 @@ export const NoData = ({ type }: { type: NoDataType }) => {
     [NoDataType.SubscriberRequests]: dict.noData.subscriberRequests,
     [NoDataType.Subscribers]: dict.noData.subscribers,
     [NoDataType.Admins]: dict.noData.admins,
+    [NoDataType.Notifications]: dict.noData.notifications,
   };
 
   return (

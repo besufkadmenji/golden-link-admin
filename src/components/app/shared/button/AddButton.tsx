@@ -6,6 +6,7 @@ import { useDict } from "@/hooks/useDict";
 export enum AddButtonType {
   Admin,
   Subscriber,
+  Notification,
 }
 export const AddButton = ({
   type,
@@ -22,6 +23,8 @@ export const AddButton = ({
   const labelMap = {
     [AddButtonType.Admin]: dict.system_managers_page.buttons.add_new_manager,
     [AddButtonType.Subscriber]: dict.subscribers_page.buttons.add_subscriber,
+    [AddButtonType.Notification]:
+      dict.notifications_page.buttons.add_notification,
   };
   return (
     <PrimaryButton

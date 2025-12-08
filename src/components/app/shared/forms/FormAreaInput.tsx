@@ -10,6 +10,7 @@ export const FormAreaInput = ({
   isOptional = false,
   errorMessage,
   readOnly,
+  className,
 }: {
   label: string;
   placeholder: string;
@@ -18,6 +19,7 @@ export const FormAreaInput = ({
   isOptional?: boolean;
   errorMessage?: string;
   readOnly?: boolean;
+  className?: string;
 }) => {
   const lng = useLang();
   const enOptional = "after:content-['(Optional)']";
@@ -32,6 +34,7 @@ export const FormAreaInput = ({
       onValueChange={onChange}
       variant="bordered"
       minRows={7}
+      className={className}
       classNames={{
         inputWrapper: cn(
           "h-12 rounded-lg bg-gray-border dark:bg-dark-gray-2 dark:border-dark-gray-3 border border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary",
