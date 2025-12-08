@@ -20,7 +20,10 @@ export const renderCell = (
   },
 ) => {
   if (column === "action") {
-    return <ActionsCell onView={action.onView} onDelete={action.onDelete} />;
+    return <ActionsCell onView={action.onView} onDelete={
+      row.status === "DELETED" ? undefined :
+      
+      action.onDelete} />;
   } else if (column === "name") {
     return (
       <div className="grid grid-cols-1 gap-1">
@@ -68,6 +71,7 @@ export const renderCell = (
         onValueChange={(checked) => {
           action.onActivate(checked);
         }}
+        isDisabled={row.status === "DELETED"}
       />
     );
   }

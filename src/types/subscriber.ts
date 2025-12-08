@@ -6,7 +6,7 @@ export interface Subscriber {
   countryCode: string;
   phoneNumber: string;
   roleName: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
-  status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
+  status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL"|"DELETED";
   createdAt: string;
 }
 

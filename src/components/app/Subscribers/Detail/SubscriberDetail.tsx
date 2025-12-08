@@ -44,6 +44,8 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                   });
                 }
               }}
+              isDisabled={subscriber.status === "DELETED"}
+
             />
           }
         >
