@@ -71,6 +71,11 @@ export const UploadInput = ({
           </div>
         )}
       </Dropzone>
+      {hasError ? (
+        <p className="text-danger-500 text-xs leading-4 font-normal">
+          {errorMessage}
+        </p>
+      ) : null}
       <div className="flex flex-wrap justify-center gap-4">
         {(file || initUrl) && (
           <SelectedFile
@@ -82,11 +87,6 @@ export const UploadInput = ({
           />
         )}
       </div>
-      {hasError ? (
-        <p className="text-danger-500 text-xs leading-4 font-normal">
-          {errorMessage}
-        </p>
-      ) : null}
     </div>
   );
 };

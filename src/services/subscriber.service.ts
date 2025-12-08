@@ -2,10 +2,11 @@ import axiosClient from "@/utils/axios.client";
 import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 import {
   GetSubscribersParams,
-  SubscribersListResponse,
   SubscribersData,
   SubscriberDetail,
   SubscriberDetailResponse,
+  CreateSubscriberDto,
+  UpdateSubscriberDto,
 } from "@/types/subscriber";
 
 export class SubscriberService {
@@ -66,15 +67,45 @@ export class SubscriberService {
   /**
    * Create new subscriber
    * POST /admin/subscribers
-   * @param formData - FormData with subscriber information and document files
+   * @param dto - Create subscriber DTO with subscriber information and document files
    * @param lang - Language preference
    * @returns Created subscriber data
    */
   static async createSubscriber(
-    formData: FormData,
+    dto: CreateSubscriberDto,
     lang?: string,
   ): Promise<SubscriberDetail | null> {
     try {
+      const formData = new FormData();
+
+      formData.append("fullName", dto.fullName);
+      formData.append("organizationName", dto.organizationName);
+      formData.append("email", dto.email);
+      formData.append("countryCode", dto.countryCode);
+      formData.append("phoneNumber", dto.phoneNumber);
+      formData.append("password", dto.password);
+      formData.append("confirmPassword", dto.confirmPassword);
+      formData.append(
+        "commercialRegistrationNumber",
+        dto.commercialRegistrationNumber,
+      );
+      formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      formData.append("type", dto.type);
+
+      if (dto.commercialRegistrationImagePath) {
+        formData.append(
+          "commercialRegistrationImagePath",
+          dto.commercialRegistrationImagePath,
+        );
+      }
+
+      if (dto.taxRegistrationImagePath) {
+        formData.append(
+          "taxRegistrationImagePath",
+          dto.taxRegistrationImagePath,
+        );
+      }
+
       const response = await axiosClient.post<SubscriberDetailResponse>(
         "/admin/subscribers",
         formData,
@@ -91,7 +122,7 @@ export class SubscriberService {
         "Error creating subscriber:",
         extractAxiosErrorMessage(error, "Failed to create subscriber"),
       );
-      return null;
+      throw error;
     }
   }
 
@@ -99,16 +130,52 @@ export class SubscriberService {
    * Update subscriber
    * PUT /admin/subscribers/:id
    * @param id - Subscriber ID
-   * @param formData - FormData with subscriber information and document files
+   * @param dto - Update subscriber DTO with subscriber information and document files
    * @param lang - Language preference
    * @returns Updated subscriber data
    */
   static async updateSubscriber(
     id: string,
-    formData: FormData,
+    dto: UpdateSubscriberDto,
     lang?: string,
   ): Promise<SubscriberDetail | null> {
     try {
+      const formData = new FormData();
+
+      formData.append("fullName", dto.fullName);
+      formData.append("organizationName", dto.organizationName);
+      formData.append("email", dto.email);
+      formData.append("countryCode", dto.countryCode);
+      formData.append("phoneNumber", dto.phoneNumber);
+      formData.append(
+        "commercialRegistrationNumber",
+        dto.commercialRegistrationNumber,
+      );
+      formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      formData.append("type", dto.type);
+
+      if (dto.password) {
+        formData.append("password", dto.password);
+      }
+
+      if (dto.confirmPassword) {
+        formData.append("confirmPassword", dto.confirmPassword);
+      }
+
+      if (dto.commercialRegistrationImagePath) {
+        formData.append(
+          "commercialRegistrationImagePath",
+          dto.commercialRegistrationImagePath,
+        );
+      }
+
+      if (dto.taxRegistrationImagePath) {
+        formData.append(
+          "taxRegistrationImagePath",
+          dto.taxRegistrationImagePath,
+        );
+      }
+
       const response = await axiosClient.put<SubscriberDetailResponse>(
         `/admin/subscribers/${id}`,
         formData,

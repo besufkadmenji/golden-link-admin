@@ -10,7 +10,7 @@ export const SelectedFile = ({
 }: {
   file?: File;
   initUrl?: string;
-  onRemove: () => void;
+  onRemove?: () => void;
 }) => {
   const url = file ? URL.createObjectURL(file) : initUrl;
   const extension = file?.name.split(".").pop() || "";
@@ -35,13 +35,15 @@ export const SelectedFile = ({
           </p>
         </div>
       )}
-      <Button
-        isIconOnly
-        onPress={onRemove}
-        className="absolute end-1 top-1 size-6 min-h-0 min-w-0 bg-white p-0"
-      >
-        <TrashIcon className="size-4 cursor-pointer text-[#EA5455]" />
-      </Button>
+      {onRemove && (
+        <Button
+          isIconOnly
+          onPress={onRemove}
+          className="absolute end-1 top-1 size-6 min-h-0 min-w-0 bg-white p-0"
+        >
+          <TrashIcon className="size-4 cursor-pointer text-[#EA5455]" />
+        </Button>
+      )}
     </div>
   );
 };

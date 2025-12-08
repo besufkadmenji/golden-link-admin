@@ -212,6 +212,11 @@
       "view": "عرض",
       "edit": "تعديل",
       "delete": "حذف"
+    },
+    "messages": {
+      "activateSuccess": "تم تفعيل المشترك بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل المشترك بنجاح.",
+      "deleteSuccess": "تم حذف المشترك بنجاح."
     }
   },
   "subscription_request_detail_page": {
@@ -555,5 +560,82 @@
     "placeholders": {
       "deactivation_reason": "ادخل سبب الإلغاء"
     }
+  },
+  "add_new_subscriber_form": {
+    "title": "إضافة مشترك جديد",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "subscriber_information": "معلومات المشترك",
+      "login_information": "معلومات الدخول",
+      "tax_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "organization_name": "اسم المؤسسة"
+    },
+    "placeholders": {
+      "name": "ادخل اسم المشترك",
+      "phone_number": "ادخل رقم الهاتف",
+      "email": "ادخل البريد الإلكتروني",
+      "type": "ادخل النوع",
+      "commercial_registration_number": "ادخل رقم التسجيل التجاري",
+      "tax_number": "ادخل رقم السجل الضريبي",
+      "password": "ادخل كلمة المرور",
+      "confirm_password": "ادخل تأكيد كلمة المرور",
+      "organization_name": "ادخل اسم المؤسسة"
+    },
+    "image": {
+      "attach": "ارفق صورة السجل التجاري",
+      "desc": " Png  يحتوي على صورة السجل التجاري",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي",
+      "desc_tax": " Png  يحتوي على صورة السجل الضريبي"
+    }
+  },
+  "edit_subscriber_form": {
+    "title": "تعديل المشترك",
+    "buttons": {
+      "save": "حفظ"
+    },
+    "sections": {
+      "subscriber_information": "معلومات المشترك",
+      "login_information": "معلومات الدخول",
+      "tax_registration_information": "معلومات السجل الضريبي"
+    },
+    "labels": {
+      "name": "الاسم",
+      "phone_number": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "type": "النوع",
+      "commercial_registration_number": "رقم التسجيل التجاري",
+      "tax_number": "رقم السجل الضريبي",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "name": "ادخل اسم المشترك",
+      "phone_number": "ادخل رقم الهاتف"
+    },
+    "image": {
+      "attach": "ارفق صورة",
+      "desc": "ارفع صورة ملف شخصي للمشترك",
+      "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
+      "upload_tax_document": "ارفق صورة السجل الضريبي"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث المشترك بنجاح."
+    }
+  },
+  "view_subscriber": {
+    "title": "بيانات المشترك"
   }
 }

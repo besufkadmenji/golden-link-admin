@@ -14,6 +14,11 @@ import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
 import { SubscribersFilter } from "./SubscribersFilter";
 import { SubscribersList } from "./SubscribersList";
 import { useSubscribers } from "./useSubscriber";
+import {
+  AddButton,
+  AddButtonType,
+} from "@/components/app/shared/button/AddButton";
+import { ExportButton } from "@/components/app/shared/button/ExportButton";
 
 export const Subscribers = () => {
   const dict = useDict();
@@ -23,7 +28,15 @@ export const Subscribers = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.subscribers_page.title} />
+      <PageBar title={dict.subscribers_page.title}>
+        <AddButton
+          type={AddButtonType.Subscriber}
+          onPress={() => {
+            router.push(`${pathname}/add`);
+          }}
+        />
+        <ExportButton model={""} />
+      </PageBar>
       <Gap className="h-8" />
       {isLoading ? (
         <SummaryCardSkeleton />

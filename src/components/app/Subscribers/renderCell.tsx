@@ -1,15 +1,14 @@
-import ApproveIcon from "@/assets/icons/app/approve.svg";
-import RejectIcon from "@/assets/icons/app/reject.svg";
-import ViewIcon from "@/assets/icons/app/view.svg";
-import {
-  ActionCell,
-  ActionsCell,
-} from "@/components/app/shared/tables/ActionsCell";
+import { AppSwitch } from "@/components/app/shared/AppSwitch";
+import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
-import { AppSwitch } from "@/components/app/shared/AppSwitch";
+
+export const typeMap = (dict: Dictionary) => ({
+  WAREHOUSE_OWNER: dict.common.warehouseOwner,
+  SUPPLIER: dict.common.supplier,
+});
 export const renderCell = (
   row: RowType,
   column: Key,
@@ -46,10 +45,6 @@ export const renderCell = (
       </p>
     );
   } else if (column === "type") {
-    const typeMap = {
-      WAREHOUSE_OWNER: dict.common.warehouseOwner,
-      SUPPLIER: dict.common.supplier,
-    };
     return (
       <div className="grid justify-items-center">
         <p
@@ -61,7 +56,7 @@ export const renderCell = (
               "bg-[#FDF1E8] text-[#E46A11] dark:bg-[#FDF1E8] dark:text-[#E46A11]",
           )}
         >
-          {typeMap[row.type as keyof typeof typeMap] ?? row.type}
+          {typeMap(dict)[row.type as keyof typeof typeMap] ?? row.type}
         </p>
       </div>
     );

@@ -17,6 +17,7 @@ export const FormInput = ({
   hideLabel = false,
   onSubmit,
   isDisabled = false,
+  className,
   classNames,
   onFocus,
   onBlur,
@@ -34,6 +35,7 @@ export const FormInput = ({
   hideLabel?: boolean;
   onSubmit?: () => void;
   isDisabled?: boolean;
+  className?: string;
   classNames?: {
     inputWrapper?: string;
     input?: string;
@@ -59,7 +61,7 @@ export const FormInput = ({
       onValueChange={onChange}
       variant="bordered"
       size="lg"
-      className={cairo.className}
+      className={twMerge(cairo.className, className)}
       errorMessage={errorMessage}
       isInvalid={!!errorMessage}
       classNames={{
@@ -160,14 +162,14 @@ export const PasswordInput = ({
       isOptional={isOptional}
       endContent={
         <Button
-          className="bg-transparent min-h-0 min-w-0 p-0 size-5"
+          className="size-5 min-h-0 min-w-0 bg-transparent p-0"
           onPress={() => setShowPassword(!showPassword)}
           isIconOnly
         >
           {showPassword ? (
-            <EyeOffIcon className="size-5 text-subTitle" />
+            <EyeOffIcon className="text-subTitle size-5" />
           ) : (
-            <EyeIcon className="size-5 text-subTitle" />
+            <EyeIcon className="text-subTitle size-5" />
           )}
         </Button>
       }

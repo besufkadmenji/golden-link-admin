@@ -214,6 +214,11 @@
       "view": "View",
       "edit": "Edit",
       "delete": "Delete"
+    },
+    "messages": {
+      "activateSuccess": "Subscriber activated successfully.",
+      "deactivateSuccess": "Subscriber deactivated successfully.",
+      "deleteSuccess": "Subscriber deleted successfully."
     }
   },
   "subscription_request_detail_page": {
@@ -557,5 +562,85 @@
     "placeholders": {
       "deactivation_reason": "Enter reason for deactivation"
     }
+  },
+  "add_new_subscriber_form": {
+    "title": "Add New Subscriber",
+    "buttons": {
+      "save": "Save"
+    },
+    "sections": {
+      "subscriber_information": "Subscriber Information",
+      "login_information": "Login Information",
+      "tax_registration_information": "Tax Registration Information"
+    },
+    "labels": {
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "commercial_registration_number": "Commercial Registration Number",
+      "tax_number": "Tax Number",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "organization_name": "Organization Name"
+    },
+    "placeholders": {
+      "name": "Enter subscriber name",
+      "phone_number": "Enter phone number",
+      "email": "Enter email",
+      "type": "Enter type",
+      "commercial_registration_number": "Enter commercial registration number",
+      "tax_number": "Enter tax number",
+      "password": "Enter password",
+      "confirm_password": "Enter confirm password",
+      "organization_name": "Enter organization name"
+    },
+    "image": {
+      "attach": "Attach Commercial Registration Image",
+      "desc": "Upload a commercial registration image in Png format",
+      "upload_commercial_registration_document": "Upload commercial registration document",
+      "upload_tax_document": "Upload tax document",
+      "desc_tax": "Upload a tax document image in Png format"
+    },
+    "messages": {
+      "createSuccess": "Subscriber created successfully."
+    }
+  },
+  "edit_subscriber_form": {
+    "title": "Edit Subscriber",
+    "buttons": {
+      "save": "Save"
+    },
+    "sections": {
+      "subscriber_information": "Subscriber Information",
+      "login_information": "Login Information",
+      "tax_registration_information": "Tax Registration Information"
+    },
+    "labels": {
+      "name": "Name",
+      "phone_number": "Phone Number",
+      "email": "Email",
+      "type": "Type",
+      "commercial_registration_number": "Commercial Registration Number",
+      "tax_number": "Tax Number",
+      "password": "Password",
+      "confirm_password": "Confirm Password"
+    },
+    "placeholders": {
+      "name": "Enter subscriber name",
+      "phone_number": "Enter phone number"
+    },
+    "image": {
+      "attach": "Attach Image",
+      "desc": "Upload a profile image for the subscriber",
+      "upload_commercial_registration_document": "Upload commercial registration document",
+      "upload_tax_document": "Upload tax document"
+    },
+    "messages": {
+      "updateSuccess": "Subscriber updated successfully."
+    }
+  },
+  "view_subscriber": {
+    "title": "Subscriber data"
   }
 }

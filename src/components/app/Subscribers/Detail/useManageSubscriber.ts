@@ -22,12 +22,12 @@ export const useManageSubscriber = () => {
     try {
       const response = await SubscriberService.activateSubscriber(id, lang);
       if (response) {
-        showSuccessMessage(dict.system_managers_page.messages.activateSuccess);
+        showSuccessMessage(dict.subscribers_page.messages.activateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["subscribers"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["subscribers", id],
+          queryKey: ["subscriber", id],
         });
       }
     } catch (error) {
@@ -52,14 +52,12 @@ export const useManageSubscriber = () => {
         lang,
       );
       if (response) {
-        showSuccessMessage(
-          dict.system_managers_page.messages.deactivateSuccess,
-        );
+        showSuccessMessage(dict.subscribers_page.messages.deactivateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["subscribers"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["subscribers", id],
+          queryKey: ["subscriber", id],
         });
       }
     } catch (error) {

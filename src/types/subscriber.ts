@@ -68,3 +68,18 @@ export interface CreateSubscriberDto {
   commercialRegistrationImagePath?: File;
   taxRegistrationImagePath?: File;
 }
+
+export interface UpdateSubscriberDto {
+  fullName: string;
+  organizationName: string;
+  email: string;
+  countryCode: string;
+  phoneNumber: string;
+  commercialRegistrationNumber: string;
+  taxRegistrationNumber: string;
+  type: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
+  password?: string;
+  confirmPassword?: string;
+  commercialRegistrationImagePath?: File;
+  taxRegistrationImagePath?: File;
+}
