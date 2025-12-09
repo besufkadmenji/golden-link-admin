@@ -750,7 +750,26 @@
       "desc": "ارفع صورة ملف شخصي بصيغة Png"
     },
     "messages": {
-      "updateSuccess": "تم تحديث الإعدادات بنجاح."
+      "updateSuccess": "تم تحديث الإعدادات بنجاح.",
+      "passwordChangeSuccess": "تم تغيير كلمة المرور بنجاح."
+    }
+  },
+  "change_password_form": {
+    "title": "تغيير كلمة المرور",
+    "description": "هل تريد تغيير كلمة المرور؟",
+    "labels": {
+      "current_password": "كلمة المرور الحالية",
+      "new_password": "كلمة المرور الجديدة",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "placeholders": {
+      "current_password": "ادخل كلمة المرور الحالية",
+      "new_password": "ادخل كلمة المرور الجديدة",
+      "confirm_password": "ادخل تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "submit": "تعطيل"
     }
   }
 }

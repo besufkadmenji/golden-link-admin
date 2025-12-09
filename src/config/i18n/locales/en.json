@@ -755,7 +755,26 @@
       "desc": "Upload a profile image in Png format"
     },
     "messages": {
-      "updateSuccess": "Settings updated successfully."
+      "updateSuccess": "Settings updated successfully.",
+      "passwordChangeSuccess": "Password changed successfully."
+    }
+  },
+  "change_password_form": {
+    "title": "Change Password",
+    "description": "Do you want to change your password?",
+    "labels": {
+      "current_password": "Current Password",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password"
+    },
+    "placeholders": {
+      "current_password": "Enter current password",
+      "new_password": "Enter new password",
+      "confirm_password": "Confirm new password"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "submit": "Submit"
     }
   }
 }
