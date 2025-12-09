@@ -88,13 +88,22 @@
       "ACTIVE": "Active",
       "INACTIVE": "Inactive",
       "SUSPENDED": "Suspended",
-      "PENDING_APPROVAL": "Pending Approval"
+      "PENDING_APPROVAL": "Pending Approval",
+      "NOT_REPLIED": "Not Replied",
+      "REPLIED": "Replied"
     },
 
     "roles": {
       "ADMINISTRATOR": "Administrator",
       "SUPER_ADMIN": "Super Admin",
       "CUSTOM": "Custom"
+    },
+    "message_types": {
+      "REQUEST": "Request",
+      "SUGGESTION": "Suggestion",
+      "INQUIRY": "Inquiry",
+      "COMPLAINT": "Complaint",
+      "OTHER": "Other"
     }
   },
   "auth": {
@@ -268,7 +277,8 @@
     "subscriberRequests": "No subscription requests available",
     "subscribers": "No subscribers available",
     "admins": "No admins available",
-    "notifications": "No notifications available"
+    "notifications": "No notifications available",
+    "messages": "No messages available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -775,6 +785,46 @@
     "buttons": {
       "cancel": "Cancel",
       "submit": "Submit"
+    }
+  },
+  "contact_messages_page": {
+    "title": "Contact Us Messages Management",
+    "total_messages": "Total Contact Messages Count",
+    "total_count": "messages",
+    "buttons": {
+      "delete": "Delete"
+    },
+    "search_placeholder": "Search",
+    "filter_placeholder": "Status",
+    "type_placeholder": "Message Type",
+    "table_headers": {
+      "checkbox": "",
+      "customer_name": "Customer Name",
+      "phone_number": "Mobile Number",
+      "email": "Email",
+      "message_date": "Message Date",
+      "message_type": "Message Type",
+      "status": "Status",
+      "action": "Action"
+    },
+    "message_types": {
+      "REQUEST": "Request",
+      "SUGGESTION": "Suggestion",
+      "INQUIRY": "Inquiry",
+      "COMPLAINT": "Complaint",
+      "OTHER": "Other"
+    },
+    "status": {
+      "NOT_REPLIED": "Not Replied",
+      "REPLIED": "Replied"
+    },
+    "actions": {
+      "view": "View",
+      "reply": "Reply",
+      "delete": "Delete"
+    },
+    "messages": {
+      "deleteSuccess": "Message deleted successfully."
     }
   }
 }

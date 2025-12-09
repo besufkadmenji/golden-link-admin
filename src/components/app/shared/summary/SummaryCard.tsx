@@ -2,6 +2,7 @@ import SubscriberRequestsIcon from "@/assets/icons/app/summary/subscriber.reques
 import SubscribersIcon from "@/assets/icons/app/summary/subscribers.svg";
 import AdminsIcon from "@/assets/icons/app/summary/admins.svg";
 import NotificationsIcon from "@/assets/icons/app/summary/notifications.svg";
+import MessagesIcon from "@/assets/icons/app/summary/messages.svg";
 import { Dictionary } from "@/config/i18n/types";
 import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
@@ -10,6 +11,7 @@ export enum SummaryCardType {
   SUBSCRIBERS = "SUBSCRIBERS",
   ADMINS = "ADMINS",
   NOTIFICATIONS = "NOTIFICATIONS",
+  MESSAGES = "MESSAGES",
 }
 
 const iconMap = {
@@ -19,6 +21,7 @@ const iconMap = {
   [SummaryCardType.SUBSCRIBERS]: <SubscribersIcon className="size-8.5" />,
   [SummaryCardType.ADMINS]: <AdminsIcon className="size-8.5" />,
   [SummaryCardType.NOTIFICATIONS]: <NotificationsIcon className="size-8.5" />,
+  [SummaryCardType.MESSAGES]: <MessagesIcon className="size-8.5" />,
 };
 
 export type SummaryCardProps = {
@@ -33,6 +36,7 @@ const labelMap = (dict: Dictionary) => ({
   [SummaryCardType.SUBSCRIBERS]: dict.subscribers_page.total_subscribers,
   [SummaryCardType.ADMINS]: dict.system_managers_page.total_managers,
   [SummaryCardType.NOTIFICATIONS]: dict.notifications_page.total_notifications,
+  [SummaryCardType.MESSAGES]: dict.contact_messages_page.total_messages,
 });
 
 const subLabelMap = (dict: Dictionary) => ({
@@ -41,6 +45,7 @@ const subLabelMap = (dict: Dictionary) => ({
   [SummaryCardType.SUBSCRIBERS]: dict.subscribers_page.total_count,
   [SummaryCardType.ADMINS]: dict.system_managers_page.total_count,
   [SummaryCardType.NOTIFICATIONS]: dict.notifications_page.total_count,
+  [SummaryCardType.MESSAGES]: dict.contact_messages_page.total_count,
 });
 
 export const SummaryCard = ({

@@ -86,13 +86,22 @@
       "ACTIVE": "نشط",
       "INACTIVE": "غير نشط",
       "SUSPENDED": "موقوف",
-      "PENDING_APPROVAL": "في انتظار الموافقة"
+      "PENDING_APPROVAL": "في انتظار الموافقة",
+      "NOT_REPLIED": "لم يتم الرد",
+      "REPLIED": "تم الرد"
     },
 
     "roles": {
       "ADMINISTRATOR": "مدير",
       "SUPER_ADMIN": "مسؤول فائق",
       "CUSTOM": "مخصص"
+    },
+    "message_types": {
+      "REQUEST": "طلب",
+      "SUGGESTION": "اقتراح",
+      "INQUIRY": "استفسار",
+      "COMPLAINT": "شكوى",
+      "OTHER": "أخرى"
     }
   },
   "auth": {
@@ -266,7 +275,8 @@
     "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
     "subscribers": "لا يوجد مشتركون متاحون",
     "admins": "لا يوجد مستخدمون متاحون",
-    "notifications": "لا توجد إشعارات متاحة"
+    "notifications": "لا توجد إشعارات متاحة",
+    "messages": "لا توجد رسائل متاحة"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -770,6 +780,46 @@
     "buttons": {
       "cancel": "تراجع",
       "submit": "تعطيل"
+    }
+  },
+  "contact_messages_page": {
+    "title": "إدارة رسائل تواصل معنا",
+    "total_messages": "إجمالي عدد رسائل تواصل معنا",
+    "total_count": "رسالة",
+    "buttons": {
+      "delete": "حذف"
+    },
+    "search_placeholder": "البحث",
+    "filter_placeholder": "الحالة",
+    "type_placeholder": "نوع الرسالة",
+    "table_headers": {
+      "checkbox": "",
+      "customer_name": "اسم العميل",
+      "phone_number": "رقم الجوال",
+      "email": "البريد الإلكتروني",
+      "message_date": "تاريخ الرسالة",
+      "message_type": "نوع الرسالة",
+      "status": "حالة الرسالة",
+      "action": "الإجراء"
+    },
+    "message_types": {
+      "REQUEST": "طلب",
+      "SUGGESTION": "اقتراح",
+      "INQUIRY": "استفسار",
+      "COMPLAINT": "شكوى",
+      "OTHER": "أخرى"
+    },
+    "status": {
+      "NOT_REPLIED": "لم يتم الرد",
+      "REPLIED": "تم الرد"
+    },
+    "actions": {
+      "view": "عرض",
+      "reply": "رد",
+      "delete": "حذف"
+    },
+    "messages": {
+      "deleteSuccess": "تم حذف الرسالة بنجاح."
     }
   }
 }
