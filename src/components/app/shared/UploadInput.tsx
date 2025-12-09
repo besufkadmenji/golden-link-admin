@@ -3,6 +3,7 @@ import UploadButtonIcon from "@/assets/icons/app/upload.svg";
 import { SelectedFile } from "@/components/app/shared/SelectedFile";
 import { useDict } from "@/hooks/useDict";
 import Dropzone, { Accept } from "react-dropzone";
+import { twMerge } from "tailwind-merge";
 
 export const UploadInput = ({
   label,
@@ -12,6 +13,7 @@ export const UploadInput = ({
   errorMessage,
   accept,
   initUrl,
+  className,
 }: {
   label: string;
   desc: string;
@@ -20,11 +22,12 @@ export const UploadInput = ({
   errorMessage?: string;
   accept?: Accept;
   initUrl?: string;
+  className?: string;
 }) => {
   const hasError = Boolean(errorMessage);
   const dict = useDict();
   return (
-    <div className="grid gap-4">
+    <div className={twMerge("grid gap-4", className)}>
       <Dropzone
         onDrop={(acceptedFiles) => {
           if (acceptedFiles.length > 0) {

@@ -13,6 +13,8 @@ import {
   VerifyResetCodeData,
   ResetPasswordDto,
   ResetPasswordResponse,
+  ChangePasswordDto,
+  ChangePasswordResponse,
 } from "@/types/admin.auth";
 
 export interface AdminProfileResponse {
@@ -191,6 +193,41 @@ export class AuthService {
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(error, "Failed to reset password."),
+      );
+    }
+  }
+
+  /**
+   * Change password endpoint
+   * POST /admin/auth/change-password
+   * @param data - Current password, new password, and confirm password
+   * @param lang - Language preference (default: "en")
+   * @returns true on successful password change
+   */
+  static async changePassword(
+    data: ChangePasswordDto,
+    lang: string = "en",
+  ): Promise<boolean> {
+    try {
+      const response = await axiosClient.post<ChangePasswordResponse>(
+        "/admin/auth/change-password",
+        data,
+        {
+          headers: {
+            "Accept-Language": lang,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        return true;
+      }
+
+      unwrapAxiosResponse<ChangePasswordResponse>(response);
+      return false;
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(error, "Failed to change password."),
       );
     }
   }

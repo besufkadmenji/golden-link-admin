@@ -4,16 +4,11 @@ import {
   User,
   UsersListResponse,
   GetUsersParams,
-  CreateUserDto,
-  UpdateUserDto,
+  CreateUserWithFileDto,
+  UpdateUserWithFileDto,
   DeactivateUserDto,
   UserResponse,
 } from "@/types/user";
-
-export interface CreateUserWithFileDto extends CreateUserDto {
-  confirmPassword: string;
-  profileImage?: File;
-}
 
 export class UserService {
   /**
@@ -101,16 +96,43 @@ export class UserService {
   }
 
   /**
-   * Update user information
+   * Update user information with FormData support for file upload
    */
   static async updateUser(
     id: string,
-    data: UpdateUserDto,
+    data: UpdateUserWithFileDto,
     lang?: string,
   ): Promise<UserResponse | null> {
     try {
-      const response = await axiosClient.put(`/users/${id}`, data, {
-        headers: lang ? { "Accept-Language": lang } : {},
+      const formData = new FormData();
+
+      // Append file if provided
+      if (data.profileImage) {
+        formData.append("profileImage", data.profileImage);
+      }
+
+      // Append form fields
+      if (data.fullName) {
+        formData.append("fullName", data.fullName);
+      }
+      if (data.email) {
+        formData.append("email", data.email);
+      }
+      if (data.countryCode) {
+        formData.append("countryCode", data.countryCode);
+      }
+      if (data.phoneNumber) {
+        formData.append("phoneNumber", data.phoneNumber);
+      }
+      if (data.status) {
+        formData.append("status", data.status);
+      }
+
+      const response = await axiosClient.put(`/users/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          ...(lang ? { "Accept-Language": lang } : {}),
+        },
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -118,7 +140,7 @@ export class UserService {
         "Error updating user:",
         extractAxiosErrorMessage(error, "Failed to update user"),
       );
-      return null;
+      throw error;
     }
   }
 

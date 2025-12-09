@@ -82,18 +82,24 @@ export interface ResetPasswordResponse {
   data: null;
 }
 
+export interface ChangePasswordDto {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+export interface ChangePasswordResponse {
+  status: "success" | "error";
+  statusCode: number;
+  message: string;
+  data: null;
+}
+
 export interface AdminAuthPayload {
   id: string;
-  email: string;
-  roleName: string;
-  permissionType: "ADMINISTRATOR" | "MODERATOR" | "VIEWER";
-  userType: "PLATFORM" | "ORGANIZATION";
-  status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
   fullName: string;
-  organizationName: string;
-  jti: string;
-  iat: number;
-  exp: number;
-  aud: string;
-  iss: string;
+  email: string;
+  countryCode: string;
+  phoneNumber: string;
+  profileImagePath: string | null;
 }

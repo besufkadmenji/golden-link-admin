@@ -37,7 +37,5 @@ export interface GetSettingsParams {
 }
 
 export interface UpdateSettingDto {
-  keyAr: string;
   value: string;
-  isActive: boolean;
 }

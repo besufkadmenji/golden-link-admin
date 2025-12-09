@@ -5,6 +5,7 @@ import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
 import { useDict } from "@/hooks/useDict";
 export enum SaveButtonType {
   Admin,
+  Settings,
 }
 export const SaveButton = ({
   type,
@@ -20,6 +21,7 @@ export const SaveButton = ({
   const dict = useDict();
   const labelMap = {
     [SaveButtonType.Admin]: dict.common.actions.save,
+    [SaveButtonType.Settings]: dict.common.actions.save,
   };
   return (
     <PrimaryButton

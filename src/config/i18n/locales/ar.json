@@ -8,6 +8,7 @@
     "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
     "contactUsSuccessMessage": "تم إرسال رسالتك بنجاح. سنعود إليك قريبًا.",
     "warehouseOwner": "صاحب مستودع",
+    "notifications": "الاشعارات",
     "supplier": "مورد",
     "actions": {
       "cancel": "الغاء",
@@ -713,6 +714,43 @@
       "delivered": "مُسلم",
       "pending": "قيد الانتظار",
       "failed": "فشل"
+    }
+  },
+  "settings_page": {
+    "title": "الإعدادات",
+    "general_settings": "الإعدادات العامة",
+    "personal_profile": "الملف الشخصي",
+    "sections": {
+      "general_settings": "الإعدادات العامة",
+      "personal_profile": "الملف الشخصي"
+    },
+    "labels": {
+      "trial_period_duration": "مدة الفترة التجريبية",
+      "full_name": "اسم المستخدم",
+      "account_number": "رقم الحساب",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirm_password": "تأكيد كلمة المرور",
+      "profile_image": "صورة الملف الشخصي",
+      "vat_rate":"نسبة ضريبة القيمة المضافة"
+    },
+    "placeholders": {
+      "full_name": "ادخل اسم المستخدم",
+      "account_number": "ادخل رقم الحساب",
+      "email": "ادخل البريد الإلكتروني",
+      "phone_number": "ادخل رقم الهاتف",
+      "password": "ادخل كلمة المرور",
+      "confirm_password": "ادخل تأكيد كلمة المرور"
+    },
+    "buttons": {
+      "upload": "تحميل"
+    },
+    "image": {
+      "attach": "ارفق صورة الملف الشخصي",
+      "desc": "ارفع صورة ملف شخصي بصيغة Png"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الإعدادات بنجاح."
     }
   }
 }

@@ -1,6 +1,7 @@
-import { NotificationsResponse } from "@/types/notification";
+import { MyNotificationsResponse } from "@/types/me.notification";
 import { ApiResponse } from "@/types/response";
 import axiosClient from "@/utils/axios.client";
+import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 
 export class NotificationReceivedService {
   /**
@@ -12,14 +13,18 @@ export class NotificationReceivedService {
   static async getMyNotifications(
     page: number = 1,
     limit: number = 10,
-  ): Promise<NotificationsResponse> {
+  ): Promise<MyNotificationsResponse | null> {
     try {
-      const response = await axiosClient.get<NotificationsResponse>(
+      const response = await axiosClient.get<MyNotificationsResponse>(
         `/notifications/me?page=${page}&limit=${limit}`,
       );
-      return response.data;
+      return unwrapAxiosResponse(response.data);
     } catch (error) {
-      throw error;
+      console.error(
+        "Error fetching notifications:",
+        extractAxiosErrorMessage(error, "Failed to fetch notifications"),
+      );
+      return null;
     }
   }
 
@@ -27,16 +32,23 @@ export class NotificationReceivedService {
    * Get unread notification count for the current user
    * @returns Promise with unread count
    */
-  static async getUnreadNotificationCount(): Promise<
-    ApiResponse<{ unreadCount: number }>
-  > {
+  static async getUnreadNotificationCount(): Promise<ApiResponse<{
+    unreadCount: number;
+  }> | null> {
     try {
       const response = await axiosClient.get<
         ApiResponse<{ unreadCount: number }>
       >("/notifications/me/unread-count");
-      return response.data;
+      return unwrapAxiosResponse(response);
     } catch (error) {
-      throw error;
+      console.error(
+        "Error fetching unread count:",
+        extractAxiosErrorMessage(
+          error,
+          "Failed to fetch unread notification count",
+        ),
+      );
+      return null;
     }
   }
 }

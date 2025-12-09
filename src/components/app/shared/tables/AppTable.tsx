@@ -197,7 +197,7 @@ const AppPagination = ({ pagination }: { pagination: PaginationType }) => {
           <ChevronRightIcon className="size-5 rtl:rotate-180" />
         </button>
       ) : (
-        <></>
+        <div key={"next"} />
       );
     }
 
@@ -214,7 +214,7 @@ const AppPagination = ({ pagination }: { pagination: PaginationType }) => {
           <ChevronLeftIcon className="size-5 rtl:rotate-180" />
         </button>
       ) : (
-        <></>
+        <div key={"prev"} />
       );
     }
 

@@ -53,11 +53,21 @@ export interface CreateUserDto {
   status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
 }
 
+export interface CreateUserWithFileDto extends CreateUserDto {
+  confirmPassword: string;
+  profileImage?: File;
+}
+
 export interface UpdateUserDto {
   fullName?: string;
   phoneNumber?: string;
+  email?: string;
   countryCode?: string;
   status?: string;
+}
+
+export interface UpdateUserWithFileDto extends UpdateUserDto {
+  profileImage?: File;
 }
 
 export interface DeactivateUserDto {

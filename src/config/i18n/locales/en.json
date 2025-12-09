@@ -8,6 +8,7 @@
     "errorOccurred": "An error occurred. Please try again.",
     "contactUsSuccessMessage": "Your message has been sent successfully. We will get back to you soon.",
     "warehouseOwner": "Warehouse Owner",
+    "notifications": "Notifications",
     "supplier": "Supplier",
     "actions": {
       "cancel": "Cancel",
@@ -718,6 +719,43 @@
       "delivered": "Delivered",
       "pending": "Pending",
       "failed": "Failed"
+    }
+  },
+  "settings_page": {
+    "title": "Settings",
+    "general_settings": "General Settings",
+    "personal_profile": "Personal Profile",
+    "sections": {
+      "general_settings": "General Settings",
+      "personal_profile": "Personal Profile"
+    },
+    "labels": {
+      "trial_period_duration": "Trial Period Duration",
+      "full_name": "Full Name",
+      "account_number": "Account Number",
+      "email": "Email",
+      "phone_number": "Phone Number",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "profile_image": "Profile Image",
+      "vat_rate": "VAT rate"
+    },
+    "placeholders": {
+      "full_name": "Enter full name",
+      "account_number": "Enter account number",
+      "email": "Enter email",
+      "password": "Enter password",
+      "confirm_password": "Confirm password"
+    },
+    "buttons": {
+      "upload": "Upload"
+    },
+    "image": {
+      "attach": "Upload Profile Image",
+      "desc": "Upload a profile image in Png format"
+    },
+    "messages": {
+      "updateSuccess": "Settings updated successfully."
     }
   }
 }

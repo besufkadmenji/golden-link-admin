@@ -27,6 +27,24 @@ export class SettingService {
     }
   }
 
+  static async getSettingByKey(
+    key: string,
+    lang?: string,
+  ): Promise<Setting | null> {
+    try {
+      const response = await axiosClient.get<Setting>(`/settings/key/${key}`, {
+        headers: lang ? { "Accept-Language": lang } : {},
+      });
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      console.error(
+        "Error fetching setting:",
+        extractAxiosErrorMessage(error, "Failed to fetch setting"),
+      );
+      return null;
+    }
+  }
+
   static async updateSetting(
     key: string,
     dto: UpdateSettingDto,
@@ -34,7 +52,7 @@ export class SettingService {
   ): Promise<Setting | null> {
     try {
       const response = await axiosClient.put<Setting>(
-        `/settings/${key}`,
+        `/settings/${key}/key`,
         dto,
         {
           headers: lang ? { "Accept-Language": lang } : {},
@@ -46,7 +64,7 @@ export class SettingService {
         "Error updating setting:",
         extractAxiosErrorMessage(error, "Failed to update setting"),
       );
-      return null;
+      throw error;
     }
   }
 }
