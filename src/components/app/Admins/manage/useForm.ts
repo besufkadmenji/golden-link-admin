@@ -1,6 +1,5 @@
 import { useUserPermission } from "@/hooks/usePermissions";
-import { CreateUserWithFileDto } from "@/services/user.service";
-import { User } from "@/types/user";
+import { CreateUserWithFileDto, User } from "@/types/user";
 import { useEffect } from "react";
 import { create } from "zustand";
 
