@@ -97,7 +97,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
               label: dict.navigation.contact_admin,
             },
             {
-              href: "/content/about",
+              href: "/content/about-platform",
               label: dict.navigation.about,
             },
             {

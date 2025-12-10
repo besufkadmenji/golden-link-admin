@@ -897,5 +897,53 @@
     "messages": {
       "updateSuccess": "Settings updated successfully."
     }
+  },
+  "about_platform": {
+    "title": "About the Platform",
+    "section_title": "About the Platform",
+    "labels": {
+      "content": "Text Content"
+    },
+    "placeholders": {
+      "content": "Enter text content..."
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "messages": {
+      "updateSuccess": "Platform information updated successfully."
+    }
+  },
+  "terms_conditions": {
+    "title": "Terms and Conditions Policy",
+    "section_title": "Terms and Conditions Policy",
+    "labels": {
+      "content": "Text Content"
+    },
+    "placeholders": {
+      "content": "Enter text content..."
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "messages": {
+      "updateSuccess": "Terms and conditions updated successfully."
+    }
+  },
+  "privacy_policy": {
+    "title": "Privacy Policy",
+    "section_title": "Privacy Policy",
+    "labels": {
+      "content": "Text Content"
+    },
+    "placeholders": {
+      "content": "Enter text content..."
+    },
+    "buttons": {
+      "save": "Save"
+    },
+    "messages": {
+      "updateSuccess": "Privacy policy updated successfully."
+    }
   }
 }

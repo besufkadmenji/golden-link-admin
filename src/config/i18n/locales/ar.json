@@ -892,5 +892,53 @@
     "messages": {
       "updateSuccess": "تم تحديث الإعدادات بنجاح."
     }
+  },
+  "about_platform": {
+    "title": "عن المنصة",
+    "section_title": "عن المنصة",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث بيانات المنصة بنجاح."
+    }
+  },
+  "terms_conditions": {
+    "title": "سياسة الشروط والأحكام",
+    "section_title": "سياسة الشروط والأحكام",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الشروط والأحكام بنجاح."
+    }
+  },
+  "privacy_policy": {
+    "title": "سياسة الخصوصية",
+    "section_title": "سياسة الخصوصية",
+    "labels": {
+      "content": "محتوى النص"
+    },
+    "placeholders": {
+      "content": "ادخل محتوى النص..."
+    },
+    "buttons": {
+      "save": "حفظ"
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث سياسة الخصوصية بنجاح."
+    }
   }
 }
