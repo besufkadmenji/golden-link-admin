@@ -857,5 +857,45 @@
     "messages": {
       "updateSuccess": "Message replied successfully."
     }
+  },
+  "contact_settings": {
+    "title": "Contact Us",
+    "contact_info": {
+      "title": "Contact Information",
+      "add": "Add",
+      "labels": {
+        "phone_number": "Contact Phone Number",
+        "whatsapp": "WhatsApp Contact",
+        "email": "Email"
+      },
+      "placeholders": {
+        "phone_number": "Enter phone number",
+        "whatsapp": "Enter WhatsApp number",
+        "email": "Enter email address"
+      }
+    },
+    "social_media": {
+      "title": "Social Media Sites",
+      "description": "Add social media sites and their icons",
+      "section_title": "Social Media Site",
+      "labels": {
+        "platform_name": "Platform Name",
+        "platform_link": "Platform Link"
+      },
+      "placeholders": {
+        "platform_link": "Enter site link"
+      },
+      "platforms": {
+        "facebook": "Facebook",
+        "instagram": "Instagram",
+        "snapchat": "Snapchat"
+      },
+      "buttons": {
+        "add": "Add"
+      }
+    },
+    "messages": {
+      "updateSuccess": "Settings updated successfully."
+    }
   }
 }

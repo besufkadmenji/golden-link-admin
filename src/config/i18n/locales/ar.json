@@ -852,5 +852,45 @@
     "messages": {
       "updateSuccess": "تم الرد على الرسالة بنجاح."
     }
+  },
+  "contact_settings": {
+    "title": "التواصل مع الإدارة",
+    "contact_info": {
+      "title": "معلومات التواصل",
+      "add": "إضافة",
+      "labels": {
+        "phone_number": "رقم جوال التواصل",
+        "whatsapp": "واتساب التواصل",
+        "email": "البريد الالكتروني"
+      },
+      "placeholders": {
+        "phone_number": "ادخل رقم الجوال",
+        "whatsapp": "ادخل رقم واتساب",
+        "email": "ادخل البريد الالكتروني"
+      }
+    },
+    "social_media": {
+      "title": "مواقع التواصل الاجتماعي",
+      "description": "قم بإضافة مواقع التواصل الاجتماعي وايقونتها",
+      "section_title": "موقع التواصل الاجتماعي",
+      "labels": {
+        "platform_name": "اسم المنصة",
+        "platform_link": "رابط المنصة"
+      },
+      "placeholders": {
+        "platform_link": "ادخل رابط الموقع"
+      },
+      "platforms": {
+        "facebook": "فيسبوك",
+        "instagram": "انستجرام",
+        "snapchat": "سناب شات"
+      },
+      "buttons": {
+        "add": "اضف"
+      }
+    },
+    "messages": {
+      "updateSuccess": "تم تحديث الإعدادات بنجاح."
+    }
   }
 }

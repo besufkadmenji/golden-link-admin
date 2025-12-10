@@ -22,7 +22,7 @@ export const FormTitle = ({
     <div className="flex items-center justify-between">
       <p
         className={twMerge(
-          "text-secondary dark:text-dark-white flex items-center gap-2 text-base leading-6 font-semibold tracking-tight",
+          "text-secondary dark:text-dark-white flex items-center gap-2 text-lg leading-6 font-bold tracking-tight",
           className,
         )}
       >

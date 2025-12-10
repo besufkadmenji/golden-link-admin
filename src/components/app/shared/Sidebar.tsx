@@ -93,7 +93,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
           label={dict.navigation.website_content}
           options={[
             {
-              href: "/content/requests",
+              href: "/content/contact-management",
               label: dict.navigation.contact_admin,
             },
             {

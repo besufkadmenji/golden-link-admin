@@ -2,7 +2,7 @@ export interface Setting {
   id: string;
   key: string;
   keyAr: string;
-  value: string;
+  value: string | object;
   type: string;
   description: string;
   platform: string;
@@ -37,5 +37,5 @@ export interface GetSettingsParams {
 }
 
 export interface UpdateSettingDto {
-  value: string;
+  value: string | object;
 }
