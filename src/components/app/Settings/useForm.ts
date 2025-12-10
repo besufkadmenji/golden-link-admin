@@ -56,10 +56,10 @@ export const useManageSettingsForm = () => {
 
   useEffect(() => {
     if (trialPeriodDurationData) {
-      setTrialPeriodDuration(trialPeriodDurationData.value);
+      setTrialPeriodDuration(trialPeriodDurationData.value as string);
     }
     if (vatRateData) {
-      setVatRate(vatRateData.value);
+      setVatRate(vatRateData.value as string);
     }
     if (me) {
       setUpdateProfile({
