@@ -7,6 +7,7 @@ export enum AddButtonType {
   Admin,
   Subscriber,
   Notification,
+  Client,
 }
 export const AddButton = ({
   type,
@@ -25,6 +26,7 @@ export const AddButton = ({
     [AddButtonType.Subscriber]: dict.subscribers_page.buttons.add_subscriber,
     [AddButtonType.Notification]:
       dict.notifications_page.buttons.add_notification,
+    [AddButtonType.Client]: dict.clients_management.buttons.add_client,
   };
   return (
     <PrimaryButton

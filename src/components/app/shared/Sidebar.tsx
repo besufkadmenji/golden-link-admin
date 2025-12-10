@@ -79,7 +79,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
           label={dict.navigation.reports}
         />
         <OptionLink
-          href="/customers"
+          href="/clients"
           icon={<CustomersIcon className="size-5" />}
           label={dict.navigation.clients}
         />

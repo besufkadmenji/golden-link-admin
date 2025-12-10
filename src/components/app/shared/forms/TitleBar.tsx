@@ -31,6 +31,12 @@ export const TitleBar = ({
           : dict.view_admin.viewMainCategory.title,
     [FormType.Notifications]: dict.notifications_page.title,
     [FormType.Message]: dict.contact_messages_page.title,
+    [FormType.Clients]:
+      action === "add"
+        ? dict.clients_management.form.title_add
+        : action === "edit"
+          ? dict.clients_management.form.title_edit
+          : dict.clients_management.detail.title,
   };
   const saveType = SaveButtonType.Admin;
 

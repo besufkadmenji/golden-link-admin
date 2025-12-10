@@ -276,7 +276,8 @@
     "subscribers": "لا يوجد مشتركون متاحون",
     "admins": "لا يوجد مستخدمون متاحون",
     "notifications": "لا توجد إشعارات متاحة",
-    "messages": "لا توجد رسائل متاحة"
+    "messages": "لا توجد رسائل متاحة",
+    "clients": "لا يوجد عملاء متاحون"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -500,6 +501,20 @@
       "deactivate": "تعطيل"
     }
   },
+  "activate_client_confirmation": {
+    "title": "تفعيل العميل",
+    "description": "هل تريد بتأكيد تفعيل هذا العميل؟"
+  },
+  "deactivate_client_reason_form": {
+    "title": "تعطيل العميل",
+    "description": "هل أنت تريد بتعطيل هذا العميل؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل..."
+    }
+  },
   "admin_detail_page": {
     "title": "بيانات المشترك",
     "sections": {
@@ -555,6 +570,10 @@
     "deleteSubscriber": {
       "title": "حذف المشترك",
       "message": "هل تريد بتأكيد حذف هذا المشترك؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteClient": {
+      "title": "حذف العميل",
+      "message": "هل تريد بتأكيد حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -939,6 +958,65 @@
     },
     "messages": {
       "updateSuccess": "تم تحديث سياسة الخصوصية بنجاح."
+    }
+  },
+  "clients_management": {
+    "title": "إدارة العملاء",
+    "total_clients": "إجمالي عدد العملاء",
+    "total_count": "عميل",
+    "buttons": {
+      "add_client": "إضافة عميل جديد",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "id": "المعرف",
+      "name": "اسم العميل",
+      "created_date": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إضافة العميل بنجاح.",
+      "updateSuccess": "تم تحديث بيانات العميل بنجاح.",
+      "deleteSuccess": "تم حذف العميل بنجاح.",
+      "activateSuccess": "تم تفعيل العميل بنجاح.",
+      "deactivateSuccess": "تم تعطيل العميل بنجاح."
+    },
+    "form": {
+      "title_add": "إضافة عميل جديد",
+      "title_edit": "تعديل عميل جديد",
+      "labels": {
+        "name": "اسم العميل",
+        "status": "الحالة",
+        "logo": "شعار العميل"
+      },
+      "placeholders": {
+        "name": "ادخل اسم العميل..."
+      },
+      "upload_info": {
+        "title": "ارفق صورة الشعار",
+        "description": "يحتوي على صيغ الصورة Png, Jpeg, Jpg",
+        "button": "تحميل"
+      }
+    },
+    "detail": {
+      "title": "معلومات العميل",
+      "labels": {
+        "name": "اسم العميل",
+        "status": "الحالة",
+        "created_date": "تاريخ الإنشاء",
+        "logo": "شعار العميل"
+      }
     }
   }
 }

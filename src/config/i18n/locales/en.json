@@ -278,7 +278,8 @@
     "subscribers": "No subscribers available",
     "admins": "No admins available",
     "notifications": "No notifications available",
-    "messages": "No messages available"
+    "messages": "No messages available",
+    "clients": "No clients available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -502,6 +503,20 @@
       "deactivate": "Deactivate"
     }
   },
+  "activate_client_confirmation": {
+    "title": "Activate Client",
+    "description": "Are you sure you want to activate this client?"
+  },
+  "deactivate_client_reason_form": {
+    "title": "Deactivate Client",
+    "description": "Are you sure you want to deactivate this client?",
+    "labels": {
+      "deactivation_reason": "Deactivation Reason"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter deactivation reason..."
+    }
+  },
   "admin_detail_page": {
     "title": "Admin Details",
     "sections": {
@@ -557,6 +572,10 @@
     "deleteSubscriber": {
       "title": "Delete Subscriber",
       "message": "Are you sure you want to delete this subscriber? This action cannot be undone."
+    },
+    "deleteClient": {
+      "title": "Delete Client",
+      "message": "Are you sure you want to delete this client? This action cannot be undone."
     },
     "confirm": "Delete",
     "cancel": "Cancel"
@@ -944,6 +963,65 @@
     },
     "messages": {
       "updateSuccess": "Privacy policy updated successfully."
+    }
+  },
+  "clients_management": {
+    "title": "Our Clients Management",
+    "total_clients": "Total Clients Count",
+    "total_count": "clients",
+    "buttons": {
+      "add_client": "Add New Client",
+      "save": "Save"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "id": "ID",
+      "name": "Client Name",
+      "created_date": "Created Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Client added successfully.",
+      "updateSuccess": "Client information updated successfully.",
+      "deleteSuccess": "Client deleted successfully.",
+      "activateSuccess": "Client activated successfully.",
+      "deactivateSuccess": "Client deactivated successfully."
+    },
+    "form": {
+      "title_add": "Add New Client",
+      "title_edit": "Edit Client",
+      "labels": {
+        "name": "Client Name",
+        "status": "Status",
+        "logo": "Client Logo"
+      },
+      "placeholders": {
+        "name": "Enter client name..."
+      },
+      "upload_info": {
+        "title": "Upload Logo Image",
+        "description": "Supported Formats: Png, Jpeg, Jpg",
+        "button": "Upload"
+      }
+    },
+    "detail": {
+      "title": "Client Information",
+      "labels": {
+        "name": "Client Name",
+        "status": "Status",
+        "created_date": "Created Date",
+        "logo": "Client Logo"
+      }
     }
   }
 }

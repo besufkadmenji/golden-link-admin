@@ -4,6 +4,7 @@ import { PrimaryButton } from "./button/PrimaryButton";
 export enum DeleteWarningType {
   ADMIN = "ADMIN",
   SUBSCRIBER = "SUBSCRIBER",
+  CLIENT = "CLIENT",
 }
 
 export const DeleteWarning = ({
@@ -24,11 +25,13 @@ export const DeleteWarning = ({
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.title,
     [DeleteWarningType.SUBSCRIBER]:
       dict.deleteConfirmation.deleteSubscriber.title,
+    [DeleteWarningType.CLIENT]: dict.deleteConfirmation.deleteClient.title,
   };
   const message = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.message,
     [DeleteWarningType.SUBSCRIBER]:
       dict.deleteConfirmation.deleteSubscriber.message,
+    [DeleteWarningType.CLIENT]: dict.deleteConfirmation.deleteClient.message,
   };
 
   return (
