@@ -826,5 +826,36 @@
     "messages": {
       "deleteSuccess": "Message deleted successfully."
     }
+  },
+  "contact_us_form": {
+    "title": "Message Details",
+    "sectionTitle": "Message Information",
+    "labels": {
+      "subscriber_name": "Subscriber Name",
+      "phone_number": "Phone Number",
+      "country_code": "Country Code",
+      "email": "Email",
+      "message_type": "Message Type",
+      "received_date": "Message Receipt Date",
+      "message_content": "Message Content",
+      "reply_content": "Reply to Message"
+    }
+  },
+  "reply_message_form": {
+    "title": "Reply to Message",
+    "description": "Do you want to reply to the message?",
+    "labels": {
+      "message_content": "Message Content"
+    },
+    "placeholders": {
+      "message_content": "Enter message content..."
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "send": "Send"
+    },
+    "messages": {
+      "updateSuccess": "Message replied successfully."
+    }
   }
 }

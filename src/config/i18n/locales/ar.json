@@ -742,7 +742,7 @@
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
       "profile_image": "صورة الملف الشخصي",
-      "vat_rate":"نسبة ضريبة القيمة المضافة"
+      "vat_rate": "نسبة ضريبة القيمة المضافة"
     },
     "placeholders": {
       "full_name": "ادخل اسم المستخدم",
@@ -820,6 +820,37 @@
     },
     "messages": {
       "deleteSuccess": "تم حذف الرسالة بنجاح."
+    }
+  },
+  "contact_us_form": {
+    "title": "عرض بيانات الرسالة",
+    "sectionTitle": "بيانات الرسالة",
+    "labels": {
+      "subscriber_name": "اسم المشترك",
+      "phone_number": "رقم الجوال",
+      "country_code": "رقم الدولة",
+      "email": "البريد الالكتروني",
+      "message_type": "نوع الرسالة",
+      "received_date": "تاريخ استلام الرسالة",
+      "message_content": "محتوي الرسالة",
+      "reply_content": "الرد على الرسالة"
+    }
+  },
+  "reply_message_form": {
+    "title": "الرد على الرسالة",
+    "description": "هل تريد الرد على الرسالة ؟",
+    "labels": {
+      "message_content": "محتوي الرسالة"
+    },
+    "placeholders": {
+      "message_content": "ادخل محتوي الرسالة ..."
+    },
+    "buttons": {
+      "cancel": "تراجع",
+      "send": "إرسال"
+    },
+    "messages": {
+      "updateSuccess": "تم الرد على الرسالة بنجاح."
     }
   }
 }

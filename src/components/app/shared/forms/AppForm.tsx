@@ -7,6 +7,7 @@ export enum FormType {
   Subscribers,
   Admins,
   Notifications,
+  Message
 }
 export const AppForm = ({
   type,
