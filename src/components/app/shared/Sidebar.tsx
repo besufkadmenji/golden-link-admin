@@ -26,9 +26,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import LogoIcon from "@/assets/icons/logo.horizontal.svg";
+import { useMe } from "@/hooks/useMe";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
+  const { logout } = useMe();
   return (
     <aside
       className={twMerge(
@@ -124,9 +126,10 @@ export const Sidebar = ({ className }: { className?: string }) => {
           label={dict.navigation.notifications}
         />
         <OptionLink
-          href="/logout"
+          href="#"
           icon={<LogoutIcon className="size-5" />}
           label={dict.navigation.logout}
+          onClick={logout}
         />
       </div>
     </aside>
@@ -137,10 +140,12 @@ const OptionLink = ({
   href,
   icon,
   label,
+  onClick,
 }: {
   href: string;
   icon: ReactNode;
   label: string;
+  onClick?: () => void;
 }) => {
   const lng = useLang();
   const pathname = usePathname();
@@ -148,6 +153,7 @@ const OptionLink = ({
   return (
     <AppLink
       href={href}
+      onClick={onClick}
       className={twMerge(
         "flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
         isActive
