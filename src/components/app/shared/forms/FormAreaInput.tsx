@@ -28,7 +28,7 @@ export const FormAreaInput = ({
   const arOptional = "after:content-['(اختياري)]";
   const optionalClass = lng === "ar" ? arOptional : enOptional;
   return (
-    <div dir={dir}>
+    <div dir={dir} className={className}>
       <Textarea
         labelPlacement="outside"
         label={label}

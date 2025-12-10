@@ -5,6 +5,7 @@ export enum DeleteWarningType {
   ADMIN = "ADMIN",
   SUBSCRIBER = "SUBSCRIBER",
   CLIENT = "CLIENT",
+  FEATURE = "FEATURE",
 }
 
 export const DeleteWarning = ({
@@ -26,12 +27,14 @@ export const DeleteWarning = ({
     [DeleteWarningType.SUBSCRIBER]:
       dict.deleteConfirmation.deleteSubscriber.title,
     [DeleteWarningType.CLIENT]: dict.deleteConfirmation.deleteClient.title,
+    [DeleteWarningType.FEATURE]: dict.deleteConfirmation.deleteFeature.title,
   };
   const message = {
     [DeleteWarningType.ADMIN]: dict.deleteConfirmation.deleteAdmin.message,
     [DeleteWarningType.SUBSCRIBER]:
       dict.deleteConfirmation.deleteSubscriber.message,
     [DeleteWarningType.CLIENT]: dict.deleteConfirmation.deleteClient.message,
+    [DeleteWarningType.FEATURE]: dict.deleteConfirmation.deleteFeature.message,
   };
 
   return (

@@ -9,6 +9,7 @@ export enum FormType {
   Notifications,
   Message,
   Clients,
+  Features,
 }
 export const AppForm = ({
   type,

@@ -24,6 +24,7 @@ export const FormInput = ({
   errorMessage,
   readOnly,
   type,
+  dir,
 }: {
   label: string;
   placeholder: string;
@@ -46,54 +47,57 @@ export const FormInput = ({
   errorMessage?: string;
   readOnly?: boolean;
   type?: HTMLInputTypeAttribute;
+  dir?: "rtl" | "ltr";
 }) => {
   const lng = useLang();
   const enOptional = "after:content-['(Optional)']";
   const arOptional = "after:content-['(اختياري)]";
   const optionalClass = lng === "ar" ? arOptional : enOptional;
   return (
-    <Input
-      labelPlacement="outside"
-      label={hideLabel ? null : label}
-      aria-label={label}
-      placeholder={placeholder}
-      value={value}
-      onValueChange={onChange}
-      variant="bordered"
-      size="lg"
-      className={twMerge(cairo.className, className)}
-      errorMessage={errorMessage}
-      isInvalid={!!errorMessage}
-      classNames={{
-        inputWrapper: cn(
-          "h-12 rounded-lg border  bg-gray-border  dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary",
-          classNames?.inputWrapper,
-          readOnly && "border-gray-border-alt!",
-        ),
-        label: twMerge(
-          "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
-          isOptional && optionalClass,
-          classNames?.label,
-        ),
-        input: twMerge(
-          "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
-          classNames?.input,
-        ),
-      }}
-      startContent={startContent}
-      endContent={endContent}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          onSubmit?.();
-        }
-      }}
-      isDisabled={isDisabled}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      readOnly={readOnly}
-      type={type}
-    />
+    <div dir={dir} className={className}>
+      <Input
+        labelPlacement="outside"
+        label={hideLabel ? null : label}
+        aria-label={label}
+        placeholder={placeholder}
+        value={value}
+        onValueChange={onChange}
+        variant="bordered"
+        size="lg"
+        className={twMerge(cairo.className, className)}
+        errorMessage={errorMessage}
+        isInvalid={!!errorMessage}
+        classNames={{
+          inputWrapper: cn(
+            "h-12 rounded-lg border  bg-gray-border  dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary",
+            classNames?.inputWrapper,
+            readOnly && "border-gray-border-alt!",
+          ),
+          label: twMerge(
+            "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
+            isOptional && optionalClass,
+            classNames?.label,
+          ),
+          input: twMerge(
+            "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
+            classNames?.input,
+          ),
+        }}
+        startContent={startContent}
+        endContent={endContent}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            onSubmit?.();
+          }
+        }}
+        isDisabled={isDisabled}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        readOnly={readOnly}
+        type={type}
+      />
+    </div>
   );
 };
 

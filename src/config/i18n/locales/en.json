@@ -279,7 +279,8 @@
     "admins": "No admins available",
     "notifications": "No notifications available",
     "messages": "No messages available",
-    "clients": "No clients available"
+    "clients": "No clients available",
+    "features": "No features available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -517,6 +518,20 @@
       "deactivation_reason": "Enter deactivation reason..."
     }
   },
+  "activate_feature_confirmation": {
+    "title": "Activate Feature",
+    "description": "Are you sure you want to activate this feature?"
+  },
+  "deactivate_feature_reason_form": {
+    "title": "Deactivate Feature",
+    "description": "Are you sure you want to deactivate this feature?",
+    "labels": {
+      "deactivation_reason": "Deactivation Reason"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter deactivation reason..."
+    }
+  },
   "admin_detail_page": {
     "title": "Admin Details",
     "sections": {
@@ -576,6 +591,10 @@
     "deleteClient": {
       "title": "Delete Client",
       "message": "Are you sure you want to delete this client? This action cannot be undone."
+    },
+    "deleteFeature": {
+      "title": "Delete Feature",
+      "message": "Are you sure you want to delete this feature? This action cannot be undone."
     },
     "confirm": "Delete",
     "cancel": "Cancel"
@@ -1021,6 +1040,77 @@
         "status": "Status",
         "created_date": "Created Date",
         "logo": "Client Logo"
+      }
+    }
+  },
+  "features_management": {
+    "title": "Platform Features Management",
+    "total_features": "Total Platform Features Count",
+    "total_count": "features",
+    "buttons": {
+      "add_feature": "Add New Feature +",
+      "save": "Save"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "id": "ID",
+      "name": "Feature Name",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "messages": {
+      "createSuccess": "Feature added successfully.",
+      "updateSuccess": "Feature information updated successfully.",
+      "deleteSuccess": "Feature deleted successfully.",
+      "activateSuccess": "Feature activated successfully.",
+      "deactivateSuccess": "Feature deactivated successfully."
+    },
+    "form": {
+      "title_add": "Add New Feature",
+      "title_edit": "Edit New Feature",
+      "title_view": "New Feature",
+      "labels": {
+        "name": "Feature Name",
+        "name_ar": "Feature Name",
+        "name_en": "Feature Name",
+        "status": "Status",
+        "description_ar": "Feature Description in Arabic",
+        "description_en": "Feature Description in English",
+        "photo": "Feature Photo"
+      },
+      "placeholders": {
+        "name": "Enter feature name...",
+        "description_ar": "Enter feature description...",
+        "description_en": "Enter feature description..."
+      },
+      "upload_info": {
+        "title": "Upload Feature Photo",
+        "description": "Supported Formats: Png, Jpeg, Jpg",
+        "button": "Upload"
+      },
+      "sections": {
+        "feature_data": "Feature Data"
+      }
+    },
+    "detail": {
+      "title": "Feature Data",
+      "labels": {
+        "name": "Feature Name",
+        "name_ar": "Feature Name",
+        "name_en": "Feature Name",
+        "status": "Status",
+        "description_ar": "Feature Description in Arabic",
+        "description_en": "Feature Description in English",
+        "photo": "Feature Photo"
       }
     }
   }

@@ -277,7 +277,8 @@
     "admins": "لا يوجد مستخدمون متاحون",
     "notifications": "لا توجد إشعارات متاحة",
     "messages": "لا توجد رسائل متاحة",
-    "clients": "لا يوجد عملاء متاحون"
+    "clients": "لا يوجد عملاء متاحون",
+    "features": "لا توجد مميزات متاحة"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -515,6 +516,20 @@
       "deactivation_reason": "ادخل سبب التعطيل..."
     }
   },
+  "activate_feature_confirmation": {
+    "title": "تفعيل الميزة",
+    "description": "هل تريد بتأكيد تفعيل هذه الميزة؟"
+  },
+  "deactivate_feature_reason_form": {
+    "title": "تعطيل الميزة",
+    "description": "هل أنت تريد بتعطيل هذه الميزة؟",
+    "labels": {
+      "deactivation_reason": "سبب التعطيل"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب التعطيل..."
+    }
+  },
   "admin_detail_page": {
     "title": "بيانات المشترك",
     "sections": {
@@ -574,6 +589,10 @@
     "deleteClient": {
       "title": "حذف العميل",
       "message": "هل تريد بتأكيد حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء."
+    },
+    "deleteFeature": {
+      "title": "حذف الميزة",
+      "message": "هل تريد بتأكيد حذف هذه الميزة؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "confirm": "حذف",
     "cancel": "تراجع"
@@ -1016,6 +1035,77 @@
         "status": "الحالة",
         "created_date": "تاريخ الإنشاء",
         "logo": "شعار العميل"
+      }
+    }
+  },
+  "features_management": {
+    "title": "إدارة مميزات المنصة",
+    "total_features": "إجمالي عدد مميزات المنصة",
+    "total_count": "ميزة",
+    "buttons": {
+      "add_feature": "إضافة ميزة +",
+      "save": "حفظ"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "id": "م",
+      "name": "اسم الميزة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "view": "عرض",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "messages": {
+      "createSuccess": "تم إضافة الميزة بنجاح.",
+      "updateSuccess": "تم تحديث بيانات الميزة بنجاح.",
+      "deleteSuccess": "تم حذف الميزة بنجاح.",
+      "activateSuccess": "تم تفعيل الميزة بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل الميزة بنجاح."
+    },
+    "form": {
+      "title_add": "إضافة ميزة جديدة",
+      "title_edit": "تعديل ميزة جديدة",
+      "title_view": "ميزة جديدة",
+      "labels": {
+        "name": "اسم الميزة",
+        "name_ar": "اسم الميزة",
+        "name_en": "Feature Name",
+        "status": "الحالة",
+        "description_ar": "وصف الميزة باللغة العربية",
+        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "photo": "صورة الميزة"
+      },
+      "placeholders": {
+        "name": "ادخل اسم الميزة...",
+        "description_ar": "ادخل وصف الميزة...",
+        "description_en": "Enter feature description..."
+      },
+      "upload_info": {
+        "title": "ارفق صورة الميزة",
+        "description": "يحتوي على صيغ الصورة Png, Jpeg, Jpg",
+        "button": "تحميل"
+      },
+      "sections": {
+        "feature_data": "بيانات الميزة"
+      }
+    },
+    "detail": {
+      "title": "بيانات الميزة",
+      "labels": {
+        "name": "اسم الميزة",
+        "name_ar": "اسم الميزة",
+        "name_en": "Feature Name",
+        "status": "الحالة",
+        "description_ar": "وصف الميزة باللغة العربية",
+        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "photo": "صورة الميزة"
       }
     }
   }
