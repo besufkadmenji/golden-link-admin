@@ -650,6 +650,9 @@
       "upload_commercial_registration_document": "ارفق صورة التسجيل التجاري",
       "upload_tax_document": "ارفق صورة السجل الضريبي",
       "desc_tax": " Png  يحتوي على صورة السجل الضريبي"
+    },
+    "messages": {
+      "createSuccess": "تم إنشاء المشترك بنجاح."
     }
   },
   "edit_subscriber_form": {

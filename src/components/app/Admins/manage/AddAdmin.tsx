@@ -1,6 +1,7 @@
 "use client";
 
 import { Permissions } from "@/components/app/Admins/manage/Permissions";
+import { statusMap } from "@/components/app/Admins/renderCell";
 import {
   AppForm,
   FormSection,
@@ -12,14 +13,12 @@ import {
 } from "@/components/app/shared/forms/FormInput";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
+import { FormSelect } from "../../shared/forms/FormSelect";
 import { UploadInput } from "../../shared/UploadInput";
+import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
-import { FormSelect } from "../../shared/forms/FormSelect";
-import { statusMap } from "@/components/app/Admins/renderCell";
-import { SuccessMessage } from "./SuccessMessage";
-import { useQueryState } from "nuqs";
 
 export const AddAdmin = () => {
   const { form, setForm } = useForm();

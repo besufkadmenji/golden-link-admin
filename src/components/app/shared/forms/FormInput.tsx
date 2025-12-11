@@ -71,7 +71,7 @@ export const FormInput = ({
           inputWrapper: cn(
             "h-12 rounded-lg border  bg-gray-border  dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary",
             classNames?.inputWrapper,
-            readOnly && "border-gray-border-alt!",
+            readOnly && "border-gray-border-alt! dark:border-dark-border!",
           ),
           label: twMerge(
             "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
@@ -171,9 +171,9 @@ export const PasswordInput = ({
           isIconOnly
         >
           {showPassword ? (
-            <EyeOffIcon className="text-subTitle size-5" />
+            <EyeOffIcon className="text-subTitle size-5 dark:text-white" />
           ) : (
-            <EyeIcon className="text-subTitle size-5" />
+            <EyeIcon className="text-subTitle size-5 dark:text-white" />
           )}
         </Button>
       }

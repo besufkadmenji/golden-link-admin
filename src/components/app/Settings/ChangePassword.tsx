@@ -22,10 +22,10 @@ export const ChangePassword = () => {
       <ModalContent>
         <div className="grid grid-cols-1 gap-6 px-10 py-8">
           <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h2 className="text-xl leading-7 font-bold text-[#1E1E1E]">
+            <h2 className="text-xl leading-7 font-bold text-[#1E1E1E] dark:text-white">
               {dict.change_password_form.title}
             </h2>
-            <p className="text-base font-medium text-[#A5A7A5]">
+            <p className="text-base font-medium text-[#A5A7A5] dark:text-[#A5A7A5]">
               {dict.change_password_form.description}
             </p>
           </div>

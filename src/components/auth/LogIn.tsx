@@ -18,14 +18,16 @@ export const LogIn = () => {
   const { logIn, busy } = useLogIn();
   return (
     <SiteLayout>
-      <div className="grid min-w-[26vw] grid-cols-1 justify-items-center gap-16 self-center justify-self-center rounded-xl bg-white px-8.5 py-8 pb-16">
+      <div className="dark:bg-dark-app-background grid min-w-[26vw] grid-cols-1 justify-items-center gap-16 self-center justify-self-center rounded-xl bg-white px-8.5 py-8 pb-16">
         <div className="grid grid-cols-1 justify-items-center gap-5">
           <LogoIcon className="size-25" />
           <div className="grid grid-cols-1 justify-items-center gap-1">
-            <p className="text-xl font-medium text-black">
+            <p className="text-xl font-medium text-black dark:text-white">
               {dict.auth.welcome_back}
             </p>
-            <p className="text-sm text-[#8B8D97]">{dict.common.system_name}</p>
+            <p className="text-sm text-[#8B8D97] dark:text-white/70">
+              {dict.common.system_name}
+            </p>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 gap-5">
@@ -36,7 +38,9 @@ export const LogIn = () => {
             onChange={(value: string): void => {
               setForm({ ...form, email: value });
             }}
-            endContent={<EmailIcon className="size-5" />}
+            endContent={
+              <EmailIcon className="text-subTitle size-5 dark:text-white" />
+            }
           />
           <div className="grid grid-cols-1 gap-3">
             <PasswordInput

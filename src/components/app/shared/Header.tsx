@@ -27,6 +27,7 @@ import {
 import moment from "moment";
 import dynamic from "next/dynamic";
 import { twMerge } from "tailwind-merge";
+import { AppLoading } from "./AppLoading";
 
 const ThemeSwitcher = dynamic(
   () => import("./ThemeSwitcher").then((mod) => mod.ThemeSwitcher),
@@ -71,7 +72,7 @@ const LoggedUser = () => {
           <Button
             variant="flat"
             endContent={<ChevronDownIcon className="size-2.5 shrink-0" />}
-            className="dark:bg-dark-white items-center rounded-lg bg-[#FEF5EA] text-black"
+            className="items-center rounded-lg bg-[#FEF5EA] text-black"
           >
             {me?.fullName}
           </Button>
@@ -125,9 +126,9 @@ const NotificationPopover = () => {
       <PopoverContent className="grid auto-rows-max grid-cols-1 items-start gap-2 px-0 py-6 lg:w-[32vw]">
         <div className="flex items-center gap-1 px-6">
           <div className="grid size-8 items-center justify-center">
-            <NotificationIcon className="size-7 text-[#4F4F4F]" />
+            <NotificationIcon className="size-7 text-[#4F4F4F] dark:text-white" />
           </div>
-          <p className="text-title text-2xl leading-4 font-semibold">
+          <p className="text-title text-2xl leading-4 font-semibold dark:text-white">
             {dict.common.notifications}
           </p>
         </div>
@@ -139,11 +140,13 @@ const NotificationPopover = () => {
 
 const NotificationsList = () => {
   const dict = useDict();
-  const { data: notifications } = useNotifications();
+  const { data: notifications, isLoading } = useNotifications();
 
   return (
     <div className="grid max-h-[70vh] w-full grid-cols-1 gap-2 overflow-y-auto px-6 pt-7 lg:max-w-[36vw]">
-      {notifications?.pagination.totalItems === 0 ? (
+      {isLoading ? (
+        <AppLoading className="h-[50vh]" />
+      ) : notifications?.pagination.totalItems === 0 ? (
         <div className="p-6 font-semibold text-black">
           {dict.notifications_page.no_notifications_yet}
         </div>
@@ -164,29 +167,29 @@ const NotificationItem = ({
   return (
     <div
       className={twMerge(
-        "dark:border-dark-white grid grid-cols-[1fr_auto] items-center gap-5 rounded-xl border border-[#F8F7FC] p-4",
-        notification.readAt && "bg-[#F8F7FC]",
+        "dark:border-dark-border grid grid-cols-[1fr_auto] items-center gap-5 rounded-xl border border-[#F8F7FC] p-4",
+        notification.readAt && "bg-[#F8F7FC] dark:bg-dark-black",
       )}
     >
       <div className="grid grid-cols-[auto_1fr] gap-2">
         <NotificationItemIcon
           className={twMerge(
-            "size-12 text-[#F8F7FC]",
-            notification.readAt && "text-white",
+            "size-12 text-[#F8F7FC] dark:text-dark-gray-border-alt",
+            notification.readAt && "text-white dark:text-black",
           )}
         />
         <div className="grid grid-cols-1 items-center">
-          <p className="text-lg font-semibold text-black">
+          <p className="text-lg font-semibold text-black dark:text-white">
             {notification.title}
           </p>
-          <p className="text-subTitle text-sm">{notification.content}</p>
+          <p className="text-subTitle dark:text-white/70 text-sm">{notification.content}</p>
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-end gap-6">
         {!notification.readAt && (
           <div className={twMerge("bg-app-primary size-1.5 rounded-full")} />
         )}
-        <p className="text-gray-4 justify-self-end text-xs">
+        <p className="text-gray-4 dark:text-white/70 justify-self-end text-xs">
           {moment(notification.sentAt).fromNow()}
         </p>
       </div>

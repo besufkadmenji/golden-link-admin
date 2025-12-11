@@ -48,8 +48,8 @@ export const DeactivateModal = ({
       <ModalContent>
         <div className="grid auto-rows-max grid-cols-1 items-center justify-items-center gap-6 px-10 py-8">
           <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h1 className="text-xl font-bold text-[#1E1E1E]">{modalTitle}</h1>
-            <p className="text-[#A5A7A5]">{modalDescription}</p>
+            <h1 className="text-xl font-bold text-[#1E1E1E] dark:text-white">{modalTitle}</h1>
+            <p className="text-[#A5A7A5] dark:text-[#A5A7A5]">{modalDescription}</p>
           </div>
           {showReason && (
             <div className="grid w-full grid-cols-1">

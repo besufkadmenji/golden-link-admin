@@ -11,7 +11,7 @@ export const Dashboard = () => {
   return (
     <div className="grid grid-cols-1 gap-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-dashboard-title text-2xl font-bold">
+        <h1 className="text-dashboard-title dark:text-white text-2xl font-bold">
           {dict.dashboard.title}
         </h1>
         <TimeFilter />

@@ -80,8 +80,8 @@ export const Permissions = ({
 
   return (
     !isLoading && (
-      <div className="border-dashboard-border overflow-hidden rounded-lg border bg-white">
-        <div className="border-b-dashboard-border flex h-11 items-center justify-between border-b bg-[#F9F9FC] px-3">
+      <div className="border-dashboard-border dark:border-dark-border dark:bg-dark-black overflow-hidden rounded-lg border bg-white">
+        <div className="border-b-dashboard-border dark:border-b-dark-border dark:bg-dark-app-background flex h-11 items-center justify-between border-b bg-[#F9F9FC] px-3">
           <p className="text-lg leading-7 font-medium tracking-tight text-[#1A1C21]">
             {dict.add_new_admin_form.sections.permissions}
           </p>
@@ -108,10 +108,10 @@ export const Permissions = ({
             {Object.entries(groupedPermissions).map(([module, perms]) => (
               <div
                 key={module}
-                className="grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-6"
+                className="dark:border-dark-border grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-6"
               >
                 <div className="flex items-center justify-between">
-                  <p className="text-base font-bold text-[#2E2E2E]">
+                  <p className="text-base font-bold text-[#2E2E2E] dark:text-white">
                     {dict.admin_permissions_management.modules[
                       module as keyof typeof dict.admin_permissions_management.modules
                     ] || module}
@@ -123,7 +123,7 @@ export const Permissions = ({
                     isDisabled={readOnly}
                   />
                 </div>
-                <div className="my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
+                <div className="my-5 h-[0.50px] w-full bg-[#EEEEEE] dark:bg-dark-border"></div>
 
                 <div className="flex gap-8">
                   {(["read", "create", "update", "delete"] as const).map(

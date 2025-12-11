@@ -51,16 +51,16 @@ const SummaryCard = ({
 }) => {
   const deltaValue = delta ? parseInt(delta) : 0;
   return (
-    <div className="grid grid-cols-1 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
+    <div className="dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
       <div className="grid size-10">{icon}</div>
       <div className="grid grid-cols-1 gap-2">
-        <h3 className="text-subTitle text-base leading-6 font-medium">
+        <h3 className="text-subTitle text-base leading-6 font-medium dark:text-white/70">
           {title}
         </h3>
         <div className="flex items-center gap-2">
           <p
             className={twMerge(
-              "text-title text-2xl leading-8 font-medium tracking-tight",
+              "text-title text-2xl leading-8 font-medium tracking-tight dark:text-white",
               inter.className,
             )}
           >

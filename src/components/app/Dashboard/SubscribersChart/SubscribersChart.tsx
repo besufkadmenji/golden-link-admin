@@ -54,7 +54,7 @@ export const SubscribersChart = () => {
             className="max-w-32"
             classNames={{
               trigger:
-                "bg-white border border-[#EEEEEE] shadow-none data-[hover=true]:border-app-primary data-[open=true]:border-app-primary data-[focus=true]:border-app-primary",
+                "bg-white border border-[#EEEEEE] dark:bg-dark-black dark:border-dark-border shadow-none data-[hover=true]:border-app-primary data-[open=true]:border-app-primary data-[focus=true]:border-app-primary",
               value: "text-sm text-[#A2A2A2]!",
               selectorIcon: "size-6",
               popoverContent: "w-max",
