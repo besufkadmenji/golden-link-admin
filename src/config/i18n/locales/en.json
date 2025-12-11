@@ -12,6 +12,7 @@
     "supplier": "Supplier",
     "actions": {
       "cancel": "Cancel",
+      "deactivate": "Deactivate",
       "export": "Export",
       "search": "Search",
       "print": "Print",
@@ -1112,6 +1113,70 @@
         "description_en": "Feature Description in English",
         "photo": "Feature Photo"
       }
+    }
+  },
+  "dashboard": {
+    "title": "Management Information",
+    "cards": {
+      "new_subscribers": {
+        "title": "New Subscribers Count",
+        "count": "800",
+        "change": "2%"
+      },
+      "requests": {
+        "title": "Requests This Month",
+        "count": "247",
+        "change": "-25%"
+      },
+      "invoices": {
+        "title": "Invoices Received This Month",
+        "count": "31500",
+        "change": "+15%"
+      },
+      "new_subscription_requests": {
+        "title": "New Subscription Requests Count",
+        "count": "300",
+        "change": "+10%"
+      }
+    },
+    "table": {
+      "title": "Management Information",
+      "headers": {
+        "checkbox": "Select",
+        "id": "ID",
+        "name": "Name",
+        "organization_name": "Organization Name",
+        "commercial_registration_number": "Commercial Registration Number",
+        "email": "Email",
+        "phone_number": "Phone Number",
+        "status": "Status",
+        "created_date": "Created Date",
+        "actions": "Actions"
+      },
+      "actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "chart": {
+      "title": "New Subscriptions",
+      "legend": {
+        "new_subscribers": "New Subscribers",
+        "requests_received": "Requests Received",
+        "current_month": "This Month",
+        "previous_month": "Previous Month"
+      },
+      "date_range": "30 Sep 2021",
+      "filters": {
+        "this_month": "This Month",
+        "last_6_months": "Last 6 Months",
+        "this_year": "This Year"
+      }
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed"
     }
   }
 }

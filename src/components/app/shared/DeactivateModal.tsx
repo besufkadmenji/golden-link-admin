@@ -77,7 +77,7 @@ export const DeactivateModal = ({
               isDisabled={busy}
               isLoading={busy}
             >
-              Deactivate
+              {dict.common.actions.deactivate}
             </Button>
           </div>
         </div>

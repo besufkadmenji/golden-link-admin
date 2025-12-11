@@ -12,6 +12,7 @@
     "supplier": "مورد",
     "actions": {
       "cancel": "الغاء",
+      "deactivate": "تعطيل",
       "export": "تصدير",
       "search": "البحث",
       "print": "طباعة",
@@ -1107,6 +1108,70 @@
         "description_en": "وصف الميزة باللغة الإنجليزية",
         "photo": "صورة الميزة"
       }
+    }
+  },
+  "dashboard": {
+    "title": "لوحة المعلومات",
+    "cards": {
+      "new_subscribers": {
+        "title": "عدد المشتركين الجدد",
+        "count": "800",
+        "change": "2%"
+      },
+      "requests": {
+        "title": "عدد الطلبات",
+        "count": "247",
+        "change": "-25%"
+      },
+      "invoices": {
+        "title": "إجمالي الفواتير هذا الشهر",
+        "count": "31500",
+        "change": "+15%"
+      },
+      "new_subscription_requests": {
+        "title": "عدد طلبات الاشتراكات الجديدة",
+        "count": "300",
+        "change": "+10%"
+      }
+    },
+    "table": {
+      "title": "لوحة المعلومات",
+      "headers": {
+        "checkbox": "تحديد",
+        "id": "المعرف",
+        "name": "الاسم",
+        "organization_name": "اسم المؤسسة",
+        "commercial_registration_number": "رقم السجل التجاري",
+        "email": "البريد الإلكتروني",
+        "phone_number": "رقم الهاتف",
+        "status": "الحالة",
+        "created_date": "تاريخ الإنشاء",
+        "actions": "الإجراءات"
+      },
+      "actions": {
+        "view": "عرض",
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "chart": {
+      "title": "الاشتراكات الجديدة",
+      "legend": {
+        "new_subscribers": "المشتركين الجدد",
+        "requests_received": "الطلبات المستقبلة",
+        "current_month": "هذا الشهر",
+        "previous_month": "الشهر السابق"
+      },
+      "date_range": "30 سبتمبر 2021",
+      "filters": {
+        "this_month": "هذا الشهر",
+        "last_6_months": "آخر 6 أشهر",
+        "this_year": "هذا العام"
+      }
+    },
+    "status": {
+      "pending": "مورد",
+      "confirmed": "طالب مستوحي"
     }
   }
 }
