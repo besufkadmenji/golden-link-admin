@@ -28,7 +28,10 @@ export const Subscribers = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.subscribers_page.title}>
+      <PageBar
+        title={dict.subscribers_page.title}
+        className="grid grid-cols-1 md:flex gap-2"
+      >
         <AddButton
           type={AddButtonType.Subscriber}
           onPress={() => {

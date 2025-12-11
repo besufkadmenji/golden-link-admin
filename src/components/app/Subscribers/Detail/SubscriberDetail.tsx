@@ -45,12 +45,11 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                 }
               }}
               isDisabled={subscriber.status === "DELETED"}
-
             />
           }
         >
           <FormSection title={dict.view_subscriber.title}>
-            <div className="grid grid-cols-2 items-start gap-4">
+            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_subscriber_form.labels.name}
                 placeholder={dict.add_new_subscriber_form.placeholders.name}
@@ -101,7 +100,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                 className="col-span-2"
                 readOnly
               />
-              <div className="col-span-2 grid grid-cols-1 justify-items-center gap-4">
+              <div className="grid grid-cols-1 justify-items-center gap-4 md:col-span-2">
                 {subscriber.commercialRegistrationImagePath && (
                   <div
                     onClick={() => {
@@ -122,7 +121,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
           <FormSection
             title={dict.add_new_subscriber_form.sections.login_information}
           >
-            <div className="grid grid-cols-2 items-start gap-4">
+            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_subscriber_form.labels.email}
                 placeholder={dict.add_new_subscriber_form.labels.email}

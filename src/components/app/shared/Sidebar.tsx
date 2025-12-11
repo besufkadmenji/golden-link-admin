@@ -40,7 +40,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
     >
       <AppLink
         href={"/dashboard"}
-        className="relative mx-12 my-5 aspect-182/40 w-[12vw] justify-self-center text-[#2E2E2E] dark:text-white"
+        className="relative mx-12 my-5 aspect-182/40 w-1/2 justify-self-center text-[#2E2E2E] lg:w-[12vw] dark:text-white"
       >
         <LogoIcon className="h-full w-full" />
       </AppLink>
@@ -244,10 +244,10 @@ export const MobileSidebar = () => {
     <>
       <Button
         onPress={onOpen}
-        className="size-6 min-h-0 min-w-0 bg-transparent p-0 text-black md:hidden dark:text-white"
+        className="size-6 min-h-0 min-w-0 shrink-0 bg-transparent p-0 text-black md:hidden dark:text-white"
         isIconOnly
       >
-        <MenuIcon className="size-5" />
+        <MenuIcon className="size-5 text-[#292D32] dark:text-white" />
       </Button>
       <Drawer
         isOpen={isOpen}

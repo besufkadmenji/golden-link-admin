@@ -49,7 +49,7 @@ export const ViewClient = ({ id }: { id: string }) => {
           }
         >
           <FormSection title={dict.clients_management.detail.title}>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.clients_management.detail.labels.name}
                 placeholder={dict.clients_management.detail.labels.name}
@@ -75,7 +75,7 @@ export const ViewClient = ({ id }: { id: string }) => {
                 ]}
                 readOnly
               />
-              <div className="col-span-2 grid justify-items-center">
+              <div className="md:col-span-2 grid justify-items-center">
                 <SelectedFile initUrl={client.logoPath} />
               </div>
             </div>

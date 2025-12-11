@@ -18,7 +18,7 @@ export const LogIn = () => {
   const { logIn, busy } = useLogIn();
   return (
     <SiteLayout>
-      <div className="dark:bg-dark-app-background grid min-w-[26vw] grid-cols-1 justify-items-center gap-16 self-center justify-self-center rounded-xl bg-white px-8.5 py-8 pb-16">
+      <div className="dark:bg-dark-app-background grid min-w-[26vw] grid-cols-1 justify-items-center gap-16 self-center mx-6 lg:justify-self-center rounded-xl bg-white px-8.5 py-8 pb-16">
         <div className="grid grid-cols-1 justify-items-center gap-5">
           <LogoIcon className="size-25" />
           <div className="grid grid-cols-1 justify-items-center gap-1">

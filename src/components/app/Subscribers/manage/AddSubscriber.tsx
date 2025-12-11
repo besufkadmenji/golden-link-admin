@@ -29,7 +29,7 @@ export const AddSubscriber = () => {
     <>
       <div className="grid grid-cols-1">
         <AppForm
-          type={FormType.Admins}
+          type={FormType.Subscribers}
           onSubmit={() => {
             if (validateForm()) {
               createSubscriber();
@@ -40,11 +40,14 @@ export const AddSubscriber = () => {
           }}
           busy={busy}
           action="add"
+          classNames={{
+            title: "grid grid-cols-1 md:flex gap-2",
+          }}
         >
           <FormSection
             title={dict.add_new_subscriber_form.sections.subscriber_information}
           >
-            <div className="grid grid-cols-2 items-start gap-4">
+            <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_subscriber_form.labels.name}
                 placeholder={dict.add_new_subscriber_form.placeholders.name}
@@ -112,7 +115,7 @@ export const AddSubscriber = () => {
                 errorMessage={errors.commercialRegistrationNumber}
                 className="col-span-2"
               />
-              <div className="col-span-2 grid grid-cols-1 gap-4">
+              <div className="md:col-span-2 grid grid-cols-1 gap-4">
                 <UploadInput
                   label={dict.add_new_subscriber_form.image.attach}
                   desc={dict.add_new_subscriber_form.image.desc}
@@ -134,7 +137,7 @@ export const AddSubscriber = () => {
           <FormSection
             title={dict.add_new_subscriber_form.sections.login_information}
           >
-            <div className="grid grid-cols-2 items-start gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-4">
               <FormInput
                 label={dict.add_new_subscriber_form.labels.email}
                 placeholder={dict.add_new_subscriber_form.labels.email}

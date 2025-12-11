@@ -29,6 +29,7 @@ export const FilterSelect = ({
         ),
         innerWrapper: "min-w-[20vw] pe-8",
         selectorIcon: "size-6! ",
+        popoverContent: "w-max",
       }}
       selectorIcon={<ChevronDownBoldIcon className="dark:text-white" />}
       selectedKeys={values}

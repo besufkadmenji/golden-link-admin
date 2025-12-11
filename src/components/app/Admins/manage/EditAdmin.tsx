@@ -7,9 +7,7 @@ import {
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
-import {
-  FormInput
-} from "@/components/app/shared/forms/FormInput";
+import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
@@ -46,7 +44,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
         action="edit"
       >
         <FormSection title={dict.edit_admin_form.sections.admin_information}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput
               label={dict.edit_admin_form.labels.admin_name}
               placeholder={dict.edit_admin_form.placeholders.admin_name}
@@ -90,7 +88,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
           </div>
         </FormSection>
         <FormSection title={dict.edit_admin_form.sections.login_information}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput
               label={dict.edit_admin_form.labels.email}
               placeholder={dict.edit_admin_form.labels.email}

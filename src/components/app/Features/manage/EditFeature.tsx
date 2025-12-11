@@ -33,13 +33,13 @@ export const EditFeature = ({ id }: { id: string }) => {
           }
         }}
         onCancel={() => {
-          router.push("/features");
+          router.push("/content/features");
         }}
         busy={busy}
         action="edit"
       >
         <FormSection title={dict.features_management.detail.title}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput
               label={"اسم الميزة"}
               placeholder={dict.features_management.form.placeholders.name}
@@ -98,7 +98,7 @@ export const EditFeature = ({ id }: { id: string }) => {
               }}
               errorMessage={errors.descriptionAr}
               dir="rtl"
-              className="col-span-2"
+              className="md:col-span-2"
             />
             <FormAreaInput
               label={dict.features_management.form.labels.description_en}
@@ -112,7 +112,7 @@ export const EditFeature = ({ id }: { id: string }) => {
               }}
               errorMessage={errors.description}
               dir="ltr"
-              className="col-span-2"
+              className="md:col-span-2"
             />
           </div>
         </FormSection>

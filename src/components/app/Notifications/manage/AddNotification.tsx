@@ -44,7 +44,7 @@ export const AddNotification = () => {
               dict.add_new_notification_form.sections.notification_information
             }
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_notification_form.labels.title}
                 placeholder={dict.add_new_notification_form.placeholders.title}
@@ -84,7 +84,7 @@ export const AddNotification = () => {
                   clearError("content");
                 }}
                 errorMessage={errors.content}
-                className="col-span-2"
+                className="md:col-span-2"
               />
             </div>
           </FormSection>

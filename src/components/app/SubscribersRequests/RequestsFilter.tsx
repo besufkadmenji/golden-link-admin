@@ -17,12 +17,12 @@ export const RequestsFilter = () => {
   const [type, setType] = useQueryState("type");
 
   return (
-    <div className="flex items-center gap-4">
-      <SearchInput />
+    <div className="grid grid-cols-2 items-center gap-4 lg:flex">
+      <SearchInput className="w-full md:w-max" />
       <FilterSelect
         options={types}
         placeholder={dict.subscription_requests_page.table_headers.type}
-        className=""
+        className="w-full md:w-max"
         values={type ? [type] : []}
         onValueChange={(values) => {
           setType(values[0] || null);

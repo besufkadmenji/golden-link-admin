@@ -74,7 +74,7 @@ export const SummaryCard = ({
   const subLabel = subLabelMap(dict)[type];
 
   return (
-    <div className="border-gray-border-alt dark:border-dark-border dark:bg-dark-black grid grid-cols-[1fr_auto] items-start gap-4 rounded-lg border bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
+    <div className="border-gray-border-alt dark:border-dark-border dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-lg border bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)] lg:grid-cols-[1fr_auto]">
       <div className="grid grid-cols-1 gap-4">
         <div>{icon}</div>
         <div className="grid grid-cols-1 gap-2">
@@ -92,7 +92,9 @@ export const SummaryCard = ({
         </div>
       </div>
       {endContent && (
-        <div className="grid grid-cols-1 justify-self-end">{endContent}</div>
+        <div className="row-start-1 grid grid-cols-1 lg:justify-self-end lg:row-start-auto">
+          {endContent}
+        </div>
       )}
     </div>
   );

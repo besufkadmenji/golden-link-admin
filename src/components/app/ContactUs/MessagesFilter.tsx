@@ -19,12 +19,12 @@ export const MessagesFilter = () => {
   const [type, setType] = useQueryState("type");
 
   return (
-    <div className="flex items-center gap-4">
-      <SearchInput />
+    <div className="grid grid-cols-2 items-center gap-4 lg:flex">
+      <SearchInput className="w-full md:w-max" />
       <FilterSelect
         options={messageStatusOptions}
         placeholder={dict.contact_messages_page.table_headers.status}
-        className=""
+        className="w-full md:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {
           setStatus(values[0] || null);
@@ -33,7 +33,7 @@ export const MessagesFilter = () => {
       <FilterSelect
         options={messageTypeOptions}
         placeholder={dict.contact_messages_page.table_headers.message_type}
-        className=""
+        className="w-full md:w-max"
         values={type ? [type] : []}
         onValueChange={(values) => {
           setType(values[0] || null);

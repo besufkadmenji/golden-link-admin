@@ -37,7 +37,7 @@ export const renderCell = (
     );
   } else if (column === "name") {
     return (
-      <div className="grid grid-cols-1 gap-1">
+      <div className="grid w-max grid-cols-1 gap-1">
         <p className="text-title text-xs leading-4 tracking-tight dark:text-white">
           {row.name}
         </p>

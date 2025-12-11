@@ -50,7 +50,7 @@ export const ViewFeature = ({ id }: { id: string }) => {
           }
         >
           <FormSection title={dict.features_management.detail.title}>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
                 label={"اسم الميزة"}
                 placeholder={dict.features_management.form.placeholders.name}
@@ -94,7 +94,7 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 value={feature.descriptionAr}
                 onChange={(value: string): void => {}}
                 dir="rtl"
-                className="col-span-2"
+                className="md:col-span-2"
                 readOnly
               />
               <FormAreaInput
@@ -105,14 +105,14 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 value={feature.description}
                 onChange={(value: string): void => {}}
                 dir="ltr"
-                className="col-span-2"
+                className="md:col-span-2"
                 readOnly
               />
             </div>
           </FormSection>
 
           <FormSection title="">
-            <div className="grid grid-cols-1 gap-4 justify-items-center">
+            <div className="grid grid-cols-1 justify-items-center gap-4">
               <SelectedFile initUrl={feature.featurePhotoPath} />
             </div>
           </FormSection>

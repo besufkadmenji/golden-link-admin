@@ -20,7 +20,7 @@ export const ContactUs = () => {
   const { data, isLoading, error } = useGetMessages();
   return (
     <PageWrapper>
-      <PageBar title={dict.subscription_requests_page.title} />
+      <PageBar title={dict.contact_messages_page.title} />
       <Gap className="h-8" />
       {isLoading ? (
         <SummaryCardSkeleton />

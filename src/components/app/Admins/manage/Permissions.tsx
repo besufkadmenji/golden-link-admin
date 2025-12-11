@@ -82,10 +82,10 @@ export const Permissions = ({
     !isLoading && (
       <div className="border-dashboard-border dark:border-dark-border dark:bg-dark-black overflow-hidden rounded-lg border bg-white">
         <div className="border-b-dashboard-border dark:border-b-dark-border dark:bg-dark-app-background flex h-11 items-center justify-between border-b bg-[#F9F9FC] px-3">
-          <p className="text-lg leading-7 font-medium tracking-tight text-[#1A1C21]">
+          <p className="text-sm leading-7 font-medium tracking-tight text-[#1A1C21] md:text-lg">
             {dict.add_new_admin_form.sections.permissions}
           </p>
-          <div className="flex gap-8">
+          <div className="flex gap-2 md:gap-8">
             <AppCheckbox
               isSelected={form.permissionType === "ADMINISTRATOR"}
               onValueChange={() => setForm({ permissionType: "ADMINISTRATOR" })}
@@ -104,11 +104,11 @@ export const Permissions = ({
         </div>
 
         {form.permissionType === "CUSTOM" && (
-          <div className="grid grid-cols-3 gap-x-5 gap-y-6 p-6">
+          <div className="grid grid-cols-1 gap-x-5 gap-y-6 p-4 md:p-6 md:grid-cols-2 lg:grid-cols-3">
             {Object.entries(groupedPermissions).map(([module, perms]) => (
               <div
                 key={module}
-                className="dark:border-dark-border grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-6"
+                className="dark:border-dark-border grid grid-cols-1 rounded-lg border border-[#EEEEEE] p-4 lg:p-6"
               >
                 <div className="flex items-center justify-between">
                   <p className="text-base font-bold text-[#2E2E2E] dark:text-white">
@@ -123,9 +123,9 @@ export const Permissions = ({
                     isDisabled={readOnly}
                   />
                 </div>
-                <div className="my-5 h-[0.50px] w-full bg-[#EEEEEE] dark:bg-dark-border"></div>
+                <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
 
-                <div className="flex gap-8">
+                <div className="flex justify-between gap-2 lg:justify-start lg:gap-8">
                   {(["read", "create", "update", "delete"] as const).map(
                     (action) => {
                       const hasAction = perms.some((p) => p.action === action);

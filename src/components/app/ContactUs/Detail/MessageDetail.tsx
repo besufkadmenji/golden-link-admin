@@ -40,7 +40,7 @@ export const MessageDetail = ({ id }: { id: string }) => {
           }
         >
           <FormSection title={dict.contact_us_form.sectionTitle}>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormInput
                 label={dict.contact_us_form.labels.subscriber_name}
                 placeholder={dict.contact_us_form.labels.subscriber_name}
@@ -81,14 +81,14 @@ export const MessageDetail = ({ id }: { id: string }) => {
                 value={moment(message.createdAt).format("DD/MM/YYYY hh:mm a")}
                 onChange={(value: string): void => {}}
                 readOnly
-                className="col-span-2"
+                className="md:col-span-2"
               />
               <FormAreaInput
                 label={dict.contact_us_form.labels.message_content}
                 placeholder={dict.contact_us_form.labels.message_content}
                 value={message.messageContent}
                 onChange={(value: string): void => {}}
-                className="col-span-2"
+                className="md:col-span-2"
                 readOnly
               />
               <FormAreaInput
@@ -96,7 +96,7 @@ export const MessageDetail = ({ id }: { id: string }) => {
                 placeholder={dict.contact_us_form.labels.reply_content}
                 value={message.replyContent ?? "-"}
                 onChange={(value: string): void => {}}
-                className="col-span-2"
+                className="md:col-span-2"
                 readOnly
               />
             </div>

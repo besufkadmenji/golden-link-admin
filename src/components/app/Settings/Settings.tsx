@@ -43,7 +43,7 @@ export const Settings = () => {
         </PageBar>
         <div className="grid grid-cols-1 gap-8 py-8">
           <FormSection title={dict.settings_page.sections.general_settings}>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {vatRate && (
                 <FormInput
                   label={dict.settings_page.labels.vat_rate}
@@ -71,7 +71,7 @@ export const Settings = () => {
           </FormSection>
           <FormSection title={dict.settings_page.sections.personal_profile}>
             {me && (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <FormInput
                   label={dict.settings_page.labels.full_name}
                   placeholder={dict.settings_page.labels.full_name}
@@ -79,7 +79,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setUpdateProfile({ fullName: value });
                   }}
-                  className="col-span-2"
+                  className="md:col-span-2"
                 />
 
                 <FormInput
@@ -99,12 +99,12 @@ export const Settings = () => {
                   }}
                 />
 
-                <div className="col-span-2">
+                <div className="md:col-span-2">
                   <button
                     onClick={() => {
                       setChangePassword("true");
                     }}
-                    className="text-app-primary flex cursor-pointer items-center gap-4 bg-white dark:bg-dark-black px-0 text-sm font-bold underline"
+                    className="text-app-primary dark:bg-dark-black flex cursor-pointer items-center gap-4 bg-white px-0 text-sm font-bold underline"
                   >
                     {dict.reset_password.title}
                     <PasswordIcon className="size-9" />
@@ -125,7 +125,7 @@ export const Settings = () => {
                     "image/png": [],
                   }}
                   initUrl={existingPicture || undefined}
-                  className="col-span-2"
+                  className="md:col-span-2"
                 />
               </div>
             )}

@@ -45,7 +45,7 @@ export const AddAdmin = () => {
           <FormSection
             title={dict.add_new_admin_form.sections.admin_information}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_admin_form.labels.admin_name}
                 placeholder={dict.add_new_admin_form.placeholders.admin_name}
@@ -93,7 +93,7 @@ export const AddAdmin = () => {
           <FormSection
             title={dict.add_new_admin_form.sections.login_information}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_admin_form.labels.email}
                 placeholder={dict.add_new_admin_form.labels.email}

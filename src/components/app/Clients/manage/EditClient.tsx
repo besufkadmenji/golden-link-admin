@@ -39,7 +39,7 @@ export const EditClient = ({ id }: { id: string }) => {
         action="edit"
       >
         <FormSection title={dict.clients_management.detail.title}>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput
               label={dict.clients_management.form.labels.name}
               placeholder={dict.clients_management.form.placeholders.name}

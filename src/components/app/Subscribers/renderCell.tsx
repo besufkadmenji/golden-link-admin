@@ -26,7 +26,7 @@ export const renderCell = (
       action.onDelete} />;
   } else if (column === "name") {
     return (
-      <div className="grid grid-cols-1 gap-1">
+      <div className="grid grid-cols-1 gap-1 w-max">
         <p className="text-title text-xs leading-4 tracking-tight dark:text-white">
           {row.name}
         </p>

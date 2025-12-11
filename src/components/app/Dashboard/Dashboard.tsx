@@ -10,7 +10,7 @@ export const Dashboard = () => {
   const dict = useDict();
   return (
     <div className="grid grid-cols-1 gap-5">
-      <div className="flex items-center justify-between">
+      <div className="grid grid-cols-1 gap-2 lg:flex items-center justify-between">
         <h1 className="text-dashboard-title dark:text-white text-2xl font-bold">
           {dict.dashboard.title}
         </h1>

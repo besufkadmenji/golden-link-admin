@@ -28,6 +28,7 @@ export const AppForm = ({
   className?: string;
   classNames?: {
     form?: string;
+    title?: string;
   };
   onSubmit?: () => void;
   onCancel?: () => void;
@@ -47,6 +48,7 @@ export const AppForm = ({
         busy={busy}
         onSubmit={onSubmit}
         onCancel={onCancel}
+        className={classNames?.title}
       >
         {titleChildren}
       </TitleBar>

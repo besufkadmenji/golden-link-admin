@@ -19,12 +19,12 @@ export const AdminsFilter = () => {
   const [status, setStatus] = useQueryState("status");
 
   return (
-    <div className="flex items-center gap-4">
-      <SearchInput />
+    <div className="grid grid-cols-2 items-center gap-4 lg:flex">
+      <SearchInput className="w-full md:w-max" />
       <FilterSelect
         options={adminStatusOptions}
         placeholder={dict.subscription_requests_page.table_headers.type}
-        className=""
+        className="w-full md:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {
           setStatus(values[0] || null);

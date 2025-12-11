@@ -54,7 +54,7 @@ export const FormInput = ({
   const arOptional = "after:content-['(اختياري)]";
   const optionalClass = lng === "ar" ? arOptional : enOptional;
   return (
-    <div dir={dir} className={className}>
+    <div dir={dir} className={twMerge("grid w-full grid-cols-1")}>
       <Input
         labelPlacement="outside"
         label={hideLabel ? null : label}

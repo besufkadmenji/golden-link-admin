@@ -30,7 +30,7 @@ export const ViewNotification = ({ id }: { id: string }) => {
             dict.notification_detail_page.sections.notification_information
           }
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormInput
               label={dict.add_new_notification_form.labels.title}
               placeholder={dict.add_new_notification_form.placeholders.title}
@@ -56,7 +56,7 @@ export const ViewNotification = ({ id }: { id: string }) => {
               placeholder={dict.add_new_notification_form.placeholders.content}
               value={notification.content}
               onChange={(value: string): void => {}}
-              className="col-span-2"
+              className="md:col-span-2"
               readOnly
             />
           </div>

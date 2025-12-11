@@ -14,5 +14,5 @@ export const renderCell = (
   if (column === "action") {
     return <ActionsCell onView={action.onView} />;
   }
-  return row[column as string];
+  return <p className="w-max">{row[column as string]}</p>;
 };

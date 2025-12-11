@@ -17,7 +17,7 @@ export const VerifyCode = () => {
 
   return (
     <SiteLayout>
-      <div className="dark:bg-dark-app-background grid min-w-[26vw] grid-cols-1 justify-items-center gap-12 self-center justify-self-center rounded-xl bg-white px-8.5 py-8 pb-16">
+      <div className="dark:bg-dark-app-background mx-6 grid min-w-[26vw] grid-cols-1 justify-items-center gap-12 self-center rounded-xl bg-white px-8.5 py-8 pb-16 lg:justify-self-center">
         <div className="grid grid-cols-1 justify-items-center gap-5">
           <LogoIcon className="size-25" />
           <div className="grid grid-cols-1 justify-items-center gap-1">

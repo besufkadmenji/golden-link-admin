@@ -39,7 +39,7 @@ export const Header = ({ showLogo }: { showLogo?: boolean }) => {
   return (
     <header
       className={twMerge(
-        "flex h-16 items-center justify-between gap-5 bg-white px-10 md:justify-end dark:bg-black",
+        "flex h-16 items-center justify-between gap-1 bg-white px-2 md:justify-end lg:gap-5 lg:px-10 dark:bg-black",
         showLogo && "md:justify-between",
       )}
     >
@@ -52,7 +52,7 @@ export const Header = ({ showLogo }: { showLogo?: boolean }) => {
         </AppLink>
       )}
       <MobileSidebar />
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-0 lg:gap-5">
         <ThemeSwitcher />
         <SelectLanguage />
         <NotificationPopover />
@@ -72,7 +72,7 @@ const LoggedUser = () => {
           <Button
             variant="flat"
             endContent={<ChevronDownIcon className="size-2.5 shrink-0" />}
-            className="items-center rounded-lg bg-[#FEF5EA] text-black"
+            className="items-center rounded-lg bg-[#FEF5EA] px-2 text-xs text-black md:text-sm lg:px-4 lg:text-base"
           >
             {me?.fullName}
           </Button>
@@ -168,13 +168,13 @@ const NotificationItem = ({
     <div
       className={twMerge(
         "dark:border-dark-border grid grid-cols-[1fr_auto] items-center gap-5 rounded-xl border border-[#F8F7FC] p-4",
-        notification.readAt && "bg-[#F8F7FC] dark:bg-dark-black",
+        notification.readAt && "dark:bg-dark-black bg-[#F8F7FC]",
       )}
     >
       <div className="grid grid-cols-[auto_1fr] gap-2">
         <NotificationItemIcon
           className={twMerge(
-            "size-12 text-[#F8F7FC] dark:text-dark-gray-border-alt",
+            "dark:text-dark-gray-border-alt size-12 text-[#F8F7FC]",
             notification.readAt && "text-white dark:text-black",
           )}
         />
@@ -182,14 +182,16 @@ const NotificationItem = ({
           <p className="text-lg font-semibold text-black dark:text-white">
             {notification.title}
           </p>
-          <p className="text-subTitle dark:text-white/70 text-sm">{notification.content}</p>
+          <p className="text-subTitle text-sm dark:text-white/70">
+            {notification.content}
+          </p>
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-end gap-6">
         {!notification.readAt && (
           <div className={twMerge("bg-app-primary size-1.5 rounded-full")} />
         )}
-        <p className="text-gray-4 dark:text-white/70 justify-self-end text-xs">
+        <p className="text-gray-4 justify-self-end text-xs dark:text-white/70">
           {moment(notification.sentAt).fromNow()}
         </p>
       </div>

@@ -3,6 +3,7 @@ import { useDict } from "@/hooks/useDict";
 import { ReactNode } from "react";
 import { CancelButton } from "../button/CancelButton";
 import { SaveButton, SaveButtonType } from "../button/SaveButton";
+import { twMerge } from "tailwind-merge";
 
 export const TitleBar = ({
   type,
@@ -11,6 +12,7 @@ export const TitleBar = ({
   onCancel,
   busy,
   action,
+  className,
 }: {
   type: FormType;
   children?: ReactNode;
@@ -18,6 +20,7 @@ export const TitleBar = ({
   onCancel?: () => void;
   busy?: boolean;
   action: "add" | "edit" | "view";
+  className?: string;
 }) => {
   const dict = useDict();
   const labelMap = {
@@ -47,12 +50,12 @@ export const TitleBar = ({
   const saveType = SaveButtonType.Admin;
 
   return (
-    <div className="flex items-center justify-between">
-      <h1 className="text-dashboard-title text-2xl leading-9 font-bold tracking-tight dark:text-white">
+    <div className={twMerge("flex items-center justify-between", className)}>
+      <h1 className="text-dashboard-title text-lg leading-9 font-bold tracking-tight md:text-xl lg:text-2xl dark:text-white">
         {labelMap[type]}
       </h1>
       {children ?? (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 lg:gap-4">
           {onSubmit && (
             <SaveButton
               type={saveType}

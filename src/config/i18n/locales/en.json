@@ -1049,7 +1049,7 @@
     "total_features": "Total Platform Features Count",
     "total_count": "features",
     "buttons": {
-      "add_feature": "Add New Feature +",
+      "add_feature": "Add New Feature",
       "save": "Save"
     },
     "search_placeholder": "Search",

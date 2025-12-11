@@ -26,8 +26,8 @@ export const NoData = ({ type }: { type: NoDataType }) => {
 
   return (
     <div className="grid auto-rows-max items-center justify-items-center gap-2 pt-24">
-      <NoProductIcon className="size-28" />
-      <p className="text-subTitle dark:text-dark-light-gray text-center text-xl leading-8">
+      <NoProductIcon className="size-16 md:size-20 lg:size-28" />
+      <p className="text-subTitle dark:text-dark-light-gray text-center text-sm leading-8 md:text-lg lg:text-xl">
         {messageMap[type]}
       </p>
     </div>
