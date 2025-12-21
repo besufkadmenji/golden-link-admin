@@ -90,5 +90,7 @@ export const useManageSettingsForm = () => {
     setUpdateProfile,
     existingPicture,
     setExistingPicture,
+    vatRateReady: !!vatRateData,
+    trialPeriodDurationReady: !!trialPeriodDurationData,
   };
 };

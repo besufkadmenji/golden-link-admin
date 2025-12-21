@@ -69,7 +69,7 @@ export const FormInput = ({
         isInvalid={!!errorMessage}
         classNames={{
           inputWrapper: cn(
-            "h-12 rounded-lg border  bg-gray-border  dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary",
+            "h-12 rounded-lg border  bg-gray-border  dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt data-[hover=true]:border-app-primary group-data-[focus=true]:border-app-primary group-data-[focus=true]:data-[hover=true]:border-app-primary",
             classNames?.inputWrapper,
             readOnly && "border-gray-border-alt! dark:border-dark-border!",
           ),

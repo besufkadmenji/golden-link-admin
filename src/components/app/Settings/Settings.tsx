@@ -24,6 +24,8 @@ export const Settings = () => {
     setUpdateProfile,
     existingPicture,
     setExistingPicture,
+    vatRateReady,
+    trialPeriodDurationReady,
   } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
@@ -44,7 +46,7 @@ export const Settings = () => {
         <div className="grid grid-cols-1 gap-8 py-8">
           <FormSection title={dict.settings_page.sections.general_settings}>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {vatRate && (
+              {vatRateReady && (
                 <FormInput
                   label={dict.settings_page.labels.vat_rate}
                   placeholder={dict.settings_page.labels.vat_rate}
@@ -57,7 +59,7 @@ export const Settings = () => {
                   }
                 />
               )}
-              {trialPeriodDuration && (
+              {trialPeriodDurationReady && (
                 <FormInput
                   label={dict.settings_page.labels.trial_period_duration}
                   placeholder={dict.settings_page.labels.trial_period_duration}
@@ -92,7 +94,7 @@ export const Settings = () => {
                 />
                 <FormInput
                   label={dict.settings_page.labels.phone_number}
-                  placeholder={dict.settings_page.labels.email}
+                  placeholder={dict.settings_page.labels.phone_number}
                   value={updateProfile.phoneNumber ?? ""}
                   onChange={(value: string): void => {
                     setUpdateProfile({ phoneNumber: value });

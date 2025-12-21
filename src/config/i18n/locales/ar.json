@@ -781,6 +781,7 @@
       "full_name": "اسم المستخدم",
       "account_number": "رقم الحساب",
       "email": "البريد الإلكتروني",
+      "phone_number": "رقم الهاتف",
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
       "profile_image": "صورة الملف الشخصي",
