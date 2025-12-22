@@ -1,8 +1,8 @@
 import {
-    CreateFeatureDto,
-    Feature,
-    FeaturesData,
-    GetFeaturesParams,
+  CreateFeatureDto,
+  Feature,
+  FeaturesData,
+  GetFeaturesParams,
 } from "@/types/feature";
 import axiosClient from "@/utils/axios.client";
 import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
@@ -19,11 +19,12 @@ export class FeatureService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching features:",
-        extractAxiosErrorMessage(error, "Failed to fetch features"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -37,11 +38,12 @@ export class FeatureService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching feature:",
-        extractAxiosErrorMessage(error, "Failed to fetch feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -69,11 +71,12 @@ export class FeatureService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error creating feature:",
-        extractAxiosErrorMessage(error, "Failed to create feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -102,11 +105,12 @@ export class FeatureService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error updating feature:",
-        extractAxiosErrorMessage(error, "Failed to update feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -120,11 +124,12 @@ export class FeatureService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error deleting feature:",
-        extractAxiosErrorMessage(error, "Failed to delete feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -142,11 +147,12 @@ export class FeatureService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error activating feature:",
-        extractAxiosErrorMessage(error, "Failed to activate feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -165,11 +171,12 @@ export class FeatureService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error deactivating feature:",
-        extractAxiosErrorMessage(error, "Failed to deactivate feature"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 }

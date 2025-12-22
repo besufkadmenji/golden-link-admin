@@ -1,14 +1,21 @@
 import { addToast } from "@heroui/react";
 export const showErrorMessage = (message: string | Error) => {
   addToast({
-    title: message instanceof Error ? message.message : message,
+    description: message instanceof Error ? message.message : message,
     color: "danger",
+  
+    classNames:{
+      description:"font-medium"
+    }
   });
 };
 
 export const showSuccessMessage = (message: string) => {
   addToast({
-    title: message,
+    description: message,
     color: "success",
+    classNames:{
+      description:"font-medium"
+    }
   });
 };

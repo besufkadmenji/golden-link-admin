@@ -44,7 +44,7 @@ export const AddNotification = () => {
               dict.add_new_notification_form.sections.notification_information
             }
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
               <FormInput
                 label={dict.add_new_notification_form.labels.title}
                 placeholder={dict.add_new_notification_form.placeholders.title}
@@ -66,10 +66,12 @@ export const AddNotification = () => {
                   clearError("recipientIds");
                 }}
                 options={
-                  subscribers?.subscribers.map((subscriber) => ({
-                    label: subscriber.fullName,
-                    key: subscriber.id,
-                  })) ?? []
+                  subscribers?.subscribers
+                    .filter((s) => s.status === "ACTIVE")
+                    .map((subscriber) => ({
+                      label: subscriber.fullName,
+                      key: subscriber.id,
+                    })) ?? []
                 }
                 errorMessage={errors.recipientIds}
               />

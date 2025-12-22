@@ -26,11 +26,12 @@ export class UserService {
       console.log("Users response:", response);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching users:",
-        extractAxiosErrorMessage(error, "Failed to fetch users"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -44,11 +45,12 @@ export class UserService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching user:",
-        extractAxiosErrorMessage(error, "Failed to fetch user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -87,11 +89,12 @@ export class UserService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error creating user:",
-        extractAxiosErrorMessage(error, "Failed to create user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -136,11 +139,12 @@ export class UserService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error updating user:",
-        extractAxiosErrorMessage(error, "Failed to update user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      throw error;
     }
   }
 
@@ -158,11 +162,12 @@ export class UserService {
       });
       return true;
     } catch (error) {
-      console.error(
-        "Error deactivating user:",
-        extractAxiosErrorMessage(error, "Failed to deactivate user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 
@@ -180,11 +185,12 @@ export class UserService {
       );
       return true;
     } catch (error) {
-      console.error(
-        "Error activating user:",
-        extractAxiosErrorMessage(error, "Failed to activate user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 
@@ -198,11 +204,12 @@ export class UserService {
       });
       return true;
     } catch (error) {
-      console.error(
-        "Error deleting user:",
-        extractAxiosErrorMessage(error, "Failed to delete user"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 }

@@ -28,11 +28,12 @@ export class SubscriberService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching subscribers:",
-        extractAxiosErrorMessage(error, "Failed to fetch subscribers"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -56,11 +57,12 @@ export class SubscriberService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching subscriber:",
-        extractAxiosErrorMessage(error, "Failed to fetch subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -118,11 +120,12 @@ export class SubscriberService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error creating subscriber:",
-        extractAxiosErrorMessage(error, "Failed to create subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      throw error;
     }
   }
 
@@ -188,11 +191,12 @@ export class SubscriberService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error updating subscriber:",
-        extractAxiosErrorMessage(error, "Failed to update subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -214,11 +218,12 @@ export class SubscriberService {
       );
       return true;
     } catch (error) {
-      console.error(
-        "Error activating subscriber:",
-        extractAxiosErrorMessage(error, "Failed to activate subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 
@@ -245,11 +250,12 @@ export class SubscriberService {
       );
       return true;
     } catch (error) {
-      console.error(
-        "Error deactivating subscriber:",
-        extractAxiosErrorMessage(error, "Failed to deactivate subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 
@@ -267,11 +273,12 @@ export class SubscriberService {
       });
       return true;
     } catch (error) {
-      console.error(
-        "Error deleting subscriber:",
-        extractAxiosErrorMessage(error, "Failed to delete subscriber"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return false;
     }
   }
 }

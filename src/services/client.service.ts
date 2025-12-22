@@ -19,11 +19,12 @@ export class ClientService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching clients:",
-        extractAxiosErrorMessage(error, "Failed to fetch clients"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -37,11 +38,12 @@ export class ClientService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching client:",
-        extractAxiosErrorMessage(error, "Failed to fetch client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -66,11 +68,12 @@ export class ClientService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error creating client:",
-        extractAxiosErrorMessage(error, "Failed to create client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -96,11 +99,12 @@ export class ClientService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error updating client:",
-        extractAxiosErrorMessage(error, "Failed to update client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -114,11 +118,12 @@ export class ClientService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error deleting client:",
-        extractAxiosErrorMessage(error, "Failed to delete client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -136,11 +141,12 @@ export class ClientService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error activating client:",
-        extractAxiosErrorMessage(error, "Failed to activate client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -159,11 +165,12 @@ export class ClientService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error deactivating client:",
-        extractAxiosErrorMessage(error, "Failed to deactivate client"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 }

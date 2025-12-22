@@ -3,6 +3,7 @@ import { Button, Modal, ModalContent } from "@heroui/react";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { FormAreaInput } from "./forms/FormAreaInput";
+import { showErrorMessage } from "@/utils/show.message";
 
 interface DeactivateModalProps {
   queryParamName: string;
@@ -30,6 +31,10 @@ export const DeactivateModal = ({
   const dict = useDict();
 
   const handleConfirm = () => {
+    if (!reason) {
+      showErrorMessage(dict.common.validation.deactivation_reason.required);
+      return;
+    }
     if (id) {
       onConfirm(id, showReason ? reason : undefined);
     }
@@ -48,8 +53,12 @@ export const DeactivateModal = ({
       <ModalContent>
         <div className="grid auto-rows-max grid-cols-1 items-center justify-items-center gap-6 px-10 py-8">
           <div className="grid grid-cols-1 justify-items-center gap-4">
-            <h1 className="text-xl font-bold text-[#1E1E1E] dark:text-white">{modalTitle}</h1>
-            <p className="text-[#A5A7A5] dark:text-[#A5A7A5]">{modalDescription}</p>
+            <h1 className="text-xl font-bold text-[#1E1E1E] dark:text-white">
+              {modalTitle}
+            </h1>
+            <p className="text-[#A5A7A5] dark:text-[#A5A7A5]">
+              {modalDescription}
+            </p>
           </div>
           {showReason && (
             <div className="grid w-full grid-cols-1">
@@ -72,7 +81,7 @@ export const DeactivateModal = ({
               {dict.common.actions.cancel}
             </Button>
             <Button
-              className="bg-[#E7515A] h-12 rounded-lg font-semibold text-white"
+              className="h-12 rounded-lg bg-[#E7515A] font-semibold text-white"
               onPress={handleConfirm}
               isDisabled={busy}
               isLoading={busy}

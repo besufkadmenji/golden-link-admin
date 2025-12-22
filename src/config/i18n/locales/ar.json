@@ -103,6 +103,11 @@
       "INQUIRY": "استفسار",
       "COMPLAINT": "شكوى",
       "OTHER": "أخرى"
+    },
+    "validation": {
+      "deactivation_reason": {
+        "required": "سبب التعطيل مطلوب"
+      }
     }
   },
   "auth": {
@@ -740,6 +745,21 @@
     },
     "messages": {
       "createSuccess": "تم إنشاء الإشعار بنجاح."
+    },
+    "validation": {
+      "title": {
+        "required": "عنوان الإشعار مطلوب",
+        "minLength": "يجب أن يكون عنوان الإشعار 3 أحرف على الأقل",
+        "maxLength": "يجب ألا يتجاوز عنوان الإشعار 255 حرفًا"
+      },
+      "content": {
+        "required": "محتوى الإشعار مطلوب",
+        "minLength": "يجب أن يكون محتوى الإشعار 10 أحرف على الأقل",
+        "maxLength": "يجب ألا يتجاوز محتوى الإشعار 5000 حرف"
+      },
+      "recipientIds": {
+        "required": "يجب تحديد متلقي واحد على الأقل"
+      }
     }
   },
   "notification_detail_page": {

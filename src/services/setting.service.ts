@@ -19,11 +19,12 @@ export class SettingService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching settings:",
-        extractAxiosErrorMessage(error, "Failed to fetch settings"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -37,11 +38,12 @@ export class SettingService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching setting:",
-        extractAxiosErrorMessage(error, "Failed to fetch setting"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -60,11 +62,12 @@ export class SettingService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error updating setting:",
-        extractAxiosErrorMessage(error, "Failed to update setting"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      throw error;
     }
   }
 }

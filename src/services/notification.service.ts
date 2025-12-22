@@ -31,11 +31,12 @@ export class NotificationService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching notifications:",
-        extractAxiosErrorMessage(error, "Failed to fetch notifications"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -59,11 +60,12 @@ export class NotificationService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching notification:",
-        extractAxiosErrorMessage(error, "Failed to fetch notification"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -88,11 +90,12 @@ export class NotificationService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error creating notification:",
-        extractAxiosErrorMessage(error, "Failed to create notification"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 }

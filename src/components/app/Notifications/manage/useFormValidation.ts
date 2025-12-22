@@ -1,5 +1,6 @@
-import { useState, useCallback, useMemo } from "react";
+import { useDict } from "@/hooks/useDict";
 import { CreateNotificationDto } from "@/types/notification";
+import { useCallback, useMemo, useState } from "react";
 
 const TITLE_MIN_LENGTH = 3;
 const TITLE_MAX_LENGTH = 255;
@@ -8,41 +9,47 @@ const CONTENT_MAX_LENGTH = 5000;
 
 export const useFormValidation = (form: CreateNotificationDto) => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const dict = useDict();
+  const validateTitle = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return dict.add_new_notification_form.validation.title.required;
+      }
+      if (value.trim().length < TITLE_MIN_LENGTH) {
+        return dict.add_new_notification_form.validation.title.minLength;
+      }
+      if (value.trim().length > TITLE_MAX_LENGTH) {
+        return dict.add_new_notification_form.validation.title.maxLength;
+      }
+      return null;
+    },
+    [dict],
+  );
 
-  const validateTitle = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Notification title is required";
-    }
-    if (value.trim().length < TITLE_MIN_LENGTH) {
-      return "Notification title must be at least 3 characters long";
-    }
-    if (value.trim().length > TITLE_MAX_LENGTH) {
-      return "Notification title must not exceed 255 characters";
-    }
-    return null;
-  }, []);
-
-  const validateContent = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Notification content is required";
-    }
-    if (value.trim().length < CONTENT_MIN_LENGTH) {
-      return "Notification content must be at least 10 characters long";
-    }
-    if (value.trim().length > CONTENT_MAX_LENGTH) {
-      return "Notification content must not exceed 5000 characters";
-    }
-    return null;
-  }, []);
+  const validateContent = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return dict.add_new_notification_form.validation.content.required;
+      }
+      if (value.trim().length < CONTENT_MIN_LENGTH) {
+        return dict.add_new_notification_form.validation.content.minLength;
+      }
+      if (value.trim().length > CONTENT_MAX_LENGTH) {
+        return dict.add_new_notification_form.validation.content.maxLength;
+      }
+      return null;
+    },
+    [dict],
+  );
 
   const validateRecipientIds = useCallback(
     (value: (string | number)[]): string | null => {
       if (!value || value.length === 0) {
-        return "At least one recipient is required";
+        return dict.add_new_notification_form.validation.recipientIds.required;
       }
       return null;
     },
-    [],
+    [dict],
   );
 
   const validateForm = useCallback(() => {

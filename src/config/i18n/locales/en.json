@@ -105,6 +105,11 @@
       "INQUIRY": "Inquiry",
       "COMPLAINT": "Complaint",
       "OTHER": "Other"
+    },
+    "validation": {
+      "deactivation_reason": {
+        "required": "Deactivation reason is required"
+      }
     }
   },
   "auth": {
@@ -742,6 +747,21 @@
     },
     "messages": {
       "createSuccess": "Notification created successfully."
+    },
+    "validation": {
+      "title": {
+        "required": "Notification title is required",
+        "minLength": "Notification title must be at least 3 characters long",
+        "maxLength": "Notification title must not exceed 255 characters"
+      },
+      "content": {
+        "required": "Notification content is required",
+        "minLength": "Notification content must be at least 10 characters long",
+        "maxLength": "Notification content must not exceed 5000 characters"
+      },
+      "recipientIds": {
+        "required": "At least one recipient is required"
+      }
     }
   },
   "notification_detail_page": {

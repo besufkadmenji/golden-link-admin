@@ -63,7 +63,7 @@ export class SubscriptionService {
       throw new Error(
         extractAxiosErrorMessage(
           error,
-          "Failed to fetch subscription requests.",
+          "Something went wrong, try again later.",
         ),
       );
     }
@@ -101,7 +101,7 @@ export class SubscriptionService {
       throw new Error(
         extractAxiosErrorMessage(
           error,
-          "Failed to fetch subscription request details.",
+          "Something went wrong, try again later.",
         ),
       );
     }
@@ -139,7 +139,7 @@ export class SubscriptionService {
       throw new Error(
         extractAxiosErrorMessage(
           error,
-          "Failed to approve subscription request.",
+          "Something went wrong, try again later.",
         ),
       );
     }
@@ -179,7 +179,7 @@ export class SubscriptionService {
       throw new Error(
         extractAxiosErrorMessage(
           error,
-          "Failed to reject subscription request.",
+          "Something went wrong, try again later.",
         ),
       );
     }

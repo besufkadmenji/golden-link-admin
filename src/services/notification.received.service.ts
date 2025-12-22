@@ -20,11 +20,12 @@ export class NotificationReceivedService {
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching notifications:",
-        extractAxiosErrorMessage(error, "Failed to fetch notifications"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -41,14 +42,12 @@ export class NotificationReceivedService {
       >("/notifications/me/unread-count");
       return unwrapAxiosResponse(response);
     } catch (error) {
-      console.error(
-        "Error fetching unread count:",
+      throw new Error(
         extractAxiosErrorMessage(
           error,
-          "Failed to fetch unread notification count",
+          "Something went wrong, try again later.",
         ),
       );
-      return null;
     }
   }
 }

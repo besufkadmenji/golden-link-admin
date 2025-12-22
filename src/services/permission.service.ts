@@ -22,11 +22,12 @@ export class PermissionService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching permissions:",
-        extractAxiosErrorMessage(error, "Failed to fetch permissions"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -43,11 +44,12 @@ export class PermissionService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error assigning permissions:",
-        extractAxiosErrorMessage(error, "Failed to assign permissions"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 
@@ -64,11 +66,12 @@ export class PermissionService {
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
-      console.error(
-        "Error fetching user permissions:",
-        extractAxiosErrorMessage(error, "Failed to fetch user permissions"),
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
-      return null;
     }
   }
 }

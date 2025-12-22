@@ -23,7 +23,10 @@ export class MessageService {
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
-        extractAxiosErrorMessage(error, "Failed to fetch messages"),
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
     }
   }
@@ -41,7 +44,10 @@ export class MessageService {
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
-        extractAxiosErrorMessage(error, "Failed to fetch message"),
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
     }
   }
@@ -60,7 +66,10 @@ export class MessageService {
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
-        extractAxiosErrorMessage(error, "Failed to reply to message"),
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
       );
     }
   }
