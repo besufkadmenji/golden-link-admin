@@ -76,6 +76,7 @@ export class UserService {
       formData.append("phoneNumber", data.phoneNumber);
       formData.append("password", data.password);
       formData.append("confirmPassword", data.confirmPassword);
+      formData.append("status", data.status);
 
       if (data.permissionType) {
         formData.append("permissionType", data.permissionType);

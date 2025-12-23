@@ -39,7 +39,6 @@ export const useManageAdmin = () => {
             lang,
           );
         }
-        resetForm();
         queryClient.invalidateQueries({
           queryKey: ["users"],
         });
@@ -48,6 +47,7 @@ export const useManageAdmin = () => {
         });
         setShowSuccess("true");
       }
+      resetForm();
     } catch (error) {
       showErrorMessage(
         error instanceof Error ? error.message : "An error occurred.",
@@ -137,7 +137,11 @@ export const useManageAdmin = () => {
     setBusy(true);
     try {
       const deactivateData: DeactivateUserDto = reason ? { reason } : {};
-      const success = await UserService.deactivateUser(id, deactivateData, lang);
+      const success = await UserService.deactivateUser(
+        id,
+        deactivateData,
+        lang,
+      );
       if (success) {
         showSuccessMessage(
           dict.system_managers_page.messages.deactivateSuccess,

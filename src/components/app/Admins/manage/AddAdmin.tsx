@@ -19,13 +19,19 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
+import { useEffect } from "react";
 
 export const AddAdmin = () => {
-  const { form, setForm } = useForm();
+  const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form);
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
   return (
     <>
       <div className="grid grid-cols-1">

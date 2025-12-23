@@ -16,11 +16,13 @@ import { useUserById } from "../useAdmins";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
+import { useEffect } from "react";
+import { AppLoading } from "@/components/app/shared/AppLoading";
 
 export const EditAdmin = ({ id }: { id: string }) => {
   const { user } = useUserById(id);
   console.log("Edit Admin User:", user);
-  const { form, setForm } = useManageForm(id, user);
+  const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
   const dict = useDict();
@@ -28,7 +30,14 @@ export const EditAdmin = ({ id }: { id: string }) => {
   const { busy, updateAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form, "edit");
   console.log("existingPicture:", existingPicture, user?.profileImagePath);
-  return (
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
+  return !user || !permissionsReady ? (
+    <AppLoading className="h-[84vh]" />
+  ) : (
     <div className="grid grid-cols-1">
       <AppForm
         type={FormType.Admins}

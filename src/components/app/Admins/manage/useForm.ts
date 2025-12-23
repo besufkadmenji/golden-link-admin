@@ -5,7 +5,9 @@ import { create } from "zustand";
 
 interface FormState {
   ready: boolean;
+  permissionsReady: boolean;
   setReady: (ready: boolean) => void;
+  setPermissionsReady: (ready: boolean) => void;
   form: CreateUserWithFileDto;
   setForm: (form: Partial<CreateUserWithFileDto>) => void;
   reset: () => void;
@@ -18,6 +20,8 @@ interface FormState {
 export const useForm = create<FormState>((set) => ({
   ready: false,
   setReady: (ready) => set(() => ({ ready })),
+  permissionsReady: false,
+  setPermissionsReady: (ready) => set(() => ({ permissionsReady: ready })),
   form: {
     fullName: "",
     email: "",
@@ -38,6 +42,7 @@ export const useForm = create<FormState>((set) => ({
   reset: () =>
     set(() => ({
       ready: false,
+      permissionsReady: false,
       form: {
         fullName: "",
         email: "",
@@ -48,6 +53,8 @@ export const useForm = create<FormState>((set) => ({
         permissionType: "ADMINISTRATOR",
         status: "ACTIVE",
       },
+      existingPicture: null,
+      permissionIds: [],
     })),
   permissionIds: [],
   setPermissionIds: (ids) =>
@@ -69,6 +76,8 @@ export const useManageForm = (id: string, admin?: User | null) => {
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
+  const permissionsReady = useForm((state) => state.permissionsReady);
+  const setPermissionsReady = useForm((state) => state.setPermissionsReady);
   const permissionIds = useForm((state) => state.permissionIds);
   const setPermissionIds = useForm((state) => state.setPermissionIds);
 
@@ -92,8 +101,15 @@ export const useManageForm = (id: string, admin?: User | null) => {
       setForm({
         permissionType: "CUSTOM",
       });
+      setPermissionsReady(true);
     }
-  }, [permissions, permissionIds.length, setPermissionIds, setForm]);
+  }, [
+    permissions,
+    permissionIds.length,
+    setPermissionIds,
+    setForm,
+    setPermissionsReady,
+  ]);
 
-  return { form, setForm, reset };
+  return { form, setForm, reset, ready, permissionsReady };
 };
