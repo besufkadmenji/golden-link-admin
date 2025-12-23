@@ -12,6 +12,7 @@
     "supplier": "Supplier",
     "actions": {
       "cancel": "Cancel",
+      "activate": "Activate",
       "deactivate": "Deactivate",
       "export": "Export",
       "search": "Search",
@@ -322,8 +323,8 @@
     }
   },
   "system_managers_page": {
-    "title": "System/Admin Managers Management",
-    "total_managers": "Total System/Admin Managers",
+    "title": "System Managers Management",
+    "total_managers": "Total System Managers",
     "total_count": "admins",
     "buttons": {
       "add_new_manager": "Add New Manager",

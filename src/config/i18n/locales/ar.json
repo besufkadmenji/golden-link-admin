@@ -12,6 +12,7 @@
     "supplier": "مورد",
     "actions": {
       "cancel": "الغاء",
+      "activate": "تفعيل",
       "deactivate": "تعطيل",
       "export": "تصدير",
       "search": "البحث",
@@ -320,8 +321,8 @@
     }
   },
   "system_managers_page": {
-    "title": "إدارة مديري النظام/الادمين",
-    "total_managers": "إجمالي مديري النظام/الادمين",
+    "title": "ادارة مديرين النظام",
+    "total_managers": "مديرو النظام الكلي",
     "total_count": "ادمين",
     "buttons": {
       "add_new_manager": "إضافة مستخدم جديد",

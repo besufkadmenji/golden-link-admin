@@ -21,7 +21,7 @@ export const Admins = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.subscription_requests_page.title}>
+      <PageBar title={dict.system_managers_page.title}>
         <AddButton
           type={AddButtonType.Admin}
           onPress={() => {

@@ -23,7 +23,7 @@ export const ActivateModal = ({
   const modalTitle = title || "Activate";
   const modalDescription = description || "Are you sure?";
   const cancelText = dict.common.actions.cancel;
-  const confirmText = "Activate";
+  const confirmText =dict.common.actions.activate;
 
   return (
     <Modal
