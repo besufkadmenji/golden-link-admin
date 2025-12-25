@@ -104,7 +104,7 @@ export const Permissions = ({
         </div>
 
         {form.permissionType === "CUSTOM" && (
-          <div className="grid grid-cols-1 gap-x-5 gap-y-6 p-4 md:p-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-x-5 gap-y-6 p-4 md:grid-cols-2 md:p-6 lg:grid-cols-3">
             {Object.entries(groupedPermissions).map(([module, perms]) => (
               <div
                 key={module}
@@ -125,7 +125,7 @@ export const Permissions = ({
                 </div>
                 <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
 
-                <div className="flex justify-between gap-2 lg:justify-start lg:gap-8">
+                <div className="flex flex-wrap justify-start gap-4 lg:justify-start lg:gap-8">
                   {(["read", "create", "update", "delete"] as const).map(
                     (action) => {
                       const hasAction = perms.some((p) => p.action === action);

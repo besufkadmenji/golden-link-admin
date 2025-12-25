@@ -156,12 +156,16 @@ export class UserService {
     id: string,
     data?: DeactivateUserDto,
     lang?: string,
-  ): Promise<boolean> {
+  ): Promise<string> {
     try {
-      await axiosClient.post(`/users/${id}/deactivate`, data || {}, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
-      return true;
+      const response = await axiosClient.post(
+        `/users/${id}/deactivate`,
+        data || {},
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
+      return response.data.message || "";
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(
@@ -175,16 +179,17 @@ export class UserService {
   /**
    * Activate user
    */
-  static async activateUser(id: string, lang?: string): Promise<boolean> {
+  static async activateUser(id: string, lang?: string): Promise<string> {
     try {
-      await axiosClient.post(
+      const response = await axiosClient.post(
         `/users/${id}/activate`,
         {},
         {
           headers: lang ? { "Accept-Language": lang } : {},
         },
       );
-      return true;
+      console.log("Activate user response:", response);
+      return response.data.message || "";
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(
@@ -198,12 +203,12 @@ export class UserService {
   /**
    * Delete user permanently
    */
-  static async deleteUser(id: string, lang?: string): Promise<boolean> {
+  static async deleteUser(id: string, lang?: string): Promise<string> {
     try {
-      await axiosClient.delete(`/users/${id}`, {
+      const response = await axiosClient.delete(`/users/${id}`, {
         headers: lang ? { "Accept-Language": lang } : {},
       });
-      return true;
+      return response.data.message || "";
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(

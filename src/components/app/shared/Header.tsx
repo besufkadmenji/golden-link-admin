@@ -34,23 +34,14 @@ const ThemeSwitcher = dynamic(
   { ssr: false },
 );
 
-export const Header = ({ showLogo }: { showLogo?: boolean }) => {
+export const Header = () => {
   const {} = useMe();
   return (
     <header
       className={twMerge(
-        "flex h-16 items-center justify-between gap-1 bg-white px-2 md:justify-end lg:gap-5 lg:px-10 dark:bg-black",
-        showLogo && "md:justify-between",
+        "flex h-16 items-center justify-between gap-1 bg-white px-2 lg:justify-end lg:gap-5 lg:px-10 dark:bg-black",
       )}
     >
-      {showLogo && (
-        <AppLink
-          href={"/dashboard"}
-          className="relative aspect-182/50 h-10 justify-self-center text-[#2E2E2E] dark:text-white"
-        >
-          <LogoIcon />
-        </AppLink>
-      )}
       <MobileSidebar />
       <div className="flex items-center gap-0 lg:gap-5">
         <ThemeSwitcher />

@@ -34,7 +34,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
   return (
     <aside
       className={twMerge(
-        "border-gray-background dark:border-dark-gray-background hidden auto-rows-max grid-cols-1 items-start gap-5 overflow-y-auto border-e bg-white shadow-[4px_0px_30px_0px_rgba(131,98,234,0.05)] md:grid dark:bg-black",
+        "border-gray-background dark:border-dark-gray-background hidden auto-rows-max grid-cols-1 items-start gap-5 overflow-y-auto border-e bg-white shadow-[4px_0px_30px_0px_rgba(131,98,234,0.05)] lg:grid dark:bg-black",
         className,
       )}
     >
@@ -244,7 +244,7 @@ export const MobileSidebar = () => {
     <>
       <Button
         onPress={onOpen}
-        className="size-6 min-h-0 min-w-0 shrink-0 bg-transparent p-0 text-black md:hidden dark:text-white"
+        className="size-6 min-h-0 min-w-0 shrink-0 bg-transparent p-0 text-black lg:hidden dark:text-white"
         isIconOnly
       >
         <MenuIcon className="size-5 text-[#292D32] dark:text-white" />

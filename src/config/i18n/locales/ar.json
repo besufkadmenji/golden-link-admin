@@ -322,7 +322,7 @@
   },
   "system_managers_page": {
     "title": "ادارة مديرين النظام",
-    "total_managers": "مديرو النظام الكلي",
+    "total_managers": "مدير ين النظام الكلى",
     "total_count": "ادمين",
     "buttons": {
       "add_new_manager": "إضافة مستخدم جديد",

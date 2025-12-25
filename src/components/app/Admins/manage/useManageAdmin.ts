@@ -112,7 +112,7 @@ export const useManageAdmin = () => {
     try {
       const success = await UserService.activateUser(id, lang);
       if (success) {
-        showSuccessMessage(dict.system_managers_page.messages.activateSuccess);
+        showSuccessMessage(success);
         queryClient.invalidateQueries({
           queryKey: ["users"],
         });
@@ -143,9 +143,7 @@ export const useManageAdmin = () => {
         lang,
       );
       if (success) {
-        showSuccessMessage(
-          dict.system_managers_page.messages.deactivateSuccess,
-        );
+        showSuccessMessage(success);
         queryClient.invalidateQueries({
           queryKey: ["users"],
         });
