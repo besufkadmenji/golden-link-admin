@@ -10,37 +10,37 @@ export const TimeFilter = () => {
     <div className="border-dashboard-border dark:border-dark-dashboard-border flex h-10 items-center justify-self-start rounded-lg border bg-white p-1 dark:bg-black">
       <NavItem
         label={dict.common.timeFilters.today}
-        active={option === "today"}
+        active={option === "DAY"}
         onClick={(): void => {
-          setOption("today");
+          setOption("DAY");
         }}
       />
       <NavItem
         label={dict.common.timeFilters["7days"]}
-        active={option === "week"}
+        active={option === "WEEK"}
         onClick={(): void => {
-          setOption("week");
+          setOption("WEEK");
         }}
       />
       <NavItem
         label={dict.common.timeFilters["30days"]}
-        active={option === "month"}
+        active={option === "MONTH"}
         onClick={(): void => {
-          setOption("month");
+          setOption("MONTH");
         }}
       />
       <NavItem
         label={dict.common.timeFilters["12months"]}
-        active={option === "12months"}
+        active={option === "YEAR"}
         onClick={(): void => {
-          setOption("12months");
+          setOption("YEAR");
         }}
       />
       <NavItem
         label={dict.common.timeFilters.all}
-        active={!option}
+        active={option === "ALL" || option === null}
         onClick={(): void => {
-          setOption(null);
+          setOption("ALL");
         }}
       />
     </div>

@@ -6,35 +6,40 @@ import RequestsIcon from "@/assets/icons/app/dashboard/requests.svg";
 import { useDict } from "@/hooks/useDict";
 import { twMerge } from "tailwind-merge";
 import { inter } from "@/assets/fonts/inter";
+import { useDashboard } from "@/components/app/Dashboard/useDashboard";
 export const Summary = () => {
   const dict = useDict();
+  const { dashboard } = useDashboard();
+
   return (
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-      <SummaryCard
-        icon={<SubscribersIcon />}
-        title={dict.dashboard.cards.new_subscribers.title}
-        value={dict.dashboard.cards.new_subscribers.count}
-        delta={dict.dashboard.cards.new_subscribers.change}
-      />
-      <SummaryCard
-        icon={<WarehousesIcon />}
-        title={dict.dashboard.cards.requests.title}
-        value={dict.dashboard.cards.requests.count}
-        delta={dict.dashboard.cards.requests.change}
-      />
-      <SummaryCard
-        icon={<RevenueIcon />}
-        title={dict.dashboard.cards.invoices.title}
-        value={dict.dashboard.cards.invoices.count}
-        delta={dict.dashboard.cards.invoices.change}
-      />
-      <SummaryCard
-        icon={<RequestsIcon />}
-        title={dict.dashboard.cards.new_subscription_requests.title}
-        value={dict.dashboard.cards.new_subscription_requests.count}
-        delta={dict.dashboard.cards.new_subscription_requests.change}
-      />
-    </div>
+    dashboard && (
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <SummaryCard
+          icon={<SubscribersIcon />}
+          title={dict.dashboard.cards.new_subscribers.title}
+          value={dashboard.subscriptions.activated}
+          delta={dashboard.subscriptions.changePercentage}
+        />
+        <SummaryCard
+          icon={<WarehousesIcon />}
+          title={dict.dashboard.cards.requests.title}
+          value={dashboard.warehouses.created}
+          delta={dashboard.warehouses.changePercentage}
+        />
+        <SummaryCard
+          icon={<RevenueIcon />}
+          title={dict.dashboard.cards.invoices.title}
+          value={dashboard.revenue.total}
+          delta={dashboard.revenue.changePercentage}
+        />
+        <SummaryCard
+          icon={<RequestsIcon />}
+          title={dict.dashboard.cards.new_subscription_requests.title}
+          value={dashboard.joinRequests.total}
+          delta={dashboard.joinRequests.changePercentage}
+        />
+      </div>
+    )
   );
 };
 
@@ -47,9 +52,9 @@ const SummaryCard = ({
   icon: ReactNode;
   title: string;
   value: string | number;
-  delta?: string;
+  delta?: number;
 }) => {
-  const deltaValue = delta ? parseInt(delta) : 0;
+  const deltaValue = delta ? delta : 0;
   return (
     <div className="dark:bg-dark-black grid grid-cols-1 items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
       <div className="grid size-10">{icon}</div>

@@ -85,6 +85,9 @@ export const useManageSubscriber = () => {
         queryClient.invalidateQueries({
           queryKey: ["subscribers", id],
         });
+        queryClient.invalidateQueries({
+          queryKey: ["latestJoinRequests"],
+        });
         router.push("/subscribers");
       }
     } catch (error) {
