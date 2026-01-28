@@ -44,10 +44,10 @@ export const chartOptions = (theme: string): ChartOptions<"line"> => ({
     },
     y: {
       min: 0,
-      max: 60,
+      // max: 60,
       ticks: {
         display: false,
-        stepSize: 10,
+        stepSize: 1,
         color: theme !== "dark" ? "#9FA2B4" : "#fff",
         font: {
           size: 12,

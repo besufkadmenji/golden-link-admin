@@ -1,6 +1,10 @@
 "use client";
 
+import ChevronDownBoldIcon from "@/assets/icons/app/chevron.down.bold.svg";
+import { useMonthlySubscriptionsComparison } from "@/components/app/Dashboard/useDashboard";
+import { AppLoading } from "@/components/app/shared/AppLoading";
 import { useDict } from "@/hooks/useDict";
+import { Select, SelectItem } from "@heroui/react";
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -13,15 +17,10 @@ import {
   Tooltip,
 } from "chart.js";
 import { useTheme } from "next-themes";
-import { Line } from "react-chartjs-2";
-import { chartOptions } from "./chartOptions";
-import { createChartData } from "./chartConfig";
-import { currentMonthData, previousMonthData } from "./data";
-import { Select, SelectItem } from "@heroui/react";
-import ChevronDownBoldIcon from "@/assets/icons/app/chevron.down.bold.svg";
-import { useMonthlySubscriptionsComparison } from "@/components/app/Dashboard/useDashboard";
 import { useQueryState } from "nuqs";
-import { AppLoading } from "@/components/app/shared/AppLoading";
+import { Line } from "react-chartjs-2";
+import { createChartData } from "./chartConfig";
+import { chartOptions } from "./chartOptions";
 
 ChartJS.register(
   CategoryScale,
@@ -117,7 +116,7 @@ export const SubscribersChart = () => {
           </div>
         </div>
 
-        <div className="grid h-40 grid-cols-1 md:h-60 lg:h-[409px]">
+        <div className="grid h-40 grid-cols-1 md:h-60 lg:h-102.25">
           <Line data={data} options={chartOptions(theme ?? "light")} />
         </div>
       </div>
