@@ -130,7 +130,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
         </AppForm>
       </div>
       <SuccessModal />
-      <RejectReasonModal request={request} />
+      <RejectReasonModal id={request.id} />
     </>
   );
 };
