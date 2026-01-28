@@ -1,18 +1,12 @@
-import SuccessCheckIcon from "@/assets/icons/app/check.success.svg";
+import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
-import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
-import { SubscriptionRequestDetail } from "@/types/subscription";
-export const RejectReasonModal = ({
-  request,
-}: {
-  request: SubscriptionRequestDetail;
-}) => {
+import { FormAreaInput } from "../../shared/forms/FormAreaInput";
+export const RejectReasonModal = ({ id }: { id: string }) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
@@ -24,7 +18,7 @@ export const RejectReasonModal = ({
     <Modal
       isOpen={!!showRejectModal}
       onClose={() => {
-        router.push(`/subscribers/requests`);
+        router.back();
       }}
       hideCloseButton
       size="md"
@@ -42,13 +36,14 @@ export const RejectReasonModal = ({
             onChange={(value: string): void => {
               setReason(value);
             }}
+            className="w-full"
           />
           <PrimaryButton
             className="w-full"
             isDisabled={!reason.trim() || busy}
             isLoading={busy}
             onPress={() => {
-              rejectRequest(request.id, reason);
+              rejectRequest(id, reason);
             }}
           >
             {dict.reject_subscription_form.buttons.send}

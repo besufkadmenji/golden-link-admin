@@ -1139,26 +1139,28 @@
     "title": "لوحة المعلومات",
     "cards": {
       "new_subscribers": {
-        "title": "عدد المشتركين الجدد",
+        "title": "عدد المشتركين النشطين",
         "count": "800",
         "change": "2%"
       },
       "requests": {
-        "title": "عدد الطلبات",
+        "title": "عدد المستودعات",
         "count": "247",
         "change": "-25%"
       },
       "invoices": {
-        "title": "إجمالي الفواتير",
+        "title": "إجمالي الإيرادات هذا الشهر",
         "count": "31500",
         "change": "+15%"
       },
       "new_subscription_requests": {
-        "title": "عدد طلبات الاشتراكات الجديدة",
+        "title": "عدد طلبات الاشتراك الجديدة",
         "count": "300",
         "change": "+10%"
       }
     },
+    "latest_join_requests": "اخر طلبات الانضمام",
+
     "table": {
       "title": "لوحة المعلومات",
       "headers": {

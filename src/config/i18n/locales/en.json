@@ -1160,6 +1160,7 @@
         "change": "+10%"
       }
     },
+    "latest_join_requests":"Latest Join Requests",
     "table": {
       "title": "Management Information",
       "headers": {

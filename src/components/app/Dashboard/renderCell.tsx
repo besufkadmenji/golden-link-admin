@@ -1,9 +1,15 @@
-import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
+import {
+  ActionsCell,
+  ActionCell,
+} from "@/components/app/shared/tables/ActionsCell";
 import { typeMap } from "@/components/app/Subscribers/renderCell";
 import Dictionary from "@/config/i18n/types";
 import { Key, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { RowType } from "../shared/tables/AppTable";
+import ApproveIcon from "@/assets/icons/app/approve.svg";
+import RejectIcon from "@/assets/icons/app/reject.svg";
+import ViewIcon from "@/assets/icons/app/view.svg";
 
 export const renderCell = (
   row: RowType,
@@ -11,11 +17,29 @@ export const renderCell = (
   dict: Dictionary,
   action: {
     onView: () => void;
-    onDelete: () => void;
+    onApprove: () => void;
+    onReject: () => void;
   },
 ): ReactNode => {
   if (column === "action") {
-    return <ActionsCell onView={action.onView} onDelete={action.onDelete} />;
+    return (
+      <div className="flex items-center justify-center gap-2">
+        <ActionCell
+          icon={<ApproveIcon className="size-5 text-[#1EB564]" />}
+          onClick={action.onApprove}
+        />
+        <ActionCell
+          icon={<RejectIcon className="size-5 text-[#EA5455]" />}
+          onClick={action.onReject}
+        />
+        <ActionCell
+          icon={
+            <ViewIcon className="text-subTitle dark:text-dark-dashboard-title size-5" />
+          }
+          onClick={action.onView}
+        />
+      </div>
+    );
   } else if (column === "type") {
     return (
       <div className="grid justify-items-center">

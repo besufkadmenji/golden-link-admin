@@ -13,6 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useManageSubscriber } from "@/components/app/Subscribers/Detail/useManageSubscriber";
 import { AppLoading } from "@/components/app/shared/AppLoading";
+import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
+import { RejectReasonModal } from "../SubscribersRequests/Detail/RejectReasonModal";
 
 export const DashboardTable = () => {
   const dict = useDict();
@@ -23,7 +25,16 @@ export const DashboardTable = () => {
     "isDeleteWarningOpen",
   );
   const { deleteSubscriber, busy } = useManageSubscriber();
-
+  const {
+    approveRequest,
+    rejectRequest,
+    busy: requestBusy,
+  } = useManageRequest();
+  const [showRejectModal, setShowRejectModal] =
+    useQueryState("showRejectModal");
+  const request = joinRequests?.find(
+    (req) => req.id === showRejectModal,
+  );
   const columns: ColumnType[] = [
     {
       key: "id",
@@ -66,30 +77,39 @@ export const DashboardTable = () => {
     <AppLoading className="h-[90vh]" />
   ) : (
     <>
-      <AppTable
-        label="Dashboard"
-        columns={columns}
-        rows={joinRequests.map((entry) => ({
-          key: entry.id.toString(),
-          id: entry.order.toString(),
-          name: entry.name,
-          organizationName: entry.organizationName,
-          email: entry.email,
-          phoneNumber: entry.phone.number,
-          type: entry.type,
-          createdAt: moment(entry.requestedAt).format("MMM D, YYYY"),
-        }))}
-        renderCell={(row, column) =>
-          renderCellFn(row, column, dict, {
-            onView: () => {
-              router.push(`/subscribers/${row.key}`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key as string, { history: "push" });
-            },
-          })
-        }
-      />
+      <div className="grid grid-cols-1 gap-2">
+        <h2 className="text-title dark:text-dark-title text-lg leading-7 font-semibold tracking-[0.4px]">
+          {dict.dashboard.latest_join_requests}
+        </h2>
+        <AppTable
+          label="Dashboard"
+          columns={columns}
+          rows={joinRequests.map((entry) => ({
+            key: entry.id.toString(),
+            id: entry.order.toString(),
+            name: entry.name,
+            organizationName: entry.organizationName,
+            email: entry.email,
+            phoneNumber: entry.phone.number,
+            type: entry.type,
+            createdAt: moment(entry.requestedAt).format("MMM D, YYYY"),
+          }))}
+          renderCell={(row, column) =>
+            renderCellFn(row, column, dict, {
+              onView: () => {
+                router.push(`/subscribers/requests/${row.key}`);
+              },
+              onApprove: () => {
+                approveRequest(row.key);
+              },
+              onReject: () => {
+                setShowRejectModal(row.key, { history: "push" });
+              },
+            })
+          }
+        />
+        {request && <RejectReasonModal id={request.id} />}
+      </div>
       <DeleteWarning
         isOpen={!!isDeleteWarningOpen}
         onClose={() => setIsDeleteWarningOpen(null)}

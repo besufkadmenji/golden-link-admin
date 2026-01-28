@@ -102,7 +102,7 @@ export const RequestsList = () => {
         }}
       />
       <SuccessModal />
-      {request && <RejectReasonModal request={request} />}
+      {request && <RejectReasonModal id={request.id} />}
     </>
   );
 };
