@@ -162,6 +162,36 @@
     "contact_us": "إدارة رسائل تواصل معنا",
     "notifications": "إدارة الإشعارات"
   },
+  "reports": {
+    "title": "التقارير",
+    "buttons": {
+      "export": "تصدير",
+      "filter_by_date": "تصفية حسب التاريخ"
+    },
+    "cards": {
+      "total_revenue": "اجمالي الايرادات",
+      "growth_rate": "معدل النمو",
+      "compared_to_last_week": "مقارنة بالاسبوع الماضي"
+    },
+    "chart": {
+      "revenue_by_packages": "الايرادات حسب الباقات",
+      "total": "الاجمالي"
+    },
+    "package_types": {
+      "free": "فري",
+      "pro": "برو",
+      "plans": "برانس"
+    },
+    "table_headers": {
+      "number": "م",
+      "package_number": "رقم الباقة",
+      "package_name": "اسم الباقة",
+      "number_of_purchases": "عدد حركات الشراء",
+      "total_sales": "اجمالي المبيعات",
+      "total_platform_profit": "اجمالي ربح المنصة",
+      "total_added_tax": "اجمالي الضريبة المضافة"
+    }
+  },
   "packages": {
     "title": "إدارة الباقات",
     "total_packages": "إجمالي عدد الباقات",
@@ -1258,5 +1288,31 @@
       "pending": "مورد",
       "confirmed": "طالب مستوحي"
     }
+  },
+
+  "filterByDate": {
+    "title": "تصفية بالتاريخ",
+    "lastWeek": "الأسبوع الماضي",
+    "lastMonth": "الشهر الماضي",
+    "lastYear": "السنة الماضية",
+    "currentWeek": "الأسبوع الحالي",
+    "currentMonth": "الشهر الحالي",
+    "currentYear": "السنة الحالية",
+    "betweenDates": "فترة بين تاريخين",
+    "from": "من",
+    "to": "إلى",
+    "filterButton": "تصفية",
+    "monthLabel": "الشهر",
+    "yearLabel": "السنة"
+  },
+
+  "days": {
+    "sunday": "الأحد",
+    "monday": "الاثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت"
   }
 }

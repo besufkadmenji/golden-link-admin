@@ -8,6 +8,29 @@ import { ToastProvider } from "@heroui/toast";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
+import {
+  ArcElement,
+  CategoryScale,
+  LineElement,
+  LinearScale,
+  PointElement,
+  Title,
+} from "chart.js";
+import { Chart as ChartJS, Legend, Tooltip, Filler } from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+);
 
 export const AppHeroUIProvider = ({
   children,

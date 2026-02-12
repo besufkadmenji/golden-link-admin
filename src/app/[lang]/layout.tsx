@@ -1,5 +1,6 @@
 import { AppHeroUIProvider } from "@/config/app.provider";
 import type { Metadata } from "next";
+import "react-day-picker/style.css";
 import "../globals.css";
 import { dir } from "i18next";
 import Script from "next/script";

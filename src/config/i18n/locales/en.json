@@ -164,6 +164,36 @@
     "contact_us": "Contact Us Messages Management",
     "notifications": "Notifications Management"
   },
+  "reports": {
+    "title": "Reports",
+    "buttons": {
+      "export": "Export",
+      "filter_by_date": "Filter by Date"
+    },
+    "cards": {
+      "total_revenue": "Total Revenue",
+      "growth_rate": "Growth Rate",
+      "compared_to_last_week": "Compared to Last Week"
+    },
+    "chart": {
+      "revenue_by_packages": "Revenue by Packages",
+      "total": "Total"
+    },
+    "package_types": {
+      "free": "Free",
+      "pro": "Pro",
+      "plans": "Plans"
+    },
+    "table_headers": {
+      "number": "No.",
+      "package_number": "Package Number",
+      "package_name": "Package Name",
+      "number_of_purchases": "Number of Purchases",
+      "total_sales": "Total Sales",
+      "total_platform_profit": "Total Platform Profit",
+      "total_added_tax": "Total Added Tax"
+    }
+  },
   "packages": {
     "title": "Package Management",
     "total_packages": "Total Number of Packages",
@@ -1217,7 +1247,7 @@
         "change": "+10%"
       }
     },
-    "latest_join_requests":"Latest Join Requests",
+    "latest_join_requests": "Latest Join Requests",
     "table": {
       "title": "Management Information",
       "headers": {
@@ -1258,5 +1288,29 @@
       "pending": "Pending",
       "confirmed": "Confirmed"
     }
+  },
+  "filterByDate": {
+    "title": "Filter by Date",
+    "lastWeek": "Last Week",
+    "lastMonth": "Last Month",
+    "lastYear": "Last Year",
+    "currentWeek": "This Week",
+    "currentMonth": "This Month",
+    "currentYear": "This Year",
+    "betweenDates": "Between Two Dates",
+    "from": "From",
+    "to": "To",
+    "filterButton": "Filter",
+    "monthLabel": "Month",
+    "yearLabel": "Year"
+  },
+  "days": {
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
   }
 }
