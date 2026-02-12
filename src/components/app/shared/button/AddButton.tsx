@@ -9,6 +9,7 @@ export enum AddButtonType {
   Notification,
   Client,
   Feature,
+  Package,
 }
 export const AddButton = ({
   type,
@@ -29,6 +30,7 @@ export const AddButton = ({
       dict.notifications_page.buttons.add_notification,
     [AddButtonType.Client]: dict.clients_management.buttons.add_client,
     [AddButtonType.Feature]: dict.features_management.buttons.add_feature,
+    [AddButtonType.Package]: dict.packages.buttons.add_package,
   };
   return (
     <PrimaryButton
@@ -36,7 +38,7 @@ export const AddButton = ({
       onPress={onPress}
       isLoading={isLoading}
       isDisabled={isDisabled}
-      className="px-2"
+      className="px-3.5"
     >
       {labelMap[type]}
     </PrimaryButton>

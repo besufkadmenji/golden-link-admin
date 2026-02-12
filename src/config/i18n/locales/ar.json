@@ -93,6 +93,11 @@
       "REPLIED": "تم الرد"
     },
 
+    "duration": {
+      "MONTH": "شهر",
+      "YEAR": "سنة"
+    },
+
     "roles": {
       "ADMINISTRATOR": "مدير",
       "SUPER_ADMIN": "مسؤول فائق",
@@ -156,6 +161,57 @@
     "features_management": "إدارة مميزات المنصة",
     "contact_us": "إدارة رسائل تواصل معنا",
     "notifications": "إدارة الإشعارات"
+  },
+  "packages": {
+    "title": "إدارة الباقات",
+    "total_packages": "إجمالي عدد الباقات",
+    "total_count": "باقة",
+    "buttons": {
+      "add_package": "إضافة باقة",
+      "subscribers_in_package": "المشتركين بالباقة"
+    },
+    "filters": {
+      "status": "الحالة",
+      "duration": "مدة الباقة"
+    },
+    "search_placeholder": "البحث",
+    "table_headers": {
+      "number": "م",
+      "package_name": "اسم الباقة",
+      "package_duration": "مدة الباقة",
+      "package_price": "سعر الباقة",
+      "number_of_users": "عدد المستخدمين",
+      "creation_date": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "actions": "الإجراء"
+    },
+    "duration_units": {
+      "months": "شهور",
+      "month": "شهر",
+      "year": "سنة",
+      "years": "سنوات"
+    },
+    "package_types": {
+      "golden": "باقة ذهبية",
+      "silver": "باقة فضية",
+      "bronze": "باقة برونزية"
+    },
+    "subscribers": {
+      "title": "إدارة المشتركين",
+      "total_subscribers": "إجمالي عدد المشتركين",
+      "total_count": "مشترك",
+      "table_headers": {
+        "number": "م",
+        "username": "اسم المستخدم",
+        "phone_number": "رقم الجوال",
+        "package_price_at_purchase": "سعر الباقة عند شرائها",
+        "added_tax": "الضريبة المضافة",
+        "subscription_period_from": "فترة الاشتراك من",
+        "subscription_period_to": "فترة الاشتراك الي",
+        "status": "الحالة",
+        "actions": "الاجراء"
+      }
+    }
   },
   "subscription_requests_page": {
     "title": "طلبات الاشتراكات",
@@ -285,7 +341,8 @@
     "notifications": "لا توجد إشعارات متاحة",
     "messages": "لا توجد رسائل متاحة",
     "clients": "لا يوجد عملاء متاحون",
-    "features": "لا توجد مميزات متاحة"
+    "features": "لا توجد مميزات متاحة",
+    "packages": "لا توجد باقات متاحة"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",

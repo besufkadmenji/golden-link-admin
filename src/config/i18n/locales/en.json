@@ -95,6 +95,11 @@
       "REPLIED": "Replied"
     },
 
+    "duration": {
+      "MONTH": "Month",
+      "YEAR": "Year"
+    },
+
     "roles": {
       "ADMINISTRATOR": "Administrator",
       "SUPER_ADMIN": "Super Admin",
@@ -158,6 +163,57 @@
     "features_management": "Platform Features Management",
     "contact_us": "Contact Us Messages Management",
     "notifications": "Notifications Management"
+  },
+  "packages": {
+    "title": "Package Management",
+    "total_packages": "Total Number of Packages",
+    "total_count": "packages",
+    "buttons": {
+      "add_package": "Add Package",
+      "subscribers_in_package": "Subscribers in Package"
+    },
+    "filters": {
+      "status": "Status",
+      "duration": "Package Duration"
+    },
+    "search_placeholder": "Search",
+    "table_headers": {
+      "number": "No.",
+      "package_name": "Package Name",
+      "package_duration": "Package Duration",
+      "package_price": "Package Price",
+      "number_of_users": "Number of Users",
+      "creation_date": "Creation Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "duration_units": {
+      "months": "months",
+      "month": "month",
+      "year": "year",
+      "years": "years"
+    },
+    "package_types": {
+      "golden": "Golden Package",
+      "silver": "Silver Package",
+      "bronze": "Bronze Package"
+    },
+    "subscribers": {
+      "title": "Subscribers Management",
+      "total_subscribers": "Total Number of Subscribers",
+      "total_count": "subscribers",
+      "table_headers": {
+        "number": "No.",
+        "username": "Username",
+        "phone_number": "Phone Number",
+        "package_price_at_purchase": "Package Price at Purchase",
+        "added_tax": "Added Tax",
+        "subscription_period_from": "Subscription Period From",
+        "subscription_period_to": "Subscription Period To",
+        "status": "Status",
+        "actions": "Actions"
+      }
+    }
   },
   "subscription_requests_page": {
     "title": "Subscription Requests",
@@ -287,7 +343,8 @@
     "notifications": "No notifications available",
     "messages": "No messages available",
     "clients": "No clients available",
-    "features": "No features available"
+    "features": "No features available",
+    "packages": "No packages available"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
