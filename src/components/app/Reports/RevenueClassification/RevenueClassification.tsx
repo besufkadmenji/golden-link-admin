@@ -2,20 +2,20 @@
 
 import { sar } from "@/assets/fonts/sar";
 import { useDict } from "@/hooks/useDict";
+import { AdminReportResponse } from '@/types/report';
 import randomColor from "randomcolor";
 import { Doughnut } from "react-chartjs-2";
 import { twMerge } from "tailwind-merge";
 import { createChartData } from "./chartConfig";
 import { chartOptions } from "./chartOptions";
-import { inventoryData } from "./data";
 
-export const RevenueClassification = () => {
+export const RevenueClassification = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
-  const chartData = inventoryData.map((item, index) => ({
-    name: item.name,
-    value: item.value,
+  const chartData = report.packages.map((item, index) => ({
+    name: item.packageName,
+    value: item.packageTotalRevenue,
     color: randomColor({
-      seed: `${index}${item.name}`,
+      seed: `${index}${item.packageName}`,
       luminosity: "bright",
       format: "rgba",
       alpha: 0.9,
@@ -33,7 +33,7 @@ export const RevenueClassification = () => {
             {dict.reports.chart.total}
           </p>
           <p className="text-2xl leading-8 font-bold text-[#1C2A53]">
-            25,047 <span className={sar.className}>A</span>
+            {report.summary.totalRevenue} <span className={sar.className}>A</span>
           </p>
         </div>
       </div>

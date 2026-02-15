@@ -8,27 +8,28 @@ import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import DeltaUpIcon from "@/assets/icons/delta.up.svg";
 import DeltaDownIcon from "@/assets/icons/delta.down.svg";
+import { AdminReportResponse } from "@/types/report";
 
-export const Summary = () => {
+export const Summary = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
   return (
     <div className="grid grid-cols-2 gap-6">
       <SummaryItem
         icon={<TotalRevenueIcon className="size-10" />}
         label={dict.reports.cards.total_revenue}
-        value={`3,1500`}
+        value={`${report.summary.totalRevenue}`}
         valueDesc={<span className={sar.className}>A</span>}
       />
       <SummaryItem
         icon={<GrowthRateIcon className="size-10" />}
         label={dict.reports.cards.growth_rate}
-        value={"68%"}
+        value={`${report.summary.growthRate ?? 0}%`}
         valueDesc={
           <p className="text-xs font-light text-[#9FA2B4]">
             {dict.reports.cards.compared_to_last_week}
           </p>
         }
-        delta={20}
+        delta={0}
       />
     </div>
   );

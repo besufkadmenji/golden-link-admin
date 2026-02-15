@@ -1,11 +1,10 @@
 import { useDict } from "@/hooks/useDict";
-import { DateTimeHelpers } from "@/utils/date.time.helpers";
+import { AdminReportResponse } from "@/types/report";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../../shared/tables/AppTable";
-import { packagesList } from "./packages_list";
 import { renderCell } from "./renderCell";
 
-export const PackagesList = () => {
+export const PackagesList = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
 
   const columns: ColumnType[] = [
@@ -49,15 +48,15 @@ export const PackagesList = () => {
     <AppTable
       label="Requests"
       columns={columns}
-      rows={packagesList.map((pkg) => ({
-        key: pkg.id,
-        id: pkg.id,
-        number: pkg.packageNumber,
-        name: pkg.packageName,
-        purchases: pkg.numberOfPurchases.toString(),
-        sales: pkg.totalRevenue.toString(),
-        profit: pkg.totalPlatformProfit.toString(),
-        vat: pkg.totalAddedTax.toString(),
+      rows={report.packages.map((pkg) => ({
+        key: pkg.packageId?.toString() || "",
+        id: pkg.packageId?.toString() ?? "-",
+        number: pkg.pacakgeNumber.toString(),
+        name: pkg.packageName ?? "-",
+        purchases: pkg.packagePurchasesCount.toString(),
+        sales: pkg.packageTotalRevenue.toString(),
+        profit: pkg.packageTotalMargin.toString(),
+        vat: pkg.packageTotalVAT.toString(),
       }))}
       renderCell={(row: RowType, column: Key): ReactNode =>
         renderCell(row, column)
