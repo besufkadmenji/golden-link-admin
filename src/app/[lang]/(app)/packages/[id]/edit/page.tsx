@@ -1,10 +1,10 @@
-import { EditAdmin } from "@/components/app/Admins/manage/EditAdmin";
+import { EditPackage } from "@/components/app/Packages/manage/EditPackage";
 type Params = {
   id: string;
 };
-const EditAdminPage = async ({ params }: { params: Promise<Params> }) => {
+const EditPackagePage = async ({ params }: { params: Promise<Params> }) => {
   const { id } = await params;
-  return <EditAdmin id={id} />;
+  return <EditPackage id={id} />;
 };
 
-export default EditAdminPage;
+export default EditPackagePage;

@@ -673,6 +673,95 @@
       "title": "View Admin"
     }
   },
+  "add_new_package_form": {
+    "title": "Add New Package",
+    "sections": {
+      "package_information": "Package Information",
+      "features": "Features"
+    },
+    "labels": {
+      "package_name": "Package Name",
+      "package_duration": "Package Duration (Months)",
+      "package_price": "Package Price",
+      "status": "Status",
+      "description": "Description",
+      "max_warehouses": "Max Warehouses",
+      "max_users": "Max Users"
+    },
+    "placeholders": {
+      "package_name": "Enter package name",
+      "package_duration": "Enter package duration",
+      "package_price": "Enter package price",
+      "description": "Enter package description",
+      "max_warehouses": "Enter maximum warehouses",
+      "max_users": "Enter maximum users"
+    },
+    "image": {
+      "attach": "Attach Icon",
+      "desc": "Upload an icon for the package (PNG or JPG)"
+    },
+    "features": {
+      "inventoryOperations": "Inventory Operations",
+      "products": "Products",
+      "categories": "Categories",
+      "purchaseOrders": "Purchase Orders",
+      "invoices": "Invoices",
+      "priceOffers": "Price Offers",
+      "customers": "Customers",
+      "suppliers": "Suppliers",
+      "reportsAndAnalytics": "Reports and Analytics",
+      "shipmentTracking": "Shipment Tracking",
+      "drivers": "Drivers",
+      "rentedSpaces": "Rented Spaces",
+      "settings": "Settings",
+      "rolesAndPermissions": "Roles and Permissions",
+      "packagesAndSubscriptions": "Packages and Subscriptions"
+    }
+  },
+  "edit_package_form": {
+    "title": "Edit Package",
+    "sections": {
+      "package_information": "Package Information",
+      "features": "Features"
+    },
+    "labels": {
+      "package_name": "Package Name",
+      "package_duration": "Package Duration (Months)",
+      "package_price": "Package Price",
+      "status": "Status",
+      "description": "Description",
+      "max_warehouses": "Max Warehouses",
+      "max_users": "Max Users"
+    },
+    "placeholders": {
+      "package_name": "Enter package name",
+      "package_duration": "Enter package duration",
+      "package_price": "Enter package price",
+      "description": "Enter package description",
+      "max_warehouses": "Enter maximum warehouses",
+      "max_users": "Enter maximum users"
+    },
+    "image": {
+      "attach": "Attach Icon",
+      "desc": "Upload an icon for the package (PNG or JPG)"
+    }
+  },
+  "package_detail_page": {
+    "title": "Package Details",
+    "sections": {
+      "package_information": "Package Information",
+      "features": "Features"
+    },
+    "labels": {
+      "package_name": "Package Name",
+      "package_duration": "Package Duration (Months)",
+      "package_price": "Package Price",
+      "status": "Status",
+      "description": "Description",
+      "max_warehouses": "Max Warehouses",
+      "max_users": "Max Users"
+    }
+  },
   "deleteConfirmation": {
     "deleteAdmin": {
       "title": "Delete Admin",
@@ -690,6 +779,10 @@
       "title": "Delete Feature",
       "message": "Are you sure you want to delete this feature? This action cannot be undone."
     },
+    "deletePackage": {
+      "title": "Delete Package",
+      "message": "Are you sure you want to delete this package? This action cannot be undone."
+    },
     "confirm": "Delete",
     "cancel": "Cancel"
   },
@@ -700,6 +793,20 @@
   "deactivate_subscriber_reason_form": {
     "title": "Deactivate Subscriber",
     "description": "Please provide a reason for deactivating this subscriber",
+    "labels": {
+      "deactivation_reason": "Reason for Deactivation"
+    },
+    "placeholders": {
+      "deactivation_reason": "Enter reason for deactivation"
+    }
+  },
+  "activate_package_confirmation": {
+    "title": "Activate Package",
+    "description": "Are you sure you want to activate this package?"
+  },
+  "deactivate_package_reason_form": {
+    "title": "Deactivate Package",
+    "description": "Please provide a reason for deactivating this package",
     "labels": {
       "deactivation_reason": "Reason for Deactivation"
     },

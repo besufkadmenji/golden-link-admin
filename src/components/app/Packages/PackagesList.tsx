@@ -1,6 +1,6 @@
-import { ActivateAdmin } from "@/components/app/Admins/manage/ActivateAdmin";
-import { DeactivateAdmin } from "@/components/app/Admins/manage/DeactivateAdmin";
-import { roleMap } from "@/components/app/Admins/renderCell";
+import { ActivatePackage } from "@/components/app/Packages/manage/ActivatePackage";
+import { DeactivatePackage } from "@/components/app/Packages/manage/DeactivatePackage";
+import { roleMap } from "@/components/app/Packages/renderCell";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
 import { DateTimeHelpers } from "@/utils/date.time.helpers";
@@ -10,21 +10,22 @@ import { Key, ReactNode } from "react";
 import { DeleteWarning, DeleteWarningType } from "../shared/DeleteWarning";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
-import { useManageAdmin } from "./manage/useManageAdmin";
+import { useManagePackage } from "./manage/useManagePackage";
 import { renderCell } from "./renderCell";
-import { useUsers } from "./useAdmins";
+import { usePackages } from "./usePackages";
 import { packagesList } from "./packages_list";
 
 export const PackagesList = () => {
   const dict = useDict();
-  const { users, pagination, isLoading } = useUsers();
-  const { deleteAdmin, busy } = useManageAdmin();
+  const { packages, pagination, isLoading } = usePackages();
+  const { deletePackage, togglePackageStatus, busy } = useManagePackage();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const [activateAdmin, setActivateAdmin] = useQueryState("activateAdmin");
-  const [deactivateAdmin, setDeactivateAdmin] =
-    useQueryState("deactivateAdmin");
+  const [activatePackage, setActivatePackage] =
+    useQueryState("activatePackage");
+  const [deactivatePackage, setDeactivatePackage] =
+    useQueryState("deactivatePackage");
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
@@ -69,48 +70,46 @@ export const PackagesList = () => {
 
   return isLoading ? (
     <AppTableSkeleton columns={columns.length} rows={10} />
-  ) : !users || users.length === 0 ? (
+  ) : !packages || packages.length === 0 ? (
     <NoData type={NoDataType.Packages} />
   ) : (
     <>
       <AppTable
         label="Requests"
         columns={columns}
-        rows={packagesList.map((pkg) => ({
-          key: pkg.id,
-          id: pkg.id,
-          name: pkg.name,
-          duration: pkg.duration,
-          price: pkg.price.toLocaleString("en-US", {
-           maximumFractionDigits: 2,
-          }),
-          users: pkg.numberOfUsers.toString(),
+        rows={packages.map((pkg) => ({
+          key: pkg.id.toString(),
+          id: pkg.id.toString(),
+          name: pkg.packageName,
+          duration: pkg.packageDuration.toString(),
+          price: pkg.packagePrice,
+          users: pkg.maxUsers?.toString() ?? "-",
           status: pkg.status,
           date: DateTimeHelpers.formatDate(pkg.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {
             onView: () => {
-              // router.push(`${pathname}/${row.key}`);
+              router.push(`${pathname}/${row.key}`);
             },
             onEdit: () => {
-              // router.push(`${pathname}/${row.key}/edit`);
+              router.push(`${pathname}/${row.key}/edit`);
             },
             onDelete: () => {
-              // setIsDeleteWarningOpen(row.key, { history: "push" });
+              setIsDeleteWarningOpen(row.key, { history: "push" });
             },
             onActivate: (value: boolean) => {
-              // if (value) {
-              //   setActivateAdmin(row.key, { history: "push" });
-              // } else {
-              //   setDeactivateAdmin(row.key, { history: "push" });
-              // }
+              if (value) {
+                togglePackageStatus(row.key, "ACTIVE");
+              } else {
+                togglePackageStatus(row.key, "INACTIVE");
+              }
             },
           })
         }
         pagination={{
-          page: pagination?.currentPage ?? 0,
-          total: pagination?.totalPages ?? 0,
+          page: pagination?.page ?? 0,
+          total: pagination?.total ?? 0,
           onChange: (p) => {
             setPage(p, { history: "push" });
           },
@@ -121,14 +120,14 @@ export const PackagesList = () => {
         onClose={() => setIsDeleteWarningOpen(null)}
         onConfirm={() => {
           if (isDeleteWarningOpen) {
-            deleteAdmin(isDeleteWarningOpen);
+            deletePackage(isDeleteWarningOpen);
           }
         }}
         busy={busy}
-        type={DeleteWarningType.ADMIN}
+        type={DeleteWarningType.PACKAGE}
       />
-      <ActivateAdmin />
-      <DeactivateAdmin />
+      <ActivatePackage />
+      <DeactivatePackage />
     </>
   );
 };

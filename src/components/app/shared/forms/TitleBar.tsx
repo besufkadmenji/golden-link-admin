@@ -46,6 +46,12 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.features_management.form.title_edit
           : dict.features_management.detail.title,
+    [FormType.Packages]:
+      action === "add"
+        ? dict.add_new_package_form.title
+        : action === "edit"
+          ? dict.edit_package_form.title
+          : dict.package_detail_page.title,
   };
   const saveType = SaveButtonType.Admin;
 

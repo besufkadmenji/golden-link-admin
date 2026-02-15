@@ -1,221 +1,245 @@
 import { useState, useCallback, useMemo } from "react";
-import { CreateUserDto } from "@/types/user";
+import { CreatePackageDto, PackageFeatures } from "@/types/package";
 import { useDict } from "@/hooks/useDict";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^[0-9\-+\s()]+$/;
-const PHONE_MIN_LENGTH = 7;
-const PHONE_MAX_LENGTH = 20;
-const PASSWORD_MIN_LENGTH = 8;
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9@$!%*?&]{8,}$/;
-
-interface FormWithPassword extends CreateUserDto {
-  confirmPassword?: string;
-}
+const PACKAGE_NAME_MIN_LENGTH = 3;
+const PACKAGE_NAME_MAX_LENGTH = 100;
+const DESCRIPTION_MAX_LENGTH = 500;
+const MIN_DURATION = 1;
+const MAX_DURATION = 365; // Max 365 days (1 year in days, or could mean months)
+const MIN_PRICE = 0.01;
 
 export const useFormValidation = (
-  form: FormWithPassword,
-  mode: "add" | "edit" = "add",
+  form: CreatePackageDto,
+  features: PackageFeatures,
 ) => {
   const dict = useDict();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validateFullName = useCallback(
+  const validatePackageName = useCallback(
     (value: string): string | null => {
       if (!value || value.trim() === "") {
-        return dict.add_new_admin_form.validation.fullNameRequired;
+        return "Package name is required";
       }
-      if (value.trim().length < 3) {
-        return dict.add_new_admin_form.validation.fullNameMinLength;
+      if (value.trim().length < PACKAGE_NAME_MIN_LENGTH) {
+        return `Package name must be at least ${PACKAGE_NAME_MIN_LENGTH} characters`;
       }
-      if (value.trim().length > 100) {
-        return dict.add_new_admin_form.validation.fullNameMaxLength;
+      if (value.trim().length > PACKAGE_NAME_MAX_LENGTH) {
+        return `Package name must not exceed ${PACKAGE_NAME_MAX_LENGTH} characters`;
       }
       return null;
     },
-    [dict],
+    [],
   );
 
-  const validateEmail = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return dict.add_new_admin_form.validation.emailRequired;
-      }
-      if (!EMAIL_REGEX.test(value)) {
-        return dict.add_new_admin_form.validation.emailInvalid;
-      }
-      return null;
-    },
-    [dict],
-  );
-
-  const validatePhoneNumber = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return dict.add_new_admin_form.validation.phoneNumberRequired;
-      }
-      if (!PHONE_REGEX.test(value)) {
-        return dict.add_new_admin_form.validation.phoneNumberInvalid;
-      }
-      if (value.replace(/\D/g, "").length < PHONE_MIN_LENGTH) {
-        return dict.add_new_admin_form.validation.phoneNumberTooShort;
-      }
-      if (value.replace(/\D/g, "").length > PHONE_MAX_LENGTH) {
-        return dict.add_new_admin_form.validation.phoneNumberTooLong;
-      }
-      return null;
-    },
-    [dict],
-  );
-
-  const validateCountryCode = useCallback(
-    (value: string): string | null => {
-      if (!value || value.trim() === "") {
-        return dict.add_new_admin_form.validation.countryCodeRequired;
-      }
-      return null;
-    },
-    [dict],
-  );
-
-  const validatePassword = useCallback(
-    (value: string): string | null => {
+  const validatePackageDuration = useCallback(
+    (value: string | number): string | null => {
       if (!value || value === "") {
-        return dict.add_new_admin_form.validation.passwordRequired;
+        return "Package duration is required";
       }
-      if (value.length < PASSWORD_MIN_LENGTH) {
-        return dict.add_new_admin_form.validation.passwordMinLength;
+      const numValue = typeof value === "string" ? parseFloat(value) : value;
+      if (isNaN(numValue)) {
+        return "Package duration must be a valid number";
       }
-      if (!PASSWORD_REGEX.test(value)) {
-        return dict.add_new_admin_form.validation.passwordWeak;
+      if (numValue < MIN_DURATION) {
+        return `Package duration must be at least ${MIN_DURATION}`;
+      }
+      if (numValue > MAX_DURATION) {
+        return `Package duration must not exceed ${MAX_DURATION}`;
       }
       return null;
     },
-    [dict],
+    [],
   );
 
-  const validateConfirmPassword = useCallback(
-    (password: string, confirm: string): string | null => {
-      if (!confirm || confirm === "") {
-        return dict.add_new_admin_form.validation.confirmPasswordRequired;
+  const validatePackagePrice = useCallback(
+    (value: string | number): string | null => {
+      if (!value || value === "") {
+        return "Package price is required";
       }
-      if (password !== confirm) {
-        return dict.add_new_admin_form.validation.confirmPasswordMismatch;
+      const numValue = typeof value === "string" ? parseFloat(value) : value;
+      if (isNaN(numValue)) {
+        return "Package price must be a valid number";
+      }
+      if (numValue < MIN_PRICE) {
+        return `Package price must be at least ${MIN_PRICE}`;
       }
       return null;
     },
-    [dict],
+    [],
+  );
+
+  const validateFeatures = useCallback(
+    (features: PackageFeatures): string | null => {
+      const hasAtLeastOneFeature = Object.values(features).some(
+        (value) => value === true,
+      );
+      if (!hasAtLeastOneFeature) {
+        return "At least one feature must be enabled";
+      }
+      return null;
+    },
+    [],
+  );
+
+  const validateDescription = useCallback(
+    (value: string): string | null => {
+      if (value && value.length > DESCRIPTION_MAX_LENGTH) {
+        return `Description must not exceed ${DESCRIPTION_MAX_LENGTH} characters`;
+      }
+      return null;
+    },
+    [],
+  );
+
+  const validateMaxWarehouses = useCallback(
+    (value: number | undefined): string | null => {
+      if (value !== undefined && value !== null) {
+        if (isNaN(value)) {
+          return "Max warehouses must be a valid number";
+        }
+        if (value < 1) {
+          return "Max warehouses must be at least 1";
+        }
+      }
+      return null;
+    },
+    [],
+  );
+
+  const validateMaxUsers = useCallback(
+    (value: number | undefined): string | null => {
+      if (value !== undefined && value !== null) {
+        if (isNaN(value)) {
+          return "Max users must be a valid number";
+        }
+        if (value < 1) {
+          return "Max users must be at least 1";
+        }
+      }
+      return null;
+    },
+    [],
   );
 
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
-    const fullNameError = validateFullName(form.fullName);
-    if (fullNameError) newErrors.fullName = fullNameError;
+    const packageNameError = validatePackageName(form.packageName);
+    if (packageNameError) newErrors.packageName = packageNameError;
 
-    const emailError = validateEmail(form.email);
-    if (emailError) newErrors.email = emailError;
+    const durationError = validatePackageDuration(form.packageDuration);
+    if (durationError) newErrors.packageDuration = durationError;
 
-    const phoneError = validatePhoneNumber(form.phoneNumber);
-    if (phoneError) newErrors.phoneNumber = phoneError;
+    const priceError = validatePackagePrice(form.packagePrice);
+    if (priceError) newErrors.packagePrice = priceError;
 
-    const countryCodeError = validateCountryCode(form.countryCode);
-    if (countryCodeError) newErrors.countryCode = countryCodeError;
+    const featuresError = validateFeatures(features);
+    if (featuresError) newErrors.features = featuresError;
 
-    // Only validate password in add mode
-    if (mode === "add") {
-      const passwordError = validatePassword(form.password);
-      if (passwordError) newErrors.password = passwordError;
+    if (form.description) {
+      const descriptionError = validateDescription(form.description);
+      if (descriptionError) newErrors.description = descriptionError;
+    }
 
-      const confirmPasswordError = validateConfirmPassword(
-        form.password,
-        form.confirmPassword || "",
-      );
-      if (confirmPasswordError)
-        newErrors.confirmPassword = confirmPasswordError;
+    if (form.maxWarehouses !== undefined) {
+      const maxWarehousesError = validateMaxWarehouses(form.maxWarehouses);
+      if (maxWarehousesError) newErrors.maxWarehouses = maxWarehousesError;
+    }
+
+    if (form.maxUsers !== undefined) {
+      const maxUsersError = validateMaxUsers(form.maxUsers);
+      if (maxUsersError) newErrors.maxUsers = maxUsersError;
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
-    form.fullName,
-    form.email,
-    form.phoneNumber,
-    form.countryCode,
-    form.password,
-    form.confirmPassword,
-    mode,
-    validateFullName,
-    validateEmail,
-    validatePhoneNumber,
-    validateCountryCode,
-    validatePassword,
-    validateConfirmPassword,
+    form.packageName,
+    form.packageDuration,
+    form.packagePrice,
+    form.description,
+    form.maxWarehouses,
+    form.maxUsers,
+    features,
+    validatePackageName,
+    validatePackageDuration,
+    validatePackagePrice,
+    validateFeatures,
+    validateDescription,
+    validateMaxWarehouses,
+    validateMaxUsers,
   ]);
 
   const isFormValid = useMemo(() => {
-    const fullNameError = validateFullName(form.fullName);
-    const emailError = validateEmail(form.email);
-    const phoneError = validatePhoneNumber(form.phoneNumber);
-    const countryCodeError = validateCountryCode(form.countryCode);
-
-    // Skip password validation in edit mode
-    if (mode === "edit") {
-      return !fullNameError && !emailError && !phoneError && !countryCodeError;
-    }
-
-    const passwordError = validatePassword(form.password);
-    const confirmPasswordError = validateConfirmPassword(
-      form.password,
-      form.confirmPassword || "",
-    );
+    const packageNameError = validatePackageName(form.packageName);
+    const durationError = validatePackageDuration(form.packageDuration);
+    const priceError = validatePackagePrice(form.packagePrice);
+    const featuresError = validateFeatures(features);
+    const descriptionError = form.description
+      ? validateDescription(form.description)
+      : null;
+    const maxWarehousesError =
+      form.maxWarehouses !== undefined
+        ? validateMaxWarehouses(form.maxWarehouses)
+        : null;
+    const maxUsersError =
+      form.maxUsers !== undefined ? validateMaxUsers(form.maxUsers) : null;
 
     return (
-      !fullNameError &&
-      !emailError &&
-      !phoneError &&
-      !countryCodeError &&
-      !passwordError &&
-      !confirmPasswordError
+      !packageNameError &&
+      !durationError &&
+      !priceError &&
+      !featuresError &&
+      !descriptionError &&
+      !maxWarehousesError &&
+      !maxUsersError
     );
   }, [
-    form.fullName,
-    form.email,
-    form.phoneNumber,
-    form.countryCode,
-    form.password,
-    form.confirmPassword,
-    mode,
-    validateFullName,
-    validateEmail,
-    validatePhoneNumber,
-    validateCountryCode,
-    validatePassword,
-    validateConfirmPassword,
+    form.packageName,
+    form.packageDuration,
+    form.packagePrice,
+    form.description,
+    form.maxWarehouses,
+    form.maxUsers,
+    features,
+    validatePackageName,
+    validatePackageDuration,
+    validatePackagePrice,
+    validateFeatures,
+    validateDescription,
+    validateMaxWarehouses,
+    validateMaxUsers,
   ]);
 
   const validateField = useCallback(
-    (field: keyof FormWithPassword, value: string) => {
+    (
+      field: keyof CreatePackageDto | "features",
+      value: string | number | PackageFeatures | undefined,
+    ) => {
       let error = "";
 
       switch (field) {
-        case "fullName":
-          error = validateFullName(value) || "";
+        case "packageName":
+          error = validatePackageName(value as string) || "";
           break;
-        case "email":
-          error = validateEmail(value) || "";
+        case "packageDuration":
+          error = validatePackageDuration(value as string | number) || "";
           break;
-        case "phoneNumber":
-          error = validatePhoneNumber(value) || "";
+        case "packagePrice":
+          error = validatePackagePrice(value as string | number) || "";
           break;
-        case "countryCode":
-          error = validateCountryCode(value) || "";
+        case "features":
+          error = validateFeatures(value as PackageFeatures) || "";
           break;
-        case "password":
-          error = validatePassword(value) || "";
+        case "description":
+          error = validateDescription(value as string) || "";
           break;
-        case "confirmPassword":
-          error = validateConfirmPassword(form.password, value) || "";
+        case "maxWarehouses":
+          error = validateMaxWarehouses(value as number) || "";
+          break;
+        case "maxUsers":
+          error = validateMaxUsers(value as number) || "";
           break;
       }
 
@@ -230,13 +254,13 @@ export const useFormValidation = (
       }
     },
     [
-      validateFullName,
-      validateEmail,
-      validatePhoneNumber,
-      validateCountryCode,
-      validatePassword,
-      validateConfirmPassword,
-      form.password,
+      validatePackageName,
+      validatePackageDuration,
+      validatePackagePrice,
+      validateFeatures,
+      validateDescription,
+      validateMaxWarehouses,
+      validateMaxUsers,
     ],
   );
 

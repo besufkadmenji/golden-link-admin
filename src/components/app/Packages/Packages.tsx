@@ -14,14 +14,14 @@ import { Button } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { PackagesFilter } from "./PackagesFilter";
-import { useUsers } from "./useAdmins";
+import { usePackages } from "./usePackages";
 import { PackagesList } from "./PackagesList";
 import { TimeFilter } from "@/components/app/shared/TimeFilter";
 export const Packages = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { users, pagination, isLoading } = useUsers();
+  const { packages, pagination, isLoading } = usePackages();
 
   return (
     <PageWrapper>
@@ -49,7 +49,7 @@ export const Packages = () => {
       ) : (
         <SummaryCard
           type={SummaryCardType.PACKAGES}
-          value={pagination?.totalItems || 0}
+          value={pagination?.total || 0}
           endContent={<TimeFilter />}
         />
       )}

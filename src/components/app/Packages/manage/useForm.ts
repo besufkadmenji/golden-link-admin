@@ -1,36 +1,49 @@
-import { useUserPermission } from "@/hooks/usePermissions";
-import { CreateUserWithFileDto, User } from "@/types/user";
+import { CreatePackageDto, Package, PackageFeatures } from "@/types/package";
 import { useEffect } from "react";
 import { create } from "zustand";
 
 interface FormState {
   ready: boolean;
-  permissionsReady: boolean;
   setReady: (ready: boolean) => void;
-  setPermissionsReady: (ready: boolean) => void;
-  form: CreateUserWithFileDto;
-  setForm: (form: Partial<CreateUserWithFileDto>) => void;
+  form: CreatePackageDto;
+  setForm: (form: Partial<CreatePackageDto>) => void;
   reset: () => void;
-  permissionIds: number[];
-  setPermissionIds: (ids: number[]) => void;
-  existingPicture: string | null;
-  setExistingPicture: (picture: string | null) => void;
+  existingIcon: string | null;
+  setExistingIcon: (icon: string | null) => void;
+  features: PackageFeatures;
+  setFeatures: (features: Partial<PackageFeatures>) => void;
 }
+
+const defaultFeatures: PackageFeatures = {
+  inventoryOperations: false,
+  products: false,
+  categories: false,
+  purchaseOrders: false,
+  invoices: false,
+  priceOffers: false,
+  customers: false,
+  suppliers: false,
+  reportsAndAnalytics: false,
+  shipmentTracking: false,
+  drivers: false,
+  rentedSpaces: false,
+  settings: false,
+  rolesAndPermissions: false,
+  packagesAndSubscriptions: false,
+};
 
 export const useForm = create<FormState>((set) => ({
   ready: false,
   setReady: (ready) => set(() => ({ ready })),
-  permissionsReady: false,
-  setPermissionsReady: (ready) => set(() => ({ permissionsReady: ready })),
   form: {
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    countryCode: "+966",
-    password: "",
-    confirmPassword: "",
-    permissionType: "ADMINISTRATOR",
+    packageName: "",
+    packageDuration: "",
+    packagePrice: "",
+    features: defaultFeatures,
     status: "ACTIVE",
+    description: "",
+    maxWarehouses: undefined,
+    maxUsers: undefined,
   },
   setForm: (form) =>
     set((state) => ({
@@ -42,74 +55,60 @@ export const useForm = create<FormState>((set) => ({
   reset: () =>
     set(() => ({
       ready: false,
-      permissionsReady: false,
       form: {
-        fullName: "",
-        email: "",
-        phoneNumber: "",
-        countryCode: "+966",
-        password: "",
-        confirmPassword: "",
-        permissionType: "ADMINISTRATOR",
+        packageName: "",
+        packageDuration: "",
+        packagePrice: "",
+        features: defaultFeatures,
         status: "ACTIVE",
+        description: "",
+        maxWarehouses: undefined,
+        maxUsers: undefined,
       },
-      existingPicture: null,
-      permissionIds: [],
+      existingIcon: null,
+      features: defaultFeatures,
     })),
-  permissionIds: [],
-  setPermissionIds: (ids) =>
+  existingIcon: null,
+  setExistingIcon: (icon) =>
     set(() => ({
-      permissionIds: ids,
+      existingIcon: icon,
     })),
-  existingPicture: null,
-  setExistingPicture: (picture) =>
-    set(() => ({
-      existingPicture: picture,
+  features: defaultFeatures,
+  setFeatures: (features) =>
+    set((state) => ({
+      features: {
+        ...state.features,
+        ...features,
+      },
     })),
 }));
 
-export const useManageForm = (id: string, admin?: User | null) => {
-  const { permissions } = useUserPermission(id);
+export const useManageForm = (id: string, packageData?: Package | null) => {
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
-  const setExistingPicture = useForm((state) => state.setExistingPicture);
+  const setExistingIcon = useForm((state) => state.setExistingIcon);
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
-  const permissionsReady = useForm((state) => state.permissionsReady);
-  const setPermissionsReady = useForm((state) => state.setPermissionsReady);
-  const permissionIds = useForm((state) => state.permissionIds);
-  const setPermissionIds = useForm((state) => state.setPermissionIds);
+  const features = useForm((state) => state.features);
+  const setFeatures = useForm((state) => state.setFeatures);
 
   useEffect(() => {
-    if (!ready && admin) {
+    if (!ready && packageData) {
       setForm({
-        fullName: admin.fullName,
-        email: admin.email,
-        phoneNumber: admin.phoneNumber,
-        status: admin.status,
+        packageName: packageData.packageName,
+        packageDuration: packageData.packageDuration,
+        packagePrice: packageData.packagePrice,
+        status: packageData.status,
+        description: packageData.description || "",
+        maxWarehouses: packageData.maxWarehouses || undefined,
+        maxUsers: packageData.maxUsers || undefined,
       });
-      setExistingPicture(admin.profileImagePath || null);
+      setFeatures(packageData.features);
+      setExistingIcon(packageData.iconPath || null);
       setReady(true);
     }
-  }, [admin, ready, setExistingPicture, setForm, setReady]);
+  }, [packageData, ready, setExistingIcon, setForm, setFeatures, setReady]);
 
-  useEffect(() => {
-    if (permissions && permissions.length > 0 && permissionIds.length === 0) {
-      const newPermissionIds = permissions.map((p) => p.id);
-      setPermissionIds(newPermissionIds);
-      setForm({
-        permissionType: "CUSTOM",
-      });
-      setPermissionsReady(true);
-    }
-  }, [
-    permissions,
-    permissionIds.length,
-    setPermissionIds,
-    setForm,
-    setPermissionsReady,
-  ]);
-
-  return { form, setForm, reset, ready, permissionsReady };
+  return { form, setForm, reset, ready, features, setFeatures };
 };

@@ -1,10 +1,11 @@
-import { ViewAdmin } from "@/components/app/Admins/manage/ViewAdmin";
+import { ViewPackage } from "@/components/app/Packages/manage/ViewPackage";
+
 type Params = {
   id: string;
 };
-const ViewAdminPage = async ({ params }: { params: Promise<Params> }) => {
+const PackagePage = async ({ params }: { params: Promise<Params> }) => {
   const { id } = await params;
-  return <ViewAdmin id={id} />;
+  return <ViewPackage id={id} />;
 };
 
-export default ViewAdminPage;
+export default PackagePage;

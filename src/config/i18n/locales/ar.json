@@ -671,6 +671,95 @@
       "title": "عرض الادمين"
     }
   },
+  "add_new_package_form": {
+    "title": "إضافة باقة جديدة",
+    "sections": {
+      "package_information": "معلومات الباقة",
+      "features": "المميزات"
+    },
+    "labels": {
+      "package_name": "اسم الباقة",
+      "package_duration": "مدة الباقة (بالأشهر)",
+      "package_price": "سعر الباقة",
+      "status": "الحالة",
+      "description": "الوصف",
+      "max_warehouses": "الحد الأقصى للمستودعات",
+      "max_users": "الحد الأقصى للمستخدمين"
+    },
+    "placeholders": {
+      "package_name": "ادخل اسم الباقة",
+      "package_duration": "ادخل مدة الباقة",
+      "package_price": "ادخل سعر الباقة",
+      "description": "ادخل وصف الباقة",
+      "max_warehouses": "ادخل الحد الأقصى للمستودعات",
+      "max_users": "ادخل الحد الأقصى للمستخدمين"
+    },
+    "image": {
+      "attach": "ارفق أيقونة",
+      "desc": "ارفع أيقونة للباقة (PNG أو JPG)"
+    },
+    "features": {
+      "inventoryOperations": "عمليات المخزون",
+      "products": "المنتجات",
+      "categories": "الفئات",
+      "purchaseOrders": "طلبات الشراء",
+      "invoices": "الفواتير",
+      "priceOffers": "عروض الأسعار",
+      "customers": "العملاء",
+      "suppliers": "الموردين",
+      "reportsAndAnalytics": "التقارير والتحليلات",
+      "shipmentTracking": "تتبع الشحنات",
+      "drivers": "السائقين",
+      "rentedSpaces": "المساحات المستأجرة",
+      "settings": "الإعدادات",
+      "rolesAndPermissions": "الأدوار والصلاحيات",
+      "packagesAndSubscriptions": "الباقات والاشتراكات"
+    }
+  },
+  "edit_package_form": {
+    "title": "تعديل الباقة",
+    "sections": {
+      "package_information": "معلومات الباقة",
+      "features": "المميزات"
+    },
+    "labels": {
+      "package_name": "اسم الباقة",
+      "package_duration": "مدة الباقة (بالأشهر)",
+      "package_price": "سعر الباقة",
+      "status": "الحالة",
+      "description": "الوصف",
+      "max_warehouses": "الحد الأقصى للمستودعات",
+      "max_users": "الحد الأقصى للمستخدمين"
+    },
+    "placeholders": {
+      "package_name": "ادخل اسم الباقة",
+      "package_duration": "ادخل مدة الباقة",
+      "package_price": "ادخل سعر الباقة",
+      "description": "ادخل وصف الباقة",
+      "max_warehouses": "ادخل الحد الأقصى للمستودعات",
+      "max_users": "ادخل الحد الأقصى للمستخدمين"
+    },
+    "image": {
+      "attach": "ارفق أيقونة",
+      "desc": "ارفع أيقونة للباقة (PNG أو JPG)"
+    }
+  },
+  "package_detail_page": {
+    "title": "تفاصيل الباقة",
+    "sections": {
+      "package_information": "معلومات الباقة",
+      "features": "المميزات"
+    },
+    "labels": {
+      "package_name": "اسم الباقة",
+      "package_duration": "مدة الباقة (بالأشهر)",
+      "package_price": "سعر الباقة",
+      "status": "الحالة",
+      "description": "الوصف",
+      "max_warehouses": "الحد الأقصى للمستودعات",
+      "max_users": "الحد الأقصى للمستخدمين"
+    }
+  },
   "deleteConfirmation": {
     "deleteAdmin": {
       "title": "حذف الادمين",
@@ -688,6 +777,10 @@
       "title": "حذف الميزة",
       "message": "هل تريد بتأكيد حذف هذه الميزة؟ لا يمكن التراجع عن هذا الإجراء."
     },
+    "deletePackage": {
+      "title": "حذف الباقة",
+      "message": "هل تريد بتأكيد حذف هذه الباقة؟ لا يمكن التراجع عن هذا الإجراء."
+    },
     "confirm": "حذف",
     "cancel": "تراجع"
   },
@@ -698,6 +791,20 @@
   "deactivate_subscriber_reason_form": {
     "title": "إلغاء تفعيل المشترك",
     "description": "يرجى تقديم سبب لإلغاء تفعيل هذا المشترك",
+    "labels": {
+      "deactivation_reason": "سبب الإلغاء"
+    },
+    "placeholders": {
+      "deactivation_reason": "ادخل سبب الإلغاء"
+    }
+  },
+  "activate_package_confirmation": {
+    "title": "تفعيل الباقة",
+    "description": "هل تريد بتأكيد تفعيل هذه الباقة؟"
+  },
+  "deactivate_package_reason_form": {
+    "title": "إلغاء تفعيل الباقة",
+    "description": "يرجى تقديم سبب لإلغاء تفعيل هذه الباقة",
     "labels": {
       "deactivation_reason": "سبب الإلغاء"
     },

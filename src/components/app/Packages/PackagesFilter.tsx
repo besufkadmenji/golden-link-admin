@@ -9,8 +9,6 @@ export const PackagesFilter = () => {
   const packageStatusMap = {
     ACTIVE: dict.common.statuses.ACTIVE,
     INACTIVE: dict.common.statuses.INACTIVE,
-    SUSPENDED: dict.common.statuses.SUSPENDED,
-    PENDING_APPROVAL: dict.common.statuses.PENDING_APPROVAL,
   };
   const durationMap = {
     MONTH: dict.common.duration.MONTH,
