@@ -1,3 +1,5 @@
+import { ReportPeriod } from "./report.params";
+
 /**
  * Report Summary
  */
@@ -11,7 +13,7 @@ export interface ReportSummary {
  */
 export interface PackageReportItem {
   packageId: number | null;
-  pacakgeNumber: number; // Note: API has typo in field name
+  packageNumber: number; // Note: API has typo in field name
   packageName: string;
   packagePurchasesCount: number;
   packageTotalRevenue: number;
@@ -25,4 +27,10 @@ export interface PackageReportItem {
 export interface AdminReportResponse {
   summary: ReportSummary;
   packages: PackageReportItem[];
+}
+
+export interface AdminReportParams {
+  period?: ReportPeriod;
+  startDate?: string; // ISO date string, required when period is "CUSTOM"
+  endDate?: string; // ISO date string, required when period is "CUSTOM"
 }

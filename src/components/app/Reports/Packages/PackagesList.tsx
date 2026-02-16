@@ -51,7 +51,7 @@ export const PackagesList = ({ report }: { report: AdminReportResponse }) => {
       rows={report.packages.map((pkg) => ({
         key: pkg.packageId?.toString() || "",
         id: pkg.packageId?.toString() ?? "-",
-        number: pkg.pacakgeNumber.toString(),
+        number: pkg.packageNumber.toString(),
         name: pkg.packageName ?? "-",
         purchases: pkg.packagePurchasesCount.toString(),
         sales: pkg.packageTotalRevenue.toString(),

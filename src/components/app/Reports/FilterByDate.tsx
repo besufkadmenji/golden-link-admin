@@ -4,41 +4,55 @@ import { Button } from "@heroui/react";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { twMerge } from "tailwind-merge";
+import { useQueryState } from "nuqs";
 
-export const FilterByDate = () => {
+export const FilterByDate = ({ close }: { close: () => void }) => {
   const dict = useDict();
-  const [selected, setSelected] = useState("");
+  const [period, setPeriod] = useQueryState("period", {
+    defaultValue: "CURRENT_YEAR",
+  });
+  const [startDate, setStartDate] = useQueryState("startDate");
+  const [endDate, setEndDate] = useQueryState("endDate");
+  const [selected, setSelected] = useState(period);
+  const [from, setFrom] = useState<Date | undefined>(
+    startDate ? new Date(startDate) : undefined,
+  );
+  const [to, setTo] = useState<Date | undefined>(
+    endDate ? new Date(endDate) : undefined,
+  );
+
   const options = [
     {
       label: dict.filterByDate.currentWeek,
-      value: "currentWeek",
+      value: "CURRENT_WEEK",
     },
     {
       label: dict.filterByDate.lastWeek,
-      value: "lastWeek",
+      value: "LAST_WEEK",
     },
     {
       label: dict.filterByDate.currentMonth,
-      value: "currentMonth",
+      value: "CURRENT_MONTH",
     },
     {
       label: dict.filterByDate.lastMonth,
-      value: "lastMonth",
+      value: "LAST_MONTH",
     },
     {
       label: dict.filterByDate.currentYear,
-      value: "currentYear",
+      value: "CURRENT_YEAR",
     },
     {
       label: dict.filterByDate.lastYear,
-      value: "lastYear",
+      value: "LAST_YEAR",
     },
   ];
   return (
     <div className="grid w-84 grid-cols-1 gap-3 px-3 py-6">
       <div className="grid grid-cols-2 gap-3">
-        {options.map((option) => (
+        {options.map((option, index) => (
           <RadioItem
+            key={index}
             isSelected={selected === option.value}
             label={option.label}
             onClick={(): void => {
@@ -50,13 +64,13 @@ export const FilterByDate = () => {
       <div className="h-px bg-[#F0F1F5]" />
       <div className="grid grid-cols-1 gap-3">
         <RadioItem
-          isSelected={selected === "custom"}
+          isSelected={selected === "CUSTOM"}
           label={dict.filterByDate.betweenDates}
           onClick={(): void => {
-            setSelected("custom");
+            setSelected("CUSTOM");
           }}
         />
-        {selected === "custom" && (
+        {selected === "CUSTOM" && (
           <div className="grid grid-cols-1 gap-4">
             <div className="grid h-7.5 grid-cols-2 rounded-lg bg-[#EBEEFD]">
               <div
@@ -92,10 +106,33 @@ export const FilterByDate = () => {
                     weekday: "narrow",
                   }),
               }}
+              selected={{
+                from,
+                to,
+              }}
+              onSelect={(v) => {
+                console.log(v?.from?.toISOString(), v?.to?.toISOString());
+                setFrom(v?.from);
+                setTo(v?.to);
+              }}
             />
           </div>
         )}
-        <Button className="h-9 rounded-xl bg-[#2563EB] text-white">
+        <Button
+          className="h-9 rounded-xl bg-[#2563EB] text-white"
+          onPress={() => {
+            if (selected === "CUSTOM" && from && to) {
+              setPeriod(selected);
+              setStartDate(from?.toISOString());
+              setEndDate(to?.toISOString());
+            } else if (selected !== "CUSTOM") {
+              setPeriod(selected);
+              setStartDate(null);
+              setEndDate(null);
+            }
+            close();
+          }}
+        >
           {dict.filterByDate.filterButton}
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import axiosClient from "@/utils/axios.client";
 import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
-import { AdminReportResponse } from "@/types/report";
+import { AdminReportParams, AdminReportResponse } from "@/types/report";
 
 export class ReportService {
   /**
@@ -10,6 +10,7 @@ export class ReportService {
    * @returns Admin report with summary and packages data
    */
   static async getAdminReport(
+    params?: AdminReportParams,
     lang?: string,
   ): Promise<AdminReportResponse | null> {
     try {

@@ -5,8 +5,11 @@ import { twMerge } from "tailwind-merge";
 import { cairo } from "@/assets/fonts/cairo";
 import { FilterByDate } from "./FilterByDate";
 import { ExportButton } from "../shared/button/ExportButton";
+import { useState } from "react";
 export const ReportsHeader = () => {
   const dict = useDict();
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex items-start justify-between">
       <div className="grid grid-cols-1">
@@ -15,7 +18,11 @@ export const ReportsHeader = () => {
         </h1>
       </div>
       <div className="flex gap-4">
-        <Popover placement="bottom">
+        <Popover
+          placement="bottom"
+          isOpen={isOpen}
+          onOpenChange={(open) => setIsOpen(open)}
+        >
           <PopoverTrigger>
             <Button
               className={twMerge(
@@ -29,7 +36,7 @@ export const ReportsHeader = () => {
             </Button>
           </PopoverTrigger>
           <PopoverContent>
-            <FilterByDate />
+            <FilterByDate close={() => setIsOpen(false)} />
           </PopoverContent>
         </Popover>
         <ExportButton model={""} />
