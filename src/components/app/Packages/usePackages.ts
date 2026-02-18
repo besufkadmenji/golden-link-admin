@@ -32,6 +32,7 @@ export const usePackages = (initialParams?: GetPackagesParams) => {
       total: data?.total || 0,
       page,
       limit,
+      totalPages: data?.totalPages || 0,
     },
     isLoading,
     isError,

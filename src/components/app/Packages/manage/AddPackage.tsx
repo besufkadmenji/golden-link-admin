@@ -115,7 +115,7 @@ export const AddPackage = () => {
                 ]}
                 errorMessage={errors.status}
               />
-              <FormInput
+              {/* <FormInput
                 label={dict.add_new_package_form.labels.max_warehouses}
                 placeholder={
                   dict.add_new_package_form.placeholders.max_warehouses
@@ -129,7 +129,7 @@ export const AddPackage = () => {
                 }}
                 type="number"
                 errorMessage={errors.maxWarehouses}
-              />
+              /> */}
               <FormInput
                 label={dict.add_new_package_form.labels.max_users}
                 placeholder={dict.add_new_package_form.placeholders.max_users}

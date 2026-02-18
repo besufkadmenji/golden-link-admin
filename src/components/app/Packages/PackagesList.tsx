@@ -109,7 +109,7 @@ export const PackagesList = () => {
         }
         pagination={{
           page: pagination?.page ?? 0,
-          total: pagination?.total ?? 0,
+          total: pagination?.totalPages ?? 0,
           onChange: (p) => {
             setPage(p, { history: "push" });
           },

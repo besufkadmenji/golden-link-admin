@@ -77,9 +77,7 @@ export const EditPackage = ({ id }: { id: string }) => {
             />
             <FormInput
               label={dict.edit_package_form.labels.package_duration}
-              placeholder={
-                dict.edit_package_form.placeholders.package_duration
-              }
+              placeholder={dict.edit_package_form.placeholders.package_duration}
               value={form.packageDuration.toString()}
               onChange={(value: string): void => {
                 setForm({ packageDuration: value });
@@ -118,21 +116,6 @@ export const EditPackage = ({ id }: { id: string }) => {
                 { label: statusMap(dict).INACTIVE, key: "INACTIVE" },
               ]}
               errorMessage={errors.status}
-            />
-            <FormInput
-              label={dict.edit_package_form.labels.max_warehouses}
-              placeholder={
-                dict.edit_package_form.placeholders.max_warehouses
-              }
-              value={form.maxWarehouses?.toString() ?? ""}
-              onChange={(value: string): void => {
-                setForm({
-                  maxWarehouses: value ? parseInt(value) : undefined,
-                });
-                clearError("maxWarehouses");
-              }}
-              type="number"
-              errorMessage={errors.maxWarehouses}
             />
             <FormInput
               label={dict.edit_package_form.labels.max_users}

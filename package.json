@@ -22,11 +22,11 @@
     "chart.js": "^4.5.1",
     "country-flag-icons": "^1.6.13",
     "date-fns": "^4.1.0",
-    "framer-motion": "^12.34.0",
+    "framer-motion": "^12.34.2",
     "google-map-react": "^2.2.5",
     "html2canvas": "^1.4.1",
     "html2canvas-pro": "^1.6.7",
-    "i18next": "^25.8.9",
+    "i18next": "^25.8.11",
     "js-cookie": "^3.0.5",
     "jspdf": "^4.1.0",
     "lodash": "^4.17.23",
@@ -76,5 +76,5 @@
       "core-js"
     ]
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.30.0"
 }

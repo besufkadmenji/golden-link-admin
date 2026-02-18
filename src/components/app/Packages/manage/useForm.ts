@@ -42,7 +42,7 @@ export const useForm = create<FormState>((set) => ({
     features: defaultFeatures,
     status: "ACTIVE",
     description: "",
-    maxWarehouses: undefined,
+    maxWarehouses: 1,
     maxUsers: undefined,
   },
   setForm: (form) =>
@@ -62,7 +62,7 @@ export const useForm = create<FormState>((set) => ({
         features: defaultFeatures,
         status: "ACTIVE",
         description: "",
-        maxWarehouses: undefined,
+        maxWarehouses: 1,
         maxUsers: undefined,
       },
       existingIcon: null,
@@ -101,7 +101,7 @@ export const useManageForm = (id: string, packageData?: Package | null) => {
         packagePrice: packageData.packagePrice,
         status: packageData.status,
         description: packageData.description || "",
-        maxWarehouses: packageData.maxWarehouses || undefined,
+        maxWarehouses: packageData.maxWarehouses || 1,
         maxUsers: packageData.maxUsers || undefined,
       });
       setFeatures(packageData.features);
