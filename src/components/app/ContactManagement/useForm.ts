@@ -2,6 +2,18 @@ import { useSetting } from "@/components/app/Settings/useSettings";
 import { useEffect } from "react";
 import { create } from "zustand";
 
+export enum SocialMediaPlatform {
+  Facebook = "Facebook",
+  Twitter = "Twitter",
+  Instagram = "Instagram",
+  LinkedIn = "LinkedIn",
+  YouTube = "YouTube",
+  TikTok = "TikTok",
+  Snapchat = "Snapchat",
+  WhatsApp = "WhatsApp",
+  Telegram = "Telegram",
+}
+
 interface SettingsState {
   phoneNumbers: string[];
   whatsapp: string;

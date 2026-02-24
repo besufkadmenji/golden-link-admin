@@ -1141,8 +1141,14 @@
       },
       "platforms": {
         "facebook": "Facebook",
+        "twitter": "Twitter",
         "instagram": "Instagram",
-        "snapchat": "Snapchat"
+        "linkedin": "LinkedIn",
+        "youtube": "YouTube",
+        "tiktok": "TikTok",
+        "snapchat": "Snapchat",
+        "whatsapp": "WhatsApp",
+        "telegram": "Telegram"
       },
       "buttons": {
         "add": "Add"

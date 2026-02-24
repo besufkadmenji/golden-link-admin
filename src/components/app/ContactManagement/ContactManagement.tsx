@@ -3,6 +3,7 @@ import AddIcon from "@/assets/icons/app/add.svg";
 import DeleteIcon from "@/assets/icons/app/trash.svg";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
+import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
@@ -10,7 +11,7 @@ import { useMe } from "@/hooks/useMe";
 import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
-import { useManageSettingsForm } from "./useForm";
+import { SocialMediaPlatform, useManageSettingsForm } from "./useForm";
 import { useManageSetting } from "./useManageSetting";
 export const ContactManagement = () => {
   const dict = useDict();
@@ -142,21 +143,26 @@ export const ContactManagement = () => {
                   className="grid grid-cols-[1fr_2fr_auto] gap-2"
                   key={`${index}`}
                 >
-                  <FormInput
+                  <FormSelect
                     label={""}
-                    placeholder={""}
+                    placeholder={
+                      dict.contact_settings.social_media.labels.platform_name
+                    }
                     value={link.key}
                     onChange={(value: string): void => {
                       const updatedSocialMediaLinks = [...socialMediaLinks];
                       updatedSocialMediaLinks[index].key = value;
                       setSocialMediaLinks(updatedSocialMediaLinks);
                     }}
-                    startContent={
-                      <div className="border-dashboard-border h-5 w-5 rounded-full border" />
-                    }
-                    classNames={{
-                      inputWrapper: "shadow-none",
-                    }}
+                    options={Object.values(SocialMediaPlatform).map(
+                      (platform) => ({
+                        key: platform,
+                        label:
+                          dict.contact_settings.social_media.platforms[
+                            platform.toLowerCase() as keyof typeof dict.contact_settings.social_media.platforms
+                          ],
+                      }),
+                    )}
                   />
                   <FormInput
                     label={""}
