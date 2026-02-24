@@ -14,21 +14,32 @@ import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { TimeFilter } from "../shared/TimeFilter";
 import { NotificationsFilter } from "./NotificationsFilter";
 import { useNotifications } from "./useNotifications";
+import {usePermissions} from '@/hooks/useHasPermissions';
+import {useEffect} from 'react';
 export const Notifications = () => {
   const dict = useDict();
-  const router = useRouter();
   const pathname = usePathname();
   const { notifications, pagination, isLoading } = useNotifications();
+  const { hasPermission } = usePermissions();
+  const router = useRouter();
+  useEffect(() => {
+    if (!hasPermission("notification", "read")) {
+      router.push("/404");
+    }
 
+    return () => {};
+  }, [hasPermission]);
   return (
     <PageWrapper>
       <PageBar title={dict.notifications_page.title}>
-        <AddButton
-          type={AddButtonType.Notification}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {hasPermission("notification", "create") && (
+          <AddButton
+            type={AddButtonType.Notification}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

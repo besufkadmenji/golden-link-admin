@@ -78,6 +78,8 @@ export const Permissions = ({
     }
   };
 
+  console.log("Selected Permission IDs:", groupedPermissions);
+
   return (
     !isLoading && (
       <div className="border-dashboard-border dark:border-dark-border dark:bg-dark-black overflow-hidden rounded-lg border bg-white">

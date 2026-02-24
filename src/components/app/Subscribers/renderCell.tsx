@@ -15,7 +15,7 @@ export const renderCell = (
   dict: Dictionary,
   action: {
     onView: () => void;
-    onDelete: () => void;
+    onDelete?: () => void;
     onActivate: (value: boolean) => void;
   },
 ) => {

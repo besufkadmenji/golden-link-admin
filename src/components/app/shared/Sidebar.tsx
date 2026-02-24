@@ -27,10 +27,13 @@ import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import LogoIcon from "@/assets/icons/logo.horizontal.svg";
 import { useMe } from "@/hooks/useMe";
+import { usePermissions } from "../../../hooks/useHasPermissions";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
-  const { logout } = useMe();
+  const { logout, me, userPermissions } = useMe();
+  console.log("User Permissions in Sidebar:", me?.permissions);
+  const { hasPermission } = usePermissions();
   return (
     <aside
       className={twMerge(
@@ -45,51 +48,63 @@ export const Sidebar = ({ className }: { className?: string }) => {
         <LogoIcon className="h-full w-full" />
       </AppLink>
       <div className="grid grid-cols-1 gap-2 px-4 py-6">
-        <OptionLink
-          href="/dashboard"
-          icon={<HomeIcon className="size-5" />}
-          label={dict.navigation.home}
-        />
+        {hasPermission("dashboard", "read") && (
+          <OptionLink
+            href="/dashboard"
+            icon={<HomeIcon className="size-5" />}
+            label={dict.navigation.home}
+          />
+        )}
 
-        <OptionLink
-          href="/admins"
-          icon={<AdminsIcon className="size-5" />}
-          label={dict.navigation.system_managers}
-        />
-        <ExpandableOption
-          icon={<SubscribersIcon className="size-5" />}
-          label={dict.navigation.subscribers}
-          options={[
-            {
-              href: "/subscribers/requests",
-              label: dict.navigation.subscription_requests,
-            },
-            {
-              href: "/subscribers",
-              label: dict.navigation.subscribers,
-            },
-          ]}
-        />
-        <OptionLink
-          href="/packages"
-          icon={<GiftIcon className="size-5" />}
-          label={dict.navigation.package_management}
-        />
-        <OptionLink
-          href="/reports"
-          icon={<ReportsIcon className="size-5" />}
-          label={dict.navigation.reports}
-        />
+        {hasPermission("admin", "read") && (
+          <OptionLink
+            href="/admins"
+            icon={<AdminsIcon className="size-5" />}
+            label={dict.navigation.system_managers}
+          />
+        )}
+        {hasPermission("subscriber", "read") && (
+          <ExpandableOption
+            icon={<SubscribersIcon className="size-5" />}
+            label={dict.navigation.subscribers}
+            options={[
+              {
+                href: "/subscribers/requests",
+                label: dict.navigation.subscription_requests,
+              },
+              {
+                href: "/subscribers",
+                label: dict.navigation.subscribers,
+              },
+            ]}
+          />
+        )}
+        {hasPermission("subscription", "read") && (
+          <OptionLink
+            href="/packages"
+            icon={<GiftIcon className="size-5" />}
+            label={dict.navigation.package_management}
+          />
+        )}
+        {hasPermission("report", "read") && (
+          <OptionLink
+            href="/reports"
+            icon={<ReportsIcon className="size-5" />}
+            label={dict.navigation.reports}
+          />
+        )}
         <OptionLink
           href="/clients"
           icon={<CustomersIcon className="size-5" />}
           label={dict.navigation.clients}
         />
-        <OptionLink
-          href="/settings"
-          icon={<SettingsIcon className="size-5" />}
-          label={dict.navigation.settings}
-        />
+        {hasPermission("settings", "read") && (
+          <OptionLink
+            href="/settings"
+            icon={<SettingsIcon className="size-5" />}
+            label={dict.navigation.settings}
+          />
+        )}
         <ExpandableOption
           icon={<CmsIcon className="size-5" />}
           label={dict.navigation.website_content}
@@ -114,17 +129,23 @@ export const Sidebar = ({ className }: { className?: string }) => {
               href: "/content/features",
               label: dict.navigation.features_management,
             },
-            {
-              href: "/content/contact-us",
-              label: dict.navigation.contact_us,
-            },
+            ...(hasPermission("message", "read")
+              ? [
+                  {
+                    href: "/content/contact-us",
+                    label: dict.navigation.contact_us,
+                  },
+                ]
+              : []),
           ]}
         />
-        <OptionLink
-          href="/notifications"
-          icon={<NotificationIcon className="size-5" />}
-          label={dict.navigation.notifications}
-        />
+        {hasPermission("notification", "read") && (
+          <OptionLink
+            href="/notifications"
+            icon={<NotificationIcon className="size-5" />}
+            label={dict.navigation.notifications}
+          />
+        )}
         <OptionLink
           href="#"
           icon={<LogoutIcon className="size-5" />}

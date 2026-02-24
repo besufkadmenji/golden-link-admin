@@ -17,7 +17,7 @@ export class PermissionService {
   ): Promise<PermissionsListResponse | null> {
     try {
       const response = await axiosClient.get("/permissions", {
-        params,
+        params: { ...params, platform: "ADMIN" },
         headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);

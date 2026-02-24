@@ -13,21 +13,32 @@ import { usePathname, useRouter } from "next/navigation";
 import { AdminsFilter } from "./AdminsFilter";
 import { useUsers } from "./useAdmins";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
+import { usePermissions } from "@/hooks/useHasPermissions";
+import { useEffect } from "react";
 export const Admins = () => {
   const dict = useDict();
-  const router = useRouter();
   const pathname = usePathname();
   const { users, pagination, isLoading } = useUsers();
+  const { hasPermission } = usePermissions();
+  const router = useRouter();
+  useEffect(() => {
+    if (!hasPermission("admin", "read")) {
+      router.push("/404");
+    }
 
+    return () => {};
+  }, [hasPermission]);
   return (
     <PageWrapper>
       <PageBar title={dict.system_managers_page.title}>
-        <AddButton
-          type={AddButtonType.Admin}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {hasPermission("admin", "create") && (
+          <AddButton
+            type={AddButtonType.Admin}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

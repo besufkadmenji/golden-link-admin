@@ -13,12 +13,14 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManagePackage } from "./manage/useManagePackage";
 import { renderCell } from "./renderCell";
 import { usePackages } from "./usePackages";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { packagesList } from "./packages_list";
 
 export const PackagesList = () => {
   const dict = useDict();
   const { packages, pagination, isLoading } = usePackages();
   const { deletePackage, togglePackageStatus, busy } = useManagePackage();
+  const { hasPermission } = usePermissions();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -92,12 +94,12 @@ export const PackagesList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: () => {
+            onEdit: hasPermission("subscription", "update") ? () => {
               router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
+            } : undefined,
+            onDelete: hasPermission("subscription", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
-            },
+            } : undefined,
             onActivate: (value: boolean) => {
               if (value) {
                 togglePackageStatus(row.key, "ACTIVE");

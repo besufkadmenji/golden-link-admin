@@ -102,4 +102,21 @@ export interface AdminAuthPayload {
   countryCode: string;
   phoneNumber: string;
   profileImagePath: string | null;
+  permissions: {
+    id: number;
+    name: string;
+    nameAr: string;
+    description: string;
+    module: string;
+    action: string;
+    resource: string;
+  }[];
+  permissionType: string;
+}
+
+export interface AdminProfileResponse {
+  status: "success" | "error";
+  statusCode: number;
+  message: string;
+  data: AdminAuthPayload;
 }

@@ -9,6 +9,7 @@ import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { useSubscribers } from "./useSubscriber";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { useManageSubscriber } from "@/components/app/Subscribers/Detail/useManageSubscriber";
 import {
   DeleteWarning,
@@ -21,6 +22,7 @@ export const SubscribersList = () => {
   const dict = useDict();
   const { data, isLoading } = useSubscribers();
   const { deleteSubscriber, busy } = useManageSubscriber();
+  const { hasPermission } = usePermissions();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -99,9 +101,13 @@ export const SubscribersList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key as string, { history: "push" });
-            },
+            onDelete: hasPermission("subscriber", "delete")
+              ? () => {
+                  setIsDeleteWarningOpen(row.key as string, {
+                    history: "push",
+                  });
+                }
+              : undefined,
             onActivate: (value: boolean) => {
               if (value) {
                 setActivateSubscriber(row.key as string, { history: "push" });

@@ -19,25 +19,36 @@ import {
   AddButtonType,
 } from "@/components/app/shared/button/AddButton";
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
+import { usePermissions } from "@/hooks/useHasPermissions";
+import { useEffect } from "react";
 
 export const Subscribers = () => {
   const dict = useDict();
-  const router = useRouter();
   const pathname = usePathname();
   const { data, isLoading } = useSubscribers();
+  const { hasPermission } = usePermissions();
+  const router = useRouter();
+  useEffect(() => {
+    if (!hasPermission("subscriber", "read")) {
+      router.push("/404");
+    }
 
+    return () => {};
+  }, [hasPermission]);
   return (
     <PageWrapper>
       <PageBar
         title={dict.subscribers_page.title}
-        className="grid grid-cols-1 md:flex gap-2"
+        className="grid grid-cols-1 gap-2 md:flex"
       >
-        <AddButton
-          type={AddButtonType.Subscriber}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {hasPermission("subscriber", "create") && (
+          <AddButton
+            type={AddButtonType.Subscriber}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
         <ExportButton model={""} />
       </PageBar>
       <Gap className="h-8" />

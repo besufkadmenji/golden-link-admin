@@ -23,7 +23,7 @@ export const PackageSubscribers = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.packages.subscribers.title}>
-        <ExportButton model={""} />
+        <ExportButton model={"subscriber"} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

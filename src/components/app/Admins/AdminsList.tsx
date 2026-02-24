@@ -13,11 +13,13 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageAdmin } from "./manage/useManageAdmin";
 import { renderCell } from "./renderCell";
 import { useUsers } from "./useAdmins";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const AdminsList = () => {
   const dict = useDict();
   const { users, pagination, isLoading } = useUsers();
   const { deleteAdmin, busy } = useManageAdmin();
+  const { hasPermission } = usePermissions();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -83,12 +85,12 @@ export const AdminsList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: () => {
+            onEdit: hasPermission("admin", "update") ? () => {
               router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
+            } : undefined,
+            onDelete: hasPermission("admin", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
-            },
+            } : undefined,
             onActivate: (value: boolean) => {
               if (value) {
                 setActivateAdmin(row.key, { history: "push" });

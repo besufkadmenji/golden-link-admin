@@ -2,12 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import Cookie from "js-cookie";
 import { AdminAuthPayload } from "@/types/admin.auth";
 import { AuthService } from "@/services/auth.service";
+import { PermissionService } from "@/services/permission.service";
+import { AssignedPermissionsResponse } from "@/types/permission";
+import { useLang } from "./useLang";
 export const useMe = (): {
   me: AdminAuthPayload | null | undefined;
+  userPermissions: AssignedPermissionsResponse | null | undefined;
   isLoading: boolean;
   isError: boolean;
   logout: () => Promise<void>;
 } => {
+  const lang = useLang();
   const {
     isLoading,
     isError,
@@ -17,6 +22,13 @@ export const useMe = (): {
     queryFn: () => AuthService.getAdminProfile(),
   });
 
+  const { data: userPermissions, error } =
+    useQuery<AssignedPermissionsResponse | null>({
+      queryKey: ["userPermissions", me?.id],
+      queryFn: () => PermissionService.getUserPermissions(me?.id || "", lang),
+      enabled: !!me,
+    });
+
   const logout = async (): Promise<void> => {
     Cookie.remove("accessToken");
     Cookie.remove("refreshToken");
@@ -25,5 +37,5 @@ export const useMe = (): {
     window.location.reload();
   };
 
-  return { isLoading, isError, me, logout };
+  return { isLoading, isError, me, userPermissions, logout };
 };

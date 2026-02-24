@@ -5,6 +5,7 @@ import {
   AdminLoginResponse,
   AdminAuthData,
   AdminAuthPayload,
+  AdminProfileResponse,
   ForgotPasswordDto,
   ForgotPasswordResponse,
   ForgotPasswordData,
@@ -16,13 +17,6 @@ import {
   ChangePasswordDto,
   ChangePasswordResponse,
 } from "@/types/admin.auth";
-
-export interface AdminProfileResponse {
-  status: "success" | "error";
-  statusCode: number;
-  message: string;
-  data: AdminAuthPayload;
-}
 
 export class AuthService {
   /**

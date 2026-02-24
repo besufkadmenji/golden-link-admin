@@ -555,7 +555,12 @@
       "dashboard_admin": "لوحة تحكم المدير",
       "dashboard_user": "لوحة تحكم المستخدم",
       "countryCode": "رموز البلدان",
-      "queue": "قائمة الانتظار"
+      "queue": "قائمة الانتظار",
+
+      "dashboard": "لوحة المعلومات",
+      "admin": "مدير النظام",
+      "report": "تقرير",
+      "subscriber": "مشترك"
     }
   },
   "activate_admin_confirmation": {

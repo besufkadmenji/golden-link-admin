@@ -17,11 +17,13 @@ import { PackagesFilter } from "./PackagesFilter";
 import { usePackages } from "./usePackages";
 import { PackagesList } from "./PackagesList";
 import { TimeFilter } from "@/components/app/shared/TimeFilter";
+import { usePermissions } from "@/hooks/useHasPermissions";
 export const Packages = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
   const { packages, pagination, isLoading } = usePackages();
+  const { hasPermission } = usePermissions();
 
   return (
     <PageWrapper>
@@ -35,12 +37,14 @@ export const Packages = () => {
         >
           {dict.packages.buttons.subscribers_in_package}
         </Button>
-        <AddButton
-          type={AddButtonType.Package}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {hasPermission("subscription", "create") && (
+          <AddButton
+            type={AddButtonType.Package}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
         <ExportButton model={""} />
       </PageBar>
       <Gap className="h-8" />

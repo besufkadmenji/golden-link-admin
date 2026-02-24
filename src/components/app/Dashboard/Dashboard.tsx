@@ -7,10 +7,24 @@ import { DashboardTable } from "./DashboardTable";
 import { SubscribersChart } from "./SubscribersChart/SubscribersChart";
 import { useDashboard } from "@/components/app/Dashboard/useDashboard";
 import { AppLoading } from "../shared/AppLoading";
+import { useChangePasswordForm } from "../Settings/useChangePasswordForm";
+import { usePermissions } from "@/hooks/useHasPermissions";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export const Dashboard = () => {
   const dict = useDict();
   const { dashboard } = useDashboard();
+  const { hasPermission } = usePermissions();
+  const router = useRouter();
+  useEffect(() => {
+    if (!hasPermission("dashboard", "read")) {
+      router.push("/404");
+    }
+
+    return () => {};
+  }, [hasPermission]);
+
   return !dashboard ? (
     <AppLoading className="h-[90vh]" />
   ) : (
