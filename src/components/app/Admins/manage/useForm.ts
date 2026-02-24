@@ -13,6 +13,8 @@ interface FormState {
   reset: () => void;
   permissionIds: number[];
   setPermissionIds: (ids: number[]) => void;
+  initialPermissionIds: number[];
+  setInitialPermissionIds: (ids: number[]) => void;
   existingPicture: string | null;
   setExistingPicture: (picture: string | null) => void;
 }
@@ -55,11 +57,17 @@ export const useForm = create<FormState>((set) => ({
       },
       existingPicture: null,
       permissionIds: [],
+      initialPermissionIds: [],
     })),
   permissionIds: [],
   setPermissionIds: (ids) =>
     set(() => ({
       permissionIds: ids,
+    })),
+  initialPermissionIds: [],
+  setInitialPermissionIds: (ids) =>
+    set(() => ({
+      initialPermissionIds: ids,
     })),
   existingPicture: null,
   setExistingPicture: (picture) =>
@@ -80,6 +88,9 @@ export const useManageForm = (id: string, admin?: User | null) => {
   const setPermissionsReady = useForm((state) => state.setPermissionsReady);
   const permissionIds = useForm((state) => state.permissionIds);
   const setPermissionIds = useForm((state) => state.setPermissionIds);
+  const setInitialPermissionIds = useForm(
+    (state) => state.setInitialPermissionIds,
+  );
 
   useEffect(() => {
     if (!ready && admin) {
@@ -98,6 +109,7 @@ export const useManageForm = (id: string, admin?: User | null) => {
     if (permissions && permissions.length > 0 && permissionIds.length === 0) {
       const newPermissionIds = permissions.map((p) => p.id);
       setPermissionIds(newPermissionIds);
+      setInitialPermissionIds(newPermissionIds);
       setForm({
         permissionType: "CUSTOM",
       });
@@ -107,6 +119,7 @@ export const useManageForm = (id: string, admin?: User | null) => {
     permissions,
     permissionIds.length,
     setPermissionIds,
+    setInitialPermissionIds,
     setForm,
     setPermissionsReady,
   ]);

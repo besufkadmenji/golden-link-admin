@@ -5,6 +5,7 @@ import {
   GetPermissionsParams,
   AssignPermissionsRequest,
   AssignedPermissionsResponse,
+  RevokePermissionRequest,
 } from "@/types/permission";
 
 export class PermissionService {
@@ -64,6 +65,33 @@ export class PermissionService {
       const response = await axiosClient.get(`/permissions/user/${userId}`, {
         headers: lang ? { "Accept-Language": lang } : {},
       });
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Revoke a specific permission from a user
+   */
+  static async revokePermission(
+    permissionId: string | number,
+    data: RevokePermissionRequest,
+    lang?: string,
+  ): Promise<AssignedPermissionsResponse | null> {
+    try {
+      const response = await axiosClient.post(
+        `/permissions/revoke/${permissionId}`,
+        data,
+        {
+          headers: lang ? { "Accept-Language": lang } : {},
+        },
+      );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(

@@ -4,10 +4,10 @@ export interface Permission {
   nameAr: string;
   description: string;
   module: string;
-  action: "create" | "read" | "update" | "delete";
+  action: string;
   resource: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface PermissionsListResponse {
@@ -27,12 +27,16 @@ export interface GetPermissionsParams {
   limit?: number;
   search?: string;
   module?: string;
-  action?: "create" | "read" | "update" | "delete";
+  action?: string;
 }
 
 export interface AssignPermissionsRequest {
   userId: string;
   permissionIds: number[];
+}
+
+export interface RevokePermissionRequest {
+  userId: string;
 }
 
 export interface AssignedPermissionsResponse {

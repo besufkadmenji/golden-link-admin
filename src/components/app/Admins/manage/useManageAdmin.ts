@@ -15,6 +15,7 @@ export const useManageAdmin = () => {
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
   const permissionIds = useForm((state) => state.permissionIds);
+  const initialPermissionIds = useForm((state) => state.initialPermissionIds);
   const router = useRouter();
   const dict = useDict();
   const lang = useLang();
@@ -63,13 +64,32 @@ export const useManageAdmin = () => {
       const response = await UserService.updateUser(id, form);
       if (response) {
         if (form.permissionType === "CUSTOM") {
-          await PermissionService.assignPermissions(
-            {
-              userId: response.id,
-              permissionIds: permissionIds || [],
-            },
-            lang,
+          const revokedIds = initialPermissionIds.filter(
+            (pid) => !permissionIds.includes(pid),
           );
+          const newlyAddedIds = permissionIds.filter(
+            (pid) => !initialPermissionIds.includes(pid),
+          );
+          await Promise.all([
+            ...(newlyAddedIds.length > 0
+              ? [
+                  PermissionService.assignPermissions(
+                    {
+                      userId: response.id,
+                      permissionIds: newlyAddedIds,
+                    },
+                    lang,
+                  ),
+                ]
+              : []),
+            ...revokedIds.map((pid) =>
+              PermissionService.revokePermission(
+                pid,
+                { userId: response.id },
+                lang,
+              ),
+            ),
+          ]);
         }
         showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
