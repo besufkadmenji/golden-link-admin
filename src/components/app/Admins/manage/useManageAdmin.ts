@@ -62,6 +62,15 @@ export const useManageAdmin = () => {
     try {
       const response = await UserService.updateUser(id, form);
       if (response) {
+        if (form.permissionType === "CUSTOM") {
+          await PermissionService.assignPermissions(
+            {
+              userId: response.id,
+              permissionIds: permissionIds || [],
+            },
+            lang,
+          );
+        }
         showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["user", id],

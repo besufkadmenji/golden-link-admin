@@ -14,8 +14,8 @@ import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { TimeFilter } from "../shared/TimeFilter";
 import { NotificationsFilter } from "./NotificationsFilter";
 import { useNotifications } from "./useNotifications";
-import {usePermissions} from '@/hooks/useHasPermissions';
-import {useEffect} from 'react';
+import { usePermissions } from "@/hooks/useHasPermissions";
+import { useEffect } from "react";
 export const Notifications = () => {
   const dict = useDict();
   const pathname = usePathname();
@@ -29,6 +29,7 @@ export const Notifications = () => {
 
     return () => {};
   }, [hasPermission]);
+  console.log("hasPermission", hasPermission("notification", "create"));
   return (
     <PageWrapper>
       <PageBar title={dict.notifications_page.title}>
