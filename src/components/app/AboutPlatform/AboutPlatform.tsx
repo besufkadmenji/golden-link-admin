@@ -4,7 +4,7 @@ import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
-import { FormAreaInput } from "../shared/forms/FormAreaInput";
+import { FormRichTextEditor } from "../shared/forms/FormRichTextEditor";
 import { useManageSettingsForm } from "./useForm";
 import { useManageSetting } from "./useManageSetting";
 export const AboutPlatform = () => {
@@ -27,14 +27,14 @@ export const AboutPlatform = () => {
       <div className="grid grid-cols-1 gap-8 py-8">
         <FormSection title={dict.about_platform.section_title}>
           <div className="grid grid-cols-1 gap-4">
-            <FormAreaInput
+            <FormRichTextEditor
               label={"محتوي النص"}
               placeholder={""}
               value={valueAr}
               onChange={setValueAr}
               dir="rtl"
             />
-            <FormAreaInput
+            <FormRichTextEditor
               label={"Text Content"}
               placeholder={""}
               value={valueEn}
