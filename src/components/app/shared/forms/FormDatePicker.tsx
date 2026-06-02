@@ -1,8 +1,8 @@
 import CalendarIcon from "@/assets/icons/app/calendar.svg";
-import { cn, DatePicker, DateValue } from "@heroui/react";
+import { cn, DatePicker } from "@heroui/react";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import moment from "moment";
-import { ReactNode, useState } from "react";
+import { ComponentProps, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
 export const FormDatePicker = ({
   label,
@@ -27,8 +27,10 @@ export const FormDatePicker = ({
   readOnly?: boolean;
   errorMessage?: string;
 }) => {
-  const [value, setValue] = useState<DateValue | null>(
-    initial ? parseDate(initial) : null,
+  type PickerValue = ComponentProps<typeof DatePicker>["value"];
+
+  const [value, setValue] = useState<PickerValue>(
+    initial ? (parseDate(initial) as unknown as PickerValue) : null,
   );
 
   return (
@@ -42,7 +44,7 @@ export const FormDatePicker = ({
         selectorIcon ?? <CalendarIcon className="size-3! text-white" />
       }
       value={value}
-      onChange={(date) => {
+      onChange={(date: any) => {
         if (!date) {
           return;
         }
