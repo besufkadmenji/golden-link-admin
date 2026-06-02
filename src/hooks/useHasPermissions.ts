@@ -1,13 +1,22 @@
 import { useMe } from "@/hooks/useMe";
 
 export const usePermissions = () => {
-  const { me } = useMe();
-  const permissions = me?.permissions || [];
+  const { me, userPermissions, isLoading, userPermissionsLoading } = useMe();
+  const permissions =
+    me?.permissionType === "CUSTOM"
+      ? userPermissions?.permissions || []
+      : me?.permissions || [];
+
+  const isPermissionLoading =
+    isLoading || (me?.permissionType === "CUSTOM" && userPermissionsLoading);
+
   const hasPermission = (
     module: string,
     type: "create" | "read" | "update" | "delete",
   ): boolean => {
-    if (!me) return true;
+    if (!me) return false;
+    if (me.permissionType !== "CUSTOM") return true;
+
     const permission = permissions.find((perm) => perm.module === module);
     if (!permission) return false;
     if (permission.action === "full_access") return true;
@@ -19,5 +28,5 @@ export const usePermissions = () => {
     return false;
   };
 
-  return { hasPermission };
+  return { hasPermission, isPermissionLoading };
 };

@@ -32,15 +32,15 @@ export const Settings = () => {
   } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("settings", "read")) {
+    if (!isPermissionLoading && !hasPermission("settings", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   return (
     <>
       <PageWrapper>

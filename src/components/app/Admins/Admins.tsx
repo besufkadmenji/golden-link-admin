@@ -19,15 +19,15 @@ export const Admins = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { users, pagination, isLoading } = useUsers();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("admin", "read")) {
+    if (!isPermissionLoading && !hasPermission("admin", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar title={dict.system_managers_page.title}>

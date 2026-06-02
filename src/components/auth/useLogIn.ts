@@ -1,5 +1,6 @@
 import { useLoginForm } from "@/components/auth/useLoginForm";
 import { useLang } from "@/hooks/useLang";
+import { useDict } from "@/hooks/useDict";
 import { AuthService } from "@/services/auth.service";
 import { showErrorMessage } from "@/utils/show.message";
 import Cookie from "js-cookie";
@@ -10,13 +11,35 @@ export const useLogIn = () => {
   const form = useLoginForm((state) => state.form);
 
   const lng = useLang();
+  const dict = useDict();
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
   const logIn = async () => {
+    const email = form.email.trim();
+    const password = form.password.trim();
+
+    if (!email) {
+      showErrorMessage(dict.auth.validation.emailRequired);
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showErrorMessage(dict.auth.validation.emailInvalid);
+      return;
+    }
+
+    if (!password) {
+      showErrorMessage(dict.auth.validation.passwordRequired);
+      return;
+    }
+
     setBusy(true);
     try {
       const response = await AuthService.adminLogin(
         {
-          email: form.email,
-          password: form.password,
+          email,
+          password,
         },
         lng,
       );

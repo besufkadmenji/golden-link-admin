@@ -19,15 +19,15 @@ export const ContactUs = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { data, isLoading, error } = useGetMessages();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("message", "read")) {
+    if (!isPermissionLoading && !hasPermission("message", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar title={dict.contact_messages_page.title} />

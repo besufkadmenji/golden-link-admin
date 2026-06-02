@@ -5,7 +5,21 @@ export const extractAxiosErrorMessage = (
   fallback: string,
 ): string => {
   if (error instanceof AxiosError) {
-    const data = error.response?.data as { message?: string } | undefined;
+    const data = error.response?.data as
+      | {
+          message?: string;
+          errors?: Array<{
+            msg?: string;
+            path?: string;
+          }>;
+        }
+      | undefined;
+
+    const firstValidationMessage = data?.errors?.find((e) => Boolean(e?.msg))?.msg;
+    if (firstValidationMessage) {
+      return firstValidationMessage;
+    }
+
     if (data?.message) {
       return data.message;
     }

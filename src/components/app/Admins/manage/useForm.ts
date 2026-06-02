@@ -77,7 +77,8 @@ export const useForm = create<FormState>((set) => ({
 }));
 
 export const useManageForm = (id: string, admin?: User | null) => {
-  const { permissions } = useUserPermission(id);
+  const { permissions, isLoading: isPermissionsLoading, isFetching } =
+    useUserPermission(id);
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
@@ -86,7 +87,6 @@ export const useManageForm = (id: string, admin?: User | null) => {
   const setReady = useForm((state) => state.setReady);
   const permissionsReady = useForm((state) => state.permissionsReady);
   const setPermissionsReady = useForm((state) => state.setPermissionsReady);
-  const permissionIds = useForm((state) => state.permissionIds);
   const setPermissionIds = useForm((state) => state.setPermissionIds);
   const setInitialPermissionIds = useForm(
     (state) => state.setInitialPermissionIds,
@@ -106,18 +106,22 @@ export const useManageForm = (id: string, admin?: User | null) => {
   }, [admin, ready, setExistingPicture, setForm, setReady]);
 
   useEffect(() => {
-    if (permissions && permissions.length > 0 && permissionIds.length === 0) {
-      const newPermissionIds = permissions.map((p) => p.id);
-      setPermissionIds(newPermissionIds);
-      setInitialPermissionIds(newPermissionIds);
-      setForm({
-        permissionType: "CUSTOM",
-      });
-      setPermissionsReady(true);
-    }
+    // Initialize permissions only after the latest query response is settled.
+    // This avoids seeding form state from stale cached data.
+    if (permissionsReady || isPermissionsLoading || isFetching) return;
+
+    const newPermissionIds = permissions.map((p) => p.id);
+    setPermissionIds(newPermissionIds);
+    setInitialPermissionIds(newPermissionIds);
+    setForm({
+      permissionType: newPermissionIds.length > 0 ? "CUSTOM" : "ADMINISTRATOR",
+    });
+    setPermissionsReady(true);
   }, [
     permissions,
-    permissionIds.length,
+    permissionsReady,
+    isPermissionsLoading,
+    isFetching,
     setPermissionIds,
     setInitialPermissionIds,
     setForm,

@@ -14,15 +14,15 @@ import { useEffect } from "react";
 export const Reports = () => {
   const dict = useDict();
   const { isLoading, report } = useReport();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("report", "read")) {
+    if (!isPermissionLoading && !hasPermission("report", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   return isLoading || !report ? (
     <AppLoading />
   ) : (

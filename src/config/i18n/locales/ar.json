@@ -123,7 +123,12 @@
     "password": "كلمة المرور",
     "forgot_password": "هل نسيت كلمة المرور؟",
     "sign_in": "تسجيل الدخول",
-    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح."
+    "password_reset_success": "تم إعادة تعيين كلمة مرورك بنجاح.",
+    "validation": {
+      "emailRequired": "البريد الإلكتروني مطلوب.",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح.",
+      "passwordRequired": "كلمة المرور مطلوبة."
+    }
   },
   "forgot_password": {
     "title": "استعادة كلمة المرور",

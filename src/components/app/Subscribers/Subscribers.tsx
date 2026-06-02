@@ -26,15 +26,15 @@ export const Subscribers = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { data, isLoading } = useSubscribers();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("subscriber", "read")) {
+    if (!isPermissionLoading && !hasPermission("subscriber", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar

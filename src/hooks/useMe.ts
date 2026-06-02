@@ -8,6 +8,7 @@ import { useLang } from "./useLang";
 export const useMe = (): {
   me: AdminAuthPayload | null | undefined;
   userPermissions: AssignedPermissionsResponse | null | undefined;
+  userPermissionsLoading: boolean;
   isLoading: boolean;
   isError: boolean;
   logout: () => Promise<void>;
@@ -22,7 +23,7 @@ export const useMe = (): {
     queryFn: () => AuthService.getAdminProfile(),
   });
 
-  const { data: userPermissions, error } =
+  const { data: userPermissions, isLoading: userPermissionsLoading } =
     useQuery<AssignedPermissionsResponse | null>({
       queryKey: ["userPermissions", me?.id],
       queryFn: () => PermissionService.getUserPermissions(me?.id || "", lang),
@@ -37,5 +38,12 @@ export const useMe = (): {
     window.location.reload();
   };
 
-  return { isLoading, isError, me, userPermissions, logout };
+  return {
+    isLoading,
+    isError,
+    me,
+    userPermissions,
+    userPermissionsLoading,
+    logout,
+  };
 };

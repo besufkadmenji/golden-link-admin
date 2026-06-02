@@ -125,7 +125,12 @@
     "password": "Password",
     "forgot_password": "Forgot password?",
     "sign_in": "Sign in",
-    "password_reset_success": "Your password has been reset successfully."
+    "password_reset_success": "Your password has been reset successfully.",
+    "validation": {
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "passwordRequired": "Password is required."
+    }
   },
   "forgot_password": {
     "title": "Reset Password",

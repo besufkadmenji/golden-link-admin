@@ -20,15 +20,15 @@ export const Notifications = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { notifications, pagination, isLoading } = useNotifications();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("notification", "read")) {
+    if (!isPermissionLoading && !hasPermission("notification", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
   console.log("hasPermission", hasPermission("notification", "create"));
   return (
     <PageWrapper>

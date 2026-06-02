@@ -96,6 +96,9 @@ export const useManageAdmin = () => {
           queryKey: ["user", id],
         });
         queryClient.invalidateQueries({
+          queryKey: ["userPermissions", id],
+        });
+        queryClient.invalidateQueries({
           queryKey: ["users"],
         });
         router.push("/admins");

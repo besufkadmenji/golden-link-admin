@@ -15,15 +15,15 @@ import { useRouter } from "next/navigation";
 export const Dashboard = () => {
   const dict = useDict();
   const { dashboard } = useDashboard();
-  const { hasPermission } = usePermissions();
+  const { hasPermission, isPermissionLoading } = usePermissions();
   const router = useRouter();
   useEffect(() => {
-    if (!hasPermission("dashboard", "read")) {
+    if (!isPermissionLoading && !hasPermission("dashboard", "read")) {
       router.push("/404");
     }
 
     return () => {};
-  }, [hasPermission]);
+  }, [hasPermission, isPermissionLoading, router]);
 
   return !dashboard ? (
     <AppLoading className="h-[90vh]" />
