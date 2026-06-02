@@ -1,0 +1,8 @@
+[phases.install]
+cmds = ["npm i -g pnpm@9.15.9", "pnpm i --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm run build"]
+
+[start]
+cmd = "pnpm run start"
