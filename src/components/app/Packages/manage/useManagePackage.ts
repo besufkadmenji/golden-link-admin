@@ -28,14 +28,13 @@ export const useManagePackage = () => {
         {
           ...form,
           features: features,
-        },
-        lang,
+        }
       );
       if (response) {
         queryClient.invalidateQueries({
           queryKey: ["packages"],
         });
-        router.push("/packages");
+        setShowSuccess("create");
       }
       resetForm();
     } catch (error) {
@@ -55,11 +54,10 @@ export const useManagePackage = () => {
         {
           ...form,
           features: features,
-        },
-        lang,
+        }
       );
       if (response) {
-        showSuccessMessage("Package updated successfully");
+        showSuccessMessage(dict.packages.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["package", id],
         });
@@ -80,8 +78,8 @@ export const useManagePackage = () => {
   const deletePackage = async (id: string) => {
     setBusy(true);
     try {
-      await PackageService.deletePackage(id, lang);
-      showSuccessMessage("Package deleted successfully");
+      await PackageService.deletePackage(id);
+      showSuccessMessage(dict.packages.messages.deleteSuccess);
       queryClient.invalidateQueries({
         queryKey: ["packages"],
       });
@@ -108,12 +106,13 @@ export const useManagePackage = () => {
     try {
       const response = await PackageService.togglePackageStatus(
         id,
-        status,
-        lang,
+        status
       );
       if (response) {
         showSuccessMessage(
-          `Package ${status === "ACTIVE" ? "activated" : "deactivated"} successfully`,
+          status === "ACTIVE"
+            ? dict.packages.messages.activateSuccess
+            : dict.packages.messages.deactivateSuccess,
         );
         queryClient.invalidateQueries({
           queryKey: ["packages"],

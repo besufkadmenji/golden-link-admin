@@ -17,20 +17,15 @@ export class HomeService {
    * Get dashboard summary
    * GET /admin/dashboard/summary?period={period}
    * @param params - Dashboard summary parameters
-   * @param lang - Language preference (default: "en")
    * @returns Dashboard summary data
    */
   static async getDashboardSummary(
-    params: DashboardSummaryParams,
-    lang: string = "en",
+    params: DashboardSummaryParams
   ): Promise<DashboardSummaryData | null> {
     try {
       const response = await axiosClient.get<DashboardSummaryResponse>(
         "/admin/dashboard/summary",
         {
-          headers: {
-            "Accept-Language": lang,
-          },
           params,
         },
       );
@@ -47,20 +42,15 @@ export class HomeService {
    * Get latest join requests
    * GET /admin/dashboard/latest-join-requests?limit={limit}
    * @param params - Latest join requests parameters
-   * @param lang - Language preference (default: "en")
    * @returns Array of latest join requests
    */
   static async getLatestJoinRequests(
-    params?: LatestJoinRequestsParams,
-    lang: string = "en",
+    params?: LatestJoinRequestsParams
   ): Promise<LatestJoinRequest[]> {
     try {
       const response = await axiosClient.get<LatestJoinRequestsResponse>(
         "/admin/dashboard/latest-join-requests",
         {
-          headers: {
-            "Accept-Language": lang,
-          },
           params: params || { limit: 5 },
         },
       );
@@ -80,21 +70,16 @@ export class HomeService {
    * Get monthly subscriptions comparison
    * GET /admin/dashboard/monthly-subscriptions-comparison
    * @param params - Subscription comparison parameters
-   * @param lang - Language preference (default: "en")
    * @returns Monthly subscriptions comparison data by day
    */
   static async getMonthlySubscriptionsComparison(
-    params: SubscriptionComparisonParams,
-    lang: string = "en",
+    params: SubscriptionComparisonParams
   ): Promise<MonthlySubscriptionsComparisonData> {
     try {
       const response =
         await axiosClient.get<MonthlySubscriptionsComparisonResponse>(
           "/admin/dashboard/monthly-subscriptions-comparison",
           {
-            headers: {
-              "Accept-Language": lang,
-            },
             params,
           },
         );

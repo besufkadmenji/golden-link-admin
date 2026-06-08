@@ -13,6 +13,7 @@ import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
+import { showErrorMessage } from "@/utils/show.message";
 import moment from "moment";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { useQueryState } from "nuqs";
@@ -21,6 +22,15 @@ export const MessageDetail = ({ id }: { id: string }) => {
   const [, setSendReply] = useQueryState("sendReply");
 
   const dict = useDict();
+  const isReplied = message?.status === "REPLIED";
+
+  const handleReplyPress = () => {
+    if (isReplied) {
+      showErrorMessage(dict.reply_message_form.messages.alreadyReplied);
+      return;
+    }
+    setSendReply("true");
+  };
   return !message ? (
     <AppLoading className="h-[84vh]" />
   ) : (
@@ -33,7 +43,8 @@ export const MessageDetail = ({ id }: { id: string }) => {
             <PrimaryButton
               startContent={<SendIcon className="size-5" />}
               className="text-sm font-semibold"
-              onPress={() => setSendReply("true")}
+              onPress={handleReplyPress}
+              isDisabled={isReplied}
             >
               {dict.reply_message_form.buttons.send}
             </PrimaryButton>

@@ -17,6 +17,10 @@ interface FormState {
   setInitialPermissionIds: (ids: number[]) => void;
   existingPicture: string | null;
   setExistingPicture: (picture: string | null) => void;
+  initialProfileImagePath: string | null;
+  setInitialProfileImagePath: (picture: string | null) => void;
+  profileImageRemoved: boolean;
+  setProfileImageRemoved: (removed: boolean) => void;
 }
 
 export const useForm = create<FormState>((set) => ({
@@ -58,6 +62,8 @@ export const useForm = create<FormState>((set) => ({
       existingPicture: null,
       permissionIds: [],
       initialPermissionIds: [],
+      initialProfileImagePath: null,
+      profileImageRemoved: false,
     })),
   permissionIds: [],
   setPermissionIds: (ids) =>
@@ -74,6 +80,16 @@ export const useForm = create<FormState>((set) => ({
     set(() => ({
       existingPicture: picture,
     })),
+  initialProfileImagePath: null,
+  setInitialProfileImagePath: (picture) =>
+    set(() => ({
+      initialProfileImagePath: picture,
+    })),
+  profileImageRemoved: false,
+  setProfileImageRemoved: (removed) =>
+    set(() => ({
+      profileImageRemoved: removed,
+    })),
 }));
 
 export const useManageForm = (id: string, admin?: User | null) => {
@@ -82,6 +98,10 @@ export const useManageForm = (id: string, admin?: User | null) => {
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
+  const setInitialProfileImagePath = useForm(
+    (state) => state.setInitialProfileImagePath,
+  );
+  const setProfileImageRemoved = useForm((state) => state.setProfileImageRemoved);
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
@@ -93,17 +113,33 @@ export const useManageForm = (id: string, admin?: User | null) => {
   );
 
   useEffect(() => {
-    if (!ready && admin) {
-      setForm({
-        fullName: admin.fullName,
-        email: admin.email,
-        phoneNumber: admin.phoneNumber,
-        status: admin.status,
-      });
-      setExistingPicture(admin.profileImagePath || null);
-      setReady(true);
+    reset();
+  }, [id, reset]);
+
+  useEffect(() => {
+    if (!admin || admin.id !== id) {
+      return;
     }
-  }, [admin, ready, setExistingPicture, setForm, setReady]);
+
+    setForm({
+      fullName: admin.fullName,
+      email: admin.email,
+      phoneNumber: admin.phoneNumber,
+      status: admin.status,
+    });
+    setExistingPicture(admin.profileImagePath || null);
+    setInitialProfileImagePath(admin.profileImagePath || null);
+    setProfileImageRemoved(false);
+    setReady(true);
+  }, [
+    id,
+    admin,
+    setExistingPicture,
+    setInitialProfileImagePath,
+    setProfileImageRemoved,
+    setForm,
+    setReady,
+  ]);
 
   useEffect(() => {
     // Initialize permissions only after the latest query response is settled.

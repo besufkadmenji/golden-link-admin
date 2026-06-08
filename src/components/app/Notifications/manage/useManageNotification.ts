@@ -19,8 +19,7 @@ export const useManageNotification = () => {
     setBusy(true);
     try {
       const response = await NotificationService.createAdminNotification(
-        form,
-        lang,
+        form
       );
       if (response) {
         resetForm();

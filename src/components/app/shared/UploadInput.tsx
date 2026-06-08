@@ -2,8 +2,15 @@ import UploadIcon from "@/assets/icons/app/upload.alt.svg";
 import UploadButtonIcon from "@/assets/icons/app/upload.svg";
 import { SelectedFile } from "@/components/app/shared/SelectedFile";
 import { useDict } from "@/hooks/useDict";
-import Dropzone, { Accept } from "react-dropzone";
+import {
+  IMAGE_AND_PDF_FILE_ACCEPT,
+  normalizeAccept,
+} from "@/utils/fileAccept";
+import { useCallback, useState } from "react";
+import Dropzone, { Accept, FileRejection } from "react-dropzone";
 import { twMerge } from "tailwind-merge";
+
+const DEFAULT_ACCEPT = IMAGE_AND_PDF_FILE_ACCEPT;
 
 export const UploadInput = ({
   label,
@@ -24,23 +31,52 @@ export const UploadInput = ({
   initUrl?: string;
   className?: string;
 }) => {
-  const hasError = Boolean(errorMessage);
   const dict = useDict();
+  const [rejectionError, setRejectionError] = useState("");
+  const resolvedAccept = normalizeAccept(accept ?? DEFAULT_ACCEPT);
+  const displayError = errorMessage || rejectionError;
+  const hasError = Boolean(displayError);
+
+  const handleDropRejected = useCallback(
+    (rejections: FileRejection[]) => {
+      const rejection = rejections[0];
+      if (!rejection) {
+        return;
+      }
+
+      if (
+        rejection.errors.some((error) => error.code === "file-invalid-type")
+      ) {
+        setRejectionError(dict.common.upload.invalidFileType);
+        return;
+      }
+
+      setRejectionError(dict.common.upload.uploadFailed);
+    },
+    [dict],
+  );
+
+  const handleDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      if (acceptedFiles.length > 0) {
+        setRejectionError("");
+        onChange(acceptedFiles[0]);
+      }
+    },
+    [onChange],
+  );
+
+  const handleRemove = useCallback(() => {
+    setRejectionError("");
+    onChange(undefined);
+  }, [onChange]);
+
   return (
     <div className={twMerge("grid gap-4", className)}>
       <Dropzone
-        onDrop={(acceptedFiles) => {
-          if (acceptedFiles.length > 0) {
-            onChange(acceptedFiles[0]);
-          }
-        }}
-        accept={
-          accept ?? {
-            "image/jpeg": [],
-            "image/png": [],
-            "application/pdf": [],
-          }
-        }
+        onDrop={handleDrop}
+        onDropRejected={handleDropRejected}
+        accept={resolvedAccept}
       >
         {({ getRootProps, getInputProps }) => (
           <div
@@ -76,7 +112,7 @@ export const UploadInput = ({
       </Dropzone>
       {hasError ? (
         <p className="text-danger-500 text-xs leading-4 font-normal">
-          {errorMessage}
+          {displayError}
         </p>
       ) : null}
       <div className="flex flex-wrap justify-center gap-4">
@@ -84,9 +120,7 @@ export const UploadInput = ({
           <SelectedFile
             file={file ?? undefined}
             initUrl={initUrl}
-            onRemove={() => {
-              onChange(undefined);
-            }}
+            onRemove={handleRemove}
           />
         )}
       </div>

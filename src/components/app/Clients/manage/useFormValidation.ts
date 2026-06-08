@@ -1,24 +1,30 @@
 import { useState, useCallback, useMemo } from "react";
 import { CreateClientDto } from "@/types/client";
+import { useDict } from "@/hooks/useDict";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 100;
 
 export const useFormValidation = (form: CreateClientDto) => {
+  const dict = useDict();
+  const validation = dict.clients_management.form.validation;
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validateName = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Client name is required";
-    }
-    if (value.trim().length < NAME_MIN_LENGTH) {
-      return `Client name must be at least ${NAME_MIN_LENGTH} characters long`;
-    }
-    if (value.trim().length > NAME_MAX_LENGTH) {
-      return `Client name must not exceed ${NAME_MAX_LENGTH} characters`;
-    }
-    return null;
-  }, []);
+  const validateName = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.name.required;
+      }
+      if (value.trim().length < NAME_MIN_LENGTH) {
+        return validation.name.minLength;
+      }
+      if (value.trim().length > NAME_MAX_LENGTH) {
+        return validation.name.maxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
 
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};

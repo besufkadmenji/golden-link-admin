@@ -21,7 +21,7 @@ export const useClients = (initialParams?: GetClientsParams) => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["clients", params, page, limit, search, isActive],
-    queryFn: () => ClientService.getClients(params, lang),
+    queryFn: () => ClientService.getClients(params),
   });
 
   return {
@@ -43,7 +43,7 @@ export const useClientById = (id: number) => {
     error,
   } = useQuery({
     queryKey: ["client", id],
-    queryFn: () => ClientService.getClientById(id, lang),
+    queryFn: () => ClientService.getClientById(id),
   });
 
   return {

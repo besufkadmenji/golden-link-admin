@@ -17,12 +17,10 @@ export class SubscriptionService {
    * Get subscription requests list
    * GET /admin/subscriptions
    * @param params - Query parameters (search, type, page, limit)
-   * @param lang - Language preference (default: "en")
    * @returns Subscription requests with pagination info
    */
   static async getSubscriptionRequests(
-    params?: GetSubscriptionsParams,
-    lang: string = "en",
+    params?: GetSubscriptionsParams
   ): Promise<SubscriptionRequestsData | null> {
     try {
       const queryParams = new URLSearchParams();
@@ -45,11 +43,6 @@ export class SubscriptionService {
 
       const response = await axiosClient.get<SubscriptionRequestsResponse>(
         url,
-        {
-          headers: {
-            "Accept-Language": lang,
-          },
-        },
       );
 
       if (response.status === 204) {
@@ -73,21 +66,14 @@ export class SubscriptionService {
    * Get subscription request details by ID
    * GET /admin/subscriptions/:id
    * @param id - Subscription request ID
-   * @param lang - Language preference (default: "en")
    * @returns Subscription request details with document images
    */
   static async getSubscriptionRequestDetail(
-    id: string,
-    lang: string = "en",
+    id: string
   ): Promise<SubscriptionRequestDetail | null> {
     try {
       const response = await axiosClient.get<SubscriptionRequestDetailResponse>(
         `/admin/subscriptions/${id}`,
-        {
-          headers: {
-            "Accept-Language": lang,
-          },
-        },
       );
 
       if (response.status === 204) {
@@ -111,22 +97,15 @@ export class SubscriptionService {
    * Approve subscription request
    * POST /admin/subscriptions/:id/approve
    * @param id - Subscription request ID to approve
-   * @param lang - Language preference (default: "en")
    * @returns Approved subscription data
    */
   static async approveSubscriptionRequest(
-    id: string,
-    lang: string = "en",
+    id: string
   ): Promise<ApprovedSubscriptionData | null> {
     try {
       const response = await axiosClient.post<SubscriptionApproveResponse>(
         `/admin/subscriptions/${id}/approve`,
         {},
-        {
-          headers: {
-            "Accept-Language": lang,
-          },
-        },
       );
 
       if (response.status === 204) {
@@ -150,23 +129,16 @@ export class SubscriptionService {
    * POST /admin/subscriptions/:id/reject
    * @param id - Subscription request ID to reject
    * @param reason - Reason for rejection
-   * @param lang - Language preference (default: "en")
    * @returns null on successful rejection
    */
   static async rejectSubscriptionRequest(
     id: string,
-    reason: string,
-    lang: string = "en",
+    reason: string
   ): Promise<boolean> {
     try {
       const response = await axiosClient.post<SubscriptionRejectResponse>(
         `/admin/subscriptions/${id}/reject`,
         { reason } as RejectSubscriptionDto,
-        {
-          headers: {
-            "Accept-Language": lang,
-          },
-        },
       );
 
       if (response.status === 204) {

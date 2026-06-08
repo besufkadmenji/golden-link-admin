@@ -26,7 +26,7 @@ export const useMe = (): {
   const { data: userPermissions, isLoading: userPermissionsLoading } =
     useQuery<AssignedPermissionsResponse | null>({
       queryKey: ["userPermissions", me?.id],
-      queryFn: () => PermissionService.getUserPermissions(me?.id || "", lang),
+      queryFn: () => PermissionService.getUserPermissions(me?.id || ""),
       enabled: !!me,
     });
 

@@ -1,9 +1,7 @@
-import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { SubscriberService } from "@/services/subscriber.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useForm } from "./useForm";
@@ -15,14 +13,12 @@ export const useManageSubscriber = () => {
   const [showSuccess, setShowSuccess] = useQueryState("showSuccess");
 
   const resetForm = useForm((state) => state.reset);
-  const router = useRouter();
-  const dict = useDict();
   const lang = useLang();
 
   const createSubscriber = async () => {
     setBusy(true);
     try {
-      const response = await SubscriberService.createSubscriber(form, lang);
+      const response = await SubscriberService.createSubscriber(form);
       if (response) {
         resetForm();
         queryClient.invalidateQueries({
@@ -31,8 +27,7 @@ export const useManageSubscriber = () => {
         queryClient.invalidateQueries({
           queryKey: ["user"],
         });
-        setShowSuccess("true");
-        router.push("/subscribers");
+        setShowSuccess("create");
       }
     } catch (error) {
       showErrorMessage(

@@ -15,6 +15,16 @@ export const statusMap = (
   PENDING_APPROVAL: dict.common.statuses.PENDING_APPROVAL,
 });
 
+export const adminFormStatusMap = (
+  dict: Dictionary,
+): {
+  [key: string]: string;
+} => ({
+  ACTIVE: dict.common.statuses.ACTIVE,
+  INACTIVE: dict.common.statuses.INACTIVE,
+  SUSPENDED: dict.common.statuses.SUSPENDED,
+});
+
 export const roleMap = (
   dict: Dictionary,
 ): {

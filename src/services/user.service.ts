@@ -15,13 +15,11 @@ export class UserService {
    * Get list of users with optional search and pagination
    */
   static async getUsers(
-    params?: GetUsersParams,
-    lang?: string,
+    params?: GetUsersParams
   ): Promise<UsersListResponse | null> {
     try {
       const response = await axiosClient.get("/users", {
         params,
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       console.log("Users response:", response);
       return unwrapAxiosResponse(response.data);
@@ -38,11 +36,9 @@ export class UserService {
   /**
    * Get user details by ID
    */
-  static async getUserById(id: string, lang?: string): Promise<User | null> {
+  static async getUserById(id: string): Promise<User | null> {
     try {
-      const response = await axiosClient.get(`/users/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get(`/users/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -58,8 +54,7 @@ export class UserService {
    * Create a new user with FormData support for file upload
    */
   static async createUser(
-    data: CreateUserWithFileDto,
-    lang?: string,
+    data: CreateUserWithFileDto
   ): Promise<UserResponse | null> {
     try {
       const formData = new FormData();
@@ -85,10 +80,26 @@ export class UserService {
       const response = await axiosClient.post("/users", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
         },
       });
       return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Delete user profile image
+   * DELETE /users/:id/profile-image
+   */
+  static async deleteProfileImage(id: string): Promise<void> {
+    try {
+      await axiosClient.delete(`/users/${id}/profile-image`);
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(
@@ -104,40 +115,45 @@ export class UserService {
    */
   static async updateUser(
     id: string,
-    data: UpdateUserWithFileDto,
-    lang?: string,
+    data: UpdateUserWithFileDto
   ): Promise<UserResponse | null> {
     try {
-      const formData = new FormData();
 
-      // Append file if provided
       if (data.profileImage) {
+        const formData = new FormData();
         formData.append("profileImage", data.profileImage);
+
+        if (data.fullName !== undefined) {
+          formData.append("fullName", data.fullName);
+        }
+        if (data.email !== undefined) {
+          formData.append("email", data.email);
+        }
+        if (data.countryCode !== undefined) {
+          formData.append("countryCode", data.countryCode);
+        }
+        if (data.phoneNumber !== undefined) {
+          formData.append("phoneNumber", data.phoneNumber);
+        }
+        if (data.status !== undefined) {
+          formData.append("status", data.status);
+        }
+
+        const response = await axiosClient.put(`/users/${id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        return unwrapAxiosResponse(response.data);
       }
 
-      // Append form fields
-      if (data.fullName) {
-        formData.append("fullName", data.fullName);
-      }
-      if (data.email) {
-        formData.append("email", data.email);
-      }
-      if (data.countryCode) {
-        formData.append("countryCode", data.countryCode);
-      }
-      if (data.phoneNumber) {
-        formData.append("phoneNumber", data.phoneNumber);
-      }
-      if (data.status) {
-        formData.append("status", data.status);
-      }
+      const { removeProfileImage, ...fields } = data;
+      const payload = {
+        ...fields,
+        ...(removeProfileImage ? { profileImagePath: "" } : {}),
+      };
 
-      const response = await axiosClient.put(`/users/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
-        },
-      });
+      const response = await axiosClient.put(`/users/${id}`, payload);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -154,16 +170,12 @@ export class UserService {
    */
   static async deactivateUser(
     id: string,
-    data?: DeactivateUserDto,
-    lang?: string,
+    data?: DeactivateUserDto
   ): Promise<string> {
     try {
       const response = await axiosClient.post(
         `/users/${id}/deactivate`,
         data || {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return response.data.message || "";
     } catch (error) {
@@ -179,14 +191,11 @@ export class UserService {
   /**
    * Activate user
    */
-  static async activateUser(id: string, lang?: string): Promise<string> {
+  static async activateUser(id: string): Promise<string> {
     try {
       const response = await axiosClient.post(
         `/users/${id}/activate`,
         {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       console.log("Activate user response:", response);
       return response.data.message || "";
@@ -203,11 +212,9 @@ export class UserService {
   /**
    * Delete user permanently
    */
-  static async deleteUser(id: string, lang?: string): Promise<string> {
+  static async deleteUser(id: string): Promise<string> {
     try {
-      const response = await axiosClient.delete(`/users/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.delete(`/users/${id}`);
       return response.data.message || "";
     } catch (error) {
       throw new Error(

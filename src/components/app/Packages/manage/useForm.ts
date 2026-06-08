@@ -94,21 +94,27 @@ export const useManageForm = (id: string, packageData?: Package | null) => {
   const setFeatures = useForm((state) => state.setFeatures);
 
   useEffect(() => {
-    if (!ready && packageData) {
-      setForm({
-        packageName: packageData.packageName,
-        packageDuration: packageData.packageDuration,
-        packagePrice: packageData.packagePrice,
-        status: packageData.status,
-        description: packageData.description || "",
-        maxWarehouses: packageData.maxWarehouses || 1,
-        maxUsers: packageData.maxUsers || undefined,
-      });
-      setFeatures(packageData.features);
-      setExistingIcon(packageData.iconPath || null);
-      setReady(true);
+    reset();
+  }, [id, reset]);
+
+  useEffect(() => {
+    if (!packageData || String(packageData.id) !== String(id)) {
+      return;
     }
-  }, [packageData, ready, setExistingIcon, setForm, setFeatures, setReady]);
+
+    setForm({
+      packageName: packageData.packageName,
+      packageDuration: packageData.packageDuration,
+      packagePrice: packageData.packagePrice,
+      status: packageData.status,
+      description: packageData.description || "",
+      maxWarehouses: packageData.maxWarehouses || 1,
+      maxUsers: packageData.maxUsers || undefined,
+    });
+    setFeatures(packageData.features);
+    setExistingIcon(packageData.iconPath || null);
+    setReady(true);
+  }, [id, packageData, setExistingIcon, setForm, setFeatures, setReady]);
 
   return { form, setForm, reset, ready, features, setFeatures };
 };

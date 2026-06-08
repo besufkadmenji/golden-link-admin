@@ -31,7 +31,7 @@ export const ExportButton = ({
         }
         setBusy(true);
 
-        ExportService.exportToExcel(model, params, lng)
+        ExportService.exportToExcel(model, params)
           .then(() => {
             setBusy(false);
           })

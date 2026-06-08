@@ -9,14 +9,19 @@ import { useManageSetting } from "@/components/app/Settings/useManageSetting";
 export const ChangePassword = () => {
   const dict = useDict();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
-  const { currentPassword, newPassword, confirmPassword, setForm } =
+  const { currentPassword, newPassword, confirmPassword, setForm, reset } =
     useChangePasswordForm();
   const { changePassword: handleChangePassword, changingPassword } =
     useManageSetting();
+  const closeModal = () => {
+    reset();
+    setChangePassword(null);
+  };
+
   return (
     <Modal
       isOpen={!!changePassword}
-      onClose={() => setChangePassword(null)}
+      onClose={closeModal}
       hideCloseButton
     >
       <ModalContent>
@@ -52,7 +57,7 @@ export const ChangePassword = () => {
           <div className="grid grid-cols-2 gap-4">
             <PrimaryButton
               className="bg-[#4285F41A] text-[#4285F4]"
-              onPress={() => setChangePassword(null)}
+              onPress={closeModal}
               isDisabled={changingPassword}
             >
               {dict.change_password_form.buttons.cancel}

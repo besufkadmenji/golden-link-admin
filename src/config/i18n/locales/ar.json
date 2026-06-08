@@ -2,6 +2,12 @@
   "header": {
     "logout": "تسجيل خروج"
   },
+  "logout_confirmation": {
+    "title": "تسجيل الخروج",
+    "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "confirm": "تسجيل الخروج",
+    "cancel": "الغاء"
+  },
 
   "common": {
     "system_name": "نظام الرابط الذهبي",
@@ -68,6 +74,11 @@
     "documents": {
       "attachDocuments": "ارفق مستندات",
       "supportedFormats": "الصيغ المدعومة: Jpg, PDF, Png"
+    },
+
+    "upload": {
+      "invalidFileType": "نوع الملف غير مدعوم. يرجى رفع ملف بإحدى الصيغ المسموح بها.",
+      "uploadFailed": "تعذر رفع الملف. يرجى المحاولة مرة أخرى."
     },
 
     "statuses": {
@@ -231,6 +242,13 @@
       "silver": "باقة فضية",
       "bronze": "باقة برونزية"
     },
+    "messages": {
+      "createSuccess": "تم إنشاء الباقة بنجاح.",
+      "updateSuccess": "تم تحديث الباقة بنجاح.",
+      "deleteSuccess": "تم حذف الباقة بنجاح.",
+      "activateSuccess": "تم تفعيل الباقة بنجاح.",
+      "deactivateSuccess": "تم إلغاء تفعيل الباقة بنجاح."
+    },
     "subscribers": {
       "title": "إدارة المشتركين",
       "total_subscribers": "إجمالي عدد المشتركين",
@@ -354,7 +372,7 @@
     "success": {
       "subscription_approved": "تم قبول طلب الانضمام بنجاح.",
       "subscription_rejected": "تم رفض طلب الانضمام بنجاح.",
-      "admin_added_successfully": "تم إضافة ادمين بنجاح."
+      "admin_added_successfully": "تم إضافة مدير نظام بنجاح."
     }
   },
   "reject_subscription_form": {
@@ -372,7 +390,7 @@
   "noData": {
     "subscriberRequests": "لا توجد طلبات اشتراك متاحة",
     "subscribers": "لا يوجد مشتركون متاحون",
-    "admins": "لا يوجد مستخدمون متاحون",
+    "admins": "لا يوجد مديرو نظام متاحون",
     "notifications": "لا توجد إشعارات متاحة",
     "messages": "لا توجد رسائل متاحة",
     "clients": "لا يوجد عملاء متاحون",
@@ -413,19 +431,19 @@
     }
   },
   "system_managers_page": {
-    "title": "ادارة مديرين النظام",
-    "total_managers": "مدير ين النظام الكلى",
-    "total_count": "ادمين",
+    "title": "إدارة مديري النظام",
+    "total_managers": "إجمالي مديري النظام",
+    "total_count": "مدير نظام",
     "buttons": {
-      "add_new_manager": "إضافة مستخدم جديد",
+      "add_new_manager": "إضافة مدير نظام جديد",
       "save": "حفظ"
     },
     "search_placeholder": "البحث",
-    "filter_placeholder": "حالة المستخدم",
+    "filter_placeholder": "حالة المدير",
     "table_headers": {
       "checkbox": "",
       "number": "#",
-      "name": "اسم المستخدم",
+      "name": "الاسم",
       "organization_name": "اسم المؤسسة",
       "phone_number": "رقم الهاتف",
       "email": "البريد الإلكتروني",
@@ -444,11 +462,14 @@
       "delete": "حذف"
     },
     "messages": {
-      "createSuccess": "تم إنشاء الادمين بنجاح.",
-      "updateSuccess": "تم تحديث الادمين بنجاح.",
-      "activateSuccess": "تم إضافة مورد/صاحب مستودع بنجاح.",
-      "deactivateSuccess": "تم تعطيل الادمين بنجاح.",
-      "deleteSuccess": "تم حذف الادمين بنجاح."
+      "createSuccess": "تم إنشاء مدير النظام بنجاح.",
+      "updateSuccess": "تم تحديث مدير النظام بنجاح.",
+      "activateSuccess": "تم تفعيل مدير النظام بنجاح.",
+      "deactivateSuccess": "تم تعطيل مدير النظام بنجاح.",
+      "deleteSuccess": "تم حذف مدير النظام بنجاح.",
+      "deleteError": "فشل حذف مدير النظام.",
+      "activateError": "فشل تفعيل مدير النظام.",
+      "deactivateError": "فشل تعطيل مدير النظام."
     },
     "status_labels": {
       "approved": "موافق",
@@ -456,7 +477,7 @@
     }
   },
   "add_new_admin_form": {
-    "title": "إضافة ادمين جديد",
+    "title": "إضافة مدير نظام جديد",
     "buttons": {
       "save": "حفظ"
     },
@@ -467,12 +488,12 @@
       "upload_tax_document": "ارفق صورة السجل الضريبي"
     },
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات مدير النظام",
       "login_information": "معلومات الدخول",
       "permissions": "الصلاحيات"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير",
       "organization_name": "اسم المؤسسة",
       "type": "النوع",
       "commercial_registration_number": "رقم التسجيل التجاري",
@@ -484,7 +505,7 @@
       "confirm_password": "تأكيد كلمة المرور"
     },
     "placeholders": {
-      "admin_name": "ادخل اسم الادمين",
+      "admin_name": "ادخل اسم المدير",
       "phone_number": "ادخل رقم الهاتف"
     },
     "permissions": {
@@ -496,9 +517,9 @@
       "description": "تم رفع ملفك بنجاح"
     },
     "validation": {
-      "fullNameRequired": "اسم الادمين مطلوب",
-      "fullNameMinLength": "يجب أن يكون اسم الادمين 3 أحرف على الأقل",
-      "fullNameMaxLength": "لا يجب أن يتجاوز اسم الادمين 100 حرف",
+      "fullNameRequired": "اسم المدير مطلوب",
+      "fullNameMinLength": "يجب أن يكون اسم المدير 3 أحرف على الأقل",
+      "fullNameMaxLength": "لا يجب أن يتجاوز اسم المدير 100 حرف",
       "emailRequired": "البريد الإلكتروني مطلوب",
       "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
       "phoneNumberRequired": "رقم الهاتف مطلوب",
@@ -514,14 +535,14 @@
     }
   },
   "admin_permissions_management": {
-    "title": "إدارة صلاحيات الادمين",
+    "title": "صلاحيات مدير النظام",
     "permissions_label": "الصلاحيات",
     "restricted_permissions": "الصلاحيات المقيدة",
     "buttons": {
       "save": "حفظ"
     },
     "permission_modules": {
-      "system_managers_management": "إدارة مديري النظام/الادمين",
+      "system_managers_management": "إدارة مديري النظام",
       "sellers_management": "إدارة البائعات",
       "subscription_requests": "طلبات الاشتراكات",
       "reports": "التقارير",
@@ -569,32 +590,32 @@
     }
   },
   "activate_admin_confirmation": {
-    "title": "تفعيل المشترك المعطل",
-    "description": "هل تريد بتأكيد تفعيل المشترك المعطل ؟",
+    "title": "تفعيل مدير النظام",
+    "description": "هل تريد بتأكيد تفعيل مدير النظام؟",
     "buttons": {
       "cancel": "تراجع",
       "activate": "تفعيل"
     }
   },
   "deactivate_admin_confirmation": {
-    "title": "تعطيل الادمين",
-    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "title": "تعطيل مدير النظام",
+    "description": "هل تريد بتعطيل مدير النظام هذا؟",
     "buttons": {
       "cancel": "تراجع",
       "deactivate": "تعطيل"
     }
   },
   "delete_admin_confirmation": {
-    "title": "حذف الادمين",
-    "description": "هل أنت تريد بحذف هذا الادمين ?",
+    "title": "حذف مدير النظام",
+    "description": "هل تريد حذف مدير النظام هذا؟",
     "buttons": {
       "cancel": "تراجع",
       "delete": "حذف"
     }
   },
   "deactivate_admin_reason_form": {
-    "title": "تعطيل الادمين",
-    "description": "هل أنت تريد بتعطيل هذا الادمين ?",
+    "title": "تعطيل مدير النظام",
+    "description": "هل تريد بتعطيل مدير النظام هذا؟",
     "labels": {
       "deactivation_reason": "سبب التعطيل"
     },
@@ -635,14 +656,14 @@
     }
   },
   "admin_detail_page": {
-    "title": "بيانات المشترك",
+    "title": "بيانات مدير النظام",
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات مدير النظام",
       "login_information": "معلومات الدخول",
       "commercial_registration_information": "معلومات السجل الضريبي"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير",
       "organization_name": "اسم المؤسسة",
       "type": "النوع",
       "commercial_registration_number": "رقم التسجيل التجاري",
@@ -653,32 +674,32 @@
     }
   },
   "edit_admin": {
-    "title": "تعديل الادمين"
+    "title": "تعديل مدير النظام"
   },
   "edit_admin_form": {
     "sections": {
-      "admin_information": "معلومات الادمين",
+      "admin_information": "معلومات مدير النظام",
       "login_information": "معلومات الدخول"
     },
     "labels": {
-      "admin_name": "اسم الادمين",
+      "admin_name": "اسم المدير",
       "phone_number": "رقم الهاتف",
       "email": "البريد الإلكتروني",
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور"
     },
     "placeholders": {
-      "admin_name": "ادخل اسم الادمين",
+      "admin_name": "ادخل اسم المدير",
       "phone_number": "ادخل رقم الهاتف"
     },
     "image": {
       "attach": "ارفق صورة",
-      "desc": "ارفع صورة ملف شخصي للادمين"
+      "desc": "ارفع صورة ملف شخصي لمدير النظام"
     }
   },
   "view_admin": {
     "viewMainCategory": {
-      "title": "عرض الادمين"
+      "title": "عرض مدير النظام"
     }
   },
   "add_new_package_form": {
@@ -724,6 +745,38 @@
       "settings": "الإعدادات",
       "rolesAndPermissions": "الأدوار والصلاحيات",
       "packagesAndSubscriptions": "الباقات والاشتراكات"
+    },
+    "validation": {
+      "packageName": {
+        "required": "اسم الباقة مطلوب",
+        "minLength": "يجب أن يكون اسم الباقة 3 أحرف على الأقل",
+        "maxLength": "يجب ألا يتجاوز اسم الباقة 100 حرف"
+      },
+      "packageDuration": {
+        "required": "مدة الباقة مطلوبة",
+        "invalid": "يجب أن تكون مدة الباقة رقماً صالحاً",
+        "min": "يجب أن تكون مدة الباقة 1 على الأقل",
+        "max": "يجب ألا تتجاوز مدة الباقة 365"
+      },
+      "packagePrice": {
+        "required": "سعر الباقة مطلوب",
+        "invalid": "يجب أن يكون سعر الباقة رقماً صالحاً",
+        "min": "يجب أن يكون سعر الباقة 0.01 على الأقل"
+      },
+      "features": {
+        "required": "يجب تفعيل ميزة واحدة على الأقل"
+      },
+      "description": {
+        "maxLength": "يجب ألا يتجاوز الوصف 500 حرف"
+      },
+      "maxWarehouses": {
+        "invalid": "يجب أن يكون الحد الأقصى للمستودعات رقماً صالحاً",
+        "min": "يجب أن يكون الحد الأقصى للمستودعات 1 على الأقل"
+      },
+      "maxUsers": {
+        "invalid": "يجب أن يكون الحد الأقصى للمستخدمين رقماً صالحاً",
+        "min": "يجب أن يكون الحد الأقصى للمستخدمين 1 على الأقل"
+      }
     }
   },
   "edit_package_form": {
@@ -772,8 +825,8 @@
   },
   "deleteConfirmation": {
     "deleteAdmin": {
-      "title": "حذف الادمين",
-      "message": "هل تريد بتأكيد حذف هذا الادمين؟ لا يمكن التراجع عن هذا الإجراء."
+      "title": "حذف مدير النظام",
+      "message": "هل تريد بتأكيد حذف مدير النظام هذا؟ لا يمكن التراجع عن هذا الإجراء."
     },
     "deleteSubscriber": {
       "title": "حذف المشترك",
@@ -863,6 +916,28 @@
     },
     "messages": {
       "createSuccess": "تم إنشاء المشترك بنجاح."
+    },
+    "validation": {
+      "fullNameRequired": "الاسم مطلوب",
+      "fullNameMinLength": "يجب أن يكون الاسم 3 أحرف على الأقل",
+      "fullNameMaxLength": "لا يجب أن يتجاوز الاسم 100 حرف",
+      "emailRequired": "البريد الإلكتروني مطلوب",
+      "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
+      "phoneNumberRequired": "رقم الهاتف مطلوب",
+      "phoneNumberInvalid": "صيغة رقم الهاتف غير صحيحة",
+      "phoneNumberTooShort": "يجب أن يحتوي رقم الهاتف على 7 أرقام على الأقل",
+      "phoneNumberTooLong": "لا يجب أن يتجاوز رقم الهاتف 20 رقم",
+      "countryCodeRequired": "رمز الدولة مطلوب",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+      "passwordWeak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام",
+      "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
+      "confirmPasswordMismatch": "كلمات المرور غير متطابقة",
+      "taxNumberRequired": "رقم السجل الضريبي مطلوب",
+      "taxNumberMinLength": "يجب أن يكون رقم السجل الضريبي 10 أحرف على الأقل",
+      "commercialRegistrationNumberMinLength": "يجب أن يكون رقم التسجيل التجاري 5 أحرف على الأقل",
+      "commercialRegistrationImageRequired": "صورة السجل التجاري مطلوبة عند إدخال رقم التسجيل التجاري",
+      "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة"
     }
   },
   "edit_subscriber_form": {
@@ -1118,7 +1193,8 @@
       "send": "إرسال"
     },
     "messages": {
-      "updateSuccess": "تم الرد على الرسالة بنجاح."
+      "updateSuccess": "تم الرد على الرسالة بنجاح.",
+      "alreadyReplied": "تم الرد على هذه الرسالة مسبقًا."
     }
   },
   "contact_settings": {
@@ -1165,6 +1241,19 @@
     },
     "messages": {
       "updateSuccess": "تم تحديث الإعدادات بنجاح."
+    },
+    "validation": {
+      "phoneRequired": "رقم الجوال مطلوب.",
+      "phoneInvalid": "ادخل رقم جوال صحيح.",
+      "phoneTooShort": "يجب أن يحتوي رقم الجوال على 7 أرقام على الأقل.",
+      "phoneTooLong": "يجب ألا يزيد رقم الجوال عن 15 رقماً.",
+      "phoneDuplicate": "رقم الجوال مضاف مسبقاً.",
+      "emailRequired": "البريد الالكتروني مطلوب.",
+      "emailInvalid": "ادخل بريد الكتروني صحيح.",
+      "socialMediaPlatformRequired": "اسم المنصة مطلوب.",
+      "socialMediaPlatformDuplicate": "هذه المنصة مضافة مسبقاً.",
+      "socialMediaLinkRequired": "رابط المنصة مطلوب.",
+      "socialMediaLinkInvalid": "ادخل رابطاً صحيحاً يبدأ بـ http أو https."
     }
   },
   "about_platform": {
@@ -1262,6 +1351,13 @@
         "title": "ارفق صورة الشعار",
         "description": "يحتوي على صيغ الصورة Png, Jpeg, Jpg",
         "button": "تحميل"
+      },
+      "validation": {
+        "name": {
+          "required": "اسم العميل مطلوب",
+          "minLength": "يجب أن يكون اسم العميل حرفين على الأقل",
+          "maxLength": "يجب ألا يتجاوز اسم العميل 100 حرف"
+        }
       }
     },
     "detail": {
@@ -1311,17 +1407,18 @@
       "title_view": "ميزة جديدة",
       "labels": {
         "name": "اسم الميزة",
-        "name_ar": "اسم الميزة",
-        "name_en": "Feature Name",
+        "name_ar": "اسم الميزة (بالعربية)",
+        "name_en": "اسم الميزة (بالإنجليزية)",
         "status": "الحالة",
-        "description_ar": "وصف الميزة باللغة العربية",
-        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "description_ar": "وصف الميزة (بالعربية)",
+        "description_en": "وصف الميزة (بالإنجليزية)",
         "photo": "صورة الميزة"
       },
       "placeholders": {
-        "name": "ادخل اسم الميزة...",
+        "name_ar": "ادخل اسم الميزة...",
+        "name_en": "ادخل اسم الميزة بالإنجليزية...",
         "description_ar": "ادخل وصف الميزة...",
-        "description_en": "Enter feature description..."
+        "description_en": "ادخل وصف الميزة بالإنجليزية..."
       },
       "upload_info": {
         "title": "ارفق صورة الميزة",
@@ -1330,17 +1427,39 @@
       },
       "sections": {
         "feature_data": "بيانات الميزة"
+      },
+      "validation": {
+        "name": {
+          "required": "اسم الميزة (بالإنجليزية) مطلوب",
+          "minLength": "يجب أن يكون اسم الميزة حرفين على الأقل",
+          "maxLength": "يجب ألا يتجاوز اسم الميزة 100 حرف"
+        },
+        "nameAr": {
+          "required": "اسم الميزة (بالعربية) مطلوب",
+          "minLength": "يجب أن يكون اسم الميزة حرفين على الأقل",
+          "maxLength": "يجب ألا يتجاوز اسم الميزة 100 حرف"
+        },
+        "description": {
+          "required": "وصف الميزة (بالإنجليزية) مطلوب",
+          "minLength": "يجب أن يكون الوصف 10 أحرف على الأقل",
+          "maxLength": "يجب ألا يتجاوز الوصف 500 حرف"
+        },
+        "descriptionAr": {
+          "required": "وصف الميزة (بالعربية) مطلوب",
+          "minLength": "يجب أن يكون الوصف 10 أحرف على الأقل",
+          "maxLength": "يجب ألا يتجاوز الوصف 500 حرف"
+        }
       }
     },
     "detail": {
       "title": "بيانات الميزة",
       "labels": {
         "name": "اسم الميزة",
-        "name_ar": "اسم الميزة",
-        "name_en": "Feature Name",
+        "name_ar": "اسم الميزة (بالعربية)",
+        "name_en": "اسم الميزة (بالإنجليزية)",
         "status": "الحالة",
-        "description_ar": "وصف الميزة باللغة العربية",
-        "description_en": "وصف الميزة باللغة الإنجليزية",
+        "description_ar": "وصف الميزة (بالعربية)",
+        "description_en": "وصف الميزة (بالإنجليزية)",
         "photo": "صورة الميزة"
       }
     }

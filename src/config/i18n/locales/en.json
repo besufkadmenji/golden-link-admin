@@ -2,6 +2,12 @@
   "header": {
     "logout": "Log out"
   },
+  "logout_confirmation": {
+    "title": "Log out",
+    "description": "Are you sure you want to log out?",
+    "confirm": "Log out",
+    "cancel": "Cancel"
+  },
 
   "common": {
     "system_name": "Golden Link System",
@@ -68,6 +74,11 @@
     "documents": {
       "attachDocuments": "Attach Documents",
       "supportedFormats": "Supported Formats: Jpg, PDF, Png"
+    },
+
+    "upload": {
+      "invalidFileType": "This file type is not supported. Please upload a file in one of the allowed formats.",
+      "uploadFailed": "Unable to upload this file. Please try again."
     },
 
     "statuses": {
@@ -233,6 +244,13 @@
       "silver": "Silver Package",
       "bronze": "Bronze Package"
     },
+    "messages": {
+      "createSuccess": "Package created successfully.",
+      "updateSuccess": "Package updated successfully.",
+      "deleteSuccess": "Package deleted successfully.",
+      "activateSuccess": "Package activated successfully.",
+      "deactivateSuccess": "Package deactivated successfully."
+    },
     "subscribers": {
       "title": "Subscribers Management",
       "total_subscribers": "Total Number of Subscribers",
@@ -356,7 +374,7 @@
     "success": {
       "subscription_approved": "Subscription request has been approved successfully.",
       "subscription_rejected": "Subscription request has been rejected successfully.",
-      "admin_added_successfully": "Admin has been added successfully."
+      "admin_added_successfully": "System manager has been added successfully."
     }
   },
   "reject_subscription_form": {
@@ -374,7 +392,7 @@
   "noData": {
     "subscriberRequests": "No subscription requests available",
     "subscribers": "No subscribers available",
-    "admins": "No admins available",
+    "admins": "No system managers available",
     "notifications": "No notifications available",
     "messages": "No messages available",
     "clients": "No clients available",
@@ -417,9 +435,9 @@
   "system_managers_page": {
     "title": "System Managers Management",
     "total_managers": "Total System Managers",
-    "total_count": "admins",
+    "total_count": "system managers",
     "buttons": {
-      "add_new_manager": "Add New Manager",
+      "add_new_manager": "Add New System Manager",
       "save": "Save"
     },
     "search_placeholder": "Search",
@@ -446,11 +464,14 @@
       "delete": "Delete"
     },
     "messages": {
-      "createSuccess": "Admin created successfully.",
-      "updateSuccess": "Admin updated successfully.",
-      "activateSuccess": "Admin activated successfully.",
-      "deactivateSuccess": "Admin deactivated successfully.",
-      "deleteSuccess": "Admin deleted successfully."
+      "createSuccess": "System manager created successfully.",
+      "updateSuccess": "System manager updated successfully.",
+      "activateSuccess": "System manager activated successfully.",
+      "deactivateSuccess": "System manager deactivated successfully.",
+      "deleteSuccess": "System manager deleted successfully.",
+      "deleteError": "Failed to delete system manager.",
+      "activateError": "Failed to activate system manager.",
+      "deactivateError": "Failed to deactivate system manager."
     },
     "status_labels": {
       "approved": "Approved",
@@ -458,23 +479,23 @@
     }
   },
   "add_new_admin_form": {
-    "title": "Add New Admin",
+    "title": "Add New System Manager",
     "buttons": {
       "save": "Save"
     },
     "sections": {
-      "admin_information": "Admin Information",
+      "admin_information": "System Manager Information",
       "login_information": "Login Information",
       "permissions": "Permissions"
     },
     "image": {
       "attach": "Attach Image",
-      "desc": "Upload a profile image for the admin",
+      "desc": "Upload a profile image for the system manager",
       "upload_commercial_registration_document": "Upload commercial registration document",
       "upload_tax_document": "Upload tax document"
     },
     "labels": {
-      "admin_name": "Admin Name",
+      "admin_name": "Manager Name",
       "organization_name": "Organization Name",
       "type": "Type",
       "commercial_registration_number": "Commercial Registration Number",
@@ -486,7 +507,7 @@
       "confirm_password": "Confirm Password"
     },
     "placeholders": {
-      "admin_name": "Enter admin name",
+      "admin_name": "Enter manager name",
       "phone_number": "Enter phone number"
     },
     "permissions": {
@@ -498,9 +519,9 @@
       "description": "Your file has been successfully uploaded"
     },
     "validation": {
-      "fullNameRequired": "Admin name is required",
-      "fullNameMinLength": "Admin name must be at least 3 characters long",
-      "fullNameMaxLength": "Admin name must not exceed 100 characters",
+      "fullNameRequired": "Manager name is required",
+      "fullNameMinLength": "Manager name must be at least 3 characters long",
+      "fullNameMaxLength": "Manager name must not exceed 100 characters",
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
       "phoneNumberRequired": "Phone number is required",
@@ -516,14 +537,14 @@
     }
   },
   "admin_permissions_management": {
-    "title": "Admin Permissions Management",
+    "title": "System Manager Permissions",
     "permissions_label": "Permissions",
     "restricted_permissions": "Restricted Permissions",
     "buttons": {
       "save": "Save"
     },
     "permission_modules": {
-      "system_managers_management": "System/Admin Managers Management",
+      "system_managers_management": "System Managers Management",
       "sellers_management": "Sellers Management",
       "subscription_requests": "Subscription Requests",
       "reports": "Reports",
@@ -564,38 +585,38 @@
       "countryCode": "Country Codes",
       "queue": "Queue",
       "dashboard": "Dashboard",
-      "admin": "Admin",
+      "admin": "System Manager",
       "report": "Report",
       "subscriber": "Subscriber"
     }
   },
   "activate_admin_confirmation": {
-    "title": "Activate Admin",
-    "description": "Are you sure you want to activate this admin?",
+    "title": "Activate System Manager",
+    "description": "Are you sure you want to activate this system manager?",
     "buttons": {
       "cancel": "Cancel",
       "activate": "Activate"
     }
   },
   "deactivate_admin_confirmation": {
-    "title": "Deactivate Admin",
-    "description": "Are you sure you want to deactivate this admin?",
+    "title": "Deactivate System Manager",
+    "description": "Are you sure you want to deactivate this system manager?",
     "buttons": {
       "cancel": "Cancel",
       "deactivate": "Deactivate"
     }
   },
   "delete_admin_confirmation": {
-    "title": "Delete Admin",
-    "description": "Are you sure you want to delete this admin?",
+    "title": "Delete System Manager",
+    "description": "Are you sure you want to delete this system manager?",
     "buttons": {
       "cancel": "Cancel",
       "delete": "Delete"
     }
   },
   "deactivate_admin_reason_form": {
-    "title": "Deactivate Admin",
-    "description": "Are you sure you want to deactivate this admin?",
+    "title": "Deactivate System Manager",
+    "description": "Are you sure you want to deactivate this system manager?",
     "labels": {
       "deactivation_reason": "Deactivation Reason"
     },
@@ -636,14 +657,14 @@
     }
   },
   "admin_detail_page": {
-    "title": "Admin Details",
+    "title": "System Manager Details",
     "sections": {
-      "admin_information": "Admin Information",
+      "admin_information": "System Manager Information",
       "login_information": "Login Information",
       "commercial_registration_information": "Commercial Registration Information"
     },
     "labels": {
-      "admin_name": "Admin Name",
+      "admin_name": "Manager Name",
       "organization_name": "Organization Name",
       "type": "Type",
       "commercial_registration_number": "Commercial Registration Number",
@@ -654,32 +675,32 @@
     }
   },
   "edit_admin": {
-    "title": "Edit Admin"
+    "title": "Edit System Manager"
   },
   "edit_admin_form": {
     "sections": {
-      "admin_information": "Admin Information",
+      "admin_information": "System Manager Information",
       "login_information": "Login Information"
     },
     "labels": {
-      "admin_name": "Admin Name",
+      "admin_name": "Manager Name",
       "phone_number": "Phone Number",
       "email": "Email",
       "password": "Password",
       "confirm_password": "Confirm Password"
     },
     "placeholders": {
-      "admin_name": "Enter admin name",
+      "admin_name": "Enter manager name",
       "phone_number": "Enter phone number"
     },
     "image": {
       "attach": "Attach Image",
-      "desc": "Upload a profile image for the admin"
+      "desc": "Upload a profile image for the system manager"
     }
   },
   "view_admin": {
     "viewMainCategory": {
-      "title": "View Admin"
+      "title": "View System Manager"
     }
   },
   "add_new_package_form": {
@@ -725,6 +746,38 @@
       "settings": "Settings",
       "rolesAndPermissions": "Roles and Permissions",
       "packagesAndSubscriptions": "Packages and Subscriptions"
+    },
+    "validation": {
+      "packageName": {
+        "required": "Package name is required",
+        "minLength": "Package name must be at least 3 characters",
+        "maxLength": "Package name must not exceed 100 characters"
+      },
+      "packageDuration": {
+        "required": "Package duration is required",
+        "invalid": "Package duration must be a valid number",
+        "min": "Package duration must be at least 1",
+        "max": "Package duration must not exceed 365"
+      },
+      "packagePrice": {
+        "required": "Package price is required",
+        "invalid": "Package price must be a valid number",
+        "min": "Package price must be at least 0.01"
+      },
+      "features": {
+        "required": "At least one feature must be enabled"
+      },
+      "description": {
+        "maxLength": "Description must not exceed 500 characters"
+      },
+      "maxWarehouses": {
+        "invalid": "Max warehouses must be a valid number",
+        "min": "Max warehouses must be at least 1"
+      },
+      "maxUsers": {
+        "invalid": "Max users must be a valid number",
+        "min": "Max users must be at least 1"
+      }
     }
   },
   "edit_package_form": {
@@ -773,8 +826,8 @@
   },
   "deleteConfirmation": {
     "deleteAdmin": {
-      "title": "Delete Admin",
-      "message": "Are you sure you want to delete this admin? This action cannot be undone."
+      "title": "Delete System Manager",
+      "message": "Are you sure you want to delete this system manager? This action cannot be undone."
     },
     "deleteSubscriber": {
       "title": "Delete Subscriber",
@@ -864,6 +917,28 @@
     },
     "messages": {
       "createSuccess": "Subscriber created successfully."
+    },
+    "validation": {
+      "fullNameRequired": "Name is required",
+      "fullNameMinLength": "Name must be at least 3 characters long",
+      "fullNameMaxLength": "Name must not exceed 100 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneNumberRequired": "Phone number is required",
+      "phoneNumberInvalid": "Phone number format is invalid",
+      "phoneNumberTooShort": "Phone number must be at least 7 digits",
+      "phoneNumberTooLong": "Phone number must not exceed 20 digits",
+      "countryCodeRequired": "Country code is required",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordWeak": "Password must contain uppercase, lowercase, and numeric characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "confirmPasswordMismatch": "Passwords do not match",
+      "taxNumberRequired": "Tax number is required",
+      "taxNumberMinLength": "Tax number must be at least 10 characters long",
+      "commercialRegistrationNumberMinLength": "Commercial registration number must be at least 5 characters long",
+      "commercialRegistrationImageRequired": "Commercial registration image is required when commercial number is provided",
+      "taxRegistrationImageRequired": "Tax registration image is required"
     }
   },
   "edit_subscriber_form": {
@@ -1118,7 +1193,8 @@
       "send": "Send"
     },
     "messages": {
-      "updateSuccess": "Message replied successfully."
+      "updateSuccess": "Message replied successfully.",
+      "alreadyReplied": "This message has already been replied to."
     }
   },
   "contact_settings": {
@@ -1165,6 +1241,19 @@
     },
     "messages": {
       "updateSuccess": "Settings updated successfully."
+    },
+    "validation": {
+      "phoneRequired": "Phone number is required.",
+      "phoneInvalid": "Enter a valid phone number.",
+      "phoneTooShort": "Phone number must contain at least 7 digits.",
+      "phoneTooLong": "Phone number must contain no more than 15 digits.",
+      "phoneDuplicate": "This phone number is already added.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Enter a valid email address.",
+      "socialMediaPlatformRequired": "Platform is required.",
+      "socialMediaPlatformDuplicate": "This platform is already added.",
+      "socialMediaLinkRequired": "Platform link is required.",
+      "socialMediaLinkInvalid": "Enter a valid http or https URL."
     }
   },
   "about_platform": {
@@ -1262,6 +1351,13 @@
         "title": "Upload Logo Image",
         "description": "Supported Formats: Png, Jpeg, Jpg",
         "button": "Upload"
+      },
+      "validation": {
+        "name": {
+          "required": "Client name is required",
+          "minLength": "Client name must be at least 2 characters long",
+          "maxLength": "Client name must not exceed 100 characters"
+        }
       }
     },
     "detail": {
@@ -1311,17 +1407,18 @@
       "title_view": "New Feature",
       "labels": {
         "name": "Feature Name",
-        "name_ar": "Feature Name",
-        "name_en": "Feature Name",
+        "name_ar": "Feature Name (Arabic)",
+        "name_en": "Feature Name (English)",
         "status": "Status",
-        "description_ar": "Feature Description in Arabic",
-        "description_en": "Feature Description in English",
+        "description_ar": "Feature Description (Arabic)",
+        "description_en": "Feature Description (English)",
         "photo": "Feature Photo"
       },
       "placeholders": {
-        "name": "Enter feature name...",
-        "description_ar": "Enter feature description...",
-        "description_en": "Enter feature description..."
+        "name_ar": "Enter feature name in Arabic...",
+        "name_en": "Enter feature name in English...",
+        "description_ar": "Enter feature description in Arabic...",
+        "description_en": "Enter feature description in English..."
       },
       "upload_info": {
         "title": "Upload Feature Photo",
@@ -1330,17 +1427,39 @@
       },
       "sections": {
         "feature_data": "Feature Data"
+      },
+      "validation": {
+        "name": {
+          "required": "Feature name (English) is required",
+          "minLength": "Feature name must be at least 2 characters long",
+          "maxLength": "Feature name must not exceed 100 characters"
+        },
+        "nameAr": {
+          "required": "Feature name (Arabic) is required",
+          "minLength": "Feature name must be at least 2 characters long",
+          "maxLength": "Feature name must not exceed 100 characters"
+        },
+        "description": {
+          "required": "Feature description (English) is required",
+          "minLength": "Description must be at least 10 characters long",
+          "maxLength": "Description must not exceed 500 characters"
+        },
+        "descriptionAr": {
+          "required": "Feature description (Arabic) is required",
+          "minLength": "Description must be at least 10 characters long",
+          "maxLength": "Description must not exceed 500 characters"
+        }
       }
     },
     "detail": {
       "title": "Feature Data",
       "labels": {
         "name": "Feature Name",
-        "name_ar": "Feature Name",
-        "name_en": "Feature Name",
+        "name_ar": "Feature Name (Arabic)",
+        "name_en": "Feature Name (English)",
         "status": "Status",
-        "description_ar": "Feature Description in Arabic",
-        "description_en": "Feature Description in English",
+        "description_ar": "Feature Description (Arabic)",
+        "description_en": "Feature Description (English)",
         "photo": "Feature Photo"
       }
     }

@@ -1,3 +1,21 @@
+export interface SubscriberPackage {
+  id: number;
+  packageName: string;
+  packageDuration: number;
+  packagePrice: string;
+  status: string;
+}
+
+export interface SubscriberSubscription {
+  id: string;
+  subscriptionPrice: string;
+  vatAmount: string;
+  startDate: string;
+  endDate: string;
+  status: string;
+  package?: SubscriberPackage;
+}
+
 export interface Subscriber {
   id: string;
   fullName: string;
@@ -5,9 +23,11 @@ export interface Subscriber {
   email: string;
   countryCode: string;
   phoneNumber: string;
-  roleName: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
+  roleName: string;
   status: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL"|"DELETED";
   createdAt: string;
+  subscription?: SubscriberSubscription | null;
+  package?: SubscriberPackage | null;
 }
 
 export interface SubscriberDetail extends Subscriber {
@@ -50,6 +70,7 @@ export interface GetSubscribersParams {
   search?: string;
   type?: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
   status?: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
+  duration?: string;
   page?: number;
   limit?: number;
 }

@@ -5,8 +5,11 @@ import { PrimaryButton } from "@/components/app/shared/button/PrimaryButton";
 import { useDict } from "@/hooks/useDict";
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { useState } from "react";
+import { useGetMessageById } from "@/components/app/ContactUs/useMessage";
+import { showErrorMessage } from "@/utils/show.message";
 import { useManageMessage } from "./useManageMessage";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 export const SendReply = () => {
   const [sendReply, setSendReply] = useQueryState("sendReply");
@@ -14,9 +17,18 @@ export const SendReply = () => {
   const [reply, setReply] = useState("");
   const params = useParams();
   const id = params.id as string;
+  const { data: message } = useGetMessageById(id);
   const { sendReply: sendReplyHandle, busy } = useManageMessage();
+  const isReplied = message?.status === "REPLIED";
+
+  useEffect(() => {
+    if (sendReply && isReplied) {
+      setSendReply(null);
+      showErrorMessage(dict.reply_message_form.messages.alreadyReplied);
+    }
+  }, [sendReply, isReplied, setSendReply, dict.reply_message_form.messages.alreadyReplied]);
   return (
-    <Modal isOpen={!!sendReply} onClose={() => setSendReply(null)}>
+    <Modal isOpen={!!sendReply && !isReplied} onClose={() => setSendReply(null)}>
       <ModalContent>
         <div className="grid grid-cols-1 gap-6 px-10 py-8">
           <div className="grid grid-cols-1 justify-items-center gap-4">

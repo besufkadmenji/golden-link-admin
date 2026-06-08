@@ -1,7 +1,6 @@
-import { CreateFeatureDto } from "@/types/feature";
-import { useEffect } from "react";
+import { CreateFeatureDto, Feature } from "@/types/feature";
+import { useLayoutEffect } from "react";
 import { create } from "zustand";
-import { useFeatureById } from "../useFeatures";
 
 interface FormState {
   ready: boolean;
@@ -42,6 +41,7 @@ export const useForm = create<FormState>((set) => ({
         description: "",
         descriptionAr: "",
       },
+      existingPicture: null,
     })),
   existingPicture: null,
   setExistingPicture: (picture) =>
@@ -50,8 +50,7 @@ export const useForm = create<FormState>((set) => ({
     })),
 }));
 
-export const useManageForm = (id: number) => {
-  const { feature } = useFeatureById(id);
+export const useManageForm = (id: number, feature?: Feature | null) => {
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
@@ -59,19 +58,25 @@ export const useManageForm = (id: number) => {
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
 
-  useEffect(() => {
-    if (!ready && feature) {
-      setForm({
-        name: feature.name,
-        isActive: feature.isActive,
-        nameAr: feature.nameAr,
-        description: feature.description,
-        descriptionAr: feature.descriptionAr,
-      });
-      setExistingPicture(feature.featurePhotoPath || null);
-      setReady(true);
-    }
-  }, [feature, ready, setExistingPicture, setForm, setReady]);
+  useLayoutEffect(() => {
+    reset();
+  }, [id, reset]);
 
-  return { form, setForm, reset };
+  useLayoutEffect(() => {
+    if (!feature || feature.id !== id) {
+      return;
+    }
+
+    setForm({
+      name: feature.name,
+      isActive: feature.isActive,
+      nameAr: feature.nameAr,
+      description: feature.description,
+      descriptionAr: feature.descriptionAr,
+    });
+    setExistingPicture(feature.featurePhotoPath || null);
+    setReady(true);
+  }, [id, feature, setExistingPicture, setForm, setReady]);
+
+  return { form, setForm, reset, ready };
 };

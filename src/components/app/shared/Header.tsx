@@ -6,6 +6,7 @@ import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { SelectLanguage } from "@/components/app/shared/SelectLanguage";
 import { MobileSidebar } from "@/components/app/shared/Sidebar";
 import { useDict } from "@/hooks/useDict";
+import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useMe } from "@/hooks/useMe";
 import {
   useNotifications,
@@ -54,31 +55,35 @@ export const Header = () => {
 };
 
 const LoggedUser = () => {
-  const { me, logout } = useMe();
+  const { me } = useMe();
+  const { requestLogout, LogoutConfirmationModal } = useLogoutConfirmation();
   const dict = useDict();
   return (
     me && (
-      <Dropdown>
-        <DropdownTrigger>
-          <Button
-            variant="flat"
-            endContent={<ChevronDownIcon className="size-2.5 shrink-0" />}
-            className="items-center rounded-lg bg-[#FEF5EA] px-2 text-xs text-black md:text-sm lg:px-4 lg:text-base"
+      <>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button
+              variant="flat"
+              endContent={<ChevronDownIcon className="size-2.5 shrink-0" />}
+              className="items-center rounded-lg bg-[#FEF5EA] px-2 text-xs text-black md:text-sm lg:px-4 lg:text-base"
+            >
+              {me?.fullName}
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            aria-label="Options"
+            onAction={(k) => {
+              if (k === "logout") {
+                requestLogout();
+              }
+            }}
           >
-            {me?.fullName}
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          aria-label="Options"
-          onAction={(k) => {
-            if (k === "logout") {
-              logout();
-            }
-          }}
-        >
-          <DropdownItem key="logout">{dict.header.logout}</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+            <DropdownItem key="logout">{dict.header.logout}</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+        <LogoutConfirmationModal />
+      </>
     )
   );
 };

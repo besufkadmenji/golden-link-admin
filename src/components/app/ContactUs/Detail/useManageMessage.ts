@@ -19,8 +19,7 @@ export const useManageMessage = () => {
         id,
         {
           replyContent: reply,
-        },
-        lang,
+        }
       );
       setSendReply(null);
       queryClient.invalidateQueries({ queryKey: ["messages"] });

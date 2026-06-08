@@ -52,8 +52,8 @@ export const ViewFeature = ({ id }: { id: string }) => {
           <FormSection title={dict.features_management.detail.title}>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormInput
-                label={"اسم الميزة"}
-                placeholder={dict.features_management.form.placeholders.name}
+                label={dict.features_management.form.labels.name_ar}
+                placeholder={dict.features_management.form.placeholders.name_ar}
                 value={feature.nameAr}
                 onChange={(value: string): void => {}}
                 dir="rtl"
@@ -61,8 +61,8 @@ export const ViewFeature = ({ id }: { id: string }) => {
               />
 
               <FormInput
-                label={"Feature Name"}
-                placeholder={dict.features_management.form.placeholders.name}
+                label={dict.features_management.form.labels.name_en}
+                placeholder={dict.features_management.form.placeholders.name_en}
                 value={feature.name}
                 onChange={(value: string): void => {}}
                 dir="ltr"

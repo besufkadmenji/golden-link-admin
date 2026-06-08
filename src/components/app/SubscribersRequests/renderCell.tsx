@@ -5,6 +5,11 @@ import { ActionCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
+import {
+  getSubscriberRoleLabel,
+  isSupplierRole,
+  isWarehouseOwnerRole,
+} from "@/utils/subscriber.helpers";
 import { twMerge } from "tailwind-merge";
 export const renderCell = (
   row: RowType,
@@ -59,22 +64,18 @@ export const renderCell = (
       </p>
     );
   } else if (column === "type") {
-    const typeMap = {
-      WAREHOUSE_OWNER: dict.common.warehouseOwner,
-      SUPPLIER: dict.common.supplier,
-    };
     return (
       <div className="grid justify-items-center">
         <p
           className={twMerge(
             "grid h-6 items-center rounded-full px-3",
-            row.type === "WAREHOUSE_OWNER" &&
+            isWarehouseOwnerRole(row.type) &&
               "text-green-main dark:text-green-main bg-[#E7F4EE] dark:bg-[#E7F4EE]",
-            row.type === "SUPPLIER" &&
+            isSupplierRole(row.type) &&
               "bg-[#FDF1E8] text-[#E46A11] dark:bg-[#FDF1E8] dark:text-[#E46A11]",
           )}
         >
-          {typeMap[row.type as keyof typeof typeMap] ?? row.type}
+          {getSubscriberRoleLabel(dict, row.type)}
         </p>
       </div>
     );

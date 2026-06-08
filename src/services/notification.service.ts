@@ -14,19 +14,16 @@ export class NotificationService {
    * Get admin notifications list
    * GET /notifications/admin
    * @param params - Query parameters (search, startDate, endDate, page, limit)
-   * @param lang - Language preference
    * @returns Notifications list with pagination info
    */
   static async getAdminNotifications(
-    params?: GetNotificationsParams,
-    lang?: string,
+    params?: GetNotificationsParams
   ): Promise<NotificationsData | null> {
     try {
       const response = await axiosClient.get<NotificationsResponse>(
         "/notifications/admin",
         {
           params,
-          headers: lang ? { "Accept-Language": lang } : {},
         },
       );
       return unwrapAxiosResponse(response.data);
@@ -44,19 +41,14 @@ export class NotificationService {
    * Get admin notification by ID
    * GET /notifications/admin/:id
    * @param id - Notification ID
-   * @param lang - Language preference
    * @returns Notification details with recipients information
    */
   static async getAdminNotificationById(
-    id: string,
-    lang?: string,
+    id: string
   ): Promise<NotificationDetail | null> {
     try {
       const response = await axiosClient.get<NotificationDetailResponse>(
         `/notifications/admin/${id}`,
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -73,20 +65,15 @@ export class NotificationService {
    * Create and send notification to admin recipients
    * POST /notifications/admin
    * @param dto - Notification data with title, content, and recipient IDs
-   * @param lang - Language preference
    * @returns Created notification with recipients information
    */
   static async createAdminNotification(
-    dto: CreateNotificationDto,
-    lang?: string,
+    dto: CreateNotificationDto
   ): Promise<NotificationDetail | null> {
     try {
       const response = await axiosClient.post<NotificationDetailResponse>(
         "/notifications/admin",
         dto,
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

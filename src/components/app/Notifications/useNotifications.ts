@@ -2,7 +2,7 @@
 import { useLang } from "@/hooks/useLang";
 import { NotificationService } from "@/services/notification.service";
 import { GetNotificationsParams } from "@/types/notification";
-import { getDateRangeByOption, TimeFilterOption } from "@/utils/getDateRange";
+import { getDateRangeByOption } from "@/utils/getDateRange";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
@@ -12,7 +12,7 @@ export const useNotifications = (initialParams?: GetNotificationsParams) => {
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const [option] = useQueryState("option");
-  const dateRange = getDateRangeByOption(option as TimeFilterOption);
+  const dateRange = getDateRangeByOption(option);
   const params: GetNotificationsParams = {
     page,
     limit,
@@ -23,7 +23,7 @@ export const useNotifications = (initialParams?: GetNotificationsParams) => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["notifications", params, page, limit, search, option],
-    queryFn: () => NotificationService.getAdminNotifications(params, lang),
+    queryFn: () => NotificationService.getAdminNotifications(params),
   });
 
   return {
@@ -45,7 +45,7 @@ export const useNotificationById = (id: string | null) => {
     error,
   } = useQuery({
     queryKey: ["notification", id],
-    queryFn: () => NotificationService.getAdminNotificationById(id!, lang),
+    queryFn: () => NotificationService.getAdminNotificationById(id!),
     enabled: !!id,
   });
 

@@ -7,6 +7,7 @@ import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
+import { normalizeSubscriberRole } from "@/utils/subscriber.helpers";
 import { useRequests } from "./useRequest";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
@@ -77,7 +78,7 @@ export const RequestsList = () => {
           organizationName: request.organizationName,
           phone: request.phoneNumber,
           email: request.email,
-          type: request.type,
+          type: normalizeSubscriberRole(request.type),
           date: DateTimeHelpers.formatDate(request.createdAt),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>

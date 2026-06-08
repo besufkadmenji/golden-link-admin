@@ -1,24 +1,80 @@
 import { useState, useCallback, useMemo } from "react";
-import { CreateClientDto } from "@/types/client";
+import { CreateFeatureDto } from "@/types/feature";
+import { useDict } from "@/hooks/useDict";
 
 const NAME_MIN_LENGTH = 2;
 const NAME_MAX_LENGTH = 100;
+const DESCRIPTION_MIN_LENGTH = 10;
+const DESCRIPTION_MAX_LENGTH = 500;
 
-export const useFormValidation = (form: CreateClientDto) => {
+export const useFormValidation = (form: CreateFeatureDto) => {
+  const dict = useDict();
+  const validation = dict.features_management.form.validation;
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validateName = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Client name is required";
-    }
-    if (value.trim().length < NAME_MIN_LENGTH) {
-      return `Client name must be at least ${NAME_MIN_LENGTH} characters long`;
-    }
-    if (value.trim().length > NAME_MAX_LENGTH) {
-      return `Client name must not exceed ${NAME_MAX_LENGTH} characters`;
-    }
-    return null;
-  }, []);
+  const validateName = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.name.required;
+      }
+      if (value.trim().length < NAME_MIN_LENGTH) {
+        return validation.name.minLength;
+      }
+      if (value.trim().length > NAME_MAX_LENGTH) {
+        return validation.name.maxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
+
+  const validateNameAr = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.nameAr.required;
+      }
+      if (value.trim().length < NAME_MIN_LENGTH) {
+        return validation.nameAr.minLength;
+      }
+      if (value.trim().length > NAME_MAX_LENGTH) {
+        return validation.nameAr.maxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
+
+  const validateDescription = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.description.required;
+      }
+      if (value.trim().length < DESCRIPTION_MIN_LENGTH) {
+        return validation.description.minLength;
+      }
+      if (value.trim().length > DESCRIPTION_MAX_LENGTH) {
+        return validation.description.maxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
+
+  const validateDescriptionAr = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.descriptionAr.required;
+      }
+      if (value.trim().length < DESCRIPTION_MIN_LENGTH) {
+        return validation.descriptionAr.minLength;
+      }
+      if (value.trim().length > DESCRIPTION_MAX_LENGTH) {
+        return validation.descriptionAr.maxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
 
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
@@ -26,21 +82,63 @@ export const useFormValidation = (form: CreateClientDto) => {
     const nameError = validateName(form.name);
     if (nameError) newErrors.name = nameError;
 
+    const nameArError = validateNameAr(form.nameAr);
+    if (nameArError) newErrors.nameAr = nameArError;
+
+    const descriptionError = validateDescription(form.description);
+    if (descriptionError) newErrors.description = descriptionError;
+
+    const descriptionArError = validateDescriptionAr(form.descriptionAr);
+    if (descriptionArError) newErrors.descriptionAr = descriptionArError;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }, [form.name, validateName]);
+  }, [
+    form.name,
+    form.nameAr,
+    form.description,
+    form.descriptionAr,
+    validateName,
+    validateNameAr,
+    validateDescription,
+    validateDescriptionAr,
+  ]);
 
   const isFormValid = useMemo(() => {
-    const nameError = validateName(form.name);
-    return !nameError;
-  }, [form.name, validateName]);
+    return (
+      !validateName(form.name) &&
+      !validateNameAr(form.nameAr) &&
+      !validateDescription(form.description) &&
+      !validateDescriptionAr(form.descriptionAr)
+    );
+  }, [
+    form.name,
+    form.nameAr,
+    form.description,
+    form.descriptionAr,
+    validateName,
+    validateNameAr,
+    validateDescription,
+    validateDescriptionAr,
+  ]);
 
   const validateField = useCallback(
-    (field: keyof CreateClientDto, value: string) => {
+    (field: keyof CreateFeatureDto, value: string) => {
       let error = "";
 
-      if (field === "name") {
-        error = validateName(value) || "";
+      switch (field) {
+        case "name":
+          error = validateName(value) || "";
+          break;
+        case "nameAr":
+          error = validateNameAr(value) || "";
+          break;
+        case "description":
+          error = validateDescription(value) || "";
+          break;
+        case "descriptionAr":
+          error = validateDescriptionAr(value) || "";
+          break;
       }
 
       if (error) {
@@ -53,7 +151,12 @@ export const useFormValidation = (form: CreateClientDto) => {
         });
       }
     },
-    [validateName],
+    [
+      validateName,
+      validateNameAr,
+      validateDescription,
+      validateDescriptionAr,
+    ],
   );
 
   const clearError = useCallback(

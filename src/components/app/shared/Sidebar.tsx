@@ -26,12 +26,14 @@ import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import LogoIcon from "@/assets/icons/logo.horizontal.svg";
+import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useMe } from "@/hooks/useMe";
 import { usePermissions } from "../../../hooks/useHasPermissions";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
-  const { logout, me, userPermissions } = useMe();
+  const { me, userPermissions } = useMe();
+  const { requestLogout, LogoutConfirmationModal } = useLogoutConfirmation();
   console.log("User Permissions in Sidebar:", me?.permissions);
   const { hasPermission } = usePermissions();
   return (
@@ -150,9 +152,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
           href="#"
           icon={<LogoutIcon className="size-5" />}
           label={dict.navigation.logout}
-          onClick={logout}
+          onClick={(event) => {
+            event.preventDefault();
+            requestLogout();
+          }}
         />
       </div>
+      <LogoutConfirmationModal />
     </aside>
   );
 };
@@ -166,7 +172,7 @@ const OptionLink = ({
   href: string;
   icon: ReactNode;
   label: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) => {
   const lng = useLang();
   const pathname = usePathname();

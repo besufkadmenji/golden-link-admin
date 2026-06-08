@@ -8,7 +8,7 @@ const ViewNotificationPage = async ({
   params: Promise<Params>;
 }) => {
   const { id } = await params;
-  return <ViewNotification id={id} />;
+  return <ViewNotification key={id} id={id} />;
 };
 
 export default ViewNotificationPage;

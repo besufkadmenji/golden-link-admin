@@ -98,7 +98,7 @@ export const useManageClient = () => {
   const activateClient = async (id: number) => {
     setBusy(true);
     try {
-      const success = await ClientService.activateClient(id, lang);
+      const success = await ClientService.activateClient(id);
       console.log("Activate client success:", success);
       if (success) {
         showSuccessMessage(dict.clients_management.messages.activateSuccess);
@@ -127,8 +127,7 @@ export const useManageClient = () => {
     try {
       const success = await ClientService.deactivateClient(
         id,
-        reason ?? "",
-        lang,
+        reason ?? ""
       );
       if (success) {
         showSuccessMessage(dict.clients_management.messages.deactivateSuccess);

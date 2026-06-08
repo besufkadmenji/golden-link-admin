@@ -17,8 +17,7 @@ export const useManageSetting = () => {
         "terms_and_conditions",
         {
           value: JSON.stringify({ en: valueEn, ar: valueAr }),
-        },
-        lang,
+        }
       );
 
       showSuccessMessage(dict.terms_conditions.messages.updateSuccess);

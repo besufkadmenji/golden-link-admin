@@ -30,8 +30,7 @@ export const useForgotPassword = () => {
       const response = await AuthService.forgotPassword(
         {
           email: email,
-        },
-        lng,
+        }
       );
       if (response) {
         router.replace(
@@ -64,8 +63,7 @@ export const useForgotPassword = () => {
           email: email,
           verificationCode: code,
           sessionId: searchParams.get("sessionId") || "",
-        },
-        lng,
+        }
       );
       if (response) {
         router.replace(
@@ -95,8 +93,7 @@ export const useForgotPassword = () => {
           newPassword: newPassword,
           confirmPassword: confirmPassword,
           sessionId: searchParams.get("sessionId") || "",
-        },
-        lng,
+        }
       );
       if (response) {
         showSuccessMessage(dict.auth.password_reset_success);

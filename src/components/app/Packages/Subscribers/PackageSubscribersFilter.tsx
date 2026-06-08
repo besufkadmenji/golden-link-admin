@@ -1,5 +1,5 @@
 import { useDict } from "@/hooks/useDict";
-import { useQueryState } from "nuqs";
+import { parseAsInteger, useQueryState } from "nuqs";
 import { FilterSelect } from "../../shared/filter/FilterSelect";
 import { SearchInput } from "../../shared/filter/SearchInput";
 
@@ -26,6 +26,7 @@ export const PackageSubscribersFilter = () => {
   }));
   const [status, setStatus] = useQueryState("status");
   const [duration, setDuration] = useQueryState("duration");
+  const [, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
   return (
     <div className="grid grid-cols-3 items-center gap-4 lg:flex">
@@ -36,6 +37,7 @@ export const PackageSubscribersFilter = () => {
         className="w-full md:w-max"
         values={duration ? [duration] : []}
         onValueChange={(values) => {
+          void setPage(1);
           setDuration(values[0] || null);
         }}
       />
@@ -45,6 +47,7 @@ export const PackageSubscribersFilter = () => {
         className="w-full md:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {
+          void setPage(1);
           setStatus(values[0] || null);
         }}
       />

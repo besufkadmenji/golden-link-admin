@@ -17,4 +17,7 @@ export enum ExportModel {
   RETURN_REQUEST = "returnRequest",
   PURCHASE_ORDER = "purchaseOrder",
   LEASE = "lease",
+  SUBSCRIBER = "subscriber",
+  PACKAGE = "package",
+  PRICE_OFFER = "priceOffer",
 }

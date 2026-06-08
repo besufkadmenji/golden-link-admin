@@ -27,6 +27,7 @@ export const Settings = () => {
     setUpdateProfile,
     existingPicture,
     setExistingPicture,
+    setProfileImageRemoved,
     vatRateReady,
     trialPeriodDurationReady,
   } = useManageSettingsForm();
@@ -129,8 +130,11 @@ export const Settings = () => {
                   file={updateProfile.profileImage}
                   onChange={(file?: File): void => {
                     setUpdateProfile({ profileImage: file });
-                    if (!file) {
+                    if (file) {
+                      setProfileImageRemoved(false);
+                    } else {
                       setExistingPicture(null);
+                      setProfileImageRemoved(true);
                     }
                   }}
                   accept={{

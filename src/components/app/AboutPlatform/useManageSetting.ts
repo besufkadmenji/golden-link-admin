@@ -17,8 +17,7 @@ export const useManageSetting = () => {
         "about_description",
         {
           value: JSON.stringify({ en: valueEn, ar: valueAr }),
-        },
-        lang,
+        }
       );
 
       showSuccessMessage(dict.about_platform.messages.updateSuccess);

@@ -14,5 +14,5 @@ export const renderCell = (
   if (column === "action") {
     return <ActionsCell onView={action.onView} />;
   }
-  return <p className="w-max">{row[column as string]}</p>;
+  return <p className="max-w-[300px] break-all line-clamp-4 text-ellipsis">{row[column as string]}</p>;
 };

@@ -9,6 +9,10 @@ import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { useSubscribers } from "./useSubscriber";
+import {
+  normalizeSubscriberRole,
+  normalizeSubscriberStatus,
+} from "@/utils/subscriber.helpers";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { useManageSubscriber } from "@/components/app/Subscribers/Detail/useManageSubscriber";
 import {
@@ -92,9 +96,9 @@ export const SubscribersList = () => {
           organizationName: subscriber.organizationName,
           phone: subscriber.phoneNumber,
           email: subscriber.email,
-          type: subscriber.roleName,
+          type: normalizeSubscriberRole(subscriber.roleName),
           date: DateTimeHelpers.formatDate(subscriber.createdAt),
-          status: subscriber.status,
+          status: normalizeSubscriberStatus(subscriber.status),
         }))}
         renderCell={(row: RowType, column: Key): ReactNode =>
           renderCell(row, column, dict, {

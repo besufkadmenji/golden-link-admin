@@ -16,8 +16,9 @@ import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { PackagesFilter } from "./PackagesFilter";
 import { usePackages } from "./usePackages";
 import { PackagesList } from "./PackagesList";
-import { TimeFilter } from "@/components/app/shared/TimeFilter";
 import { usePermissions } from "@/hooks/useHasPermissions";
+import { ExportModel } from "@/types/export/export.model";
+
 export const Packages = () => {
   const dict = useDict();
   const router = useRouter();
@@ -45,7 +46,7 @@ export const Packages = () => {
             }}
           />
         )}
-        <ExportButton model={""} />
+        <ExportButton model={ExportModel.PACKAGE} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (
@@ -54,7 +55,6 @@ export const Packages = () => {
         <SummaryCard
           type={SummaryCardType.PACKAGES}
           value={pagination?.total || 0}
-          endContent={<TimeFilter />}
         />
       )}
 

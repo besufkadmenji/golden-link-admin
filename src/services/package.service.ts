@@ -14,13 +14,11 @@ export class PackageService {
    * GET /packages
    */
   static async getPackages(
-    params?: GetPackagesParams,
-    lang?: string,
+    params?: GetPackagesParams
   ): Promise<PackagesListResponse | null> {
     try {
       const response = await axiosClient.get("/packages", {
         params,
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -38,13 +36,10 @@ export class PackageService {
    * GET /packages/:id
    */
   static async getPackageById(
-    id: string | number,
-    lang?: string,
+    id: string | number
   ): Promise<Package | null> {
     try {
-      const response = await axiosClient.get(`/packages/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get(`/packages/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -61,8 +56,7 @@ export class PackageService {
    * POST /packages
    */
   static async createPackage(
-    data: CreatePackageDto,
-    lang?: string,
+    data: CreatePackageDto
   ): Promise<Package | null> {
     try {
       const formData = new FormData();
@@ -101,7 +95,6 @@ export class PackageService {
       const response = await axiosClient.post("/packages", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -121,8 +114,7 @@ export class PackageService {
    */
   static async updatePackage(
     id: string | number,
-    data: UpdatePackageDto,
-    lang?: string,
+    data: UpdatePackageDto
   ): Promise<Package | null> {
     try {
       const formData = new FormData();
@@ -165,7 +157,6 @@ export class PackageService {
       const response = await axiosClient.put(`/packages/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang ? { "Accept-Language": lang } : {}),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -184,13 +175,10 @@ export class PackageService {
    * DELETE /packages/:id
    */
   static async deletePackage(
-    id: string | number,
-    lang?: string,
+    id: string | number
   ): Promise<void> {
     try {
-      await axiosClient.delete(`/packages/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      await axiosClient.delete(`/packages/${id}`);
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(
@@ -207,16 +195,12 @@ export class PackageService {
    */
   static async togglePackageStatus(
     id: string | number,
-    status: "ACTIVE" | "INACTIVE",
-    lang?: string,
+    status: "ACTIVE" | "INACTIVE"
   ): Promise<Package | null> {
     try {
       const response = await axiosClient.patch(
         `/packages/${id}/status`,
         { status },
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

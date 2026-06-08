@@ -2,13 +2,19 @@ import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
+import {
+  getSubscriberRoleLabel,
+  isActiveStatus,
+  isDeletedStatus,
+  isSupplierRole,
+  isWarehouseOwnerRole,
+  typeMap,
+} from "@/utils/subscriber.helpers";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const typeMap = (dict: Dictionary) => ({
-  WAREHOUSE_OWNER: dict.common.warehouseOwner,
-  SUPPLIER: dict.common.supplier,
-});
+export { typeMap };
+
 export const renderCell = (
   row: RowType,
   column: Key,
@@ -20,13 +26,15 @@ export const renderCell = (
   },
 ) => {
   if (column === "action") {
-    return <ActionsCell onView={action.onView} onDelete={
-      row.status === "DELETED" ? undefined :
-      
-      action.onDelete} />;
+    return (
+      <ActionsCell
+        onView={action.onView}
+        onDelete={isDeletedStatus(row.status) ? undefined : action.onDelete}
+      />
+    );
   } else if (column === "name") {
     return (
-      <div className="grid grid-cols-1 gap-1 w-max">
+      <div className="grid w-max grid-cols-1 gap-1">
         <p className="text-title text-xs leading-4 tracking-tight dark:text-white">
           {row.name}
         </p>
@@ -52,26 +60,25 @@ export const renderCell = (
       <div className="grid justify-items-center">
         <p
           className={twMerge(
-            "grid h-6 items-center rounded-full px-3",
-            row.type === "WAREHOUSE_OWNER" &&
+            "grid h-6 w-max items-center rounded-full px-3",
+            isWarehouseOwnerRole(row.type) &&
               "text-green-main dark:text-green-main bg-[#E7F4EE] dark:bg-[#E7F4EE]",
-            row.type === "SUPPLIER" &&
+            isSupplierRole(row.type) &&
               "bg-[#FDF1E8] text-[#E46A11] dark:bg-[#FDF1E8] dark:text-[#E46A11]",
           )}
         >
-          {typeMap(dict)[row.type as keyof typeof typeMap] ?? row.type}
+          {getSubscriberRoleLabel(dict, row.type)}
         </p>
       </div>
     );
   } else if (column === "status") {
-    console.log("row status:", row.status);
     return (
       <AppSwitch
-        isSelected={row.status === "ACTIVE"}
+        isSelected={isActiveStatus(row.status)}
         onValueChange={(checked) => {
           action.onActivate(checked);
         }}
-        isDisabled={row.status === "DELETED"}
+        isDisabled={isDeletedStatus(row.status)}
       />
     );
   }

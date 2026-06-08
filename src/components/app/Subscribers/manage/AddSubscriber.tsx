@@ -18,13 +18,16 @@ import { typeMap } from "../renderCell";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { SuccessMessage } from "@/components/app/Subscribers/manage/SuccessMessage";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const AddSubscriber = () => {
-  const { form, setForm } = useForm();
+  const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createSubscriber } = useManageSubscriber();
   const { errors, validateForm, clearError } = useFormValidation(form);
+  useFormResetOnLeave(reset);
+
   return (
     <>
       <div className="grid grid-cols-1">

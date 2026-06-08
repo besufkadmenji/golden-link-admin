@@ -36,6 +36,7 @@ export const useForm = create<FormState>((set) => ({
         isActive: true,
         clientLogo: undefined,
       },
+      existingPicture: null,
     })),
   existingPicture: null,
   setExistingPicture: (picture) =>
@@ -54,15 +55,21 @@ export const useManageForm = (id: number) => {
   const setReady = useForm((state) => state.setReady);
 
   useEffect(() => {
-    if (!ready && client) {
-      setForm({
-        name: client.name,
-        isActive: client.isActive,
-      });
-      setExistingPicture(client.logoPath || null);
-      setReady(true);
+    reset();
+  }, [id, reset]);
+
+  useEffect(() => {
+    if (!client || client.id !== id) {
+      return;
     }
-  }, [client, ready, setExistingPicture, setForm, setReady]);
+
+    setForm({
+      name: client.name,
+      isActive: client.isActive,
+    });
+    setExistingPicture(client.logoPath || null);
+    setReady(true);
+  }, [id, client, setExistingPicture, setForm, setReady]);
 
   return { form, setForm, reset };
 };

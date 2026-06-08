@@ -2,7 +2,12 @@ import UploadIcon from "@/assets/icons/app/upload.alt.svg";
 import UploadButtonIcon from "@/assets/icons/app/upload.svg";
 import { useDict } from "@/hooks/useDict";
 import Image from "next/image";
-import Dropzone from "react-dropzone";
+import {
+  IMAGE_AND_PDF_FILE_ACCEPT,
+  normalizeAccept,
+} from "@/utils/fileAccept";
+import { useCallback, useState } from "react";
+import Dropzone, { FileRejection } from "react-dropzone";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import TrashIcon from "@/assets/icons/app/trash.svg";
 import { Button } from "@heroui/react";
@@ -17,23 +22,42 @@ export const MultipleUploadInput = ({
   onChange: (files: File[]) => void;
   errorMessage?: string;
 }) => {
-  const hasError = Boolean(errorMessage);
   const dict = useDict();
-  console.log("files in MultipleUploadInput:", files);
+  const [rejectionError, setRejectionError] = useState("");
+  const displayError = errorMessage || rejectionError;
+  const hasError = Boolean(displayError);
+
+  const handleDropRejected = useCallback(
+    (rejections: FileRejection[]) => {
+      const rejection = rejections[0];
+      if (!rejection) {
+        return;
+      }
+
+      if (
+        rejection.errors.some((error) => error.code === "file-invalid-type")
+      ) {
+        setRejectionError(dict.common.upload.invalidFileType);
+        return;
+      }
+
+      setRejectionError(dict.common.upload.uploadFailed);
+    },
+    [dict],
+  );
+
   return (
     <div className="grid gap-4">
       <Dropzone
         onDrop={(acceptedFiles) => {
           if (acceptedFiles.length > 0) {
+            setRejectionError("");
             onChange([...files, ...acceptedFiles]);
           }
         }}
+        onDropRejected={handleDropRejected}
         multiple={true}
-        accept={{
-          "image/jpeg": [],
-          "image/png": [],
-          "application/pdf": [],
-        }}
+        accept={normalizeAccept(IMAGE_AND_PDF_FILE_ACCEPT)}
       >
         {({ getRootProps, getInputProps }) => (
           <div
@@ -67,6 +91,11 @@ export const MultipleUploadInput = ({
           </div>
         )}
       </Dropzone>
+      {hasError ? (
+        <p className="text-danger-500 text-xs leading-4 font-normal">
+          {displayError}
+        </p>
+      ) : null}
       <div className="flex flex-wrap justify-center gap-4">
         {files.map((file, index) => (
           <SelectedFile

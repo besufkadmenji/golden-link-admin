@@ -76,6 +76,10 @@
   border-collapse: separate;
   border-spacing: 0 6px;
 }
+.dark .rdp-month_grid {
+  background-color: #1a1a1a;
+}
+
 .rdp-root {
   --rdp-accent-color: #2563eb;
   --rdp-range_middle-background-color: #2563eb4f !important;

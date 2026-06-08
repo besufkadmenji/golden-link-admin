@@ -20,7 +20,7 @@ export const useDashboard = () => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["dashboard", period],
-    queryFn: () => HomeService.getDashboardSummary(params, lang),
+    queryFn: () => HomeService.getDashboardSummary(params),
   });
 
   return {
@@ -35,7 +35,7 @@ export const useLatestJoinRequests = () => {
   const lang = useLang();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["latestJoinRequests"],
-    queryFn: () => HomeService.getLatestJoinRequests(undefined, lang),
+    queryFn: () => HomeService.getLatestJoinRequests(undefined),
   });
 
   return {
@@ -82,7 +82,7 @@ export const useMonthlySubscriptionsComparison = (
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["monthlySubscriptionsComparison", interval],
-    queryFn: () => HomeService.getMonthlySubscriptionsComparison(params, lang),
+    queryFn: () => HomeService.getMonthlySubscriptionsComparison(params),
   });
 
   // Format the inactive period label

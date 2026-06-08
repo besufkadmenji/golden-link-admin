@@ -40,8 +40,7 @@ export const useLogIn = () => {
         {
           email,
           password,
-        },
-        lng,
+        }
       );
       if (response) {
         Cookie.set("accessToken", response.accessToken);

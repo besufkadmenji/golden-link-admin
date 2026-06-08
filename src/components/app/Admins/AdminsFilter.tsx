@@ -23,7 +23,7 @@ export const AdminsFilter = () => {
       <SearchInput className="w-full md:w-max" />
       <FilterSelect
         options={adminStatusOptions}
-        placeholder={dict.subscription_requests_page.table_headers.type}
+        placeholder={dict.system_managers_page.filter_placeholder}
         className="w-full md:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {

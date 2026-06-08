@@ -20,7 +20,7 @@ export const useManageSubscriber = () => {
   const activateSubscriber = async (id: string) => {
     setBusy(true);
     try {
-      const response = await SubscriberService.activateSubscriber(id, lang);
+      const response = await SubscriberService.activateSubscriber(id);
       if (response) {
         showSuccessMessage(dict.subscribers_page.messages.activateSuccess);
         queryClient.invalidateQueries({
@@ -48,8 +48,7 @@ export const useManageSubscriber = () => {
     try {
       const response = await SubscriberService.deactivateSubscriber(
         id,
-        reason ?? "",
-        lang,
+        reason ?? ""
       );
       if (response) {
         showSuccessMessage(dict.subscribers_page.messages.deactivateSuccess);
@@ -73,22 +72,26 @@ export const useManageSubscriber = () => {
     }
   };
 
-  const deleteSubscriber = async (id: string, reason?: string) => {
+  const deleteSubscriber = async (
+    id: string,
+    reason?: string,
+    redirectTo = "/subscribers",
+  ) => {
     setBusy(true);
     try {
-      const response = await SubscriberService.deleteSubscriber(id, reason);
+      const response = await SubscriberService.deleteSubscriber(id);
       if (response) {
-        showSuccessMessage(dict.system_managers_page.messages.deleteSuccess);
+        showSuccessMessage(dict.subscribers_page.messages.deleteSuccess);
         queryClient.invalidateQueries({
           queryKey: ["subscribers"],
         });
         queryClient.invalidateQueries({
-          queryKey: ["subscribers", id],
+          queryKey: ["subscriber", id],
         });
         queryClient.invalidateQueries({
           queryKey: ["latestJoinRequests"],
         });
-        router.push("/subscribers");
+        router.push(redirectTo);
       }
     } catch (error) {
       console.error("Delete subscriber error wtf:", error);

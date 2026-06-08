@@ -21,7 +21,7 @@ export const useFeatures = (initialParams?: GetFeaturesParams) => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["features", params, page, limit, search, isActive],
-    queryFn: () => FeatureService.getFeatures(params, lang),
+    queryFn: () => FeatureService.getFeatures(params),
   });
 
   return {
@@ -39,16 +39,18 @@ export const useFeatureById = (id: number) => {
   const {
     data: feature,
     isLoading,
+    isFetching,
     isError,
     error,
   } = useQuery({
     queryKey: ["feature", id],
-    queryFn: () => FeatureService.getFeatureById(id, lang),
+    queryFn: () => FeatureService.getFeatureById(id),
   });
 
   return {
     feature,
     isLoading,
+    isFetching,
     isError,
     error,
   };

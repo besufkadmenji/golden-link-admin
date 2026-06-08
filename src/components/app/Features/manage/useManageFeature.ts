@@ -98,7 +98,7 @@ export const useManageFeature = () => {
   const activateFeature = async (id: number) => {
     setBusy(true);
     try {
-      const success = await FeatureService.activateFeature(id, lang);
+      const success = await FeatureService.activateFeature(id);
       console.log("Activate feature success:", success);
       if (success) {
         showSuccessMessage(dict.features_management.messages.activateSuccess);
@@ -127,8 +127,7 @@ export const useManageFeature = () => {
     try {
       const success = await FeatureService.deactivateFeature(
         id,
-        reason ?? "",
-        lang,
+        reason ?? ""
       );
       if (success) {
         showSuccessMessage(dict.features_management.messages.deactivateSuccess);

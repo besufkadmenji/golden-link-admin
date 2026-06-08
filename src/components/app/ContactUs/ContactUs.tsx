@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { MessagesFilter } from "./MessagesFilter";
 import { MessagesList } from "./MessagesList";
 import { usePermissions } from "@/hooks/useHasPermissions";
+import { TimeFilter } from "@/components/app/shared/TimeFilter";
 import { useEffect } from "react";
 
 export const ContactUs = () => {
@@ -38,6 +39,7 @@ export const ContactUs = () => {
         <SummaryCard
           type={SummaryCardType.MESSAGES}
           value={data?.pagination?.totalItems || 0}
+          endContent={<TimeFilter />}
         />
       )}
 

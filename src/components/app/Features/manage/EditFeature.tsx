@@ -11,25 +11,36 @@ import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { UploadInput } from "../../shared/UploadInput";
+import { useFeatureById } from "../useFeatures";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageFeature } from "./useManageFeature";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { AppLoading } from "@/components/app/shared/AppLoading";
 
 export const EditFeature = ({ id }: { id: string }) => {
-  const { form, setForm } = useManageForm(Number(id));
+  const featureId = Number(id);
+  const { feature, isLoading, isFetching } = useFeatureById(featureId);
+  const { form, setForm, reset, ready } = useManageForm(featureId, feature);
+  useFormResetOnLeave(reset);
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
   const dict = useDict();
   const router = useRouter();
   const { busy, updateFeature } = useManageFeature();
   const { errors, validateForm, clearError } = useFormValidation(form);
+
+  if (isLoading || isFetching || !feature || !ready) {
+    return <AppLoading className="h-[84vh]" />;
+  }
+
   return (
     <div className="grid grid-cols-1">
       <AppForm
         type={FormType.Features}
         onSubmit={() => {
           if (validateForm()) {
-            updateFeature(Number(id));
+            updateFeature(featureId);
           }
         }}
         onCancel={() => {
@@ -41,8 +52,8 @@ export const EditFeature = ({ id }: { id: string }) => {
         <FormSection title={dict.features_management.detail.title}>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <FormInput
-              label={"اسم الميزة"}
-              placeholder={dict.features_management.form.placeholders.name}
+              label={dict.features_management.form.labels.name_ar}
+              placeholder={dict.features_management.form.placeholders.name_ar}
               value={form.nameAr}
               onChange={(value: string): void => {
                 setForm({ nameAr: value });
@@ -53,8 +64,8 @@ export const EditFeature = ({ id }: { id: string }) => {
             />
 
             <FormInput
-              label={"Feature Name"}
-              placeholder={dict.features_management.form.placeholders.name}
+              label={dict.features_management.form.labels.name_en}
+              placeholder={dict.features_management.form.placeholders.name_en}
               value={form.name}
               onChange={(value: string): void => {
                 setForm({ name: value });

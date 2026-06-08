@@ -31,7 +31,7 @@ export const useRequests = (
 
   return useQuery({
     queryKey: ["requests", lang, page, limit, search, status, type],
-    queryFn: () => SubscriptionService.getSubscriptionRequests(params, lang),
+    queryFn: () => SubscriptionService.getSubscriptionRequests(params),
   });
 };
 
@@ -42,7 +42,7 @@ export const useRequest = (
 
   return useQuery({
     queryKey: ["request", id, lang],
-    queryFn: () => SubscriptionService.getSubscriptionRequestDetail(id, lang),
+    queryFn: () => SubscriptionService.getSubscriptionRequestDetail(id),
     enabled: !!id,
   });
 };

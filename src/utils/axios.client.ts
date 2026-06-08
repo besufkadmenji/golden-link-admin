@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import Cookie from "js-cookie";
+import { getClientLocale } from "@/utils/locale.client";
 
 const axiosClient = axios.create({
   baseURL: "/api/proxy/",
@@ -12,6 +13,10 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   if (typeof window === "undefined") return config;
+
+  if (config.headers) {
+    config.headers["Accept-Language"] = getClientLocale();
+  }
 
   const accessToken = Cookie.get("accessToken");
   const refreshToken = Cookie.get("refreshToken");
@@ -26,9 +31,15 @@ axiosClient.interceptors.request.use(async (config) => {
     let tokenToUse = accessToken;
 
     if (isExpired && refreshToken) {
-      const res = await axios.post("/api/proxy/auth/refresh-token", {
-        refreshToken,
-      });
+      const res = await axios.post(
+        "/api/proxy/auth/refresh-token",
+        { refreshToken },
+        {
+          headers: {
+            "Accept-Language": getClientLocale(),
+          },
+        },
+      );
       Cookie.set("accessToken", res.data.accessToken);
       Cookie.set("accessTokenExpiry", res.data.accessTokenExpiry);
       tokenToUse = res.data.accessToken;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Permissions } from "@/components/app/Admins/manage/Permissions";
-import { statusMap } from "@/components/app/Admins/renderCell";
+import { adminFormStatusMap } from "@/components/app/Admins/renderCell";
 import {
   AppForm,
   FormSection,
@@ -19,7 +19,7 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
-import { useEffect } from "react";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const AddAdmin = () => {
   const { form, setForm, reset } = useForm();
@@ -27,11 +27,7 @@ export const AddAdmin = () => {
   const router = useRouter();
   const { busy, createAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form);
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
+  useFormResetOnLeave(reset);
   return (
     <>
       <div className="grid grid-cols-1">
@@ -78,15 +74,11 @@ export const AddAdmin = () => {
                 value={form.status}
                 onChange={(value: string): void => {
                   setForm({
-                    status: value as
-                      | "ACTIVE"
-                      | "INACTIVE"
-                      | "SUSPENDED"
-                      | "PENDING_APPROVAL",
+                    status: value as "ACTIVE" | "INACTIVE" | "SUSPENDED",
                   });
                   clearError("status");
                 }}
-                options={Object.entries(statusMap(dict)).map(
+                options={Object.entries(adminFormStatusMap(dict)).map(
                   ([key, value]) => ({
                     label: value,
                     key: key,

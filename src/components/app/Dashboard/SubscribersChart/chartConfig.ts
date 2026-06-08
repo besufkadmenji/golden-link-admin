@@ -6,8 +6,8 @@ export const createChartData = (
   previousMonthLabel: string,
   previousMonthData: number[]
 ): ChartData<"line"> => {
-  // Generate labels for 30 days
-  const labels = Array.from({ length: 30 }, (_, i) => `${i + 1}`);
+  const dataLength = Math.max(currentMonthData.length, previousMonthData.length);
+  const labels = Array.from({ length: dataLength }, (_, i) => `${i + 1}`);
 
   return {
     labels,

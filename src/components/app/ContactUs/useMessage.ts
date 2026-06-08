@@ -1,7 +1,7 @@
 import { useLang } from "@/hooks/useLang";
 import { MessageService } from "@/services/message.service";
 import { GetMessagesParams, MessageStatus, MessageType } from "@/types/message";
-import { getDateRangeByOption, TimeFilterOption } from "@/utils/getDateRange";
+import { getDateRangeByOption } from "@/utils/getDateRange";
 import { useQuery } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
@@ -14,7 +14,7 @@ export const useGetMessages = () => {
   const [type] = useQueryState("type", parseAsString.withDefault(""));
   const [status] = useQueryState("status", parseAsString.withDefault(""));
   const [option] = useQueryState("option");
-  const dateRange = getDateRangeByOption(option as TimeFilterOption);
+  const dateRange = getDateRangeByOption(option);
   const params: GetMessagesParams = {
     page,
     limit,
@@ -26,9 +26,9 @@ export const useGetMessages = () => {
   };
 
   return useQuery({
-    queryKey: ["messages", params],
+    queryKey: ["messages", lang, page, limit, search, type, status, option],
     queryFn: async () => {
-      const data = await MessageService.getMessages(params, lang);
+      const data = await MessageService.getMessages(params);
       return data;
     },
     enabled: Boolean(params),
@@ -41,7 +41,7 @@ export const useGetMessageById = (id: string) => {
   return useQuery({
     queryKey: ["message", id],
     queryFn: async () => {
-      const data = await MessageService.getMessageById(id, lang);
+      const data = await MessageService.getMessageById(id);
       return data;
     },
     enabled: Boolean(id),

@@ -1,5 +1,6 @@
-import { useState, useCallback, useMemo } from "react";
+import { useDict } from "@/hooks/useDict";
 import { CreateSubscriberDto } from "@/types/subscriber";
+import { useState, useCallback, useMemo } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[0-9\-+\s()]+$/;
@@ -16,124 +17,142 @@ export const useFormValidation = (
   form: FormWithPassword,
   mode: "add" | "edit" = "add",
 ) => {
+  const dict = useDict();
+  const validation = dict.add_new_subscriber_form.validation;
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validateTaxNumber = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Tax number is required";
-    }
-    if (value.trim().length < 10) {
-      return "Tax number must be at least 10 characters long";
-    }
-    return null;
-  }, []);
+  const validateTaxNumber = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.taxNumberRequired;
+      }
+      if (value.trim().length < 10) {
+        return validation.taxNumberMinLength;
+      }
+      return null;
+    },
+    [validation],
+  );
 
   const validateCommercialRegistrationNumber = useCallback(
     (value: string): string | null => {
-      // Optional field - only validate if provided
       if (value && value.trim() !== "") {
         if (value.trim().length < 5) {
-          return "Commercial registration number must be at least 5 characters long";
+          return validation.commercialRegistrationNumberMinLength;
         }
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateCommercialRegistrationImage = useCallback(
     (commercialRegNumber: string, file?: File): string | null => {
-      // Only required if commercial registration number is provided
       if (commercialRegNumber && commercialRegNumber.trim() !== "") {
         if (!file) {
-          return "Commercial registration image is required when commercial number is provided";
+          return validation.commercialRegistrationImageRequired;
         }
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateTaxRegistrationImage = useCallback(
     (file?: File): string | null => {
       if (!file) {
-        return "Tax registration image is required";
+        return validation.taxRegistrationImageRequired;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
-  const validateFullName = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Name is required";
-    }
-    if (value.trim().length < 3) {
-      return "Name must be at least 3 characters long";
-    }
-    if (value.trim().length > 100) {
-      return "Name must not exceed 100 characters";
-    }
-    return null;
-  }, []);
+  const validateFullName = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.fullNameRequired;
+      }
+      if (value.trim().length < 3) {
+        return validation.fullNameMinLength;
+      }
+      if (value.trim().length > 100) {
+        return validation.fullNameMaxLength;
+      }
+      return null;
+    },
+    [validation],
+  );
 
-  const validateEmail = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Email is required";
-    }
-    if (!EMAIL_REGEX.test(value)) {
-      return "Please enter a valid email address";
-    }
-    return null;
-  }, []);
+  const validateEmail = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.emailRequired;
+      }
+      if (!EMAIL_REGEX.test(value)) {
+        return validation.emailInvalid;
+      }
+      return null;
+    },
+    [validation],
+  );
 
-  const validatePhoneNumber = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Phone number is required";
-    }
-    if (!PHONE_REGEX.test(value)) {
-      return "Phone number format is invalid";
-    }
-    if (value.replace(/\D/g, "").length < PHONE_MIN_LENGTH) {
-      return "Phone number must be at least 7 digits";
-    }
-    if (value.replace(/\D/g, "").length > PHONE_MAX_LENGTH) {
-      return "Phone number must not exceed 20 digits";
-    }
-    return null;
-  }, []);
+  const validatePhoneNumber = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.phoneNumberRequired;
+      }
+      if (!PHONE_REGEX.test(value)) {
+        return validation.phoneNumberInvalid;
+      }
+      if (value.replace(/\D/g, "").length < PHONE_MIN_LENGTH) {
+        return validation.phoneNumberTooShort;
+      }
+      if (value.replace(/\D/g, "").length > PHONE_MAX_LENGTH) {
+        return validation.phoneNumberTooLong;
+      }
+      return null;
+    },
+    [validation],
+  );
 
-  const validateCountryCode = useCallback((value: string): string | null => {
-    if (!value || value.trim() === "") {
-      return "Country code is required";
-    }
-    return null;
-  }, []);
+  const validateCountryCode = useCallback(
+    (value: string): string | null => {
+      if (!value || value.trim() === "") {
+        return validation.countryCodeRequired;
+      }
+      return null;
+    },
+    [validation],
+  );
 
-  const validatePassword = useCallback((value: string): string | null => {
-    if (!value || value === "") {
-      return "Password is required";
-    }
-    if (value.length < PASSWORD_MIN_LENGTH) {
-      return "Password must be at least 8 characters long";
-    }
-    if (!PASSWORD_REGEX.test(value)) {
-      return "Password must contain uppercase, lowercase, and numeric characters";
-    }
-    return null;
-  }, []);
+  const validatePassword = useCallback(
+    (value: string): string | null => {
+      if (!value || value === "") {
+        return validation.passwordRequired;
+      }
+      if (value.length < PASSWORD_MIN_LENGTH) {
+        return validation.passwordMinLength;
+      }
+      if (!PASSWORD_REGEX.test(value)) {
+        return validation.passwordWeak;
+      }
+      return null;
+    },
+    [validation],
+  );
 
   const validateConfirmPassword = useCallback(
     (password: string, confirm: string): string | null => {
       if (!confirm || confirm === "") {
-        return "Please confirm your password";
+        return validation.confirmPasswordRequired;
       }
       if (password !== confirm) {
-        return "Passwords do not match";
+        return validation.confirmPasswordMismatch;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateForm = useCallback(() => {
@@ -172,7 +191,6 @@ export const useFormValidation = (
     );
     if (taxImageError) newErrors.taxRegistrationImagePath = taxImageError;
 
-    // Only validate password in add mode
     if (mode === "add") {
       const passwordError = validatePassword(form.password);
       if (passwordError) newErrors.password = passwordError;
@@ -228,7 +246,6 @@ export const useFormValidation = (
       form.taxRegistrationImagePath,
     );
 
-    // Skip password validation in edit mode
     if (mode === "edit") {
       return (
         !fullNameError &&

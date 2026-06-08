@@ -9,13 +9,11 @@ import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 
 export class FeatureService {
   static async getFeatures(
-    params?: GetFeaturesParams,
-    lang?: string,
+    params?: GetFeaturesParams
   ): Promise<FeaturesData | null> {
     try {
       const response = await axiosClient.get("/features", {
         params,
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -29,13 +27,10 @@ export class FeatureService {
   }
 
   static async getFeatureById(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<Feature | null> {
     try {
-      const response = await axiosClient.get(`/features/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get(`/features/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -48,8 +43,7 @@ export class FeatureService {
   }
 
   static async createFeature(
-    data: CreateFeatureDto,
-    lang?: string,
+    data: CreateFeatureDto
   ): Promise<Feature | null> {
     try {
       const formData = new FormData();
@@ -66,7 +60,6 @@ export class FeatureService {
       const response = await axiosClient.post("/features", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang && { "Accept-Language": lang }),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -82,8 +75,7 @@ export class FeatureService {
 
   static async updateFeature(
     id: number,
-    data: CreateFeatureDto,
-    lang?: string,
+    data: CreateFeatureDto
   ): Promise<Feature | null> {
     try {
       const formData = new FormData();
@@ -100,7 +92,6 @@ export class FeatureService {
       const response = await axiosClient.put(`/features/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang && { "Accept-Language": lang }),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -115,13 +106,10 @@ export class FeatureService {
   }
 
   static async deleteFeature(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<Feature | null> {
     try {
-      const response = await axiosClient.delete(`/features/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.delete(`/features/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -134,16 +122,12 @@ export class FeatureService {
   }
 
   static async activateFeature(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<Feature | null> {
     try {
       const response = await axiosClient.patch(
         `/features/${id}/activate`,
         {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -158,16 +142,12 @@ export class FeatureService {
 
   static async deactivateFeature(
     id: number,
-    reason: string,
-    lang?: string,
+    reason: string
   ): Promise<Feature | null> {
     try {
       const response = await axiosClient.patch(
         `/features/${id}/deactivate`,
         { reason },
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

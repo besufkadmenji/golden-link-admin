@@ -13,9 +13,11 @@ import { UploadInput } from "../../shared/UploadInput";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageClient } from "./useManageClient";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const AddClient = () => {
-  const { form, setForm } = useForm();
+  const { form, setForm, reset } = useForm();
+  useFormResetOnLeave(reset);
   const dict = useDict();
   const router = useRouter();
   const { busy, createClient } = useManageClient();
@@ -37,7 +39,7 @@ export const AddClient = () => {
           action="add"
         >
           <FormSection title={dict.clients_management.detail.title}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
               <FormInput
                 label={dict.clients_management.form.labels.name}
                 placeholder={dict.clients_management.form.placeholders.name}

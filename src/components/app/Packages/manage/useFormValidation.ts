@@ -6,7 +6,7 @@ const PACKAGE_NAME_MIN_LENGTH = 3;
 const PACKAGE_NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const MIN_DURATION = 1;
-const MAX_DURATION = 365; // Max 365 days (1 year in days, or could mean months)
+const MAX_DURATION = 365;
 const MIN_PRICE = 0.01;
 
 export const useFormValidation = (
@@ -14,59 +14,60 @@ export const useFormValidation = (
   features: PackageFeatures,
 ) => {
   const dict = useDict();
+  const validation = dict.add_new_package_form.validation;
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const validatePackageName = useCallback(
     (value: string): string | null => {
       if (!value || value.trim() === "") {
-        return "Package name is required";
+        return validation.packageName.required;
       }
       if (value.trim().length < PACKAGE_NAME_MIN_LENGTH) {
-        return `Package name must be at least ${PACKAGE_NAME_MIN_LENGTH} characters`;
+        return validation.packageName.minLength;
       }
       if (value.trim().length > PACKAGE_NAME_MAX_LENGTH) {
-        return `Package name must not exceed ${PACKAGE_NAME_MAX_LENGTH} characters`;
+        return validation.packageName.maxLength;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validatePackageDuration = useCallback(
     (value: string | number): string | null => {
       if (!value || value === "") {
-        return "Package duration is required";
+        return validation.packageDuration.required;
       }
       const numValue = typeof value === "string" ? parseFloat(value) : value;
       if (isNaN(numValue)) {
-        return "Package duration must be a valid number";
+        return validation.packageDuration.invalid;
       }
       if (numValue < MIN_DURATION) {
-        return `Package duration must be at least ${MIN_DURATION}`;
+        return validation.packageDuration.min;
       }
       if (numValue > MAX_DURATION) {
-        return `Package duration must not exceed ${MAX_DURATION}`;
+        return validation.packageDuration.max;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validatePackagePrice = useCallback(
     (value: string | number): string | null => {
       if (!value || value === "") {
-        return "Package price is required";
+        return validation.packagePrice.required;
       }
       const numValue = typeof value === "string" ? parseFloat(value) : value;
       if (isNaN(numValue)) {
-        return "Package price must be a valid number";
+        return validation.packagePrice.invalid;
       }
       if (numValue < MIN_PRICE) {
-        return `Package price must be at least ${MIN_PRICE}`;
+        return validation.packagePrice.min;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateFeatures = useCallback(
@@ -75,51 +76,51 @@ export const useFormValidation = (
         (value) => value === true,
       );
       if (!hasAtLeastOneFeature) {
-        return "At least one feature must be enabled";
+        return validation.features.required;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateDescription = useCallback(
     (value: string): string | null => {
       if (value && value.length > DESCRIPTION_MAX_LENGTH) {
-        return `Description must not exceed ${DESCRIPTION_MAX_LENGTH} characters`;
+        return validation.description.maxLength;
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateMaxWarehouses = useCallback(
     (value: number | undefined): string | null => {
       if (value !== undefined && value !== null) {
         if (isNaN(value)) {
-          return "Max warehouses must be a valid number";
+          return validation.maxWarehouses.invalid;
         }
         if (value < 1) {
-          return "Max warehouses must be at least 1";
+          return validation.maxWarehouses.min;
         }
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateMaxUsers = useCallback(
     (value: number | undefined): string | null => {
       if (value !== undefined && value !== null) {
         if (isNaN(value)) {
-          return "Max users must be a valid number";
+          return validation.maxUsers.invalid;
         }
         if (value < 1) {
-          return "Max users must be at least 1";
+          return validation.maxUsers.min;
         }
       }
       return null;
     },
-    [],
+    [validation],
   );
 
   const validateForm = useCallback(() => {

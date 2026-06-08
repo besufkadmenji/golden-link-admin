@@ -23,7 +23,7 @@ export const usePackages = (initialParams?: GetPackagesParams) => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["packages", params, page, limit, search, status],
-    queryFn: () => PackageService.getPackages(params, lang),
+    queryFn: () => PackageService.getPackages(params),
   });
 
   return {
@@ -50,7 +50,7 @@ export const usePackageById = (id: string | null) => {
     error,
   } = useQuery({
     queryKey: ["package", id],
-    queryFn: () => PackageService.getPackageById(id!, lang),
+    queryFn: () => PackageService.getPackageById(id!),
     enabled: !!id,
   });
 

@@ -14,19 +14,14 @@ import { useRouter } from "next/navigation";
 import { AppLoading } from "../../shared/AppLoading";
 import { useUserById } from "../useAdmins";
 import { useManageForm } from "@/components/app/Admins/manage/useForm";
-import { useEffect } from "react";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const ViewAdmin = ({ id }: { id: string }) => {
   const { user } = useUserById(id);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
   const dict = useDict();
   const router = useRouter();
-
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
+  useFormResetOnLeave(reset);
 
   return !user || !permissionsReady ? (
     <AppLoading className="h-[84vh]" />

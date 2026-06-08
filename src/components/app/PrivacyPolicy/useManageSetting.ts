@@ -17,8 +17,7 @@ export const useManageSetting = () => {
         "privacy_policy",
         {
           value: JSON.stringify({ en: valueEn, ar: valueAr }),
-        },
-        lang,
+        }
       );
 
       showSuccessMessage(dict.privacy_policy.messages.updateSuccess);

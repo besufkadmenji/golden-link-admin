@@ -13,13 +13,11 @@ export class PermissionService {
    * Get list of permissions with pagination
    */
   static async getPermissions(
-    params?: GetPermissionsParams,
-    lang?: string,
+    params?: GetPermissionsParams
   ): Promise<PermissionsListResponse | null> {
     try {
       const response = await axiosClient.get("/permissions", {
         params: { ...params, platform: "ADMIN" },
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -36,13 +34,10 @@ export class PermissionService {
    * Assign permissions to a user
    */
   static async assignPermissions(
-    data: AssignPermissionsRequest,
-    lang?: string,
+    data: AssignPermissionsRequest
   ): Promise<AssignedPermissionsResponse | null> {
     try {
-      const response = await axiosClient.post("/permissions/assign", data, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.post("/permissions/assign", data);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -58,13 +53,10 @@ export class PermissionService {
    * Get user's assigned permissions
    */
   static async getUserPermissions(
-    userId: string,
-    lang?: string,
+    userId: string
   ): Promise<AssignedPermissionsResponse | null> {
     try {
-      const response = await axiosClient.get(`/permissions/user/${userId}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get(`/permissions/user/${userId}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -81,16 +73,12 @@ export class PermissionService {
    */
   static async revokePermission(
     permissionId: string | number,
-    data: RevokePermissionRequest,
-    lang?: string,
+    data: RevokePermissionRequest
   ): Promise<AssignedPermissionsResponse | null> {
     try {
       const response = await axiosClient.post(
         `/permissions/revoke/${permissionId}`,
         data,
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

@@ -7,15 +7,14 @@ import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
-import { useMe } from "@/hooks/useMe";
 import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { SocialMediaPlatform, useManageSettingsForm } from "./useForm";
 import { useManageSetting } from "./useManageSetting";
+import { useContactManagementValidation } from "./useValidation";
 export const ContactManagement = () => {
   const dict = useDict();
-  const { me } = useMe();
   const {
     phoneNumbers,
     email,
@@ -28,6 +27,8 @@ export const ContactManagement = () => {
   } = useManageSettingsForm();
   const [phoneNumber, setPhoneNumber] = useState("");
   const { updateSetting, busy } = useManageSetting();
+  const { errors, clearError, validateForm, validateNewPhoneNumber } =
+    useContactManagementValidation();
 
   return (
     <PageWrapper>
@@ -35,7 +36,15 @@ export const ContactManagement = () => {
         <SaveButton
           type={SaveButtonType.Settings}
           onPress={() => {
-            updateSetting();
+            const isValid = validateForm({
+              phoneNumbers,
+              whatsapp,
+              email,
+              socialMediaLinks,
+            });
+            if (isValid) {
+              updateSetting();
+            }
           }}
           isDisabled={busy}
           isLoading={busy}
@@ -54,11 +63,21 @@ export const ContactManagement = () => {
                   value={phoneNumber}
                   onChange={(value: string): void => {
                     setPhoneNumber(value);
+                    clearError("phoneNumber");
                   }}
+                  errorMessage={errors.phoneNumber}
                 />
                 <PrimaryButton
                   onPress={() => {
-                    setPhoneNumbers([...phoneNumbers, phoneNumber]);
+                    const isValid = validateNewPhoneNumber(
+                      phoneNumber,
+                      phoneNumbers,
+                    );
+                    if (!isValid) {
+                      return;
+                    }
+
+                    setPhoneNumbers([...phoneNumbers, phoneNumber.trim()]);
                     setPhoneNumber("");
                   }}
                   className="mb-2 self-end"
@@ -81,6 +100,7 @@ export const ContactManagement = () => {
                     }
                     value={phone}
                     onChange={(value: string): void => {}}
+                    errorMessage={errors.phoneNumbers?.[index]}
                     readOnly
                   />
                   <PrimaryButton
@@ -89,8 +109,9 @@ export const ContactManagement = () => {
                         (p, i) => i !== index,
                       );
                       setPhoneNumbers(updatedPhoneNumbers);
+                      clearError("phoneNumbers");
                     }}
-                    className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
+                    className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
                   >
                     <DeleteIcon className="size-5.5" />
@@ -98,30 +119,26 @@ export const ContactManagement = () => {
                 </div>
               ))}
             </div>
-            {whatsapp && (
-              <FormInput
-                label={dict.contact_settings.contact_info.labels.whatsapp}
-                placeholder={
-                  dict.contact_settings.contact_info.placeholders.whatsapp
-                }
-                value={whatsapp}
-                onChange={(value: string): void => {
-                  setWhatsapp(value);
-                }}
-              />
-            )}
-            {email && (
-              <FormInput
-                label={dict.contact_settings.contact_info.labels.email}
-                placeholder={
-                  dict.contact_settings.contact_info.placeholders.email
-                }
-                value={email}
-                onChange={(value: string): void => {
-                  setEmail(value);
-                }}
-              />
-            )}
+            <FormInput
+              label={dict.contact_settings.contact_info.labels.whatsapp}
+              placeholder={dict.contact_settings.contact_info.placeholders.whatsapp}
+              value={whatsapp}
+              onChange={(value: string): void => {
+                setWhatsapp(value);
+                clearError("whatsapp");
+              }}
+              errorMessage={errors.whatsapp}
+            />
+            <FormInput
+              label={dict.contact_settings.contact_info.labels.email}
+              placeholder={dict.contact_settings.contact_info.placeholders.email}
+              value={email}
+              onChange={(value: string): void => {
+                setEmail(value);
+                clearError("email");
+              }}
+              errorMessage={errors.email}
+            />
           </div>
         </FormSection>
         <FormSection title={""}>
@@ -153,7 +170,9 @@ export const ContactManagement = () => {
                       const updatedSocialMediaLinks = [...socialMediaLinks];
                       updatedSocialMediaLinks[index].key = value;
                       setSocialMediaLinks(updatedSocialMediaLinks);
+                      clearError("socialMediaPlatforms");
                     }}
+                    errorMessage={errors.socialMediaPlatforms?.[index]}
                     options={Object.values(SocialMediaPlatform).map(
                       (platform) => ({
                         key: platform,
@@ -172,7 +191,9 @@ export const ContactManagement = () => {
                       const updatedSocialMediaLinks = [...socialMediaLinks];
                       updatedSocialMediaLinks[index].value = value;
                       setSocialMediaLinks(updatedSocialMediaLinks);
+                      clearError("socialMediaLinks");
                     }}
+                    errorMessage={errors.socialMediaLinks?.[index]}
                     classNames={{
                       inputWrapper: "bg-white shadow-none",
                     }}
@@ -183,8 +204,10 @@ export const ContactManagement = () => {
                         (l, i) => i !== index,
                       );
                       setSocialMediaLinks(updatedSocialMediaLinks);
+                      clearError("socialMediaPlatforms");
+                      clearError("socialMediaLinks");
                     }}
-                    className="h-12 w-14 self-end bg-[#FFDBDB] p-0 text-[#FF0000]"
+                    className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
                   >
                     <DeleteIcon className="size-5.5" />

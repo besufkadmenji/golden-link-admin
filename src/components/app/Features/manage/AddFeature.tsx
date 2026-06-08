@@ -14,9 +14,11 @@ import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageFeature } from "./useManageFeature";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const AddFeature = () => {
-  const { form, setForm } = useForm();
+  const { form, setForm, reset } = useForm();
+  useFormResetOnLeave(reset);
   const dict = useDict();
   const router = useRouter();
   const { busy, createFeature } = useManageFeature();
@@ -40,8 +42,8 @@ export const AddFeature = () => {
           <FormSection title={dict.features_management.detail.title}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <FormInput
-                label={"اسم الميزة"}
-                placeholder={dict.features_management.form.placeholders.name}
+                label={dict.features_management.form.labels.name_ar}
+                placeholder={dict.features_management.form.placeholders.name_ar}
                 value={form.nameAr}
                 onChange={(value: string): void => {
                   setForm({ nameAr: value });
@@ -52,8 +54,8 @@ export const AddFeature = () => {
               />
 
               <FormInput
-                label={"Feature Name"}
-                placeholder={dict.features_management.form.placeholders.name}
+                label={dict.features_management.form.labels.name_en}
+                placeholder={dict.features_management.form.placeholders.name_en}
                 value={form.name}
                 onChange={(value: string): void => {
                   setForm({ name: value });

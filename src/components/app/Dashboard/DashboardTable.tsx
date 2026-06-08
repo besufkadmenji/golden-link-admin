@@ -15,6 +15,7 @@ import { useManageSubscriber } from "@/components/app/Subscribers/Detail/useMana
 import { AppLoading } from "@/components/app/shared/AppLoading";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { RejectReasonModal } from "../SubscribersRequests/Detail/RejectReasonModal";
+import { normalizeSubscriberRole } from "@/utils/subscriber.helpers";
 
 export const DashboardTable = () => {
   const dict = useDict();
@@ -91,7 +92,7 @@ export const DashboardTable = () => {
             organizationName: entry.organizationName,
             email: entry.email,
             phoneNumber: entry.phone.number,
-            type: entry.type,
+            type: normalizeSubscriberRole(entry.type),
             createdAt: moment(entry.requestedAt).format("MMM D, YYYY"),
           }))}
           renderCell={(row, column) =>

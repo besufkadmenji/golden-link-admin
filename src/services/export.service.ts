@@ -6,8 +6,7 @@ import { ExportModel } from "@/types/export/export.model";
 export class ExportService {
   static async exportToExcel(
     model: ExportModel | string,
-    params: ExportParams = {},
-    lang: string = "en",
+    params: ExportParams = {}
   ): Promise<void> {
     try {
       // Add exclude parameter if not provided
@@ -17,9 +16,6 @@ export class ExportService {
 
       const response = await axiosClient.get(`/export/${model}`, {
         params,
-        headers: {
-          "Accept-Language": lang,
-        },
         responseType: "blob",
       });
 

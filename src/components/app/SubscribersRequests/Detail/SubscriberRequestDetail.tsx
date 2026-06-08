@@ -10,6 +10,7 @@ import { FormSelect } from "../../shared/forms/FormSelect";
 import Image from "next/image";
 import { RequestAction } from "@/components/app/SubscribersRequests/Detail/RequestAction";
 import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
+import { normalizeSubscriberRole } from "@/utils/subscriber.helpers";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
 import { DocumentDisplay } from "@/components/app/SubscribersRequests/Detail/DocumentDisplay";
 
@@ -71,7 +72,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
               <FormSelect
                 label={dict.subscription_request_detail_page.labels.type}
                 placeholder={dict.subscription_request_detail_page.labels.type}
-                value={request.type}
+                value={normalizeSubscriberRole(request.type)}
                 onChange={(value: string): void => {}}
                 options={[
                   {

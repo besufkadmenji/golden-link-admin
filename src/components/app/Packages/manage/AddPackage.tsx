@@ -10,13 +10,14 @@ import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { UploadInput } from "../../shared/UploadInput";
 import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManagePackage } from "./useManagePackage";
+import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
 import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
@@ -31,11 +32,7 @@ export const AddPackage = () => {
     features,
   );
 
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
+  useFormResetOnLeave(reset);
 
   return (
     <>
@@ -190,10 +187,7 @@ export const AddPackage = () => {
                 onChange={(file?: File): void => {
                   setForm({ icon: file });
                 }}
-                accept={{
-                  "image/jpeg": [],
-                  "image/png": [],
-                }}
+                accept={IMAGE_FILE_ACCEPT}
               />
             </div>
           </FormSection>

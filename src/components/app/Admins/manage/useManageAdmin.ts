@@ -36,8 +36,7 @@ export const useManageAdmin = () => {
             {
               userId: response.id,
               permissionIds: permissionIds || [],
-            },
-            lang,
+            }
           );
         }
         queryClient.invalidateQueries({
@@ -46,7 +45,7 @@ export const useManageAdmin = () => {
         queryClient.invalidateQueries({
           queryKey: ["user"],
         });
-        setShowSuccess("true");
+        setShowSuccess("create");
       }
       resetForm();
     } catch (error) {
@@ -61,7 +60,20 @@ export const useManageAdmin = () => {
   const updateAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const response = await UserService.updateUser(id, form);
+      const profileImageRemoved = useForm.getState().profileImageRemoved;
+      const initialProfileImagePath = useForm.getState().initialProfileImagePath;
+      const shouldRemoveProfileImage =
+        profileImageRemoved &&
+        !!initialProfileImagePath &&
+        !form.profileImage;
+
+      const response = await UserService.updateUser(
+        id,
+        {
+          ...form,
+          removeProfileImage: shouldRemoveProfileImage,
+        }
+      );
       if (response) {
         if (form.permissionType === "CUSTOM") {
           const revokedIds = initialPermissionIds.filter(
@@ -77,21 +89,18 @@ export const useManageAdmin = () => {
                     {
                       userId: response.id,
                       permissionIds: newlyAddedIds,
-                    },
-                    lang,
+                    }
                   ),
                 ]
               : []),
             ...revokedIds.map((pid) =>
               PermissionService.revokePermission(
                 pid,
-                { userId: response.id },
-                lang,
+                { userId: response.id }
               ),
             ),
           ]);
         }
-        showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["user", id],
         });
@@ -101,7 +110,7 @@ export const useManageAdmin = () => {
         queryClient.invalidateQueries({
           queryKey: ["users"],
         });
-        router.push("/admins");
+        setShowSuccess("edit");
       }
     } catch (error) {
       showErrorMessage(
@@ -126,7 +135,7 @@ export const useManageAdmin = () => {
         });
         router.push("/admins");
       } else {
-        showErrorMessage("Failed to delete admin.");
+        showErrorMessage(dict.system_managers_page.messages.deleteError);
       }
     } catch (error) {
       console.error("Delete admin error:", error);
@@ -142,7 +151,7 @@ export const useManageAdmin = () => {
   const activateAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const success = await UserService.activateUser(id, lang);
+      const success = await UserService.activateUser(id);
       if (success) {
         showSuccessMessage(success);
         queryClient.invalidateQueries({
@@ -153,7 +162,7 @@ export const useManageAdmin = () => {
         });
         setActivateAdmin(null);
       } else {
-        showErrorMessage("Failed to activate admin.");
+        showErrorMessage(dict.system_managers_page.messages.activateError);
       }
     } catch (error) {
       console.error("Activate admin error:", error);
@@ -171,8 +180,7 @@ export const useManageAdmin = () => {
       const deactivateData: DeactivateUserDto = reason ? { reason } : {};
       const success = await UserService.deactivateUser(
         id,
-        deactivateData,
-        lang,
+        deactivateData
       );
       if (success) {
         showSuccessMessage(success);
@@ -184,7 +192,7 @@ export const useManageAdmin = () => {
         });
         setDeactivateAdmin(null);
       } else {
-        showErrorMessage("Failed to deactivate admin.");
+        showErrorMessage(dict.system_managers_page.messages.deactivateError);
       }
     } catch (error) {
       console.error("Deactivate admin error:", error);

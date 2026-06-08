@@ -44,9 +44,9 @@ export const useForm = create<FormState>((set) => ({
         confirmPassword: "",
         commercialRegistrationNumber: "",
         taxRegistrationNumber: "",
+        commercialRegistrationImagePath: undefined,
+        taxRegistrationImagePath: undefined,
         type: "WAREHOUSE_OWNER",
       },
-      commercialRegistrationImageFile: undefined,
-      taxRegistrationImageFile: undefined,
     })),
 }));

@@ -6,17 +6,13 @@ export class ReportService {
   /**
    * Get admin report with summary and package statistics
    * GET /admin/report
-   * @param lang - Language preference
    * @returns Admin report with summary and packages data
    */
   static async getAdminReport(
-    params?: AdminReportParams,
-    lang?: string,
+    params?: AdminReportParams
   ): Promise<AdminReportResponse | null> {
     try {
-      const response = await axiosClient.get("/admin/report", {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get("/admin/report");
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(

@@ -16,6 +16,7 @@ export const useSubscribers = (
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const [status] = useQueryState("status", parseAsString.withDefault(""));
   const [type] = useQueryState("type", parseAsString.withDefault(""));
+  const [duration] = useQueryState("duration", parseAsString.withDefault(""));
 
   const lang = useLang();
 
@@ -33,12 +34,13 @@ export const useSubscribers = (
     ...(type && {
       type: type as "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER",
     }),
+    ...(duration && { duration }),
     ...initialParams,
   };
 
   return useQuery({
-    queryKey: ["subscribers", lang, page, limit, search, status, type],
-    queryFn: () => SubscriberService.getSubscribers(params, lang),
+    queryKey: ["subscribers", lang, page, limit, search, status, type, duration],
+    queryFn: () => SubscriberService.getSubscribers(params),
   });
 };
 
@@ -49,7 +51,7 @@ export const useSubscriber = (
 
   return useQuery({
     queryKey: ["subscriber", id, lang],
-    queryFn: () => SubscriberService.getSubscriberById(id, lang),
+    queryFn: () => SubscriberService.getSubscriberById(id),
     enabled: !!id,
   });
 };

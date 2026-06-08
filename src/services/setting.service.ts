@@ -9,13 +9,11 @@ import {
 
 export class SettingService {
   static async getSettings(
-    params?: GetSettingsParams,
-    lang?: string,
+    params?: GetSettingsParams
   ): Promise<SettingsResponse | null> {
     try {
       const response = await axiosClient.get<SettingsResponse>("/settings", {
         params,
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -29,13 +27,10 @@ export class SettingService {
   }
 
   static async getSettingByKey(
-    key: string,
-    lang?: string,
+    key: string
   ): Promise<Setting | null> {
     try {
-      const response = await axiosClient.get<Setting>(`/settings/key/${key}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get<Setting>(`/settings/key/${key}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -49,16 +44,12 @@ export class SettingService {
 
   static async updateSetting(
     key: string,
-    dto: UpdateSettingDto,
-    lang?: string,
+    dto: UpdateSettingDto
   ): Promise<Setting | null> {
     try {
       const response = await axiosClient.put<Setting>(
         `/settings/${key}/key`,
         dto,
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

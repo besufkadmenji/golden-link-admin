@@ -30,10 +30,10 @@ export const renderCell = (
   column: Key,
   dict: Dictionary,
   action: {
-    onView: () => void;
-    onEdit: () => void;
-    onDelete: () => void;
-    onActivate: (value: boolean) => void;
+    onView?: () => void;
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onActivate?: (value: boolean) => void;
   },
 ) => {
   if (column === "action") {
@@ -55,13 +55,12 @@ export const renderCell = (
         <span className={twMerge("text-xs", sar.className)}>A</span>
       </p>
     );
-  } else if (column === "status") {
-    console.log("row status:", row.status);
+  } else if (column === "status" && action.onActivate) {
     return (
       <AppSwitch
         isSelected={row.status === "ACTIVE"}
         onValueChange={(checked) => {
-          action.onActivate(checked);
+          action.onActivate?.(checked);
         }}
       />
     );

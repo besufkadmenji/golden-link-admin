@@ -24,7 +24,7 @@ export const useUsers = (initialParams?: GetUsersParams) => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["users", params, page, limit, search, status],
-    queryFn: () => UserService.getUsers(params, lang),
+    queryFn: () => UserService.getUsers(params),
   });
 
   return {
@@ -46,7 +46,7 @@ export const useUserById = (id: string | null) => {
     error,
   } = useQuery({
     queryKey: ["user", id],
-    queryFn: () => UserService.getUserById(id!, lang),
+    queryFn: () => UserService.getUserById(id!),
     enabled: !!id,
   });
 

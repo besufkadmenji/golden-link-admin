@@ -15,8 +15,9 @@ import { UploadInput } from "../../shared/UploadInput";
 import { usePackageById } from "../usePackages";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
+import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
 import { useManagePackage } from "./useManagePackage";
-import { useEffect } from "react";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { AppLoading } from "@/components/app/shared/AppLoading";
 import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
@@ -38,11 +39,7 @@ export const EditPackage = ({ id }: { id: string }) => {
     features,
   );
 
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
+  useFormResetOnLeave(reset);
 
   return !pkg || !ready ? (
     <AppLoading className="h-[84vh]" />
@@ -180,10 +177,7 @@ export const EditPackage = ({ id }: { id: string }) => {
                   setExistingIcon(null);
                 }
               }}
-              accept={{
-                "image/jpeg": [],
-                "image/png": [],
-              }}
+              accept={IMAGE_FILE_ACCEPT}
               initUrl={existingIcon || undefined}
             />
           </div>

@@ -8,22 +8,20 @@ import {
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
-import { TimeFilter } from "@/components/app/shared/TimeFilter";
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
 import { PackageSubscribersFilter } from "./PackageSubscribersFilter";
 import { PackageSubscribersList } from "./PackageSubscribersList";
-import { useUsers } from "./useAdmins";
+import { useSubscribers } from "@/components/app/Subscribers/useSubscriber";
+import { ExportModel } from "@/types/export/export.model";
+
 export const PackageSubscribers = () => {
   const dict = useDict();
-  const router = useRouter();
-  const pathname = usePathname();
-  const { users, pagination, isLoading } = useUsers();
+  const { data, isLoading } = useSubscribers();
 
   return (
     <PageWrapper>
       <PageBar title={dict.packages.subscribers.title}>
-        <ExportButton model={"subscriber"} />
+        <ExportButton model={ExportModel.SUBSCRIBER} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (
@@ -31,8 +29,7 @@ export const PackageSubscribers = () => {
       ) : (
         <SummaryCard
           type={SummaryCardType.PACKAGE_SUBSCRIBERS}
-          value={pagination?.totalItems || 0}
-          endContent={<TimeFilter />}
+          value={data?.pagination?.totalItems || 0}
         />
       )}
 

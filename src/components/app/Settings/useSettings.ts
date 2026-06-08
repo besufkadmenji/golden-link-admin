@@ -7,7 +7,7 @@ export const useSetting = (key: string) => {
   const lang = useLang();
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["setting", key],
-    queryFn: () => SettingService.getSettingByKey(key, lang),
+    queryFn: () => SettingService.getSettingByKey(key),
   });
 
   return {

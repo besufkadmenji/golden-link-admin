@@ -21,8 +21,7 @@ export const usePermissions = () => {
         {
           page: 1,
           limit: 100,
-        },
-        lang,
+        }
       ),
   });
 
@@ -45,7 +44,7 @@ export const useUserPermission = (userId: string) => {
     error,
   } = useQuery<AssignedPermissionsResponse | null>({
     queryKey: ["userPermissions", userId],
-    queryFn: () => PermissionService.getUserPermissions(userId, lang),
+    queryFn: () => PermissionService.getUserPermissions(userId),
   });
 
   return {

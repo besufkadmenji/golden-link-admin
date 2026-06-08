@@ -1,8 +1,18 @@
 import type { ChartOptions, TooltipItem } from "chart.js";
 
 export const chartOptions = (theme: string): ChartOptions<"line"> => ({
+  datasets: {
+    line: {
+      clip: false,
+    },
+  },
   responsive: true,
   maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 8,
+    },
+  },
   interaction: {
     mode: "index" as const,
     intersect: false,
@@ -44,10 +54,9 @@ export const chartOptions = (theme: string): ChartOptions<"line"> => ({
     },
     y: {
       min: 0,
-      // max: 60,
+      grace: "10%",
       ticks: {
         display: false,
-        stepSize: 1,
         color: theme !== "dark" ? "#9FA2B4" : "#fff",
         font: {
           size: 12,

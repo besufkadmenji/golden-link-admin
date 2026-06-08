@@ -9,13 +9,11 @@ import {
 
 export class ClientService {
   static async getClients(
-    params?: GetClientsParams,
-    lang?: string,
+    params?: GetClientsParams
   ): Promise<ClientsData | null> {
     try {
       const response = await axiosClient.get("/clients", {
         params,
-        headers: lang ? { "Accept-Language": lang } : {},
       });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -29,13 +27,10 @@ export class ClientService {
   }
 
   static async getClientById(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<ClientDetail | null> {
     try {
-      const response = await axiosClient.get(`/clients/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.get(`/clients/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -48,8 +43,7 @@ export class ClientService {
   }
 
   static async createClient(
-    data: CreateClientDto,
-    lang?: string,
+    data: CreateClientDto
   ): Promise<ClientDetail | null> {
     try {
       const formData = new FormData();
@@ -63,7 +57,6 @@ export class ClientService {
       const response = await axiosClient.post("/clients", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang && { "Accept-Language": lang }),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -79,8 +72,7 @@ export class ClientService {
 
   static async updateClient(
     id: number,
-    data: CreateClientDto,
-    lang?: string,
+    data: CreateClientDto
   ): Promise<ClientDetail | null> {
     try {
       const formData = new FormData();
@@ -94,7 +86,6 @@ export class ClientService {
       const response = await axiosClient.put(`/clients/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          ...(lang && { "Accept-Language": lang }),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -109,13 +100,10 @@ export class ClientService {
   }
 
   static async deleteClient(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<ClientDetail | null> {
     try {
-      const response = await axiosClient.delete(`/clients/${id}`, {
-        headers: lang ? { "Accept-Language": lang } : {},
-      });
+      const response = await axiosClient.delete(`/clients/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -128,16 +116,12 @@ export class ClientService {
   }
 
   static async activateClient(
-    id: number,
-    lang?: string,
+    id: number
   ): Promise<ClientDetail | null> {
     try {
       const response = await axiosClient.patch(
         `/clients/${id}/activate`,
         {},
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -152,16 +136,12 @@ export class ClientService {
 
   static async deactivateClient(
     id: number,
-    reason: string,
-    lang?: string,
+    reason: string
   ): Promise<ClientDetail | null> {
     try {
       const response = await axiosClient.patch(
         `/clients/${id}/deactivate`,
         { reason },
-        {
-          headers: lang ? { "Accept-Language": lang } : {},
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

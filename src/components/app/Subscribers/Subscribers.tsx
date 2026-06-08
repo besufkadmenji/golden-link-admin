@@ -20,6 +20,7 @@ import {
 } from "@/components/app/shared/button/AddButton";
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { usePermissions } from "@/hooks/useHasPermissions";
+import { ExportModel } from "@/types/export/export.model";
 import { useEffect } from "react";
 
 export const Subscribers = () => {
@@ -49,7 +50,7 @@ export const Subscribers = () => {
             }}
           />
         )}
-        <ExportButton model={""} />
+        <ExportButton model={ExportModel.SUBSCRIBER} />
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

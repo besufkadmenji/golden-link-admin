@@ -20,22 +20,19 @@ export const useManageSetting = () => {
         "contact_email",
         {
           value: email,
-        },
-        lang,
+        }
       );
       await SettingService.updateSetting(
         "contact_phones",
         {
           value: JSON.stringify(phoneNumbers),
-        },
-        lang,
+        }
       );
       await SettingService.updateSetting(
         "contact_whatsapp",
         {
           value: whatsapp,
-        },
-        lang,
+        }
       );
       await SettingService.updateSetting(
         "social_media_links",
@@ -45,8 +42,7 @@ export const useManageSetting = () => {
               socialMediaLinks.map((link) => [link.key, link.value]),
             ),
           ),
-        },
-        lang,
+        }
       );
       showSuccessMessage(dict.contact_settings.messages.updateSuccess);
     } catch (error) {

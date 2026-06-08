@@ -2,7 +2,11 @@ import {
   ActionsCell,
   ActionCell,
 } from "@/components/app/shared/tables/ActionsCell";
-import { typeMap } from "@/components/app/Subscribers/renderCell";
+import {
+  getSubscriberRoleLabel,
+  isSupplierRole,
+  isWarehouseOwnerRole,
+} from "@/utils/subscriber.helpers";
 import Dictionary from "@/config/i18n/types";
 import { Key, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
@@ -46,13 +50,13 @@ export const renderCell = (
         <p
           className={twMerge(
             "grid h-6 items-center rounded-full px-3",
-            row.type === "WAREHOUSE_OWNER" &&
+            isWarehouseOwnerRole(row.type) &&
               "text-green-main dark:text-green-main bg-[#E7F4EE] dark:bg-[#E7F4EE]",
-            row.type === "SUPPLIER" &&
+            isSupplierRole(row.type) &&
               "bg-[#FDF1E8] text-[#E46A11] dark:bg-[#FDF1E8] dark:text-[#E46A11]",
           )}
         >
-          {typeMap(dict)[row.type as keyof typeof typeMap] ?? row.type}
+          {getSubscriberRoleLabel(dict, row.type)}
         </p>
       </div>
     );

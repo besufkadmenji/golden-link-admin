@@ -15,13 +15,18 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageNotification } from "./useManageNotification";
 import { FormSelectMultiple } from "@/components/app/shared/forms/FormSelect";
 import { useSubscribers } from "../../Subscribers/useSubscriber";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const AddNotification = () => {
-  const { form, setForm } = useForm();
+  const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();
   const { busy, createNotification } = useManageNotification();
-  const { errors, validateForm, clearError } = useFormValidation(form);
+  const { errors, validateForm, clearError, clearErrors } = useFormValidation(form);
+  const formKey = useFormResetOnLeave(reset, {
+    resetOnEnter: true,
+    onReset: clearErrors,
+  });
   const { data: subscribers } = useSubscribers();
   return (
     <>
@@ -44,7 +49,10 @@ export const AddNotification = () => {
               dict.add_new_notification_form.sections.notification_information
             }
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
+            <div
+              key={`notification-form-${formKey}`}
+              className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start"
+            >
               <FormInput
                 label={dict.add_new_notification_form.labels.title}
                 placeholder={dict.add_new_notification_form.placeholders.title}

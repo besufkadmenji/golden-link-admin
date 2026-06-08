@@ -3,6 +3,11 @@
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { SelectedFile } from "@/components/app/shared/SelectedFile";
 import { typeMap } from "@/components/app/Subscribers/renderCell";
+import {
+  isActiveStatus,
+  isDeletedStatus,
+  normalizeSubscriberRole,
+} from "@/utils/subscriber.helpers";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
@@ -34,7 +39,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
           action="view"
           titleChildren={
             <AppSwitch
-              isSelected={subscriber.status === "ACTIVE"}
+              isSelected={isActiveStatus(subscriber.status)}
               onValueChange={(value) => {
                 if (value) {
                   setActivateSubscriber(subscriber.id, { history: "push" });
@@ -44,7 +49,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
                   });
                 }
               }}
-              isDisabled={subscriber.status === "DELETED"}
+              isDisabled={isDeletedStatus(subscriber.status)}
             />
           }
         >
@@ -78,7 +83,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
               <FormSelect
                 label={dict.add_new_subscriber_form.labels.type}
                 placeholder={dict.add_new_subscriber_form.labels.type}
-                value={subscriber.roleName}
+                value={normalizeSubscriberRole(subscriber.roleName)}
                 onChange={(value: string): void => {}}
                 options={Object.entries(typeMap(dict)).map(([key, value]) => ({
                   label: value,

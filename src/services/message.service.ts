@@ -10,14 +10,12 @@ import {
 
 export class MessageService {
   static async getMessages(
-    params: GetMessagesParams,
-    lang?: string,
+    params: GetMessagesParams
   ): Promise<MessagesResponse | null> {
     try {
       const response = await axiosClient.get("/messages", {
         params,
         headers: {
-          ...(lang ? { "Accept-Language": lang } : {}),
         },
       });
       return unwrapAxiosResponse(response.data);
@@ -32,15 +30,10 @@ export class MessageService {
   }
 
   static async getMessageById(
-    id: string,
-    lang?: string,
+    id: string
   ): Promise<Message | null> {
     try {
-      const response = await axiosClient.get(`/messages/${id}`, {
-        headers: {
-          ...(lang ? { "Accept-Language": lang } : {}),
-        },
-      });
+      const response = await axiosClient.get(`/messages/${id}`);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(
@@ -54,15 +47,10 @@ export class MessageService {
 
   static async replyToMessage(
     id: string,
-    data: ReplyDto,
-    lang?: string,
+    data: ReplyDto
   ): Promise<ReplyResponse | null> {
     try {
-      const response = await axiosClient.post(`/messages/${id}/reply`, data, {
-        headers: {
-          ...(lang ? { "Accept-Language": lang } : {}),
-        },
-      });
+      const response = await axiosClient.post(`/messages/${id}/reply`, data);
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(

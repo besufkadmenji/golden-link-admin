@@ -14,9 +14,11 @@ import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageClient } from "./useManageClient";
 import { useRouter } from "next/navigation";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 
 export const EditClient = ({ id }: { id: string }) => {
-  const { form, setForm } = useManageForm(Number(id));
+  const { form, setForm, reset } = useManageForm(Number(id));
+  useFormResetOnLeave(reset);
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
   const dict = useDict();
@@ -39,7 +41,7 @@ export const EditClient = ({ id }: { id: string }) => {
         action="edit"
       >
         <FormSection title={dict.clients_management.detail.title}>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
             <FormInput
               label={dict.clients_management.form.labels.name}
               placeholder={dict.clients_management.form.placeholders.name}

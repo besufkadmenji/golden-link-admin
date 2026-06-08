@@ -1,7 +1,7 @@
 "use client";
 
 import { Permissions } from "@/components/app/Admins/manage/Permissions";
-import { statusMap } from "@/components/app/Admins/renderCell";
+import { adminFormStatusMap } from "@/components/app/Admins/renderCell";
 import {
   AppForm,
   FormSection,
@@ -16,8 +16,9 @@ import { useUserById } from "../useAdmins";
 import { useForm, useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
-import { useEffect } from "react";
+import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { AppLoading } from "@/components/app/shared/AppLoading";
+import { SuccessMessage } from "./SuccessMessage";
 
 export const EditAdmin = ({ id }: { id: string }) => {
   const { user } = useUserById(id);
@@ -25,19 +26,17 @@ export const EditAdmin = ({ id }: { id: string }) => {
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
+  const setProfileImageRemoved = useForm((state) => state.setProfileImageRemoved);
   const dict = useDict();
   const router = useRouter();
   const { busy, updateAdmin } = useManageAdmin();
   const { errors, validateForm, clearError } = useFormValidation(form, "edit");
   console.log("existingPicture:", existingPicture, user?.profileImagePath);
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
+  useFormResetOnLeave(reset);
   return !user || !permissionsReady ? (
     <AppLoading className="h-[84vh]" />
   ) : (
+    <>
     <div className="grid grid-cols-1">
       <AppForm
         type={FormType.Admins}
@@ -80,15 +79,12 @@ export const EditAdmin = ({ id }: { id: string }) => {
               value={form.status}
               onChange={(value: string): void => {
                 setForm({
-                  status: value as
-                    | "ACTIVE"
-                    | "INACTIVE"
-                    | "SUSPENDED"
-                    | "PENDING_APPROVAL",
+                  status: value as "ACTIVE" | "INACTIVE" | "SUSPENDED",
                 });
                 clearError("status");
               }}
-              options={Object.entries(statusMap(dict)).map(([key, value]) => ({
+              options={Object.entries(adminFormStatusMap(dict)).map(
+                ([key, value]) => ({
                 label: value,
                 key: key,
               }))}
@@ -118,8 +114,11 @@ export const EditAdmin = ({ id }: { id: string }) => {
               file={form.profileImage}
               onChange={(file?: File): void => {
                 setForm({ profileImage: file });
-                if (!file) {
+                if (file) {
+                  setProfileImageRemoved(false);
+                } else {
                   setExistingPicture(null);
+                  setProfileImageRemoved(true);
                 }
               }}
               accept={{
@@ -133,5 +132,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
         <Permissions />
       </AppForm>
     </div>
+    <SuccessMessage />
+    </>
   );
 };

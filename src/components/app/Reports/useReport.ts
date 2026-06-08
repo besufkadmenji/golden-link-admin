@@ -18,7 +18,7 @@ export const useReport = () => {
   };
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["report", period, startDate, endDate],
-    queryFn: () => ReportService.getAdminReport(params, lang),
+    queryFn: () => ReportService.getAdminReport(params),
   });
 
   return {
