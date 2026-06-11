@@ -1466,6 +1466,7 @@
   },
   "dashboard": {
     "title": "Management Information",
+    "no_permission": "You do not have permission to view dashboard data. Please contact your administrator if you believe this is a mistake.",
     "cards": {
       "new_subscribers": {
         "title": "New Subscribers Count",

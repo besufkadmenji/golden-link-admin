@@ -8,27 +8,14 @@ import {
   SummaryCardType,
 } from "@/components/app/shared/summary/SummaryCard";
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
 
 import { RequestsList } from "@/components/app/SubscribersRequests/RequestsList";
 import { useRequests } from "@/components/app/SubscribersRequests/useRequest";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
-import { usePermissions } from "@/hooks/useHasPermissions";
-import { useEffect } from "react";
 
 export const SubscriberRequests = () => {
   const dict = useDict();
-  const pathname = usePathname();
   const { data, isLoading } = useRequests();
-  const { hasPermission, isPermissionLoading } = usePermissions();
-  const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("subscriber", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar title={dict.subscription_requests_page.title} />

@@ -21,7 +21,7 @@ export const DashboardTable = () => {
   const dict = useDict();
   const router = useRouter();
   const pathname = usePathname();
-  const { joinRequests } = useLatestJoinRequests();
+  const { joinRequests, isLoading } = useLatestJoinRequests();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -74,9 +74,15 @@ export const DashboardTable = () => {
     },
   ];
 
-  return !joinRequests ? (
-    <AppLoading className="h-[90vh]" />
-  ) : (
+  if (isLoading) {
+    return <AppLoading className="h-[40vh]" />;
+  }
+
+  if (!joinRequests?.length) {
+    return null;
+  }
+
+  return (
     <>
       <div className="grid grid-cols-1 gap-2">
         <h2 className="text-title dark:text-dark-title text-lg leading-7 font-semibold tracking-[0.4px]">

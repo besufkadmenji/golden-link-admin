@@ -27,7 +27,7 @@ export const useMe = (): {
     useQuery<AssignedPermissionsResponse | null>({
       queryKey: ["userPermissions", me?.id],
       queryFn: () => PermissionService.getUserPermissions(me?.id || ""),
-      enabled: !!me,
+      enabled: !!me?.id && me.permissionType === "CUSTOM",
     });
 
   const logout = async (): Promise<void> => {

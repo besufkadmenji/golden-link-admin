@@ -21,21 +21,13 @@ import {
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { ExportModel } from "@/types/export/export.model";
-import { useEffect } from "react";
 
 export const Subscribers = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { data, isLoading } = useSubscribers();
-  const { hasPermission, isPermissionLoading } = usePermissions();
+  const { hasPermission } = usePermissions();
   const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("subscriber", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar

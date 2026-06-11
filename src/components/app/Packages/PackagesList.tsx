@@ -94,10 +94,10 @@ export const PackagesList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("subscription", "update") ? () => {
+            onEdit: hasPermission("package", "update") ? () => {
               router.push(`${pathname}/${row.key}/edit`);
             } : undefined,
-            onDelete: hasPermission("subscription", "delete") ? () => {
+            onDelete: hasPermission("package", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             } : undefined,
             onActivate: (value: boolean) => {

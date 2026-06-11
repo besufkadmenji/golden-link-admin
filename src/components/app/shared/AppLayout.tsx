@@ -9,44 +9,25 @@ import { usePathname, useRouter } from "next/navigation";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { useEffect, useMemo } from "react";
 import { AppLoading } from "./AppLoading";
+import {
+  getFirstAllowedRoute,
+  isRouteAllowed,
+} from "@/config/routePermissions";
 
 export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
-  const { hasPermission, isPermissionLoading } = usePermissions();
+  const { hasAnyPermission, isPermissionLoading } = usePermissions();
 
-  const isAllowed = useMemo(() => {
-    const cleanPath = pathname.replace(/^\/(en|ar)/, "");
-    if (cleanPath.startsWith("/dashboard")) return hasPermission("dashboard", "read");
-    if (cleanPath.startsWith("/admins")) return hasPermission("admin", "read");
-    if (cleanPath.startsWith("/subscribers/requests")) return hasPermission("subscriber", "read");
-    if (cleanPath.startsWith("/subscribers")) return hasPermission("subscriber", "read");
-    if (cleanPath.startsWith("/packages")) return hasPermission("subscription", "read");
-    if (cleanPath.startsWith("/reports")) return hasPermission("report", "read");
-    if (cleanPath.startsWith("/settings")) return hasPermission("settings", "read");
-    if (cleanPath.startsWith("/notifications")) return hasPermission("notification", "read");
-    if (cleanPath.startsWith("/content/contact-us")) return hasPermission("message", "read");
-    if (cleanPath.startsWith("/content")) return true;
-    if (cleanPath.startsWith("/clients")) return true;
-    return true;
-  }, [hasPermission, pathname]);
+  const isAllowed = useMemo(
+    () => isRouteAllowed(pathname, hasAnyPermission),
+    [hasAnyPermission, pathname],
+  );
 
-  const fallbackRoute = useMemo(() => {
-    const routeChecks: Array<{ path: string; allowed: boolean }> = [
-      { path: "/dashboard", allowed: hasPermission("dashboard", "read") },
-      { path: "/admins", allowed: hasPermission("admin", "read") },
-      { path: "/subscribers/requests", allowed: hasPermission("subscriber", "read") },
-      { path: "/subscribers", allowed: hasPermission("subscriber", "read") },
-      { path: "/packages", allowed: hasPermission("subscription", "read") },
-      { path: "/reports", allowed: hasPermission("report", "read") },
-      { path: "/settings", allowed: hasPermission("settings", "read") },
-      { path: "/notifications", allowed: hasPermission("notification", "read") },
-      { path: "/content/contact-us", allowed: hasPermission("message", "read") },
-      { path: "/content/contact-management", allowed: true },
-      { path: "/clients", allowed: true },
-    ];
-    return routeChecks.find((route) => route.allowed)?.path || null;
-  }, [hasPermission]);
+  const fallbackRoute = useMemo(
+    () => getFirstAllowedRoute(hasAnyPermission),
+    [hasAnyPermission],
+  );
 
   useEffect(() => {
     if (!isPermissionLoading && !isAllowed) {

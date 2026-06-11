@@ -38,7 +38,7 @@ export const Packages = () => {
         >
           {dict.packages.buttons.subscribers_in_package}
         </Button>
-        {hasPermission("subscription", "create") && (
+        {hasPermission("package", "create") && (
           <AddButton
             type={AddButtonType.Package}
             onPress={() => {

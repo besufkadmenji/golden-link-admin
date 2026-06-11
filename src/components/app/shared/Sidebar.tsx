@@ -13,6 +13,7 @@ import {
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
 import MenuIcon from "@/assets/icons/menu.svg";
 import { AppLink } from "@/components/app/shared/NoPrefetchLink";
+import { CMS_SIDEBAR_ITEMS } from "@/config/routePermissions";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import {
@@ -23,19 +24,47 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import LogoIcon from "@/assets/icons/logo.horizontal.svg";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
-import { useMe } from "@/hooks/useMe";
 import { usePermissions } from "../../../hooks/useHasPermissions";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
-  const { me, userPermissions } = useMe();
   const { requestLogout, LogoutConfirmationModal } = useLogoutConfirmation();
-  console.log("User Permissions in Sidebar:", me?.permissions);
-  const { hasPermission } = usePermissions();
+  const { hasPermission, hasAnyPermission } = usePermissions();
+
+  const subscriberOptions = useMemo(() => {
+    const options: { href: string; label: string }[] = [];
+    if (hasPermission("subscriptionRequest", "read")) {
+      options.push({
+        href: "/subscribers/requests",
+        label: dict.navigation.subscription_requests,
+      });
+    }
+    if (hasPermission("subscriber", "read")) {
+      options.push({
+        href: "/subscribers",
+        label: dict.navigation.subscribers,
+      });
+    }
+    return options;
+  }, [dict.navigation, hasPermission]);
+
+  const cmsOptions = useMemo(
+    () =>
+      CMS_SIDEBAR_ITEMS.filter(
+        (item) =>
+          item.modules.length === 0 ||
+          hasAnyPermission(item.modules, "read"),
+      ).map((item) => ({
+        href: item.href,
+        label: dict.navigation[item.labelKey],
+      })),
+    [dict.navigation, hasAnyPermission],
+  );
+
   return (
     <aside
       className={twMerge(
@@ -50,38 +79,27 @@ export const Sidebar = ({ className }: { className?: string }) => {
         <LogoIcon className="h-full w-full" />
       </AppLink>
       <div className="grid grid-cols-1 gap-2 px-4 py-6">
-        {hasPermission("dashboard", "read") && (
-          <OptionLink
-            href="/dashboard"
-            icon={<HomeIcon className="size-5" />}
-            label={dict.navigation.home}
-          />
-        )}
+        <OptionLink
+          href="/dashboard"
+          icon={<HomeIcon className="size-5" />}
+          label={dict.navigation.home}
+        />
 
-        {hasPermission("admin", "read") && (
+        {hasPermission("user", "read") && (
           <OptionLink
             href="/admins"
             icon={<AdminsIcon className="size-5" />}
             label={dict.navigation.system_managers}
           />
         )}
-        {hasPermission("subscriber", "read") && (
+        {subscriberOptions.length > 0 && (
           <ExpandableOption
             icon={<SubscribersIcon className="size-5" />}
             label={dict.navigation.subscribers}
-            options={[
-              {
-                href: "/subscribers/requests",
-                label: dict.navigation.subscription_requests,
-              },
-              {
-                href: "/subscribers",
-                label: dict.navigation.subscribers,
-              },
-            ]}
+            options={subscriberOptions}
           />
         )}
-        {hasPermission("subscription", "read") && (
+        {hasPermission("package", "read") && (
           <OptionLink
             href="/packages"
             icon={<GiftIcon className="size-5" />}
@@ -95,11 +113,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
             label={dict.navigation.reports}
           />
         )}
-        <OptionLink
-          href="/clients"
-          icon={<CustomersIcon className="size-5" />}
-          label={dict.navigation.clients}
-        />
+        {hasPermission("client", "read") && (
+          <OptionLink
+            href="/clients"
+            icon={<CustomersIcon className="size-5" />}
+            label={dict.navigation.clients}
+          />
+        )}
         {hasPermission("settings", "read") && (
           <OptionLink
             href="/settings"
@@ -107,40 +127,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
             label={dict.navigation.settings}
           />
         )}
-        <ExpandableOption
-          icon={<CmsIcon className="size-5" />}
-          label={dict.navigation.website_content}
-          options={[
-            {
-              href: "/content/contact-management",
-              label: dict.navigation.contact_admin,
-            },
-            {
-              href: "/content/about-platform",
-              label: dict.navigation.about,
-            },
-            {
-              href: "/content/terms",
-              label: dict.navigation.terms_and_conditions,
-            },
-            {
-              href: "/content/privacy-policy",
-              label: dict.navigation.privacy_policy,
-            },
-            {
-              href: "/content/features",
-              label: dict.navigation.features_management,
-            },
-            ...(hasPermission("message", "read")
-              ? [
-                  {
-                    href: "/content/contact-us",
-                    label: dict.navigation.contact_us,
-                  },
-                ]
-              : []),
-          ]}
-        />
+        {cmsOptions.length > 0 && (
+          <ExpandableOption
+            icon={<CmsIcon className="size-5" />}
+            label={dict.navigation.website_content}
+            options={cmsOptions}
+          />
+        )}
         {hasPermission("notification", "read") && (
           <OptionLink
             href="/notifications"
@@ -258,7 +251,6 @@ const ExpandableOption = ({
 };
 
 export const MobileSidebar = () => {
-  const dict = useDict();
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const lang = useLang();
@@ -282,7 +274,7 @@ export const MobileSidebar = () => {
         placement={lang === "ar" ? "right" : "left"}
       >
         <DrawerContent className="p-0!">
-          {(onClose) => (
+          {() => (
             <>
               <DrawerBody className="p-0">
                 <Sidebar className="grid h-screen" />

@@ -9,26 +9,13 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
-import { usePathname, useRouter } from "next/navigation";
 import { MessagesFilter } from "./MessagesFilter";
 import { MessagesList } from "./MessagesList";
-import { usePermissions } from "@/hooks/useHasPermissions";
 import { TimeFilter } from "@/components/app/shared/TimeFilter";
-import { useEffect } from "react";
 
 export const ContactUs = () => {
   const dict = useDict();
-  const pathname = usePathname();
-  const { data, isLoading, error } = useGetMessages();
-  const { hasPermission, isPermissionLoading } = usePermissions();
-  const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("message", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
+  const { data, isLoading } = useGetMessages();
   return (
     <PageWrapper>
       <PageBar title={dict.contact_messages_page.title} />

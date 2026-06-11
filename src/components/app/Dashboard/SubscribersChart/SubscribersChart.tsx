@@ -37,15 +37,10 @@ export const SubscribersChart = () => {
   const [interval, setInterval] = useQueryState("interval", {
     defaultValue: "this_month",
   });
-  const { subscriptionsComparison, previousPeriodLabel } =
+  const { subscriptionsComparison, previousPeriodLabel, isLoading } =
     useMonthlySubscriptionsComparison(interval);
   const dict = useDict();
   const { theme } = useTheme();
-  console.log(
-    "subscriptionsComparison:",
-    subscriptionsComparison,
-    Object.values(subscriptionsComparison || {}),
-  );
   const current = Object.values(subscriptionsComparison || {}).map(
     (item) => item.activeMonthNewSubscriptions,
   );
@@ -59,9 +54,15 @@ export const SubscribersChart = () => {
     previous,
   );
 
-  return !subscriptionsComparison ? (
-    <AppLoading className="h-[90vh]" />
-  ) : (
+  if (isLoading) {
+    return <AppLoading className="h-[40vh]" />;
+  }
+
+  if (!subscriptionsComparison) {
+    return null;
+  }
+
+  return (
     subscriptionsComparison && (
       <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-6 rounded-lg bg-white p-4 shadow-[0px_4px_32px_0px_rgba(51,38,174,0.04)] lg:p-6 dark:bg-black">
         <div className="relative grid grid-cols-1 items-start gap-4.5">

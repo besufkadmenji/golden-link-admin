@@ -15,21 +15,12 @@ import { TimeFilter } from "../shared/TimeFilter";
 import { NotificationsFilter } from "./NotificationsFilter";
 import { useNotifications } from "./useNotifications";
 import { usePermissions } from "@/hooks/useHasPermissions";
-import { useEffect } from "react";
 export const Notifications = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { notifications, pagination, isLoading } = useNotifications();
-  const { hasPermission, isPermissionLoading } = usePermissions();
+  const { hasPermission } = usePermissions();
   const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("notification", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
-  console.log("hasPermission", hasPermission("notification", "create"));
   return (
     <PageWrapper>
       <PageBar title={dict.notifications_page.title}>

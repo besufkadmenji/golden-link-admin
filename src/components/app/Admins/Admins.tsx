@@ -14,24 +14,16 @@ import { AdminsFilter } from "./AdminsFilter";
 import { useUsers } from "./useAdmins";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { usePermissions } from "@/hooks/useHasPermissions";
-import { useEffect } from "react";
 export const Admins = () => {
   const dict = useDict();
   const pathname = usePathname();
   const { users, pagination, isLoading } = useUsers();
-  const { hasPermission, isPermissionLoading } = usePermissions();
+  const { hasPermission } = usePermissions();
   const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("admin", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
   return (
     <PageWrapper>
       <PageBar title={dict.system_managers_page.title}>
-        {hasPermission("admin", "create") && (
+        {hasPermission("user", "create") && (
           <AddButton
             type={AddButtonType.Admin}
             onPress={() => {

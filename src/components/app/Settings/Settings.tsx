@@ -12,9 +12,6 @@ import { useDict } from "@/hooks/useDict";
 import { useMe } from "@/hooks/useMe";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { useQueryState } from "nuqs";
-import { usePermissions } from "@/hooks/useHasPermissions";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
@@ -33,15 +30,6 @@ export const Settings = () => {
   } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const [changePassword, setChangePassword] = useQueryState("changePassword");
-  const { hasPermission, isPermissionLoading } = usePermissions();
-  const router = useRouter();
-  useEffect(() => {
-    if (!isPermissionLoading && !hasPermission("settings", "read")) {
-      router.push("/404");
-    }
-
-    return () => {};
-  }, [hasPermission, isPermissionLoading, router]);
   return (
     <>
       <PageWrapper>
