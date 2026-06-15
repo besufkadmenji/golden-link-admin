@@ -13,6 +13,7 @@ import { PackageSubscribersFilter } from "./PackageSubscribersFilter";
 import { PackageSubscribersList } from "./PackageSubscribersList";
 import { useSubscribers } from "@/components/app/Subscribers/useSubscriber";
 import { ExportModel } from "@/types/export/export.model";
+import { TimeFilter } from "../../shared/TimeFilter";
 
 export const PackageSubscribers = () => {
   const dict = useDict();
@@ -30,6 +31,7 @@ export const PackageSubscribers = () => {
         <SummaryCard
           type={SummaryCardType.PACKAGE_SUBSCRIBERS}
           value={data?.pagination?.totalItems || 0}
+          endContent={<TimeFilter />}
         />
       )}
 

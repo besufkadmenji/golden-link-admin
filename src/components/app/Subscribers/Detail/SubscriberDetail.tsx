@@ -35,7 +35,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
     <>
       <div className="grid grid-cols-1">
         <AppForm
-          type={FormType.Subscribers}
+          type={FormType.SubscriberDetail}
           action="view"
           titleChildren={
             <AppSwitch
@@ -53,7 +53,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
             />
           }
         >
-          <FormSection title={dict.view_subscriber.title}>
+          <FormSection title={dict.view_subscriber.section_title}>
             <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2">
               <FormInput
                 label={dict.add_new_subscriber_form.labels.name}

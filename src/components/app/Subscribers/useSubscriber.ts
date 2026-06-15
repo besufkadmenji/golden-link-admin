@@ -5,6 +5,7 @@ import {
   SubscriberDetail,
   SubscribersData,
 } from "@/types/subscriber";
+import { DashboardPeriod } from "@/types/home";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
 
@@ -17,12 +18,14 @@ export const useSubscribers = (
   const [status] = useQueryState("status", parseAsString.withDefault(""));
   const [type] = useQueryState("type", parseAsString.withDefault(""));
   const [duration] = useQueryState("duration", parseAsString.withDefault(""));
+  const [option] = useQueryState("option", { defaultValue: "ALL" });
 
   const lang = useLang();
 
   const params: GetSubscribersParams = {
     page,
     limit,
+    period: option as DashboardPeriod,
     ...(search && { search }),
     ...(status && {
       status: status as
@@ -39,7 +42,17 @@ export const useSubscribers = (
   };
 
   return useQuery({
-    queryKey: ["subscribers", lang, page, limit, search, status, type, duration],
+    queryKey: [
+      "subscribers",
+      lang,
+      page,
+      limit,
+      search,
+      status,
+      type,
+      duration,
+      option,
+    ],
     queryFn: () => SubscriberService.getSubscribers(params),
   });
 };

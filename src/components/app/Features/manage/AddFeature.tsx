@@ -50,7 +50,6 @@ export const AddFeature = () => {
                   clearError("nameAr");
                 }}
                 errorMessage={errors.nameAr}
-                dir="rtl"
               />
 
               <FormInput
@@ -62,7 +61,6 @@ export const AddFeature = () => {
                   clearError("name");
                 }}
                 errorMessage={errors.name}
-                dir="ltr"
               />
 
               <FormSelect
@@ -98,7 +96,6 @@ export const AddFeature = () => {
                   clearError("descriptionAr");
                 }}
                 errorMessage={errors.descriptionAr}
-                dir="rtl"
                 className="md:col-span-2"
               />
               <FormAreaInput
@@ -112,7 +109,6 @@ export const AddFeature = () => {
                   clearError("description");
                 }}
                 errorMessage={errors.description}
-                dir="ltr"
                 className="md:col-span-2"
               />
             </div>

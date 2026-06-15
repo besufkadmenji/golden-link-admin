@@ -61,7 +61,7 @@ export const EditPackage = ({ id }: { id: string }) => {
         <FormSection
           title={dict.edit_package_form.sections.package_information}
         >
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
             <FormInput
               label={dict.edit_package_form.labels.package_name}
               placeholder={dict.edit_package_form.placeholders.package_name}

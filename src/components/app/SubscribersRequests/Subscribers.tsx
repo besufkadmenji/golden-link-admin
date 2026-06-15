@@ -12,6 +12,7 @@ import { useDict } from "@/hooks/useDict";
 import { RequestsList } from "@/components/app/SubscribersRequests/RequestsList";
 import { useRequests } from "@/components/app/SubscribersRequests/useRequest";
 import { SummaryCardSkeleton } from "../shared/summary/SummaryCardSkeleton";
+import { TimeFilter } from "../shared/TimeFilter";
 
 export const SubscriberRequests = () => {
   const dict = useDict();
@@ -26,6 +27,7 @@ export const SubscriberRequests = () => {
         <SummaryCard
           type={SummaryCardType.SUBSCRIBERS_REQUESTS}
           value={data?.pagination.totalItems ?? 0}
+          endContent={<TimeFilter />}
         />
       )}
 

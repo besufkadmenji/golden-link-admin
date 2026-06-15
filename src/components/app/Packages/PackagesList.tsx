@@ -50,11 +50,11 @@ export const PackagesList = () => {
       key: "price",
       label: dict.packages.table_headers.package_price,
     },
-    {
-      key: "users",
-      label: dict.packages.table_headers.number_of_users,
-      align: "center",
-    },
+    // {
+    //   key: "users",
+    //   label: dict.packages.table_headers.number_of_users,
+    //   align: "center",
+    // },
 
     {
       key: "date",
@@ -85,7 +85,7 @@ export const PackagesList = () => {
           name: pkg.packageName,
           duration: pkg.packageDuration.toString(),
           price: pkg.packagePrice,
-          users: pkg.maxUsers?.toString() ?? "-",
+          // users: pkg.maxUsers?.toStrxing() ?? "-",
           status: pkg.status,
           date: DateTimeHelpers.formatDate(pkg.createdAt),
         }))}

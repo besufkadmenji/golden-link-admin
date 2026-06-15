@@ -163,6 +163,7 @@
     "home": "Home",
     "system_managers": "System Managers Management",
     "subscribers": "Subscribers Management",
+    "add_subscriber": "Add Subscriber",
     "subscription_requests": "Subscription Requests",
     "sellers": "Sellers Management",
     "reports": "Reports",
@@ -727,8 +728,17 @@
       "max_users": "Enter maximum users"
     },
     "image": {
-      "attach": "Attach Icon",
-      "desc": "Upload an icon for the package (PNG or JPG)"
+      "attach": "Attach package image/icon",
+      "desc": "PNG image containing the package icon"
+    },
+    "feature_tabs": {
+      "market": "Market",
+      "custom_products": "Custom Products"
+    },
+    "permissions": {
+      "title": "Permissions",
+      "full_access": "Administrator",
+      "custom_access": "Custom Permissions"
     },
     "features": {
       "inventoryOperations": "Inventory Operations",
@@ -762,7 +772,10 @@
       "packagePrice": {
         "required": "Package price is required",
         "invalid": "Package price must be a valid number",
-        "min": "Package price must be at least 0.01"
+        "min": "Package price must be at least 0"
+      },
+      "icon": {
+        "required": "Package icon is required"
       },
       "features": {
         "required": "At least one feature must be enabled"
@@ -804,8 +817,8 @@
       "max_users": "Enter maximum users"
     },
     "image": {
-      "attach": "Attach Icon",
-      "desc": "Upload an icon for the package (PNG or JPG)"
+      "attach": "Attach package image/icon",
+      "desc": "PNG image containing the package icon"
     }
   },
   "package_detail_page": {
@@ -888,7 +901,7 @@
     },
     "labels": {
       "name": "Name",
-      "phone_number": "Phone Number",
+      "phone_number": "Mobile Number",
       "email": "Email",
       "type": "Type",
       "commercial_registration_number": "Commercial Registration Number",
@@ -899,7 +912,7 @@
     },
     "placeholders": {
       "name": "Enter subscriber name",
-      "phone_number": "Enter phone number",
+      "phone_number": "Enter mobile number",
       "email": "Enter email",
       "type": "Enter type",
       "commercial_registration_number": "Enter commercial registration number",
@@ -921,13 +934,13 @@
     "validation": {
       "fullNameRequired": "Name is required",
       "fullNameMinLength": "Name must be at least 3 characters long",
-      "fullNameMaxLength": "Name must not exceed 100 characters",
+      "fullNameMaxLength": "Full name must be between 3 and 50 characters.",
       "emailRequired": "Email is required",
       "emailInvalid": "Please enter a valid email address",
-      "phoneNumberRequired": "Phone number is required",
-      "phoneNumberInvalid": "Phone number format is invalid",
-      "phoneNumberTooShort": "Phone number must be at least 7 digits",
-      "phoneNumberTooLong": "Phone number must not exceed 20 digits",
+      "phoneNumberRequired": "Mobile number is required",
+      "phoneNumberInvalid": "Mobile number format is invalid",
+      "phoneNumberTooShort": "Mobile number must be at least 7 digits",
+      "phoneNumberTooLong": "Mobile number must not exceed 20 digits",
       "countryCodeRequired": "Country code is required",
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 8 characters long",
@@ -935,7 +948,7 @@
       "confirmPasswordRequired": "Please confirm your password",
       "confirmPasswordMismatch": "Passwords do not match",
       "taxNumberRequired": "Tax number is required",
-      "taxNumberMinLength": "Tax number must be at least 10 characters long",
+      "taxNumberInvalid": "Tax registration number must be 15 digits.",
       "commercialRegistrationNumberMinLength": "Commercial registration number must be at least 5 characters long",
       "commercialRegistrationImageRequired": "Commercial registration image is required when commercial number is provided",
       "taxRegistrationImageRequired": "Tax registration image is required"
@@ -976,7 +989,8 @@
     }
   },
   "view_subscriber": {
-    "title": "Subscriber data"
+    "title": "Subscriber Data",
+    "section_title": "Subscriber Information"
   },
   "notifications_page": {
     "title": "Notifications Management",
@@ -1244,7 +1258,7 @@
     },
     "validation": {
       "phoneRequired": "Phone number is required.",
-      "phoneInvalid": "Enter a valid phone number.",
+      "phoneInvalid": "Enter a valid Saudi phone number (05, 5, or +966).",
       "phoneTooShort": "Phone number must contain at least 7 digits.",
       "phoneTooLong": "Phone number must contain no more than 15 digits.",
       "phoneDuplicate": "This phone number is already added.",

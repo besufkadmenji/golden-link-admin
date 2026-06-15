@@ -49,6 +49,12 @@ export const Sidebar = ({ className }: { className?: string }) => {
         label: dict.navigation.subscribers,
       });
     }
+    if (hasPermission("subscriber", "create")) {
+      options.push({
+        href: "/subscribers/add",
+        label: dict.navigation.add_subscriber,
+      });
+    }
     return options;
   }, [dict.navigation, hasPermission]);
 
@@ -200,8 +206,18 @@ const ExpandableOption = ({
 }) => {
   const lng = useLang();
   const pathname = usePathname();
-  const [expanded, setExpanded] = useState(false);
+  const isChildActive = options.some((option) => {
+    const fullHref = `/${lng}${option.href}`;
+    return pathname === fullHref || pathname.startsWith(`${fullHref}/`);
+  });
+  const [expanded, setExpanded] = useState(isChildActive);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isChildActive) {
+      setExpanded(true);
+    }
+  }, [isChildActive]);
   return (
     <div className="grid grid-cols-1 gap-2">
       <div

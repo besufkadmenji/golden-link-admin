@@ -27,11 +27,11 @@ export const PackagesFilter = () => {
 
   return (
     <div className="grid grid-cols-3 items-center gap-4 lg:flex">
-      <SearchInput className="w-full md:w-max" />
+      <SearchInput className="w-full lg:w-max" />
       <FilterSelect
         options={durationOptions}
         placeholder={dict.packages.filters.duration}
-        className="w-full md:w-max"
+        className="w-full lg:w-max"
         values={duration ? [duration] : []}
         onValueChange={(values) => {
           setDuration(values[0] || null);
@@ -40,7 +40,7 @@ export const PackagesFilter = () => {
       <FilterSelect
         options={packageStatusOptions}
         placeholder={dict.packages.filters.status}
-        className="w-full md:w-max"
+        className="w-full lg:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {
           setStatus(values[0] || null);

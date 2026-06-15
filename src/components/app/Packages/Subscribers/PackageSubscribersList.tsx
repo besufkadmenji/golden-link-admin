@@ -111,6 +111,11 @@ export const PackageSubscribersList = () => {
             onView: () => {
               router.push(`/subscribers/${row.key}`);
             },
+            onEdit: hasPermission("subscriber", "update")
+              ? () => {
+                  router.push(`/subscribers/${row.key}/edit`);
+                }
+              : undefined,
             onDelete:
               hasPermission("subscriber", "delete") &&
               !isDeletedStatus(row.status)

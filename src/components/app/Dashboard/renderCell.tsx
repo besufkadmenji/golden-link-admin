@@ -46,7 +46,7 @@ export const renderCell = (
     );
   } else if (column === "type") {
     return (
-      <div className="grid justify-items-center">
+      <div className="grid justify-items-center text-nowrap">
         <p
           className={twMerge(
             "grid h-6 items-center rounded-full px-3",

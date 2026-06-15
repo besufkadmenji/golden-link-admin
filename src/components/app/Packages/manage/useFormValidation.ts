@@ -7,11 +7,12 @@ const PACKAGE_NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const MIN_DURATION = 1;
 const MAX_DURATION = 365;
-const MIN_PRICE = 0.01;
+const MIN_PRICE = 0;
 
 export const useFormValidation = (
   form: CreatePackageDto,
   features: PackageFeatures,
+  options?: { requireIcon?: boolean },
 ) => {
   const dict = useDict();
   const validation = dict.add_new_package_form.validation;
@@ -123,6 +124,16 @@ export const useFormValidation = (
     [validation],
   );
 
+  const validateIcon = useCallback(
+    (icon?: File): string | null => {
+      if (options?.requireIcon && !icon) {
+        return validation.icon.required;
+      }
+      return null;
+    },
+    [options?.requireIcon, validation],
+  );
+
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -153,6 +164,9 @@ export const useFormValidation = (
       if (maxUsersError) newErrors.maxUsers = maxUsersError;
     }
 
+    const iconError = validateIcon(form.icon);
+    if (iconError) newErrors.icon = iconError;
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
@@ -162,6 +176,7 @@ export const useFormValidation = (
     form.description,
     form.maxWarehouses,
     form.maxUsers,
+    form.icon,
     features,
     validatePackageName,
     validatePackageDuration,
@@ -170,6 +185,7 @@ export const useFormValidation = (
     validateDescription,
     validateMaxWarehouses,
     validateMaxUsers,
+    validateIcon,
   ]);
 
   const isFormValid = useMemo(() => {
@@ -186,6 +202,7 @@ export const useFormValidation = (
         : null;
     const maxUsersError =
       form.maxUsers !== undefined ? validateMaxUsers(form.maxUsers) : null;
+    const iconError = validateIcon(form.icon);
 
     return (
       !packageNameError &&
@@ -194,7 +211,8 @@ export const useFormValidation = (
       !featuresError &&
       !descriptionError &&
       !maxWarehousesError &&
-      !maxUsersError
+      !maxUsersError &&
+      !iconError
     );
   }, [
     form.packageName,
@@ -203,6 +221,7 @@ export const useFormValidation = (
     form.description,
     form.maxWarehouses,
     form.maxUsers,
+    form.icon,
     features,
     validatePackageName,
     validatePackageDuration,
@@ -211,12 +230,13 @@ export const useFormValidation = (
     validateDescription,
     validateMaxWarehouses,
     validateMaxUsers,
+    validateIcon,
   ]);
 
   const validateField = useCallback(
     (
       field: keyof CreatePackageDto | "features",
-      value: string | number | PackageFeatures | undefined,
+      value: string | number | PackageFeatures | File | undefined,
     ) => {
       let error = "";
 
@@ -242,6 +262,9 @@ export const useFormValidation = (
         case "maxUsers":
           error = validateMaxUsers(value as number) || "";
           break;
+        case "icon":
+          error = validateIcon(value as File) || "";
+          break;
       }
 
       if (error) {
@@ -262,6 +285,7 @@ export const useFormValidation = (
       validateDescription,
       validateMaxWarehouses,
       validateMaxUsers,
+      validateIcon,
     ],
   );
 

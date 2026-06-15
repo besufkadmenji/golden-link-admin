@@ -66,5 +66,5 @@ export const renderCell = (
       />
     );
   }
-  return <p className="w-max">{row[column as string]}</p>;
+  return <p className="w-[200px] break-all">{row[column as string]}</p>;
 };

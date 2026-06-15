@@ -1,10 +1,11 @@
 import { useDict } from "@/hooks/useDict";
+import {
+  isValidSaudiPhoneNumber,
+  normalizeSaudiPhoneNumber,
+} from "@/utils/saudi.phone";
 import { useCallback, useState } from "react";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_REGEX = /^\+?[0-9\s\-()]+$/;
-const PHONE_MIN_DIGITS = 7;
-const PHONE_MAX_DIGITS = 15;
 const URL_PROTOCOLS = new Set(["http:", "https:"]);
 
 export interface ContactManagementErrors {
@@ -15,8 +16,6 @@ export interface ContactManagementErrors {
   socialMediaPlatforms?: Record<number, string>;
   socialMediaLinks?: Record<number, string>;
 }
-
-const normalizePhoneNumber = (value: string) => value.replace(/\D/g, "");
 
 export const useContactManagementValidation = () => {
   const dict = useDict();
@@ -30,16 +29,8 @@ export const useContactManagementValidation = () => {
       if (!trimmed) {
         return required ? validation.phoneRequired : null;
       }
-      if (!PHONE_REGEX.test(trimmed)) {
+      if (!isValidSaudiPhoneNumber(trimmed)) {
         return validation.phoneInvalid;
-      }
-
-      const digitCount = normalizePhoneNumber(trimmed).length;
-      if (digitCount < PHONE_MIN_DIGITS) {
-        return validation.phoneTooShort;
-      }
-      if (digitCount > PHONE_MAX_DIGITS) {
-        return validation.phoneTooLong;
       }
 
       return null;
@@ -93,9 +84,9 @@ export const useContactManagementValidation = () => {
         return false;
       }
 
-      const normalizedValue = normalizePhoneNumber(value);
+      const normalizedValue = normalizeSaudiPhoneNumber(value);
       const isDuplicate = existingPhoneNumbers.some(
-        (phone) => normalizePhoneNumber(phone) === normalizedValue,
+        (phone) => normalizeSaudiPhoneNumber(phone) === normalizedValue,
       );
 
       if (isDuplicate) {
@@ -130,7 +121,7 @@ export const useContactManagementValidation = () => {
 
       phoneNumbers.forEach((phoneNumber, index) => {
         const phoneError = validatePhoneNumber(phoneNumber);
-        const normalizedPhone = normalizePhoneNumber(phoneNumber);
+        const normalizedPhone = normalizeSaudiPhoneNumber(phoneNumber);
         const firstDuplicateIndex = seenPhoneNumbers.get(normalizedPhone);
 
         if (phoneError) {

@@ -105,6 +105,11 @@ export const SubscribersList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
+            onEdit: hasPermission("subscriber", "update")
+              ? () => {
+                  router.push(`${pathname}/${row.key}/edit`);
+                }
+              : undefined,
             onDelete: hasPermission("subscriber", "delete")
               ? () => {
                   setIsDeleteWarningOpen(row.key as string, {

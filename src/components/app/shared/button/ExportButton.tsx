@@ -13,9 +13,9 @@ export const ExportButton = ({
   params,
   onPress,
 }: {
-  model: ExportModel | string;
+  model?: ExportModel | string;
   params?: ExportParams;
-  onPress?: () => void;
+  onPress?: () => void | Promise<void>;
 }) => {
   const dict = useDict();
   const lng = useLang();
@@ -26,12 +26,17 @@ export const ExportButton = ({
       className="text-app-primary h-10 rounded-lg bg-[#5DD5C412] px-3.5 text-sm leading-5 font-semibold tracking-tight"
       onPress={() => {
         if (onPress) {
-          onPress();
+          setBusy(true);
+          Promise.resolve(onPress())
+            .catch(() => {})
+            .finally(() => {
+              setBusy(false);
+            });
           return;
         }
         setBusy(true);
 
-        ExportService.exportToExcel(model, params)
+        ExportService.exportToExcel(model!, params)
           .then(() => {
             setBusy(false);
           })

@@ -161,6 +161,7 @@
     "home": "الرئيسية",
     "system_managers": "إدارة مديري النظام",
     "subscribers": "إدارة المشتركين",
+    "add_subscriber": "إضافة مشترك",
     "subscription_requests": "طلبات الاشتراكات",
     "sellers": "إدارة البائعات",
     "reports": "التقارير",
@@ -726,8 +727,17 @@
       "max_users": "ادخل الحد الأقصى للمستخدمين"
     },
     "image": {
-      "attach": "ارفق أيقونة",
-      "desc": "ارفع أيقونة للباقة (PNG أو JPG)"
+      "attach": "ارفق صورة/ ايقونة الباقة",
+      "desc": " Png  يحتوي على صورة الباقة"
+    },
+    "feature_tabs": {
+      "market": "سوق",
+      "custom_products": "منتجات مخصصة"
+    },
+    "permissions": {
+      "title": "الصلاحيات",
+      "full_access": "مسؤول",
+      "custom_access": "صلاحيات مخصصة"
     },
     "features": {
       "inventoryOperations": "عمليات المخزون",
@@ -761,7 +771,10 @@
       "packagePrice": {
         "required": "سعر الباقة مطلوب",
         "invalid": "يجب أن يكون سعر الباقة رقماً صالحاً",
-        "min": "يجب أن يكون سعر الباقة 0.01 على الأقل"
+        "min": "يجب أن يكون سعر الباقة 0 على الأقل"
+      },
+      "icon": {
+        "required": "أيقونة الباقة مطلوبة"
       },
       "features": {
         "required": "يجب تفعيل ميزة واحدة على الأقل"
@@ -803,8 +816,8 @@
       "max_users": "ادخل الحد الأقصى للمستخدمين"
     },
     "image": {
-      "attach": "ارفق أيقونة",
-      "desc": "ارفع أيقونة للباقة (PNG أو JPG)"
+      "attach": "ارفق صورة/ ايقونة الباقة",
+      "desc": " Png  يحتوي على صورة الباقة"
     }
   },
   "package_detail_page": {
@@ -887,7 +900,7 @@
     },
     "labels": {
       "name": "الاسم",
-      "phone_number": "رقم الهاتف",
+      "phone_number": "رقم الجوال",
       "email": "البريد الإلكتروني",
       "type": "النوع",
       "commercial_registration_number": "رقم التسجيل التجاري",
@@ -898,7 +911,7 @@
     },
     "placeholders": {
       "name": "ادخل اسم المشترك",
-      "phone_number": "ادخل رقم الهاتف",
+      "phone_number": "ادخل رقم الجوال",
       "email": "ادخل البريد الإلكتروني",
       "type": "ادخل النوع",
       "commercial_registration_number": "ادخل رقم التسجيل التجاري",
@@ -920,13 +933,13 @@
     "validation": {
       "fullNameRequired": "الاسم مطلوب",
       "fullNameMinLength": "يجب أن يكون الاسم 3 أحرف على الأقل",
-      "fullNameMaxLength": "لا يجب أن يتجاوز الاسم 100 حرف",
+      "fullNameMaxLength": "يجب أن يكون الاسم الكامل بين 3 و 50 حرفاً.",
       "emailRequired": "البريد الإلكتروني مطلوب",
       "emailInvalid": "يرجى إدخال بريد إلكتروني صحيح",
-      "phoneNumberRequired": "رقم الهاتف مطلوب",
-      "phoneNumberInvalid": "صيغة رقم الهاتف غير صحيحة",
-      "phoneNumberTooShort": "يجب أن يحتوي رقم الهاتف على 7 أرقام على الأقل",
-      "phoneNumberTooLong": "لا يجب أن يتجاوز رقم الهاتف 20 رقم",
+      "phoneNumberRequired": "رقم الجوال مطلوب",
+      "phoneNumberInvalid": "صيغة رقم الجوال غير صحيحة",
+      "phoneNumberTooShort": "يجب أن يحتوي رقم الجوال على 7 أرقام على الأقل",
+      "phoneNumberTooLong": "لا يجب أن يتجاوز رقم الجوال 20 رقم",
       "countryCodeRequired": "رمز الدولة مطلوب",
       "passwordRequired": "كلمة المرور مطلوبة",
       "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
@@ -934,7 +947,7 @@
       "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
       "confirmPasswordMismatch": "كلمات المرور غير متطابقة",
       "taxNumberRequired": "رقم السجل الضريبي مطلوب",
-      "taxNumberMinLength": "يجب أن يكون رقم السجل الضريبي 10 أحرف على الأقل",
+      "taxNumberInvalid": "يجب أن يكون رقم السجل الضريبي 15 رقماً.",
       "commercialRegistrationNumberMinLength": "يجب أن يكون رقم التسجيل التجاري 5 أحرف على الأقل",
       "commercialRegistrationImageRequired": "صورة السجل التجاري مطلوبة عند إدخال رقم التسجيل التجاري",
       "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة"
@@ -975,7 +988,8 @@
     }
   },
   "view_subscriber": {
-    "title": "بيانات المشترك"
+    "title": "بيانات طلب الانضمام ",
+    "section_title": "معلومات المورد"
   },
   "notifications_page": {
     "title": "إدارة الإشعارات",
@@ -1244,7 +1258,7 @@
     },
     "validation": {
       "phoneRequired": "رقم الجوال مطلوب.",
-      "phoneInvalid": "ادخل رقم جوال صحيح.",
+      "phoneInvalid": "ادخل رقم جوال سعودي صحيح (05 أو 5 أو +966).",
       "phoneTooShort": "يجب أن يحتوي رقم الجوال على 7 أرقام على الأقل.",
       "phoneTooLong": "يجب ألا يزيد رقم الجوال عن 15 رقماً.",
       "phoneDuplicate": "رقم الجوال مضاف مسبقاً.",

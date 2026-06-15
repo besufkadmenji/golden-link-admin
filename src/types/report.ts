@@ -33,4 +33,5 @@ export interface AdminReportParams {
   period?: ReportPeriod;
   startDate?: string; // ISO date string, required when period is "CUSTOM"
   endDate?: string; // ISO date string, required when period is "CUSTOM"
+  packageName?: string;
 }

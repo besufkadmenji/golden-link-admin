@@ -21,6 +21,7 @@ export const renderCell = (
   dict: Dictionary,
   action: {
     onView: () => void;
+    onEdit?: () => void;
     onDelete?: () => void;
     onActivate: (value: boolean) => void;
   },
@@ -29,6 +30,7 @@ export const renderCell = (
     return (
       <ActionsCell
         onView={action.onView}
+        onEdit={action.onEdit}
         onDelete={isDeletedStatus(row.status) ? undefined : action.onDelete}
       />
     );
@@ -82,5 +84,5 @@ export const renderCell = (
       />
     );
   }
-  return row[column as string];
+  return <p className="break-all max-w-[200px]">{row[column as string]}</p>;
 };

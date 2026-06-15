@@ -79,6 +79,7 @@ export interface SubscriptionRequestsResponse {
 export interface GetSubscriptionsParams {
   search?: string;
   type?: SubscriptionType;
+  period?: "DAY" | "WEEK" | "MONTH" | "YEAR" | "ALL";
   page?: number;
   limit?: number;
 }

@@ -1,7 +1,6 @@
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { useDict } from "@/hooks/useDict";
 import { Modal, ModalContent } from "@heroui/react";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
@@ -10,7 +9,6 @@ export const RejectReasonModal = ({ id }: { id: string }) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
-  const router = useRouter();
   const [reason, setReason] = useState("");
   const { rejectRequest, busy } = useManageRequest();
 
@@ -18,7 +16,7 @@ export const RejectReasonModal = ({ id }: { id: string }) => {
     <Modal
       isOpen={!!showRejectModal}
       onClose={() => {
-        router.back();
+        setShowRejectModal(null);
       }}
       hideCloseButton
       size="md"

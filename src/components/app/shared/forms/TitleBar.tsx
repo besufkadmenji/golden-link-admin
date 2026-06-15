@@ -25,7 +25,13 @@ export const TitleBar = ({
   const dict = useDict();
   const labelMap = {
     [FormType.SubscriberRequests]: dict.subscription_request_detail_page.title,
-    [FormType.Subscribers]: dict.subscribers_page.title,
+    [FormType.Subscribers]:
+      action === "add"
+        ? dict.add_new_subscriber_form.title
+        : action === "edit"
+          ? dict.edit_subscriber_form.title
+          : dict.subscribers_page.title,
+    [FormType.SubscriberDetail]: dict.view_subscriber.title,
     [FormType.Admins]:
       action === "add"
         ? dict.add_new_admin_form.title

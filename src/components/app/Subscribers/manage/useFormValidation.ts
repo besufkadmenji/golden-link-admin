@@ -8,14 +8,22 @@ const PHONE_MIN_LENGTH = 7;
 const PHONE_MAX_LENGTH = 20;
 const PASSWORD_MIN_LENGTH = 8;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9@$!%*?&]{8,}$/;
+const FULL_NAME_MAX_LENGTH = 50;
+const TAX_NUMBER_REGEX = /^\d{15}$/;
 
 interface FormWithPassword extends CreateSubscriberDto {
   confirmPassword: string;
 }
 
+interface ExistingImages {
+  commercialRegistrationImagePath?: string | null;
+  taxRegistrationImagePath?: string | null;
+}
+
 export const useFormValidation = (
   form: FormWithPassword,
   mode: "add" | "edit" = "add",
+  existingImages?: ExistingImages,
 ) => {
   const dict = useDict();
   const validation = dict.add_new_subscriber_form.validation;
@@ -26,8 +34,8 @@ export const useFormValidation = (
       if (!value || value.trim() === "") {
         return validation.taxNumberRequired;
       }
-      if (value.trim().length < 10) {
-        return validation.taxNumberMinLength;
+      if (!TAX_NUMBER_REGEX.test(value.trim())) {
+        return validation.taxNumberInvalid;
       }
       return null;
     },
@@ -47,9 +55,13 @@ export const useFormValidation = (
   );
 
   const validateCommercialRegistrationImage = useCallback(
-    (commercialRegNumber: string, file?: File): string | null => {
+    (
+      commercialRegNumber: string,
+      file?: File,
+      existingUrl?: string | null,
+    ): string | null => {
       if (commercialRegNumber && commercialRegNumber.trim() !== "") {
-        if (!file) {
+        if (!file && !existingUrl) {
           return validation.commercialRegistrationImageRequired;
         }
       }
@@ -59,8 +71,8 @@ export const useFormValidation = (
   );
 
   const validateTaxRegistrationImage = useCallback(
-    (file?: File): string | null => {
-      if (!file) {
+    (file?: File, existingUrl?: string | null): string | null => {
+      if (!file && !existingUrl) {
         return validation.taxRegistrationImageRequired;
       }
       return null;
@@ -76,7 +88,7 @@ export const useFormValidation = (
       if (value.trim().length < 3) {
         return validation.fullNameMinLength;
       }
-      if (value.trim().length > 100) {
+      if (value.trim().length > FULL_NAME_MAX_LENGTH) {
         return validation.fullNameMaxLength;
       }
       return null;
@@ -182,16 +194,28 @@ export const useFormValidation = (
     const commercialImageError = validateCommercialRegistrationImage(
       form.commercialRegistrationNumber,
       form.commercialRegistrationImagePath,
+      existingImages?.commercialRegistrationImagePath,
     );
     if (commercialImageError)
       newErrors.commercialRegistrationImagePath = commercialImageError;
 
     const taxImageError = validateTaxRegistrationImage(
       form.taxRegistrationImagePath,
+      existingImages?.taxRegistrationImagePath,
     );
     if (taxImageError) newErrors.taxRegistrationImagePath = taxImageError;
 
     if (mode === "add") {
+      const passwordError = validatePassword(form.password);
+      if (passwordError) newErrors.password = passwordError;
+
+      const confirmPasswordError = validateConfirmPassword(
+        form.password,
+        form.confirmPassword || "",
+      );
+      if (confirmPasswordError)
+        newErrors.confirmPassword = confirmPasswordError;
+    } else if (form.password) {
       const passwordError = validatePassword(form.password);
       if (passwordError) newErrors.password = passwordError;
 
@@ -216,6 +240,8 @@ export const useFormValidation = (
     form.commercialRegistrationNumber,
     form.commercialRegistrationImagePath,
     form.taxRegistrationImagePath,
+    existingImages?.commercialRegistrationImagePath,
+    existingImages?.taxRegistrationImagePath,
     mode,
     validateFullName,
     validateEmail,
@@ -241,12 +267,21 @@ export const useFormValidation = (
     const commercialImageError = validateCommercialRegistrationImage(
       form.commercialRegistrationNumber,
       form.commercialRegistrationImagePath,
+      existingImages?.commercialRegistrationImagePath,
     );
     const taxImageError = validateTaxRegistrationImage(
       form.taxRegistrationImagePath,
+      existingImages?.taxRegistrationImagePath,
     );
 
     if (mode === "edit") {
+      const passwordError = form.password
+        ? validatePassword(form.password)
+        : null;
+      const confirmPasswordError = form.password
+        ? validateConfirmPassword(form.password, form.confirmPassword || "")
+        : null;
+
       return (
         !fullNameError &&
         !emailError &&
@@ -255,7 +290,9 @@ export const useFormValidation = (
         !taxNumberError &&
         !commercialRegError &&
         !commercialImageError &&
-        !taxImageError
+        !taxImageError &&
+        !passwordError &&
+        !confirmPasswordError
       );
     }
 
@@ -288,6 +325,8 @@ export const useFormValidation = (
     form.commercialRegistrationNumber,
     form.commercialRegistrationImagePath,
     form.taxRegistrationImagePath,
+    existingImages?.commercialRegistrationImagePath,
+    existingImages?.taxRegistrationImagePath,
     mode,
     validateFullName,
     validateEmail,
@@ -324,6 +363,9 @@ export const useFormValidation = (
         case "confirmPassword":
           error = validateConfirmPassword(form.password, value) || "";
           break;
+        case "taxRegistrationNumber":
+          error = validateTaxNumber(value) || "";
+          break;
       }
 
       if (error) {
@@ -343,6 +385,7 @@ export const useFormValidation = (
       validateCountryCode,
       validatePassword,
       validateConfirmPassword,
+      validateTaxNumber,
       form.password,
     ],
   );

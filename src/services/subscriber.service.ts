@@ -13,7 +13,7 @@ export class SubscriberService {
   /**
    * Get subscribers list
    * GET /admin/subscribers
-   * @param params - Query parameters (search, type, status, page, limit)
+   * @param params - Query parameters (search, type, status, period, page, limit)
    * @returns Subscribers list with pagination info
    */
   static async getSubscribers(

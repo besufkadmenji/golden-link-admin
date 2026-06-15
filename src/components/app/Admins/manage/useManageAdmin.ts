@@ -67,10 +67,11 @@ export const useManageAdmin = () => {
         !!initialProfileImagePath &&
         !form.profileImage;
 
+      const { password, confirmPassword, ...rest } = form;
       const response = await UserService.updateUser(
         id,
         {
-          ...form,
+          ...rest,
           removeProfileImage: shouldRemoveProfileImage,
         }
       );

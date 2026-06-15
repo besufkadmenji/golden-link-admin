@@ -16,7 +16,7 @@ export class SubscriptionService {
   /**
    * Get subscription requests list
    * GET /admin/subscriptions
-   * @param params - Query parameters (search, type, page, limit)
+   * @param params - Query parameters (search, type, period, page, limit)
    * @returns Subscription requests with pagination info
    */
   static async getSubscriptionRequests(
@@ -30,6 +30,9 @@ export class SubscriptionService {
       }
       if (params?.type) {
         queryParams.append("type", params.type);
+      }
+      if (params?.period) {
+        queryParams.append("period", params.period);
       }
       if (params?.page) {
         queryParams.append("page", params.page.toString());

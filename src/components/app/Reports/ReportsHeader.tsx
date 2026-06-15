@@ -5,10 +5,24 @@ import { twMerge } from "tailwind-merge";
 import { cairo } from "@/assets/fonts/cairo";
 import { FilterByDate } from "./FilterByDate";
 import { ExportButton } from "../shared/button/ExportButton";
+import { ReportService } from "@/services/report.service";
+import { AdminReportParams } from "@/types/report";
+import { ReportPeriod } from "@/types/report.params";
+import { useQueryState } from "nuqs";
 import { useState } from "react";
+
 export const ReportsHeader = () => {
   const dict = useDict();
   const [isOpen, setIsOpen] = useState(false);
+  const [period] = useQueryState("period", { defaultValue: "CURRENT_YEAR" });
+  const [startDate] = useQueryState("startDate");
+  const [endDate] = useQueryState("endDate");
+
+  const exportParams: AdminReportParams = {
+    period: period ? (period as ReportPeriod) : "CURRENT_YEAR",
+    ...(startDate && { startDate }),
+    ...(endDate && { endDate }),
+  };
 
   return (
     <div className="flex items-start justify-between">
@@ -39,7 +53,9 @@ export const ReportsHeader = () => {
             <FilterByDate close={() => setIsOpen(false)} />
           </PopoverContent>
         </Popover>
-        <ExportButton model={""} />
+        <ExportButton
+          onPress={() => ReportService.exportAdminReport(exportParams)}
+        />
       </div>
     </div>
   );

@@ -17,8 +17,8 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManagePackage } from "./useManagePackage";
+import { PackageFeaturesSection } from "./PackageFeaturesSection";
 import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
-import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
 
@@ -30,6 +30,7 @@ export const AddPackage = () => {
   const { errors, validateForm, clearError } = useFormValidation(
     form,
     features,
+    { requireIcon: true },
   );
 
   useFormResetOnLeave(reset);
@@ -53,7 +54,7 @@ export const AddPackage = () => {
           <FormSection
             title={dict.add_new_package_form.sections.package_information}
           >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
               <FormInput
                 label={dict.add_new_package_form.labels.package_name}
                 placeholder={
@@ -112,34 +113,19 @@ export const AddPackage = () => {
                 ]}
                 errorMessage={errors.status}
               />
-              {/* <FormInput
-                label={dict.add_new_package_form.labels.max_warehouses}
-                placeholder={
-                  dict.add_new_package_form.placeholders.max_warehouses
-                }
-                value={form.maxWarehouses?.toString() ?? ""}
-                onChange={(value: string): void => {
-                  setForm({
-                    maxWarehouses: value ? parseInt(value) : undefined,
-                  });
-                  clearError("maxWarehouses");
-                }}
-                type="number"
-                errorMessage={errors.maxWarehouses}
-              /> */}
-              <FormInput
-                label={dict.add_new_package_form.labels.max_users}
-                placeholder={dict.add_new_package_form.placeholders.max_users}
-                value={form.maxUsers?.toString() ?? ""}
-                onChange={(value: string): void => {
-                  setForm({ maxUsers: value ? parseInt(value) : undefined });
-                  clearError("maxUsers");
-                }}
-                type="number"
-                errorMessage={errors.maxUsers}
-              />
             </div>
             <div className="mt-4 grid grid-cols-1 gap-4">
+              <UploadInput
+                label={dict.add_new_package_form.image.attach}
+                desc={dict.add_new_package_form.image.desc}
+                file={form.icon}
+                onChange={(file?: File): void => {
+                  setForm({ icon: file });
+                  clearError("icon");
+                }}
+                errorMessage={errors.icon}
+                accept={IMAGE_FILE_ACCEPT}
+              />
               <FormAreaInput
                 label={dict.add_new_package_form.labels.description}
                 placeholder={dict.add_new_package_form.placeholders.description}
@@ -154,43 +140,14 @@ export const AddPackage = () => {
             </div>
           </FormSection>
 
-          <FormSection title={dict.add_new_package_form.sections.features}>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {Object.entries(dict.add_new_package_form.features).map(
-                ([key, label]) => (
-                  <Checkbox
-                    key={key}
-                    isSelected={features[key as keyof typeof features] ?? false}
-                    onValueChange={(checked: boolean): void => {
-                      setFeatures({
-                        [key]: checked,
-                      });
-                      clearError("features");
-                    }}
-                  >
-                    {label}
-                  </Checkbox>
-                ),
-              )}
-            </div>
-            {errors.features && (
-              <p className="mt-2 text-sm text-red-500">{errors.features}</p>
-            )}
-          </FormSection>
-
-          <FormSection title="">
-            <div className="grid grid-cols-1 gap-4">
-              <UploadInput
-                label={dict.add_new_package_form.image.attach}
-                desc={dict.add_new_package_form.image.desc}
-                file={form.icon}
-                onChange={(file?: File): void => {
-                  setForm({ icon: file });
-                }}
-                accept={IMAGE_FILE_ACCEPT}
-              />
-            </div>
-          </FormSection>
+          <PackageFeaturesSection
+            features={features}
+            onChange={(partial) => {
+              setFeatures(partial);
+              clearError("features");
+            }}
+            errorMessage={errors.features}
+          />
         </AppForm>
       </div>
       <SuccessMessage />

@@ -80,7 +80,7 @@ export const ContactManagement = () => {
                     setPhoneNumbers([...phoneNumbers, phoneNumber.trim()]);
                     setPhoneNumber("");
                   }}
-                  className="mb-2 self-end"
+                  className="self-start mt-7"
                   startContent={<AddIcon className="size-5" />}
                   isDisabled={phoneNumber.trim() === ""}
                 >

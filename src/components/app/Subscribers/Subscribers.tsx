@@ -21,6 +21,7 @@ import {
 import { ExportButton } from "@/components/app/shared/button/ExportButton";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { ExportModel } from "@/types/export/export.model";
+import { TimeFilter } from "../shared/TimeFilter";
 
 export const Subscribers = () => {
   const dict = useDict();
@@ -51,6 +52,7 @@ export const Subscribers = () => {
         <SummaryCard
           type={SummaryCardType.SUBSCRIBERS}
           value={data?.pagination.totalItems ?? 0}
+          endContent={<TimeFilter />}
         />
       )}
 

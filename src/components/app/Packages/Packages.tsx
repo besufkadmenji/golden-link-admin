@@ -18,6 +18,7 @@ import { usePackages } from "./usePackages";
 import { PackagesList } from "./PackagesList";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { ExportModel } from "@/types/export/export.model";
+import { TimeFilter } from "../shared/TimeFilter";
 
 export const Packages = () => {
   const dict = useDict();
@@ -55,6 +56,7 @@ export const Packages = () => {
         <SummaryCard
           type={SummaryCardType.PACKAGES}
           value={pagination?.total || 0}
+          endContent={<TimeFilter />}
         />
       )}
 

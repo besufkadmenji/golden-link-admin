@@ -1,3 +1,5 @@
+import { DashboardPeriod } from "./home";
+
 /**
  * Package Features - Boolean flags for each feature
  */
@@ -96,4 +98,6 @@ export interface GetPackagesParams {
   limit?: number;
   search?: string;
   status?: "ACTIVE" | "INACTIVE";
+  packageDuration?: string;
+  period?: DashboardPeriod;
 }
