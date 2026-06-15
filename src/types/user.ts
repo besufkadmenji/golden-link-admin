@@ -68,7 +68,6 @@ export interface UpdateUserDto {
 
 export interface UpdateUserWithFileDto extends UpdateUserDto {
   profileImage?: File;
-  removeProfileImage?: boolean;
 }
 
 export interface DeactivateUserDto {

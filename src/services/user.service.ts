@@ -118,42 +118,33 @@ export class UserService {
     data: UpdateUserWithFileDto
   ): Promise<UserResponse | null> {
     try {
+      const formData = new FormData();
 
       if (data.profileImage) {
-        const formData = new FormData();
         formData.append("profileImage", data.profileImage);
-
-        if (data.fullName !== undefined) {
-          formData.append("fullName", data.fullName);
-        }
-        if (data.email !== undefined) {
-          formData.append("email", data.email);
-        }
-        if (data.countryCode !== undefined) {
-          formData.append("countryCode", data.countryCode);
-        }
-        if (data.phoneNumber !== undefined) {
-          formData.append("phoneNumber", data.phoneNumber);
-        }
-        if (data.status !== undefined) {
-          formData.append("status", data.status);
-        }
-
-        const response = await axiosClient.put(`/users/${id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        return unwrapAxiosResponse(response.data);
       }
 
-      const { removeProfileImage, ...fields } = data;
-      const payload = {
-        ...fields,
-        ...(removeProfileImage ? { profileImagePath: "" } : {}),
-      };
+      if (data.fullName !== undefined) {
+        formData.append("fullName", data.fullName);
+      }
+      if (data.email !== undefined) {
+        formData.append("email", data.email);
+      }
+      if (data.countryCode !== undefined) {
+        formData.append("countryCode", data.countryCode);
+      }
+      if (data.phoneNumber !== undefined) {
+        formData.append("phoneNumber", data.phoneNumber);
+      }
+      if (data.status !== undefined) {
+        formData.append("status", data.status);
+      }
 
-      const response = await axiosClient.put(`/users/${id}`, payload);
+      const response = await axiosClient.put(`/users/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return unwrapAxiosResponse(response.data);
     } catch (error) {
       throw new Error(

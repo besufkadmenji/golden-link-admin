@@ -67,14 +67,12 @@ export const useManageAdmin = () => {
         !!initialProfileImagePath &&
         !form.profileImage;
 
+      if (shouldRemoveProfileImage) {
+        await UserService.deleteProfileImage(id);
+      }
+
       const { password, confirmPassword, ...rest } = form;
-      const response = await UserService.updateUser(
-        id,
-        {
-          ...rest,
-          removeProfileImage: shouldRemoveProfileImage,
-        }
-      );
+      const response = await UserService.updateUser(id, rest);
       if (response) {
         if (form.permissionType === "CUSTOM") {
           const revokedIds = initialPermissionIds.filter(

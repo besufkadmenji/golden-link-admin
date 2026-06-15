@@ -88,6 +88,8 @@ export interface PackagesListResponse {
   limit: number;
   total: number;
   totalPages: number;
+  minPackageDuration?: number;
+  maxPackageDuration?: number;
 }
 
 /**
@@ -98,6 +100,6 @@ export interface GetPackagesParams {
   limit?: number;
   search?: string;
   status?: "ACTIVE" | "INACTIVE";
-  packageDuration?: string;
+  packageDuration?: number;
   period?: DashboardPeriod;
 }

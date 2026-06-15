@@ -49,13 +49,11 @@ export const useManageSetting = () => {
         !!initialProfileImagePath &&
         !updateProfile.profileImage;
 
-      await UserService.updateUser(
-        userId,
-        {
-          ...updateProfile,
-          removeProfileImage: shouldRemoveProfileImage,
-        }
-      );
+      if (shouldRemoveProfileImage) {
+        await UserService.deleteProfileImage(userId);
+      }
+
+      await UserService.updateUser(userId, updateProfile);
       queryClient.invalidateQueries({
         queryKey: ["me"],
       });

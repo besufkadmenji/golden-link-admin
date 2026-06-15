@@ -12,7 +12,7 @@ export const usePackages = (initialParams?: GetPackagesParams) => {
   const [limit] = useQueryState("limit", parseAsInteger.withDefault(20));
   const [search] = useQueryState("search", parseAsString.withDefault(""));
   const [status] = useQueryState("status");
-  const [duration] = useQueryState("duration");
+  const [duration] = useQueryState("duration", parseAsInteger);
   const [option] = useQueryState("option", { defaultValue: "ALL" });
 
   const params: GetPackagesParams = {
@@ -21,7 +21,7 @@ export const usePackages = (initialParams?: GetPackagesParams) => {
     period: option as DashboardPeriod,
     ...(search && { search }),
     ...(status && { status: status as "ACTIVE" | "INACTIVE" }),
-    ...(duration && { packageDuration: duration }),
+    ...(duration != null && { packageDuration: duration }),
     ...initialParams,
   };
   const { data, isLoading, isError, error } = useQuery({
@@ -37,6 +37,8 @@ export const usePackages = (initialParams?: GetPackagesParams) => {
       limit,
       totalPages: data?.totalPages || 0,
     },
+    minPackageDuration: data?.minPackageDuration,
+    maxPackageDuration: data?.maxPackageDuration,
     isLoading,
     isError,
     error,
