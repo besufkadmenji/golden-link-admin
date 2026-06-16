@@ -15,8 +15,10 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageClient } from "./useManageClient";
 import { useRouter } from "next/navigation";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditClient = ({ id }: { id: string }) => {
+  useRequirePermission("client", "update");
   const { form, setForm, reset } = useManageForm(Number(id));
   useFormResetOnLeave(reset);
   const existingPicture = useForm((state) => state.existingPicture);

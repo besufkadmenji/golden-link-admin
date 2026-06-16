@@ -576,8 +576,13 @@
       "return": "Returns",
       "driver": "Drivers",
       "client": "Clients",
-      "message": "Contact Messages",
-      "notification": "Notifications",
+      "message": "Contact with Management",
+      "contact_us": "Contact Us Messages",
+      "about": "About the Platform",
+      "package": "Packages",
+      "privacy": "Privacy Policy",
+      "terms": "Terms and Conditions",
+      "notification": "Notification Management",
       "settings": "Settings",
       "subscription": "Subscriptions",
       "inventory": "Inventory",
@@ -588,7 +593,8 @@
       "dashboard": "Dashboard",
       "admin": "System Manager",
       "report": "Report",
-      "subscriber": "Subscriber"
+      "subscriber": "Subscriber",
+      "feature": "Platform Features"
     }
   },
   "activate_admin_confirmation": {
@@ -1032,7 +1038,8 @@
       "title": "Notification Title",
       "content": "Notification Content",
       "sender_id": "Sender Username",
-      "recipients": "Select Recipients"
+      "recipients": "Select Recipients",
+      "allRecipients": "All Users"
     },
     "placeholders": {
       "title": "Enter notification title",
@@ -1058,7 +1065,7 @@
     }
   },
   "notification_detail_page": {
-    "title": "New Notification",
+    "title": "Notification Details",
     "sections": {
       "notification_information": "Notification Information",
       "recipients_information": "Recipients Information"
@@ -1547,6 +1554,7 @@
   },
   "filterByDate": {
     "title": "Filter by Date",
+    "allTime": "All Time",
     "lastWeek": "Last Week",
     "lastMonth": "Last Month",
     "lastYear": "Last Year",
@@ -1557,6 +1565,7 @@
     "from": "From",
     "to": "To",
     "filterButton": "Filter",
+    "resetButton": "Reset",
     "monthLabel": "Month",
     "yearLabel": "Year"
   },

@@ -19,8 +19,10 @@ import { useManageAdmin } from "./useManageAdmin";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { AppLoading } from "@/components/app/shared/AppLoading";
 import { SuccessMessage } from "./SuccessMessage";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditAdmin = ({ id }: { id: string }) => {
+  useRequirePermission("user", "update");
   const { user } = useUserById(id);
   console.log("Edit Admin User:", user);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);

@@ -9,6 +9,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { PackageSubscribersFilter } from "./PackageSubscribersFilter";
 import { PackageSubscribersList } from "./PackageSubscribersList";
 import { useSubscribers } from "@/components/app/Subscribers/useSubscriber";
@@ -18,11 +19,14 @@ import { TimeFilter } from "../../shared/TimeFilter";
 export const PackageSubscribers = () => {
   const dict = useDict();
   const { data, isLoading } = useSubscribers();
+  const { hasPermission } = usePermissions();
 
   return (
     <PageWrapper>
       <PageBar title={dict.packages.subscribers.title}>
-        <ExportButton model={ExportModel.SUBSCRIBER} />
+        {hasPermission("subscriber", "read") && (
+          <ExportButton model={ExportModel.SUBSCRIBER} />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

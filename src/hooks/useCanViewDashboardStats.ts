@@ -1,5 +1,5 @@
 import { useMe } from "@/hooks/useMe";
-import { usePermissions } from "@/hooks/useHasPermissions";
+import { hasFullAccess, usePermissions } from "@/hooks/useHasPermissions";
 
 const DASHBOARD_STATS_MODULES = [
   "subscriber",
@@ -17,7 +17,7 @@ export const useCanViewDashboardStats = () => {
     return { canView: false, isReady };
   }
 
-  if (me.permissionType !== "CUSTOM") {
+  if (hasFullAccess(me.permissionType)) {
     return { canView: true, isReady: true };
   }
 

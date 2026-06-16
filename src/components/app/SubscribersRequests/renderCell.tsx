@@ -17,21 +17,25 @@ export const renderCell = (
   dict: Dictionary,
   action: {
     onView: () => void;
-    onApprove: () => void;
-    onReject: () => void;
+    onApprove?: () => void;
+    onReject?: () => void;
   },
 ) => {
   if (column === "action") {
     return (
       <div className="flex items-center justify-center gap-2">
-        <ActionCell
-          icon={<ApproveIcon className="size-5 text-[#1EB564]" />}
-          onClick={action.onApprove}
-        />
-        <ActionCell
-          icon={<RejectIcon className="size-5 text-[#EA5455]" />}
-          onClick={action.onReject}
-        />
+        {action.onApprove && (
+          <ActionCell
+            icon={<ApproveIcon className="size-5 text-[#1EB564]" />}
+            onClick={action.onApprove}
+          />
+        )}
+        {action.onReject && (
+          <ActionCell
+            icon={<RejectIcon className="size-5 text-[#EA5455]" />}
+            onClick={action.onReject}
+          />
+        )}
         <ActionCell
           icon={
             <ViewIcon className="text-subTitle dark:text-dark-dashboard-title size-5" />

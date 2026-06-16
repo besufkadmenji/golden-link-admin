@@ -38,7 +38,10 @@ export const TitleBar = ({
         : action === "edit"
           ? dict.edit_admin.title
           : dict.view_admin.viewMainCategory.title,
-    [FormType.Notifications]: dict.notifications_page.buttons.add_notification,
+    [FormType.Notifications]:
+      action === "add"
+        ? dict.add_new_notification_form.title
+        : dict.notification_detail_page.title,
     [FormType.Message]: dict.contact_messages_page.title,
     [FormType.Clients]:
       action === "add"

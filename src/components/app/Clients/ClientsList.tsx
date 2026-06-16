@@ -12,11 +12,13 @@ import { AppTable, ColumnType, RowType } from "../shared/tables/AppTable";
 import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageClient } from "./manage/useManageClient";
 import { renderCell } from "./renderCell";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const ClientsList = () => {
   const dict = useDict();
   const { clients, pagination, isLoading } = useClients();
   const { deleteClient, busy } = useManageClient();
+  const { hasPermission } = usePermissions();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -72,19 +74,25 @@ export const ClientsList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: () => {
-              router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key, { history: "push" });
-            },
-            onActivate: (value: boolean) => {
-              if (value) {
-                setActivateClient(row.key, { history: "push" });
-              } else {
-                setDeactivateClient(row.key, { history: "push" });
-              }
-            },
+            onEdit: hasPermission("client", "update")
+              ? () => {
+                  router.push(`${pathname}/${row.key}/edit`);
+                }
+              : undefined,
+            onDelete: hasPermission("client", "delete")
+              ? () => {
+                  setIsDeleteWarningOpen(row.key, { history: "push" });
+                }
+              : undefined,
+            onActivate: hasPermission("client", "update")
+              ? (value: boolean) => {
+                  if (value) {
+                    setActivateClient(row.key, { history: "push" });
+                  } else {
+                    setDeactivateClient(row.key, { history: "push" });
+                  }
+                }
+              : undefined,
           })
         }
         pagination={{

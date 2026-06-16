@@ -15,8 +15,10 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageFeature } from "./useManageFeature";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddFeature = () => {
+  useRequirePermission("feature", "create");
   const { form, setForm, reset } = useForm();
   useFormResetOnLeave(reset);
   const dict = useDict();

@@ -49,7 +49,7 @@ const SummaryItem = ({
   valueDesc?: ReactNode;
 }) => {
   return (
-    <div className="border-gray-border-alt grid grid-cols-1 gap-4 rounded-lg border bg-white p-5 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
+    <div className="border-gray-border-alt dark:border-dark-border dark:bg-dark-black grid grid-cols-1 gap-4 rounded-lg border bg-white p-5 shadow-[0px_1.5px_2px_0px_rgba(16,24,40,0.10)]">
       {icon}
       <div className="grid grid-cols-1 gap-2">
         <p className="text-subTitle font-medium">{label}</p>

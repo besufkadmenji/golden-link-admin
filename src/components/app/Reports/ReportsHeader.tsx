@@ -14,12 +14,12 @@ import { useState } from "react";
 export const ReportsHeader = () => {
   const dict = useDict();
   const [isOpen, setIsOpen] = useState(false);
-  const [period] = useQueryState("period", { defaultValue: "CURRENT_YEAR" });
+  const [period] = useQueryState("period", { defaultValue: "ALL" });
   const [startDate] = useQueryState("startDate");
   const [endDate] = useQueryState("endDate");
 
   const exportParams: AdminReportParams = {
-    period: period ? (period as ReportPeriod) : "CURRENT_YEAR",
+    period: period ? (period as ReportPeriod) : "ALL",
     ...(startDate && { startDate }),
     ...(endDate && { endDate }),
   };
@@ -27,7 +27,7 @@ export const ReportsHeader = () => {
   return (
     <div className="flex items-start justify-between">
       <div className="grid grid-cols-1">
-        <h1 className="text-dashboard-title text-2xl leading-9 font-bold tracking-tight">
+        <h1 className="text-dashboard-title dark:text-dark-dashboard-title text-2xl leading-9 font-bold tracking-tight">
           {dict.reports.title}
         </h1>
       </div>
@@ -40,7 +40,7 @@ export const ReportsHeader = () => {
           <PopoverTrigger>
             <Button
               className={twMerge(
-                "rounded-sm border-[1.5px] border-[#53545C] px-9 text-xs text-[#53545C]",
+                "rounded-sm border-[1.5px] border-[#53545C] dark:border-dark-dashboard-border px-9 text-xs text-[#53545C] dark:text-dark-dashboard-title",
                 cairo.className,
               )}
               endContent={<CalendarIcon className="size-4" />}
@@ -50,7 +50,10 @@ export const ReportsHeader = () => {
             </Button>
           </PopoverTrigger>
           <PopoverContent>
-            <FilterByDate close={() => setIsOpen(false)} />
+            <FilterByDate
+              key={`${period}-${startDate ?? ""}-${endDate ?? ""}`}
+              close={() => setIsOpen(false)}
+            />
           </PopoverContent>
         </Popover>
         <ExportButton

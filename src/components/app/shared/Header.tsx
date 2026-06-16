@@ -6,6 +6,7 @@ import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { SelectLanguage } from "@/components/app/shared/SelectLanguage";
 import { MobileSidebar } from "@/components/app/shared/Sidebar";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useMe } from "@/hooks/useMe";
 import {
@@ -36,7 +37,9 @@ const ThemeSwitcher = dynamic(
 );
 
 export const Header = () => {
-  const {} = useMe();
+  const { hasPermission } = usePermissions();
+  const canViewNotifications = hasPermission("notification", "read");
+
   return (
     <header
       className={twMerge(
@@ -47,7 +50,7 @@ export const Header = () => {
       <div className="flex items-center gap-0 lg:gap-5">
         <ThemeSwitcher />
         <SelectLanguage />
-        <NotificationPopover />
+        {canViewNotifications && <NotificationPopover />}
         <LoggedUser />
       </div>
     </header>
@@ -91,8 +94,6 @@ const LoggedUser = () => {
 const NotificationPopover = () => {
   const { data: unreadCount } = useUnreadNotificationsCount();
   const dict = useDict();
-  const { me } = useMe();
-  console.log("Notifications for", me?.id);
   return (
     <Popover
       placement="bottom"
@@ -119,7 +120,7 @@ const NotificationPopover = () => {
           </Badge>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="grid auto-rows-max grid-cols-1 items-start gap-2 px-0 py-6 lg:w-[32vw]">
+      <PopoverContent className="grid w-fit min-w-[80vw] auto-rows-max grid-cols-1 items-start gap-2 px-0 py-6 md:min-w-[50vw] lg:min-w-[32vw]">
         <div className="flex items-center gap-1 px-6">
           <div className="grid size-8 items-center justify-center">
             <NotificationIcon className="size-7 text-[#4F4F4F] dark:text-white" />

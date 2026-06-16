@@ -9,6 +9,7 @@ import {
 } from "@/components/app/shared/summary/SummaryCard";
 import { SummaryCardSkeleton } from "@/components/app/shared/summary/SummaryCardSkeleton";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { usePathname, useRouter } from "next/navigation";
 import { AddButton, AddButtonType } from "../shared/button/AddButton";
 import { ClientsFilter } from "./ClientsFilter";
@@ -18,16 +19,19 @@ export const Clients = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { clients, pagination, isLoading } = useClients();
+  const { hasPermission } = usePermissions();
 
   return (
     <PageWrapper>
       <PageBar title={dict.clients_management.title}>
-        <AddButton
-          type={AddButtonType.Client}
-          onPress={() => {
-            router.push(`${pathname}/add`);
-          }}
-        />
+        {hasPermission("client", "create") && (
+          <AddButton
+            type={AddButtonType.Client}
+            onPress={() => {
+              router.push(`${pathname}/add`);
+            }}
+          />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

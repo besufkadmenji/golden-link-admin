@@ -12,10 +12,12 @@ import { useRequests } from "./useRequest";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const RequestsList = () => {
   const dict = useDict();
   const { data, isLoading } = useRequests();
+  const { hasPermission } = usePermissions();
   // const { deleteProduct, busy } = useManageProduct();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
@@ -86,12 +88,16 @@ export const RequestsList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onApprove: () => {
-              approveRequest(row.key);
-            },
-            onReject: () => {
-              setShowRejectModal(row.key, { history: "push" });
-            },
+            onApprove: hasPermission("subscriptionRequest", "update")
+              ? () => {
+                  approveRequest(row.key);
+                }
+              : undefined,
+            onReject: hasPermission("subscriptionRequest", "delete")
+              ? () => {
+                  setShowRejectModal(row.key, { history: "push" });
+                }
+              : undefined,
           })
         }
         pagination={{

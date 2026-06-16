@@ -13,12 +13,14 @@ import { AppTableSkeleton } from "../shared/tables/AppTableSkeleton";
 import { useManageFeature } from "./manage/useManageFeature";
 import { renderCell } from "./renderCell";
 import { useLang } from "@/hooks/useLang";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const FeaturesList = () => {
   const dict = useDict();
   const lang = useLang();
   const { features, pagination, isLoading } = useFeatures();
   const { deleteFeature, busy } = useManageFeature();
+  const { hasPermission } = usePermissions();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -71,19 +73,25 @@ export const FeaturesList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: () => {
-              router.push(`${pathname}/${row.key}/edit`);
-            },
-            onDelete: () => {
-              setIsDeleteWarningOpen(row.key, { history: "push" });
-            },
-            onActivate: (value: boolean) => {
-              if (value) {
-                setActivateFeature(row.key, { history: "push" });
-              } else {
-                setDeactivateFeature(row.key, { history: "push" });
-              }
-            },
+            onEdit: hasPermission("feature", "update")
+              ? () => {
+                  router.push(`${pathname}/${row.key}/edit`);
+                }
+              : undefined,
+            onDelete: hasPermission("feature", "delete")
+              ? () => {
+                  setIsDeleteWarningOpen(row.key, { history: "push" });
+                }
+              : undefined,
+            onActivate: hasPermission("feature", "update")
+              ? (value: boolean) => {
+                  if (value) {
+                    setActivateFeature(row.key, { history: "push" });
+                  } else {
+                    setDeactivateFeature(row.key, { history: "push" });
+                  }
+                }
+              : undefined,
           })
         }
         pagination={{

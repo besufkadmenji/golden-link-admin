@@ -574,8 +574,13 @@
       "return": "المرتجعات",
       "driver": "السائقين",
       "client": "العملاء",
-      "message": "رسائل تواصل معنا",
-      "notification": "الاشعارات",
+      "message": "التواصل مع الإدارة",
+      "contact_us": "رسائل تواصل معنا",
+      "about": "عن المنصة",
+      "package": "الباقات",
+      "privacy": "سياسة الخصوصية",
+      "terms": "سياسة الشروط والاحكام",
+      "notification": "إدارة الإشعارات",
       "settings": "الاعدادات",
       "subscription": "الاشتراكات",
       "inventory": "المخزون",
@@ -587,7 +592,8 @@
       "dashboard": "لوحة المعلومات",
       "admin": "مدير النظام",
       "report": "تقرير",
-      "subscriber": "مشترك"
+      "subscriber": "مشترك",
+      "feature": "مميزات المنصة"
     }
   },
   "activate_admin_confirmation": {
@@ -1031,7 +1037,8 @@
       "title": "عنوان الإشعار",
       "content": "محتوى الإشعار",
       "sender_id": "اسم المستخدم المُرسل",
-      "recipients": "اختر المستقبلين"
+      "recipients": "اختر المستقبلين",
+      "allRecipients": "جميع المستخدمين"
     },
     "placeholders": {
       "title": "ادخل عنوان الإشعار",
@@ -1057,7 +1064,7 @@
     }
   },
   "notification_detail_page": {
-    "title": "إشعار جديد",
+    "title": "تفاصيل الإشعار",
     "sections": {
       "notification_information": "معلومات الإشعار",
       "recipients_information": "معلومات المستقبلين"
@@ -1549,6 +1556,7 @@
 
   "filterByDate": {
     "title": "تصفية بالتاريخ",
+    "allTime": "كل الوقت",
     "lastWeek": "الأسبوع الماضي",
     "lastMonth": "الشهر الماضي",
     "lastYear": "السنة الماضية",
@@ -1559,6 +1567,7 @@
     "from": "من",
     "to": "إلى",
     "filterButton": "تصفية",
+    "resetButton": "إعادة تعيين",
     "monthLabel": "الشهر",
     "yearLabel": "السنة"
   },

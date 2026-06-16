@@ -91,13 +91,15 @@ export const AdminsList = () => {
             onDelete: hasPermission("user", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             } : undefined,
-            onActivate: (value: boolean) => {
-              if (value) {
-                setActivateAdmin(row.key, { history: "push" });
-              } else {
-                setDeactivateAdmin(row.key, { history: "push" });
-              }
-            },
+            onActivate: hasPermission("user", "update")
+              ? (value: boolean) => {
+                  if (value) {
+                    setActivateAdmin(row.key, { history: "push" });
+                  } else {
+                    setDeactivateAdmin(row.key, { history: "push" });
+                  }
+                }
+              : undefined,
           })
         }
         pagination={{

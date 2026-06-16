@@ -13,6 +13,7 @@ import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { showErrorMessage } from "@/utils/show.message";
 import moment from "moment";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
@@ -22,6 +23,8 @@ export const MessageDetail = ({ id }: { id: string }) => {
   const [, setSendReply] = useQueryState("sendReply");
 
   const dict = useDict();
+  const { hasPermission } = usePermissions();
+  const canReply = hasPermission("contact_us", "update");
   const isReplied = message?.status === "REPLIED";
 
   const handleReplyPress = () => {
@@ -40,14 +43,16 @@ export const MessageDetail = ({ id }: { id: string }) => {
           type={FormType.Message}
           action="view"
           titleChildren={
-            <PrimaryButton
-              startContent={<SendIcon className="size-5" />}
-              className="text-sm font-semibold"
-              onPress={handleReplyPress}
-              isDisabled={isReplied}
-            >
-              {dict.reply_message_form.buttons.send}
-            </PrimaryButton>
+            canReply ? (
+              <PrimaryButton
+                startContent={<SendIcon className="size-5" />}
+                className="text-sm font-semibold"
+                onPress={handleReplyPress}
+                isDisabled={isReplied}
+              >
+                {dict.reply_message_form.buttons.send}
+              </PrimaryButton>
+            ) : undefined
           }
         >
           <FormSection title={dict.contact_us_form.sectionTitle}>

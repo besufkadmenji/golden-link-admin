@@ -3,7 +3,7 @@ import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
 import { twMerge } from "tailwind-merge";
-import { AppSwitch } from "../shared/AppSwitch";
+import { StatusCell } from "../shared/StatusCell";
 export const statusMap = (
   dict: Dictionary,
 ): {
@@ -42,7 +42,7 @@ export const renderCell = (
     onView: () => void;
     onEdit?: () => void;
     onDelete?: () => void;
-    onActivate: (value: boolean) => void;
+    onActivate?: (value: boolean) => void;
   },
 ) => {
   if (column === "action") {
@@ -54,13 +54,11 @@ export const renderCell = (
       />
     );
   } else if (column === "status") {
-    console.log("row status:", row.status);
     return (
-      <AppSwitch
-        isSelected={row.status === "ACTIVE"}
-        onValueChange={(checked) => {
-          action.onActivate(checked);
-        }}
+      <StatusCell
+        isActive={row.status === "ACTIVE"}
+        dict={dict}
+        onActivate={action.onActivate}
       />
     );
   }

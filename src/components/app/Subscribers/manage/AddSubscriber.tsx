@@ -19,8 +19,10 @@ import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { SuccessMessage } from "@/components/app/Subscribers/manage/SuccessMessage";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddSubscriber = () => {
+  useRequirePermission("subscriber", "create");
   const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

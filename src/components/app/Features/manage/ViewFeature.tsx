@@ -56,7 +56,6 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 placeholder={dict.features_management.form.placeholders.name_ar}
                 value={feature.nameAr}
                 onChange={(value: string): void => {}}
-                dir="rtl"
                 readOnly
               />
 
@@ -65,7 +64,6 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 placeholder={dict.features_management.form.placeholders.name_en}
                 value={feature.name}
                 onChange={(value: string): void => {}}
-                dir="ltr"
                 readOnly
               />
 
@@ -93,7 +91,6 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 }
                 value={feature.descriptionAr}
                 onChange={(value: string): void => {}}
-                dir="rtl"
                 className="md:col-span-2"
                 readOnly
               />
@@ -104,7 +101,6 @@ export const ViewFeature = ({ id }: { id: string }) => {
                 }
                 value={feature.description}
                 onChange={(value: string): void => {}}
-                dir="ltr"
                 className="md:col-span-2"
                 readOnly
               />

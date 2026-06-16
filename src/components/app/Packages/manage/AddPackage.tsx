@@ -21,8 +21,10 @@ import { PackageFeaturesSection } from "./PackageFeaturesSection";
 import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddPackage = () => {
+  useRequirePermission("package", "create");
   const { form, setForm, features, setFeatures, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

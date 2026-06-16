@@ -20,8 +20,10 @@ import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddAdmin = () => {
+  useRequirePermission("user", "create");
   const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

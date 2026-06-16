@@ -20,8 +20,10 @@ import { UploadInput } from "../../shared/UploadInput";
 import { typeMap } from "../renderCell";
 import { useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditSubscriber = ({ id }: { id: string }) => {
+  useRequirePermission("subscriber", "update");
   const { data: subscriber } = useSubscriber(id);
   const {
     form,

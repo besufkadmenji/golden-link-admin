@@ -43,7 +43,9 @@ export const Subscribers = () => {
             }}
           />
         )}
-        <ExportButton model={ExportModel.SUBSCRIBER} />
+        {hasPermission("subscriber", "read") && (
+          <ExportButton model={ExportModel.SUBSCRIBER} />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

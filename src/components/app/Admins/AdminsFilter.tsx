@@ -9,8 +9,6 @@ export const AdminsFilter = () => {
   const adminStatusMap = {
     ACTIVE: dict.common.statuses.ACTIVE,
     INACTIVE: dict.common.statuses.INACTIVE,
-    SUSPENDED: dict.common.statuses.SUSPENDED,
-    PENDING_APPROVAL: dict.common.statuses.PENDING_APPROVAL,
   };
   const adminStatusOptions = Object.keys(adminStatusMap).map((key) => ({
     label: adminStatusMap[key as keyof typeof adminStatusMap],
@@ -20,11 +18,11 @@ export const AdminsFilter = () => {
 
   return (
     <div className="grid grid-cols-2 items-center gap-4 lg:flex">
-      <SearchInput className="w-full md:w-max" />
+      <SearchInput className="w-full lg:w-max" />
       <FilterSelect
         options={adminStatusOptions}
         placeholder={dict.system_managers_page.filter_placeholder}
-        className="w-full md:w-max"
+        className="w-full lg:w-max"
         values={status ? [status] : []}
         onValueChange={(values) => {
           setStatus(values[0] || null);

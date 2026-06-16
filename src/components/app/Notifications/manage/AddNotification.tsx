@@ -8,16 +8,19 @@ import {
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
-import { FormSelect } from "../../shared/forms/FormSelect";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageNotification } from "./useManageNotification";
 import { FormSelectMultiple } from "@/components/app/shared/forms/FormSelect";
 import { useSubscribers } from "../../Subscribers/useSubscriber";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { ALL_RECIPIENTS_KEY } from "./constants";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddNotification = () => {
+  useRequirePermission("notification", "create");
   const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();
@@ -28,6 +31,40 @@ export const AddNotification = () => {
     onReset: clearErrors,
   });
   const { data: subscribers } = useSubscribers();
+
+  const recipientOptions = useMemo(
+    () => [
+      {
+        label: dict.add_new_notification_form.labels.allRecipients,
+        key: ALL_RECIPIENTS_KEY,
+      },
+      ...(subscribers?.subscribers
+        .filter((subscriber) => subscriber.status === "ACTIVE")
+        .map((subscriber) => ({
+          label: subscriber.fullName,
+          key: subscriber.id,
+        })) ?? []),
+    ],
+    [subscribers, dict],
+  );
+
+  const handleRecipientsChange = (value: string[]): void => {
+    const hadAll = form.recipientIds.includes(ALL_RECIPIENTS_KEY);
+    const hasAll = value.includes(ALL_RECIPIENTS_KEY);
+
+    if (hasAll && !hadAll) {
+      setForm({ recipientIds: [ALL_RECIPIENTS_KEY] });
+    } else if (hadAll && hasAll && value.length > 1) {
+      setForm({
+        recipientIds: value.filter((id) => id !== ALL_RECIPIENTS_KEY),
+      });
+    } else {
+      setForm({ recipientIds: value });
+    }
+
+    clearError("recipientIds");
+  };
+
   return (
     <>
       <div className="grid grid-cols-1">
@@ -67,20 +104,8 @@ export const AddNotification = () => {
                 label={dict.add_new_notification_form.labels.recipients}
                 placeholder={dict.add_new_notification_form.labels.recipients}
                 values={form.recipientIds}
-                onChange={(value: string[]): void => {
-                  setForm({
-                    recipientIds: value,
-                  });
-                  clearError("recipientIds");
-                }}
-                options={
-                  subscribers?.subscribers
-                    .filter((s) => s.status === "ACTIVE")
-                    .map((subscriber) => ({
-                      label: subscriber.fullName,
-                      key: subscriber.id,
-                    })) ?? []
-                }
+                onChange={handleRecipientsChange}
+                options={recipientOptions}
                 errorMessage={errors.recipientIds}
               />
               <FormAreaInput

@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { CreateNotificationDto } from "@/types/notification";
 import { useCallback, useMemo, useState } from "react";
+import { isAllRecipientsSelected } from "./constants";
 
 const TITLE_MIN_LENGTH = 3;
 const TITLE_MAX_LENGTH = 255;
@@ -44,6 +45,9 @@ export const useFormValidation = (form: CreateNotificationDto) => {
 
   const validateRecipientIds = useCallback(
     (value: (string | number)[]): string | null => {
+      if (isAllRecipientsSelected(value as string[])) {
+        return null;
+      }
       if (!value || value.length === 0) {
         return dict.add_new_notification_form.validation.recipientIds.required;
       }

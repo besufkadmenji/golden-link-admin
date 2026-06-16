@@ -9,7 +9,7 @@ import { useQueryState } from "nuqs";
 export const FilterByDate = ({ close }: { close: () => void }) => {
   const dict = useDict();
   const [period, setPeriod] = useQueryState("period", {
-    defaultValue: "CURRENT_YEAR",
+    defaultValue: "ALL",
   });
   const [startDate, setStartDate] = useQueryState("startDate");
   const [endDate, setEndDate] = useQueryState("endDate");
@@ -21,7 +21,23 @@ export const FilterByDate = ({ close }: { close: () => void }) => {
     endDate ? new Date(endDate) : undefined,
   );
 
+  const defaultPeriod = "ALL";
+
+  const handleReset = () => {
+    setSelected(defaultPeriod);
+    setFrom(undefined);
+    setTo(undefined);
+    void setStartDate(null);
+    void setEndDate(null);
+    void setPeriod(null);
+    close();
+  };
+
   const options = [
+    {
+      label: dict.filterByDate.allTime,
+      value: "ALL",
+    },
     {
       label: dict.filterByDate.currentWeek,
       value: "CURRENT_WEEK",
@@ -118,23 +134,32 @@ export const FilterByDate = ({ close }: { close: () => void }) => {
             />
           </div>
         )}
-        <Button
-          className="h-9 rounded-xl bg-[#2563EB] text-white"
-          onPress={() => {
-            if (selected === "CUSTOM" && from && to) {
-              setPeriod(selected);
-              setStartDate(from?.toISOString());
-              setEndDate(to?.toISOString());
-            } else if (selected !== "CUSTOM") {
-              setPeriod(selected);
-              setStartDate(null);
-              setEndDate(null);
-            }
-            close();
-          }}
-        >
-          {dict.filterByDate.filterButton}
-        </Button>
+        <div className="grid grid-cols-2 gap-3">
+          <Button
+            className="h-9 rounded-xl border-[#53545C] text-[#53545C]"
+            variant="bordered"
+            onPress={handleReset}
+          >
+            {dict.filterByDate.resetButton}
+          </Button>
+          <Button
+            className="h-9 rounded-xl bg-[#2563EB] text-white"
+            onPress={() => {
+              if (selected === "CUSTOM" && from && to) {
+                setPeriod(selected);
+                setStartDate(from?.toISOString());
+                setEndDate(to?.toISOString());
+              } else if (selected !== "CUSTOM") {
+                setPeriod(selected);
+                setStartDate(null);
+                setEndDate(null);
+              }
+              close();
+            }}
+          >
+            {dict.filterByDate.filterButton}
+          </Button>
+        </div>
       </div>
     </div>
   );

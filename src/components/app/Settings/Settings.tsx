@@ -9,6 +9,7 @@ import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { UploadInput } from "@/components/app/shared/UploadInput";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { useMe } from "@/hooks/useMe";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { useQueryState } from "nuqs";
@@ -29,19 +30,23 @@ export const Settings = () => {
     trialPeriodDurationReady,
   } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
+  const { hasPermission } = usePermissions();
+  const canUpdate = hasPermission("settings", "update");
   const [changePassword, setChangePassword] = useQueryState("changePassword");
   return (
     <>
       <PageWrapper>
         <PageBar title={dict.settings_page.title}>
-          <SaveButton
-            type={SaveButtonType.Settings}
-            onPress={() => {
-              updateSetting();
-            }}
-            isDisabled={busy}
-            isLoading={busy}
-          />
+          {canUpdate && (
+            <SaveButton
+              type={SaveButtonType.Settings}
+              onPress={() => {
+                updateSetting();
+              }}
+              isDisabled={busy}
+              isLoading={busy}
+            />
+          )}
         </PageBar>
         <div className="grid grid-cols-1 gap-8 py-8">
           <FormSection title={dict.settings_page.sections.general_settings}>
@@ -54,6 +59,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setVatRate(value);
                   }}
+                  readOnly={!canUpdate}
                   endContent={
                     <div className="text-gray-4 text-sm font-semibold">%</div>
                   }
@@ -67,6 +73,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setTrialPeriodDuration(value);
                   }}
+                  readOnly={!canUpdate}
                 />
               )}
             </div>
@@ -81,6 +88,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setUpdateProfile({ fullName: value });
                   }}
+                  readOnly={!canUpdate}
                   className="md:col-span-2"
                 />
 
@@ -91,6 +99,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setUpdateProfile({ email: value });
                   }}
+                  readOnly={!canUpdate}
                 />
                 <FormInput
                   label={dict.settings_page.labels.phone_number}
@@ -99,6 +108,7 @@ export const Settings = () => {
                   onChange={(value: string): void => {
                     setUpdateProfile({ phoneNumber: value });
                   }}
+                  readOnly={!canUpdate}
                 />
 
                 <div className="md:col-span-2">

@@ -29,10 +29,10 @@ export const RevenueClassification = ({ report }: { report: AdminReportResponse 
           {dict.reports.chart.revenue_by_packages}
         </p>
         <div className="grid grid-cols-1">
-          <p className="text-subTitle leading-6 font-medium">
+          <p className="text-subTitle leading-6 font-medium dark:text-dark-subTitle">
             {dict.reports.chart.total}
           </p>
-          <p className="text-2xl leading-8 font-bold text-[#1C2A53]">
+          <p className="text-2xl leading-8 font-bold text-[#1C2A53] dark:text-dark-title">
             {report.summary.totalRevenue} <span className={sar.className}>A</span>
           </p>
         </div>

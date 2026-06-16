@@ -34,17 +34,15 @@ export const AutoRedirectSuccessModal = ({
     : `/${lang}/${redirectTo}`;
 
   const resolvedMessage = showSuccess
-    ? getMessage?.(showSuccess) ?? message
+    ? (getMessage?.(showSuccess) ?? message)
     : null;
 
   useEffect(() => {
     if (!showSuccess || hasRedirected.current) return;
-
     const timer = setTimeout(() => {
       hasRedirected.current = true;
       router.replace(redirectPath);
     }, autoHideMs);
-
     return () => clearTimeout(timer);
   }, [showSuccess, router, redirectPath, autoHideMs]);
 
@@ -62,11 +60,14 @@ export const AutoRedirectSuccessModal = ({
       hideCloseButton
       isDismissable={false}
       onClose={handleClose}
+      classNames={{
+        wrapper: "items-center justify-center",
+      }}
     >
       <ModalContent>
         <div className="grid grid-cols-1 justify-items-center gap-6 p-6">
           <SuccessIcon className="size-20" />
-          <p className="text-center text-lg leading-6 font-bold text-[#1E1E1E]">
+          <p className="text-center text-lg leading-6 font-bold text-[#1E1E1E] dark:text-white">
             {resolvedMessage}
           </p>
         </div>

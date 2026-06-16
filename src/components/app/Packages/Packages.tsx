@@ -29,16 +29,18 @@ export const Packages = () => {
 
   return (
     <PageWrapper>
-      <PageBar title={dict.packages.title}>
-        <Button
-          startContent={<SubscribersIcon className="size-5" />}
-          onPress={() => {
-            router.push("/packages/subscribers");
-          }}
-          className="rounded-lg bg-[#2563EB] text-white"
-        >
-          {dict.packages.buttons.subscribers_in_package}
-        </Button>
+      <PageBar title={dict.packages.title} className="grid grid-cols-1 gap-2 md:flex">
+        {hasPermission("subscriber", "read") && (
+          <Button
+            startContent={<SubscribersIcon className="size-5" />}
+            onPress={() => {
+              router.push("/packages/subscribers");
+            }}
+            className="rounded-lg bg-[#2563EB] text-white"
+          >
+            {dict.packages.buttons.subscribers_in_package}
+          </Button>
+        )}
         {hasPermission("package", "create") && (
           <AddButton
             type={AddButtonType.Package}
@@ -47,7 +49,9 @@ export const Packages = () => {
             }}
           />
         )}
-        <ExportButton model={ExportModel.PACKAGE} />
+        {hasPermission("package", "read") && (
+          <ExportButton model={ExportModel.PACKAGE} />
+        )}
       </PageBar>
       <Gap className="h-8" />
       {isLoading ? (

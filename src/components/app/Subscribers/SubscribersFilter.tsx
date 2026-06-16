@@ -17,8 +17,6 @@ export const SubscribersFilter = () => {
   const statusMap = {
     ACTIVE: dict.common.statuses.ACTIVE,
     INACTIVE: dict.common.statuses.INACTIVE,
-    SUSPENDED: dict.common.statuses.SUSPENDED,
-    PENDING_APPROVAL: dict.common.statuses.PENDING_APPROVAL,
   };
   const statusOptions = Object.keys(statusMap).map((key) => ({
     label: statusMap[key as keyof typeof statusMap],

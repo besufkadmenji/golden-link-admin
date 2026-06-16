@@ -32,7 +32,7 @@ export const ViewNotification = ({ id }: { id: string }) => {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormInput
-              label={dict.add_new_notification_form.labels.title}
+              label={dict.notification_detail_page.labels.title}
               placeholder={dict.add_new_notification_form.placeholders.title}
               value={notification.title}
               onChange={(value: string): void => {}}

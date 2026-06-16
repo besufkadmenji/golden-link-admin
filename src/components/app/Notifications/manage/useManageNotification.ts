@@ -5,6 +5,7 @@ import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toApiRecipientIds } from "./constants";
 import { useForm } from "./useForm";
 
 export const useManageNotification = () => {
@@ -18,9 +19,10 @@ export const useManageNotification = () => {
   const createNotification = async () => {
     setBusy(true);
     try {
-      const response = await NotificationService.createAdminNotification(
-        form
-      );
+      const response = await NotificationService.createAdminNotification({
+        ...form,
+        recipientIds: toApiRecipientIds(form.recipientIds),
+      });
       if (response) {
         resetForm();
         queryClient.invalidateQueries({

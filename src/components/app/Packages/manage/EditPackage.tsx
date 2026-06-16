@@ -22,8 +22,10 @@ import { AppLoading } from "@/components/app/shared/AppLoading";
 import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditPackage = ({ id }: { id: string }) => {
+  useRequirePermission("package", "update");
   const { pkg } = usePackageById(id);
   const { form, setForm, reset, ready, features, setFeatures } = useManageForm(
     id,

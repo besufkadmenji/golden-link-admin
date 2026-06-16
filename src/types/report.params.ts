@@ -1,4 +1,5 @@
 export type ReportPeriod =
+  | "ALL"
   | "CURRENT_WEEK"
   | "LAST_WEEK"
   | "CURRENT_MONTH"

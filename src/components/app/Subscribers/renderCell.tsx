@@ -1,4 +1,4 @@
-import { AppSwitch } from "@/components/app/shared/AppSwitch";
+import { StatusCell } from "@/components/app/shared/StatusCell";
 import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
@@ -23,7 +23,7 @@ export const renderCell = (
     onView: () => void;
     onEdit?: () => void;
     onDelete?: () => void;
-    onActivate: (value: boolean) => void;
+    onActivate?: (value: boolean) => void;
   },
 ) => {
   if (column === "action") {
@@ -75,11 +75,10 @@ export const renderCell = (
     );
   } else if (column === "status") {
     return (
-      <AppSwitch
-        isSelected={isActiveStatus(row.status)}
-        onValueChange={(checked) => {
-          action.onActivate(checked);
-        }}
+      <StatusCell
+        isActive={isActiveStatus(row.status)}
+        dict={dict}
+        onActivate={action.onActivate}
         isDisabled={isDeletedStatus(row.status)}
       />
     );

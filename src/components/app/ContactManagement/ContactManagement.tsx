@@ -7,6 +7,7 @@ import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { useState } from "react";
 import { PrimaryButton } from "../shared/button/PrimaryButton";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
@@ -29,11 +30,14 @@ export const ContactManagement = () => {
   const { updateSetting, busy } = useManageSetting();
   const { errors, clearError, validateForm, validateNewPhoneNumber } =
     useContactManagementValidation();
+  const { hasPermission } = usePermissions();
+  const canUpdate = hasPermission("message", "update");
 
   return (
     <PageWrapper>
       <PageBar title={dict.contact_settings.title}>
-        <SaveButton
+        {canUpdate && (
+          <SaveButton
           type={SaveButtonType.Settings}
           onPress={() => {
             const isValid = validateForm({
@@ -49,6 +53,7 @@ export const ContactManagement = () => {
           isDisabled={busy}
           isLoading={busy}
         />
+        )}
       </PageBar>
       <div className="grid grid-cols-1 gap-8 py-8">
         <FormSection title={dict.contact_settings.contact_info.title}>
@@ -82,7 +87,7 @@ export const ContactManagement = () => {
                   }}
                   className="self-start mt-7"
                   startContent={<AddIcon className="size-5" />}
-                  isDisabled={phoneNumber.trim() === ""}
+                  isDisabled={phoneNumber.trim() === "" || !canUpdate}
                 >
                   {dict.contact_settings.contact_info.add}
                 </PrimaryButton>
@@ -113,6 +118,7 @@ export const ContactManagement = () => {
                     }}
                     className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
+                    isDisabled={!canUpdate}
                   >
                     <DeleteIcon className="size-5.5" />
                   </PrimaryButton>
@@ -121,13 +127,16 @@ export const ContactManagement = () => {
             </div>
             <FormInput
               label={dict.contact_settings.contact_info.labels.whatsapp}
-              placeholder={dict.contact_settings.contact_info.placeholders.whatsapp}
+              placeholder={
+                dict.contact_settings.contact_info.placeholders.whatsapp
+              }
               value={whatsapp}
               onChange={(value: string): void => {
                 setWhatsapp(value);
                 clearError("whatsapp");
               }}
               errorMessage={errors.whatsapp}
+              readOnly={!canUpdate}
             />
             <FormInput
               label={dict.contact_settings.contact_info.labels.email}
@@ -138,6 +147,7 @@ export const ContactManagement = () => {
                 clearError("email");
               }}
               errorMessage={errors.email}
+              readOnly={!canUpdate}
             />
           </div>
         </FormSection>
@@ -209,6 +219,7 @@ export const ContactManagement = () => {
                     }}
                     className="h-12 w-14 self-start bg-[#FFDBDB] p-0 text-[#FF0000]"
                     isIconOnly
+                    isDisabled={!canUpdate}
                   >
                     <DeleteIcon className="size-5.5" />
                   </PrimaryButton>
@@ -224,6 +235,7 @@ export const ContactManagement = () => {
                 { key: "", value: "" },
               ]);
             }}
+            isDisabled={!canUpdate}
           >
             {dict.contact_settings.social_media.buttons.add}
           </PrimaryButton>

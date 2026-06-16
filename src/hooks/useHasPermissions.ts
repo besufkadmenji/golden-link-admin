@@ -4,6 +4,11 @@ export type PermissionAction = "create" | "read" | "update" | "delete";
 
 const WRITE_ACTIONS: PermissionAction[] = ["create", "update", "delete"];
 
+const FULL_ACCESS_TYPES = new Set(["ADMINISTRATOR"]);
+
+export const hasFullAccess = (permissionType?: string | null): boolean =>
+  !!permissionType && FULL_ACCESS_TYPES.has(permissionType);
+
 export const usePermissions = () => {
   const { me, userPermissions, isLoading } = useMe();
   const permissions =
@@ -19,7 +24,7 @@ export const usePermissions = () => {
     type: PermissionAction,
   ): boolean => {
     if (!me) return false;
-    if (me.permissionType !== "CUSTOM") return true;
+    if (hasFullAccess(me.permissionType)) return true;
 
     const modulePermissions = permissions.filter(
       (perm) => perm.module === module,

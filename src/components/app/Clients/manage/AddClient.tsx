@@ -14,8 +14,10 @@ import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useManageClient } from "./useManageClient";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddClient = () => {
+  useRequirePermission("client", "create");
   const { form, setForm, reset } = useForm();
   useFormResetOnLeave(reset);
   const dict = useDict();

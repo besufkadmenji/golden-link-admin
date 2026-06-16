@@ -17,8 +17,10 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageFeature } from "./useManageFeature";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { AppLoading } from "@/components/app/shared/AppLoading";
+import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditFeature = ({ id }: { id: string }) => {
+  useRequirePermission("feature", "update");
   const featureId = Number(id);
   const { feature, isLoading, isFetching } = useFeatureById(featureId);
   const { form, setForm, reset, ready } = useManageForm(featureId, feature);
@@ -60,7 +62,6 @@ export const EditFeature = ({ id }: { id: string }) => {
                 clearError("nameAr");
               }}
               errorMessage={errors.nameAr}
-              dir="rtl"
             />
 
             <FormInput
@@ -72,7 +73,6 @@ export const EditFeature = ({ id }: { id: string }) => {
                 clearError("name");
               }}
               errorMessage={errors.name}
-              dir="ltr"
             />
 
             <FormSelect
@@ -108,7 +108,6 @@ export const EditFeature = ({ id }: { id: string }) => {
                 clearError("descriptionAr");
               }}
               errorMessage={errors.descriptionAr}
-              dir="rtl"
               className="md:col-span-2"
             />
             <FormAreaInput
@@ -122,7 +121,6 @@ export const EditFeature = ({ id }: { id: string }) => {
                 clearError("description");
               }}
               errorMessage={errors.description}
-              dir="ltr"
               className="md:col-span-2"
             />
           </div>

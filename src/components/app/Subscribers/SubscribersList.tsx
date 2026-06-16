@@ -117,13 +117,17 @@ export const SubscribersList = () => {
                   });
                 }
               : undefined,
-            onActivate: (value: boolean) => {
-              if (value) {
-                setActivateSubscriber(row.key as string, { history: "push" });
-              } else {
-                setDeactivateSubscriber(row.key as string, { history: "push" });
-              }
-            },
+            onActivate: hasPermission("subscriber", "update")
+              ? (value: boolean) => {
+                  if (value) {
+                    setActivateSubscriber(row.key as string, { history: "push" });
+                  } else {
+                    setDeactivateSubscriber(row.key as string, {
+                      history: "push",
+                    });
+                  }
+                }
+              : undefined,
           })
         }
         pagination={{

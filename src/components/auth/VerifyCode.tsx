@@ -56,6 +56,7 @@ export const VerifyCode = () => {
               className="text-app-primary dark:bg-dark-black h-5 min-h-0 bg-white py-0"
               isDisabled={resetSeconds !== 0}
               onPress={() => {
+                setCode("");
                 resendCode();
               }}
             >

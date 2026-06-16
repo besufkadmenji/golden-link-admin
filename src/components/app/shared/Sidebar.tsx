@@ -28,12 +28,14 @@ import { ReactNode, useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import LogoIcon from "@/assets/icons/logo.horizontal.svg";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
+import { useCanViewDashboardStats } from "@/hooks/useCanViewDashboardStats";
 import { usePermissions } from "../../../hooks/useHasPermissions";
 
 export const Sidebar = ({ className }: { className?: string }) => {
   const dict = useDict();
   const { requestLogout, LogoutConfirmationModal } = useLogoutConfirmation();
   const { hasPermission, hasAnyPermission } = usePermissions();
+  const { canView: canViewDashboard } = useCanViewDashboardStats();
 
   const subscriberOptions = useMemo(() => {
     const options: { href: string; label: string }[] = [];
@@ -60,10 +62,8 @@ export const Sidebar = ({ className }: { className?: string }) => {
 
   const cmsOptions = useMemo(
     () =>
-      CMS_SIDEBAR_ITEMS.filter(
-        (item) =>
-          item.modules.length === 0 ||
-          hasAnyPermission(item.modules, "read"),
+      CMS_SIDEBAR_ITEMS.filter((item) =>
+        hasAnyPermission(item.modules, "read"),
       ).map((item) => ({
         href: item.href,
         label: dict.navigation[item.labelKey],
@@ -85,11 +85,13 @@ export const Sidebar = ({ className }: { className?: string }) => {
         <LogoIcon className="h-full w-full" />
       </AppLink>
       <div className="grid grid-cols-1 gap-2 px-4 py-6">
-        <OptionLink
-          href="/dashboard"
-          icon={<HomeIcon className="size-5" />}
-          label={dict.navigation.home}
-        />
+        {canViewDashboard && (
+          <OptionLink
+            href="/dashboard"
+            icon={<HomeIcon className="size-5" />}
+            label={dict.navigation.home}
+          />
+        )}
 
         {hasPermission("user", "read") && (
           <OptionLink

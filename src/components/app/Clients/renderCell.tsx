@@ -2,7 +2,7 @@ import { ActionsCell } from "@/components/app/shared/tables/ActionsCell";
 import { RowType } from "@/components/app/shared/tables/AppTable";
 import Dictionary from "@/config/i18n/types";
 import { Key } from "react";
-import { AppSwitch } from "../shared/AppSwitch";
+import { StatusCell } from "../shared/StatusCell";
 
 export const renderCell = (
   row: RowType,
@@ -10,9 +10,9 @@ export const renderCell = (
   dict: Dictionary,
   action: {
     onView: () => void;
-    onEdit: () => void;
-    onDelete: () => void;
-    onActivate: (value: boolean) => void;
+    onEdit?: () => void;
+    onDelete?: () => void;
+    onActivate?: (value: boolean) => void;
   },
 ) => {
   if (column === "id") {
@@ -30,13 +30,11 @@ export const renderCell = (
       />
     );
   } else if (column === "status") {
-    console.log("row status:", row.status);
     return (
-      <AppSwitch
-        isSelected={row.status === "true"}
-        onValueChange={(checked) => {
-          action.onActivate(checked);
-        }}
+      <StatusCell
+        isActive={row.status === "true"}
+        dict={dict}
+        onActivate={action.onActivate}
       />
     );
   }

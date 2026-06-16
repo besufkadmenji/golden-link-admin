@@ -84,7 +84,7 @@ export const Permissions = ({
     !isLoading && (
       <div className="border-dashboard-border dark:border-dark-border dark:bg-dark-black overflow-hidden rounded-lg border bg-white">
         <div className="border-b-dashboard-border dark:border-b-dark-border dark:bg-dark-app-background flex h-11 items-center justify-between border-b bg-[#F9F9FC] px-3">
-          <p className="text-sm leading-7 font-medium tracking-tight text-[#1A1C21] md:text-lg">
+          <p className="text-sm leading-7 font-medium tracking-tight text-[#1A1C21] dark:text-white md:text-lg">
             {dict.add_new_admin_form.sections.permissions}
           </p>
           <div className="flex gap-2 md:gap-8">

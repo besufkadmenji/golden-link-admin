@@ -100,13 +100,15 @@ export const PackagesList = () => {
             onDelete: hasPermission("package", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             } : undefined,
-            onActivate: (value: boolean) => {
-              if (value) {
-                togglePackageStatus(row.key, "ACTIVE");
-              } else {
-                togglePackageStatus(row.key, "INACTIVE");
-              }
-            },
+            onActivate: hasPermission("package", "update")
+              ? (value: boolean) => {
+                  if (value) {
+                    togglePackageStatus(row.key, "ACTIVE");
+                  } else {
+                    togglePackageStatus(row.key, "INACTIVE");
+                  }
+                }
+              : undefined,
           })
         }
         pagination={{
