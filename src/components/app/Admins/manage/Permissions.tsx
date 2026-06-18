@@ -89,8 +89,14 @@ export const Permissions = ({
           </p>
           <div className="flex gap-2 md:gap-8">
             <AppCheckbox
-              isSelected={form.permissionType === "ADMINISTRATOR"}
-              onValueChange={() => setForm({ permissionType: "ADMINISTRATOR" })}
+              isSelected={
+                form.permissionType === "ADMINISTRATOR" ||
+                form.permissionType === "SUPER_ADMIN"
+              }
+              onValueChange={() => {
+                setForm({ permissionType: "ADMINISTRATOR" });
+                setPermissionIds([]);
+              }}
               isDisabled={readOnly}
             >
               {dict.add_new_admin_form.permissions.full_access}

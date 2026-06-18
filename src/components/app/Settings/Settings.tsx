@@ -4,6 +4,7 @@ import { ChangePassword } from "@/components/app/Settings/ChangePassword";
 import { useManageSettingsForm } from "@/components/app/Settings/useForm";
 import { useManageSetting } from "@/components/app/Settings/useManageSetting";
 import { FormSection } from "@/components/app/shared/forms/AppForm";
+import { CountryCodeSelect } from "@/components/app/shared/forms/CountryCodeSelect";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { PageBar } from "@/components/app/shared/PageBar";
 import { PageWrapper } from "@/components/app/shared/PageWrapper";
@@ -105,6 +106,15 @@ export const Settings = () => {
                   label={dict.settings_page.labels.phone_number}
                   placeholder={dict.settings_page.labels.phone_number}
                   value={updateProfile.phoneNumber ?? ""}
+                  startContent={
+                    <CountryCodeSelect
+                      value={updateProfile.countryCode ?? "+966"}
+                      isDisabled={!canUpdate}
+                      onChange={(countryCode) => {
+                        setUpdateProfile({ countryCode });
+                      }}
+                    />
+                  }
                   onChange={(value: string): void => {
                     setUpdateProfile({ phoneNumber: value });
                   }}

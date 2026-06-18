@@ -7,6 +7,7 @@ import {
   FormSection,
   FormType,
 } from "@/components/app/shared/forms/AppForm";
+import { CountryCodeSelect } from "@/components/app/shared/forms/CountryCodeSelect";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
@@ -69,11 +70,20 @@ export const EditAdmin = ({ id }: { id: string }) => {
               label={dict.edit_admin_form.labels.phone_number}
               placeholder={dict.edit_admin_form.placeholders.phone_number}
               value={form.phoneNumber}
+              startContent={
+                <CountryCodeSelect
+                  value={form.countryCode}
+                  onChange={(countryCode) => {
+                    setForm({ countryCode });
+                    clearError("countryCode");
+                  }}
+                />
+              }
               onChange={(value: string): void => {
                 setForm({ phoneNumber: value });
                 clearError("phoneNumber");
               }}
-              errorMessage={errors.phoneNumber}
+              errorMessage={errors.phoneNumber || errors.countryCode}
             />
             <FormSelect
               label={dict.add_new_admin_form.labels.status}

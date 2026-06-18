@@ -20,6 +20,7 @@ import { useFormValidation } from "./useFormValidation";
 import { SuccessMessage } from "@/components/app/Subscribers/manage/SuccessMessage";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
+import { CountryCodeSelect } from "./CountryCodeSelect";
 
 export const AddSubscriber = () => {
   useRequirePermission("subscriber", "create");
@@ -81,11 +82,20 @@ export const AddSubscriber = () => {
                   dict.add_new_subscriber_form.placeholders.phone_number
                 }
                 value={form.phoneNumber}
+                startContent={
+                  <CountryCodeSelect
+                    value={form.countryCode}
+                    onChange={(countryCode) => {
+                      setForm({ countryCode });
+                      clearError("countryCode");
+                    }}
+                  />
+                }
                 onChange={(value: string): void => {
                   setForm({ phoneNumber: value });
                   clearError("phoneNumber");
                 }}
-                errorMessage={errors.phoneNumber}
+                errorMessage={errors.phoneNumber || errors.countryCode}
               />
               <FormSelect
                 label={dict.add_new_subscriber_form.labels.type}

@@ -7,7 +7,6 @@ import { useForm } from "./useForm";
 import { useQueryState } from "nuqs";
 import { UserService } from "@/services/user.service";
 import { PermissionService } from "@/services/permission.service";
-import { useLang } from "@/hooks/useLang";
 import { DeactivateUserDto } from "@/types/user";
 
 export const useManageAdmin = () => {
@@ -15,10 +14,8 @@ export const useManageAdmin = () => {
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
   const permissionIds = useForm((state) => state.permissionIds);
-  const initialPermissionIds = useForm((state) => state.initialPermissionIds);
   const router = useRouter();
   const dict = useDict();
-  const lang = useLang();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -60,26 +57,43 @@ export const useManageAdmin = () => {
   const updateAdmin = async (id: string) => {
     setBusy(true);
     try {
-      const profileImageRemoved = useForm.getState().profileImageRemoved;
-      const initialProfileImagePath = useForm.getState().initialProfileImagePath;
+      const {
+        form: currentForm,
+        permissionIds: currentPermissionIds,
+        initialPermissionIds: currentInitialPermissionIds,
+        profileImageRemoved,
+        initialProfileImagePath,
+        setPermissionIds,
+        setInitialPermissionIds,
+      } = useForm.getState();
+
       const shouldRemoveProfileImage =
         profileImageRemoved &&
         !!initialProfileImagePath &&
-        !form.profileImage;
+        !currentForm.profileImage;
 
       if (shouldRemoveProfileImage) {
         await UserService.deleteProfileImage(id);
       }
 
-      const { password, confirmPassword, ...rest } = form;
-      const response = await UserService.updateUser(id, rest);
+      const { password, confirmPassword, ...rest } = currentForm;
+      const switchingToFullAccess =
+        currentForm.permissionType !== "CUSTOM" &&
+        currentInitialPermissionIds.length > 0;
+      const profileFields = { ...rest };
+      delete profileFields.permissionType;
+
+      const response = await UserService.updateUser(
+        id,
+        switchingToFullAccess ? profileFields : rest,
+      );
       if (response) {
-        if (form.permissionType === "CUSTOM") {
-          const revokedIds = initialPermissionIds.filter(
-            (pid) => !permissionIds.includes(pid),
+        if (currentForm.permissionType === "CUSTOM") {
+          const revokedIds = currentInitialPermissionIds.filter(
+            (pid) => !currentPermissionIds.includes(pid),
           );
-          const newlyAddedIds = permissionIds.filter(
-            (pid) => !initialPermissionIds.includes(pid),
+          const newlyAddedIds = currentPermissionIds.filter(
+            (pid) => !currentInitialPermissionIds.includes(pid),
           );
           await Promise.all([
             ...(newlyAddedIds.length > 0
@@ -99,6 +113,20 @@ export const useManageAdmin = () => {
               ),
             ),
           ]);
+          setInitialPermissionIds(currentPermissionIds);
+        } else if (switchingToFullAccess) {
+          await Promise.all(
+            currentInitialPermissionIds.map((pid) =>
+              PermissionService.revokePermission(pid, {
+                userId: response.id,
+              }),
+            ),
+          );
+          await UserService.updateUser(id, {
+            permissionType: currentForm.permissionType,
+          });
+          setPermissionIds([]);
+          setInitialPermissionIds([]);
         }
         queryClient.invalidateQueries({
           queryKey: ["user", id],

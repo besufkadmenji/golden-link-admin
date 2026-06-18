@@ -24,7 +24,12 @@ interface SettingsState {
 export const useSettings = create<SettingsState>((set) => ({
   trialPeriodDuration: "",
   vatRate: "",
-  updateProfile: { fullName: "", email: "", phoneNumber: "" },
+  updateProfile: {
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    countryCode: "+966",
+  },
   existingPicture: null,
   initialProfileImagePath: null,
   profileImageRemoved: false,
@@ -78,6 +83,7 @@ export const useManageSettingsForm = () => {
         fullName: me.fullName,
         email: me.email,
         phoneNumber: me.phoneNumber || "",
+        countryCode: me.countryCode || "+966",
       });
       const profileImagePath = me.profileImagePath || null;
       setExistingPicture(profileImagePath);

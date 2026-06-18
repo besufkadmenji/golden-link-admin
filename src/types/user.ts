@@ -64,6 +64,7 @@ export interface UpdateUserDto {
   email?: string;
   countryCode?: string;
   status?: string;
+  permissionType?: string;
 }
 
 export interface UpdateUserWithFileDto extends UpdateUserDto {

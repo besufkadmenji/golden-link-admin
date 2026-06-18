@@ -11,6 +11,7 @@ import {
   FormInput,
   PasswordInput,
 } from "@/components/app/shared/forms/FormInput";
+import { CountryCodeSelect } from "@/components/app/shared/forms/CountryCodeSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { FormSelect } from "../../shared/forms/FormSelect";
@@ -64,11 +65,20 @@ export const AddAdmin = () => {
                 label={dict.add_new_admin_form.labels.phone_number}
                 placeholder={dict.add_new_admin_form.placeholders.phone_number}
                 value={form.phoneNumber}
+                startContent={
+                  <CountryCodeSelect
+                    value={form.countryCode}
+                    onChange={(countryCode) => {
+                      setForm({ countryCode });
+                      clearError("countryCode");
+                    }}
+                  />
+                }
                 onChange={(value: string): void => {
                   setForm({ phoneNumber: value });
                   clearError("phoneNumber");
                 }}
-                errorMessage={errors.phoneNumber}
+                errorMessage={errors.phoneNumber || errors.countryCode}
               />
               <FormSelect
                 label={dict.add_new_admin_form.labels.status}

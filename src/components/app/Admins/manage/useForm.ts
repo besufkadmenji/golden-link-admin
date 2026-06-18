@@ -93,8 +93,12 @@ export const useForm = create<FormState>((set) => ({
 }));
 
 export const useManageForm = (id: string, admin?: User | null) => {
-  const { permissions, isLoading: isPermissionsLoading, isFetching } =
-    useUserPermission(id);
+  const {
+    permissions,
+    permissionType: assignedPermissionType,
+    isLoading: isPermissionsLoading,
+    isFetching,
+  } = useUserPermission(id);
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
@@ -117,51 +121,52 @@ export const useManageForm = (id: string, admin?: User | null) => {
   }, [id, reset]);
 
   useEffect(() => {
-    if (!admin || admin.id !== id) {
+    if (
+      ready ||
+      permissionsReady ||
+      isPermissionsLoading ||
+      isFetching ||
+      !admin ||
+      admin.id !== id
+    ) {
       return;
     }
+
+    const newPermissionIds = permissions.map((p) => p.id);
+    const permissionType = assignedPermissionType ?? admin.permissionType;
 
     setForm({
       fullName: admin.fullName,
       email: admin.email,
       phoneNumber: admin.phoneNumber,
+      countryCode: admin.countryCode || "+966",
       status: admin.status,
+      permissionType,
     });
+    setPermissionIds(newPermissionIds);
+    setInitialPermissionIds(newPermissionIds);
     setExistingPicture(admin.profileImagePath || null);
     setInitialProfileImagePath(admin.profileImagePath || null);
     setProfileImageRemoved(false);
     setReady(true);
-  }, [
-    id,
-    admin,
-    setExistingPicture,
-    setInitialProfileImagePath,
-    setProfileImageRemoved,
-    setForm,
-    setReady,
-  ]);
-
-  useEffect(() => {
-    // Initialize permissions only after the latest query response is settled.
-    // This avoids seeding form state from stale cached data.
-    if (permissionsReady || isPermissionsLoading || isFetching) return;
-
-    const newPermissionIds = permissions.map((p) => p.id);
-    setPermissionIds(newPermissionIds);
-    setInitialPermissionIds(newPermissionIds);
-    setForm({
-      permissionType: newPermissionIds.length > 0 ? "CUSTOM" : "ADMINISTRATOR",
-    });
     setPermissionsReady(true);
   }, [
+    admin,
+    assignedPermissionType,
+    id,
+    isFetching,
+    isPermissionsLoading,
     permissions,
     permissionsReady,
-    isPermissionsLoading,
-    isFetching,
-    setPermissionIds,
-    setInitialPermissionIds,
+    ready,
+    setExistingPicture,
     setForm,
+    setInitialPermissionIds,
+    setInitialProfileImagePath,
+    setPermissionIds,
     setPermissionsReady,
+    setProfileImageRemoved,
+    setReady,
   ]);
 
   return { form, setForm, reset, ready, permissionsReady };

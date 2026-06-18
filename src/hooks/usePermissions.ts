@@ -49,6 +49,7 @@ export const useUserPermission = (userId: string) => {
 
   return {
     permissions: permissionsData?.permissions || [],
+    permissionType: permissionsData?.permissionType,
     isLoading,
     isFetching,
     isError,

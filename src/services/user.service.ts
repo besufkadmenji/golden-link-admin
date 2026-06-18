@@ -139,6 +139,9 @@ export class UserService {
       if (data.status !== undefined) {
         formData.append("status", data.status);
       }
+      if (data.permissionType) {
+        formData.append("permissionType", data.permissionType);
+      }
 
       const response = await axiosClient.put(`/users/${id}`, formData, {
         headers: {
