@@ -13,6 +13,7 @@ export const renderCell = (
     onEdit?: () => void;
     onDelete?: () => void;
     onActivate?: (value: boolean) => void;
+    isStatusDisabled?: boolean;
   },
 ) => {
   if (column === "id") {
@@ -35,6 +36,7 @@ export const renderCell = (
         isActive={row.status === "true"}
         dict={dict}
         onActivate={action.onActivate}
+        isDisabled={action.isStatusDisabled}
       />
     );
   }

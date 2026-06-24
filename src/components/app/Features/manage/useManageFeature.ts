@@ -10,6 +10,7 @@ import { queryClient } from "@/utils/query.client";
 
 export const useManageFeature = () => {
   const [busy, setBusy] = useState(false);
+  const [updatingStatusId, setUpdatingStatusId] = useState<number | null>(null);
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
   const router = useRouter();
@@ -18,8 +19,6 @@ export const useManageFeature = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
-  const [, setActivateFeature] = useQueryState("activateFeature");
-  const [, setDeactivateFeature] = useQueryState("deactivateFeature");
 
   const createFeature = async () => {
     setBusy(true);
@@ -97,6 +96,7 @@ export const useManageFeature = () => {
 
   const activateFeature = async (id: number) => {
     setBusy(true);
+    setUpdatingStatusId(id);
     try {
       const success = await FeatureService.activateFeature(id);
       console.log("Activate feature success:", success);
@@ -108,7 +108,6 @@ export const useManageFeature = () => {
         queryClient.invalidateQueries({
           queryKey: ["feature", id],
         });
-        setActivateFeature(null);
       } else {
         showErrorMessage("Failed to activate feature.");
       }
@@ -119,11 +118,13 @@ export const useManageFeature = () => {
       );
     } finally {
       setBusy(false);
+      setUpdatingStatusId(null);
     }
   };
 
   const deactivateFeature = async (id: number, reason?: string) => {
     setBusy(true);
+    setUpdatingStatusId(id);
     try {
       const success = await FeatureService.deactivateFeature(
         id,
@@ -137,7 +138,6 @@ export const useManageFeature = () => {
         queryClient.invalidateQueries({
           queryKey: ["feature", id],
         });
-        setDeactivateFeature(null);
       } else {
         showErrorMessage("Failed to deactivate feature.");
       }
@@ -148,11 +148,13 @@ export const useManageFeature = () => {
       );
     } finally {
       setBusy(false);
+      setUpdatingStatusId(null);
     }
   };
 
   return {
     busy,
+    updatingStatusId,
     createFeature,
     updateFeature,
     deleteFeature,
