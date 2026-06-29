@@ -4,6 +4,7 @@ import { HeroUIProvider } from "@heroui/react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { queryClient } from "@/utils/query.client";
+import { TOAST_CLASS_NAMES } from "@/utils/toast.classNames";
 import { ToastProvider } from "@heroui/toast";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -45,7 +46,10 @@ export const AppHeroUIProvider = ({
         attribute="class"
       >
         <HeroUIProvider>
-          <ToastProvider placement="top-right" />
+          <ToastProvider
+            placement="top-right"
+            toastProps={{ classNames: TOAST_CLASS_NAMES }}
+          />
           <QueryClientProvider client={queryClient}>
             {children}
             <ReactQueryDevtools initialIsOpen={false} />
