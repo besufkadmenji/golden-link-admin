@@ -31,10 +31,11 @@ export const DeactivateModal = ({
   const dict = useDict();
 
   const handleConfirm = () => {
-    if (!reason) {
+    if (showReason && !reason.trim()) {
       showErrorMessage(dict.common.validation.deactivation_reason.required);
       return;
     }
+
     if (id) {
       onConfirm(id, showReason ? reason : undefined);
     }

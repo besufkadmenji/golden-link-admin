@@ -37,6 +37,7 @@ export const PackagesFilter = () => {
     <div className="grid grid-cols-3 items-center gap-4 lg:flex">
       <SearchInput className="w-full lg:w-max" />
       <FilterSelect
+        isSearchable
         options={durationOptions}
         placeholder={dict.packages.filters.duration}
         className="w-full lg:w-max"

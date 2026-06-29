@@ -9,17 +9,10 @@ export const DeactivateClient = () => {
   return (
     <DeactivateModal
       queryParamName="deactivateClient"
-      onConfirm={(value, reason) => deactivateClient(Number(value), reason)}
+      onConfirm={(value) => deactivateClient(Number(value))}
       busy={busy}
       title={dict.deactivate_client_reason_form.title}
       description={dict.deactivate_client_reason_form.description}
-      showReason={true}
-      reasonLabel={
-        dict.deactivate_client_reason_form.labels.deactivation_reason
-      }
-      reasonPlaceholder={
-        dict.deactivate_client_reason_form.placeholders.deactivation_reason
-      }
     />
   );
 };

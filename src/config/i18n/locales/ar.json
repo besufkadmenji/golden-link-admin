@@ -994,8 +994,8 @@
     }
   },
   "view_subscriber": {
-    "title": "بيانات طلب الانضمام ",
-    "section_title": "معلومات المورد"
+    "title": "بيانات المشترك",
+    "section_title": "معلومات المشترك"
   },
   "notifications_page": {
     "title": "إدارة الإشعارات",

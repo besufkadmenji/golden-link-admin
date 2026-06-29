@@ -1,3 +1,5 @@
+import { ActivateFeature } from "@/components/app/Features/manage/ActivateFeature";
+import { DeactivateFeature } from "@/components/app/Features/manage/DeactivateFeature";
 import { useFeatures } from "@/components/app/Features/useFeatures";
 import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useDict } from "@/hooks/useDict";
@@ -19,8 +21,6 @@ export const FeaturesList = () => {
   const { features, pagination, isLoading } = useFeatures();
   const {
     deleteFeature,
-    activateFeature,
-    deactivateFeature,
     busy,
     updatingStatusId,
   } = useManageFeature();
@@ -28,6 +28,8 @@ export const FeaturesList = () => {
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
+  const [, setActivateFeature] = useQueryState("activateFeature");
+  const [, setDeactivateFeature] = useQueryState("deactivateFeature");
 
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
@@ -86,9 +88,9 @@ export const FeaturesList = () => {
             onActivate: hasPermission("feature", "update")
               ? (value: boolean) => {
                   if (value) {
-                    activateFeature(Number(row.key));
+                    setActivateFeature(row.key as string, { history: "push" });
                   } else {
-                    deactivateFeature(Number(row.key));
+                    setDeactivateFeature(row.key as string, { history: "push" });
                   }
                 }
               : undefined,
@@ -114,6 +116,8 @@ export const FeaturesList = () => {
         busy={busy}
         type={DeleteWarningType.FEATURE}
       />
+      <ActivateFeature />
+      <DeactivateFeature />
     </>
   );
 };
