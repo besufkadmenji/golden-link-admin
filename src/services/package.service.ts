@@ -153,6 +153,9 @@ export class PackageService {
       if (data.icon) {
         formData.append("icon", data.icon);
       }
+      if (data.iconPath !== undefined) {
+        formData.append("iconPath", data.iconPath ?? "");
+      }
 
       const response = await axiosClient.put(`/packages/${id}`, formData, {
         headers: {

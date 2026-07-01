@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { SubscriberService } from "@/services/subscriber.service";
 import { queryClient } from "@/utils/query.client";
+import { resolveImageFile } from "@/utils/fetchUrlAsFile";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
@@ -9,7 +10,6 @@ import { useForm } from "./useForm";
 
 export const useManageSubscriber = () => {
   const [busy, setBusy] = useState(false);
-  const form = useForm((state) => state.form);
   const dict = useDict();
   const router = useRouter();
 
@@ -20,7 +20,8 @@ export const useManageSubscriber = () => {
   const createSubscriber = async () => {
     setBusy(true);
     try {
-      const response = await SubscriberService.createSubscriber(form);
+      const { form: currentForm } = useForm.getState();
+      const response = await SubscriberService.createSubscriber(currentForm);
       if (response) {
         resetForm();
         queryClient.invalidateQueries({
@@ -43,10 +44,30 @@ export const useManageSubscriber = () => {
   const updateSubscriber = async (id: string) => {
     setBusy(true);
     try {
-      const { password, confirmPassword, ...rest } = form;
+      const {
+        form: currentForm,
+        existingCommercialRegistrationImage,
+        existingTaxRegistrationImage,
+      } = useForm.getState();
+      const { password, confirmPassword, ...rest } = currentForm;
+
+      const [commercialRegistrationImagePath, taxRegistrationImagePath] =
+        await Promise.all([
+          resolveImageFile(
+            currentForm.commercialRegistrationImagePath,
+            existingCommercialRegistrationImage,
+          ),
+          resolveImageFile(
+            currentForm.taxRegistrationImagePath,
+            existingTaxRegistrationImage,
+          ),
+        ]);
+
       const response = await SubscriberService.updateSubscriber(id, {
         ...rest,
         ...(password ? { password, confirmPassword } : {}),
+        commercialRegistrationImagePath,
+        taxRegistrationImagePath,
       });
       if (response) {
         showSuccessMessage(dict.edit_subscriber_form.messages.updateSuccess);

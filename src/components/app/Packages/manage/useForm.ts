@@ -10,6 +10,8 @@ interface FormState {
   reset: () => void;
   existingIcon: string | null;
   setExistingIcon: (icon: string | null) => void;
+  initialIconPath: string | null;
+  setInitialIconPath: (icon: string | null) => void;
   features: PackageFeatures;
   setFeatures: (features: Partial<PackageFeatures>) => void;
 }
@@ -66,12 +68,18 @@ export const useForm = create<FormState>((set) => ({
         maxUsers: undefined,
       },
       existingIcon: null,
+      initialIconPath: null,
       features: defaultFeatures,
     })),
   existingIcon: null,
   setExistingIcon: (icon) =>
     set(() => ({
       existingIcon: icon,
+    })),
+  initialIconPath: null,
+  setInitialIconPath: (icon) =>
+    set(() => ({
+      initialIconPath: icon,
     })),
   features: defaultFeatures,
   setFeatures: (features) =>
@@ -87,6 +95,7 @@ export const useManageForm = (id: string, packageData?: Package | null) => {
   const form = useForm((state) => state.form);
   const setForm = useForm((state) => state.setForm);
   const setExistingIcon = useForm((state) => state.setExistingIcon);
+  const setInitialIconPath = useForm((state) => state.setInitialIconPath);
   const reset = useForm((state) => state.reset);
   const ready = useForm((state) => state.ready);
   const setReady = useForm((state) => state.setReady);
@@ -112,9 +121,11 @@ export const useManageForm = (id: string, packageData?: Package | null) => {
       maxUsers: packageData.maxUsers || undefined,
     });
     setFeatures(packageData.features);
-    setExistingIcon(packageData.iconPath || null);
+    const iconPath = packageData.iconPath || null;
+    setExistingIcon(iconPath);
+    setInitialIconPath(iconPath);
     setReady(true);
-  }, [id, packageData, setExistingIcon, setForm, setFeatures, setReady]);
+  }, [id, packageData, setExistingIcon, setInitialIconPath, setForm, setFeatures, setReady]);
 
   return { form, setForm, reset, ready, features, setFeatures };
 };

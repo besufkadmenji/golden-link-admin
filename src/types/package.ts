@@ -69,6 +69,7 @@ export interface UpdatePackageDto {
   maxWarehouses?: number;
   maxUsers?: number;
   icon?: File;
+  iconPath?: string | null;
   status?: "ACTIVE" | "INACTIVE";
 }
 

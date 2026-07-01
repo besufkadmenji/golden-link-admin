@@ -22,3 +22,6 @@ minimumReleaseAgeExclude:
   - next@16.2.7
   - react-dom@19.2.7
   - react@19.2.7
+  - framer-motion@12.42.2
+  - motion-dom@12.42.2
+  - nuqs@2.9.0

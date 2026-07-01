@@ -14,6 +14,12 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
   if (typeof window === "undefined") return config;
 
+  if (typeof FormData !== "undefined" && config.data instanceof FormData) {
+    if (config.headers) {
+      delete config.headers["Content-Type"];
+    }
+  }
+
   if (config.headers) {
     config.headers["Accept-Language"] = getClientLocale();
   }

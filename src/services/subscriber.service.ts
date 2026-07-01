@@ -84,14 +84,14 @@ export class SubscriberService {
       formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
       formData.append("type", dto.type);
 
-      if (dto.commercialRegistrationImagePath) {
+      if (dto.commercialRegistrationImagePath instanceof File) {
         formData.append(
           "commercialRegistrationImagePath",
           dto.commercialRegistrationImagePath,
         );
       }
 
-      if (dto.taxRegistrationImagePath) {
+      if (dto.taxRegistrationImagePath instanceof File) {
         formData.append(
           "taxRegistrationImagePath",
           dto.taxRegistrationImagePath,
@@ -101,11 +101,6 @@ export class SubscriberService {
       const response = await axiosClient.post<SubscriberDetailResponse>(
         "/admin/subscribers",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {
@@ -152,14 +147,14 @@ export class SubscriberService {
         formData.append("confirmPassword", dto.confirmPassword);
       }
 
-      if (dto.commercialRegistrationImagePath) {
+      if (dto.commercialRegistrationImagePath instanceof File) {
         formData.append(
           "commercialRegistrationImagePath",
           dto.commercialRegistrationImagePath,
         );
       }
 
-      if (dto.taxRegistrationImagePath) {
+      if (dto.taxRegistrationImagePath instanceof File) {
         formData.append(
           "taxRegistrationImagePath",
           dto.taxRegistrationImagePath,
@@ -169,11 +164,6 @@ export class SubscriberService {
       const response = await axiosClient.put<SubscriberDetailResponse>(
         `/admin/subscribers/${id}`,
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        },
       );
       return unwrapAxiosResponse(response.data);
     } catch (error) {

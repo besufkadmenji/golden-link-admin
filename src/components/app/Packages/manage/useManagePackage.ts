@@ -49,11 +49,22 @@ export const useManagePackage = () => {
   const updatePackage = async (id: string) => {
     setBusy(true);
     try {
+      const {
+        form: currentForm,
+        features: currentFeatures,
+        initialIconPath,
+        existingIcon,
+      } = useForm.getState();
+
+      const shouldClearIcon =
+        !!initialIconPath && !existingIcon && !currentForm.icon;
+
       const response = await PackageService.updatePackage(
         id,
         {
-          ...form,
-          features: features,
+          ...currentForm,
+          features: currentFeatures,
+          ...(shouldClearIcon ? { iconPath: "" } : {}),
         }
       );
       if (response) {
