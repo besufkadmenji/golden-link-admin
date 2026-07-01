@@ -14,7 +14,10 @@ import { useRouter } from "next/navigation";
 import { UploadInput } from "../../shared/UploadInput";
 import { usePackageById } from "../usePackages";
 import { useForm, useManageForm } from "./useForm";
-import { useFormValidation } from "./useFormValidation";
+import {
+  getPackageValidationToastMessage,
+  useFormValidation,
+} from "./useFormValidation";
 import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
 import { useManagePackage } from "./useManagePackage";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
@@ -23,6 +26,7 @@ import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
+import { showErrorMessage } from "@/utils/show.message";
 
 export const EditPackage = ({ id }: { id: string }) => {
   useRequirePermission("package", "update");
@@ -39,6 +43,7 @@ export const EditPackage = ({ id }: { id: string }) => {
   const { errors, validateForm, clearError } = useFormValidation(
     form,
     features,
+    { requireIcon: true, existingIcon },
   );
 
   useFormResetOnLeave(reset);
@@ -50,8 +55,15 @@ export const EditPackage = ({ id }: { id: string }) => {
       <AppForm
         type={FormType.Packages}
         onSubmit={() => {
-          if (validateForm()) {
+          const result = validateForm();
+          if (result.isValid) {
             updatePackage(id);
+            return;
+          }
+
+          const message = getPackageValidationToastMessage(result.errors);
+          if (message) {
+            showErrorMessage(message);
           }
         }}
         onCancel={() => {
@@ -178,9 +190,11 @@ export const EditPackage = ({ id }: { id: string }) => {
                 if (!file) {
                   setExistingIcon(null);
                 }
+                clearError("icon");
               }}
               accept={IMAGE_FILE_ACCEPT}
               initUrl={existingIcon || undefined}
+              errorMessage={errors.icon}
             />
           </div>
         </FormSection>

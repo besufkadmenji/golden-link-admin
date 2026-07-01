@@ -43,7 +43,8 @@ export const AddPackage = () => {
         <AppForm
           type={FormType.Packages}
           onSubmit={() => {
-            if (validateForm()) {
+            const result = validateForm();
+            if (result.isValid) {
               createPackage();
             }
           }}

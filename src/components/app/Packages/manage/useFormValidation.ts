@@ -9,10 +9,19 @@ const MIN_DURATION = 1;
 const MAX_DURATION = 365;
 const MIN_PRICE = 0;
 
+export type PackageFormValidationResult = {
+  isValid: boolean;
+  errors: { [key: string]: string };
+};
+
+export const getPackageValidationToastMessage = (
+  errors: { [key: string]: string },
+): string | undefined => errors.icon ?? Object.values(errors)[0];
+
 export const useFormValidation = (
   form: CreatePackageDto,
   features: PackageFeatures,
-  options?: { requireIcon?: boolean },
+  options?: { requireIcon?: boolean; existingIcon?: string | null },
 ) => {
   const dict = useDict();
   const validation = dict.add_new_package_form.validation;
@@ -125,8 +134,8 @@ export const useFormValidation = (
   );
 
   const validateIcon = useCallback(
-    (icon?: File): string | null => {
-      if (options?.requireIcon && !icon) {
+    (icon?: File, existingUrl?: string | null): string | null => {
+      if (options?.requireIcon && !icon && !existingUrl) {
         return validation.icon.required;
       }
       return null;
@@ -164,11 +173,14 @@ export const useFormValidation = (
       if (maxUsersError) newErrors.maxUsers = maxUsersError;
     }
 
-    const iconError = validateIcon(form.icon);
+    const iconError = validateIcon(form.icon, options?.existingIcon);
     if (iconError) newErrors.icon = iconError;
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return {
+      isValid: Object.keys(newErrors).length === 0,
+      errors: newErrors,
+    };
   }, [
     form.packageName,
     form.packageDuration,
@@ -178,6 +190,7 @@ export const useFormValidation = (
     form.maxUsers,
     form.icon,
     features,
+    options?.existingIcon,
     validatePackageName,
     validatePackageDuration,
     validatePackagePrice,
@@ -202,7 +215,7 @@ export const useFormValidation = (
         : null;
     const maxUsersError =
       form.maxUsers !== undefined ? validateMaxUsers(form.maxUsers) : null;
-    const iconError = validateIcon(form.icon);
+    const iconError = validateIcon(form.icon, options?.existingIcon);
 
     return (
       !packageNameError &&
@@ -223,6 +236,7 @@ export const useFormValidation = (
     form.maxUsers,
     form.icon,
     features,
+    options?.existingIcon,
     validatePackageName,
     validatePackageDuration,
     validatePackagePrice,
@@ -263,7 +277,7 @@ export const useFormValidation = (
           error = validateMaxUsers(value as number) || "";
           break;
         case "icon":
-          error = validateIcon(value as File) || "";
+          error = validateIcon(value as File, options?.existingIcon) || "";
           break;
       }
 
@@ -286,6 +300,7 @@ export const useFormValidation = (
       validateMaxWarehouses,
       validateMaxUsers,
       validateIcon,
+      options?.existingIcon,
     ],
   );
 
