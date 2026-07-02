@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { FeatureService } from "@/services/feature.service";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
@@ -27,6 +28,7 @@ export const useManageFeature = () => {
     try {
       const response = await FeatureService.createFeature(form);
       if (response) {
+        await HomepageRevalidationService.trigger();
         resetForm();
         queryClient.invalidateQueries({
           queryKey: ["features"],
@@ -51,6 +53,7 @@ export const useManageFeature = () => {
     try {
       const response = await FeatureService.updateFeature(id, form);
       if (response) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["feature", id],
@@ -74,6 +77,7 @@ export const useManageFeature = () => {
     try {
       const success = await FeatureService.deleteFeature(id);
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.features_management.messages.deleteSuccess);
         queryClient.invalidateQueries({
           queryKey: ["features"],
@@ -103,6 +107,7 @@ export const useManageFeature = () => {
       const success = await FeatureService.activateFeature(id);
       console.log("Activate feature success:", success);
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.features_management.messages.activateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["features"],
@@ -134,6 +139,7 @@ export const useManageFeature = () => {
         reason ?? ""
       );
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.features_management.messages.deactivateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["features"],

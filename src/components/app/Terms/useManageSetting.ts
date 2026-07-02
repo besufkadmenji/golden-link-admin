@@ -1,5 +1,6 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useState } from "react";
@@ -19,6 +20,7 @@ export const useManageSetting = () => {
           value: JSON.stringify({ en: valueEn, ar: valueAr }),
         }
       );
+      await HomepageRevalidationService.trigger();
 
       showSuccessMessage(dict.terms_conditions.messages.updateSuccess);
     } catch (error) {

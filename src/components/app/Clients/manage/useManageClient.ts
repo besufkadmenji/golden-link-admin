@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { ClientService } from "@/services/client.service";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,7 @@ export const useManageClient = () => {
     try {
       const response = await ClientService.createClient(form);
       if (response) {
+        await HomepageRevalidationService.trigger();
         resetForm();
         queryClient.invalidateQueries({
           queryKey: ["clients"],
@@ -50,6 +52,7 @@ export const useManageClient = () => {
     try {
       const response = await ClientService.updateClient(id, form);
       if (response) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.system_managers_page.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["client", id],
@@ -73,6 +76,7 @@ export const useManageClient = () => {
     try {
       const success = await ClientService.deleteClient(id);
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.clients_management.messages.deleteSuccess);
         queryClient.invalidateQueries({
           queryKey: ["clients"],
@@ -101,6 +105,7 @@ export const useManageClient = () => {
       const success = await ClientService.activateClient(id);
       console.log("Activate client success:", success);
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.clients_management.messages.activateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["clients"],
@@ -130,6 +135,7 @@ export const useManageClient = () => {
         reason ?? ""
       );
       if (success) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.clients_management.messages.deactivateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["clients"],

@@ -1,6 +1,7 @@
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { SettingService } from "@/services/setting.service";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useState } from "react";
@@ -44,6 +45,7 @@ export const useManageSetting = () => {
           ),
         }
       );
+      await HomepageRevalidationService.trigger();
       showSuccessMessage(dict.contact_settings.messages.updateSuccess);
     } catch (error) {
       showErrorMessage(

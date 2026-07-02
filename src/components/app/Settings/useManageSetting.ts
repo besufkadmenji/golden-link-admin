@@ -3,6 +3,7 @@ import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
 import { useMe } from "@/hooks/useMe";
 import { AuthService } from "@/services/auth.service";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { SettingService } from "@/services/setting.service";
 import { ChangePasswordDto } from "@/types/admin.auth";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
@@ -54,6 +55,7 @@ export const useManageSetting = () => {
       }
 
       await UserService.updateUser(userId, updateProfile);
+      await HomepageRevalidationService.trigger();
       queryClient.invalidateQueries({
         queryKey: ["me"],
       });

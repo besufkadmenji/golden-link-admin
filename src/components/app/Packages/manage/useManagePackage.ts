@@ -1,4 +1,5 @@
 import { useDict } from "@/hooks/useDict";
+import { HomepageRevalidationService } from "@/services/homepage-revalidation.service";
 import { queryClient } from "@/utils/query.client";
 import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useRouter } from "next/navigation";
@@ -31,6 +32,7 @@ export const useManagePackage = () => {
         }
       );
       if (response) {
+        await HomepageRevalidationService.trigger();
         queryClient.invalidateQueries({
           queryKey: ["packages"],
         });
@@ -68,6 +70,7 @@ export const useManagePackage = () => {
         }
       );
       if (response) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(dict.packages.messages.updateSuccess);
         queryClient.invalidateQueries({
           queryKey: ["package", id],
@@ -90,6 +93,7 @@ export const useManagePackage = () => {
     setBusy(true);
     try {
       await PackageService.deletePackage(id);
+      await HomepageRevalidationService.trigger();
       showSuccessMessage(dict.packages.messages.deleteSuccess);
       queryClient.invalidateQueries({
         queryKey: ["packages"],
@@ -120,6 +124,7 @@ export const useManagePackage = () => {
         status
       );
       if (response) {
+        await HomepageRevalidationService.trigger();
         showSuccessMessage(
           status === "ACTIVE"
             ? dict.packages.messages.activateSuccess
