@@ -9,6 +9,7 @@ import {
   normalizeSubscriberRole,
 } from "@/utils/subscriber.helpers";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
 import { AppLoading } from "../../shared/AppLoading";
@@ -21,6 +22,8 @@ import { DeactivateSubscriber } from "@/components/app/Subscribers/DeactivateSub
 
 export const SubscriberDetail = ({ id }: { id: string }) => {
   const dict = useDict();
+  const { hasPermission } = usePermissions();
+  const canUpdate = hasPermission("subscriber", "update");
   const router = useRouter();
   const { data: subscriber } = useSubscriber(id);
   const [activateSubscriber, setActivateSubscriber] =
@@ -38,19 +41,21 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
           type={FormType.SubscriberDetail}
           action="view"
           titleChildren={
-            <AppSwitch
-              isSelected={isActiveStatus(subscriber.status)}
-              onValueChange={(value) => {
-                if (value) {
-                  setActivateSubscriber(subscriber.id, { history: "push" });
-                } else {
-                  setDeactivateSubscriber(subscriber.id, {
-                    history: "push",
-                  });
-                }
-              }}
-              isDisabled={isDeletedStatus(subscriber.status)}
-            />
+            canUpdate ? (
+              <AppSwitch
+                isSelected={isActiveStatus(subscriber.status)}
+                onValueChange={(value) => {
+                  if (value) {
+                    setActivateSubscriber(subscriber.id, { history: "push" });
+                  } else {
+                    setDeactivateSubscriber(subscriber.id, {
+                      history: "push",
+                    });
+                  }
+                }}
+                isDisabled={isDeletedStatus(subscriber.status)}
+              />
+            ) : undefined
           }
         >
           <FormSection title={dict.view_subscriber.section_title}>

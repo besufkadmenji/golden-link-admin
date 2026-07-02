@@ -12,6 +12,7 @@ import { FormAreaInput } from "@/components/app/shared/forms/FormAreaInput";
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import moment from "moment";
 import { useQueryState } from "nuqs";
 import { AppLoading } from "../../shared/AppLoading";
@@ -20,6 +21,8 @@ import { useFeatureById } from "../useFeatures";
 
 export const ViewFeature = ({ id }: { id: string }) => {
   const { feature } = useFeatureById(Number(id));
+  const { hasPermission } = usePermissions();
+  const canUpdate = hasPermission("feature", "update");
   const [activateFeature, setActivateFeature] =
     useQueryState("activateFeature");
   const [deactivateFeature, setDeactivateFeature] =
@@ -36,16 +39,18 @@ export const ViewFeature = ({ id }: { id: string }) => {
           titleChildren={
             <div className="flex items-center gap-4">
               <p>{moment(feature.createdAt).format("DD/MM/YYYY")}</p>
-              <AppSwitch
-                isSelected={feature.isActive}
-                onValueChange={(value) => {
-                  if (value) {
-                    setActivateFeature(id);
-                  } else {
-                    setDeactivateFeature(id);
-                  }
-                }}
-              />
+              {canUpdate && (
+                <AppSwitch
+                  isSelected={feature.isActive}
+                  onValueChange={(value) => {
+                    if (value) {
+                      setActivateFeature(id);
+                    } else {
+                      setDeactivateFeature(id);
+                    }
+                  }}
+                />
+              )}
             </div>
           }
         >

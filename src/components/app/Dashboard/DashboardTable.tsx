@@ -12,9 +12,11 @@ import { NoData, NoDataType } from "@/components/app/shared/NoData";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { RejectReasonModal } from "../SubscribersRequests/Detail/RejectReasonModal";
 import { normalizeSubscriberRole } from "@/utils/subscriber.helpers";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const DashboardTable = () => {
   const dict = useDict();
+  const { hasPermission } = usePermissions();
   const router = useRouter();
   const { joinRequests, isLoading } = useLatestJoinRequests();
   const { approveRequest } = useManageRequest();
@@ -92,17 +94,23 @@ export const DashboardTable = () => {
                 onView: () => {
                   router.push(`/subscribers/requests/${row.key}`);
                 },
-                onApprove: () => {
-                  approveRequest(row.key);
-                },
-                onReject: () => {
-                  setShowRejectModal(row.key, { history: "push" });
-                },
+                onApprove: hasPermission("subscriptionRequest", "update")
+                  ? () => {
+                      approveRequest(row.key);
+                    }
+                  : undefined,
+                onReject: hasPermission("subscriptionRequest", "delete")
+                  ? () => {
+                      setShowRejectModal(row.key, { history: "push" });
+                    }
+                  : undefined,
               })
             }
           />
         )}
-        {request && <RejectReasonModal id={request.id} />}
+        {request && hasPermission("subscriptionRequest", "delete") && (
+          <RejectReasonModal id={request.id} />
+        )}
       </div>
     </>
   );

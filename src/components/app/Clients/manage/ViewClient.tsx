@@ -8,6 +8,7 @@ import {
 import { FormInput } from "@/components/app/shared/forms/FormInput";
 import { FormSelect } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
+import { usePermissions } from "@/hooks/useHasPermissions";
 import { AppLoading } from "../../shared/AppLoading";
 import { useClientById } from "../useClients";
 import { SelectedFile } from "../../shared/SelectedFile";
@@ -20,6 +21,8 @@ import moment from "moment";
 
 export const ViewClient = ({ id }: { id: string }) => {
   const { client } = useClientById(Number(id));
+  const { hasPermission } = usePermissions();
+  const canUpdate = hasPermission("client", "update");
   const [activateClient, setActivateClient] = useQueryState("activateClient");
   const [deactivateClient, setDeactivateClient] =
     useQueryState("deactivateClient");
@@ -35,16 +38,18 @@ export const ViewClient = ({ id }: { id: string }) => {
           titleChildren={
             <div className="flex items-center gap-4">
               <p>{moment(client.createdAt).format("DD/MM/YYYY")}</p>
-              <AppSwitch
-                isSelected={client.isActive}
-                onValueChange={(value) => {
-                  if (value) {
-                    setActivateClient(id);
-                  } else {
-                    setDeactivateClient(id);
-                  }
-                }}
-              />
+              {canUpdate && (
+                <AppSwitch
+                  isSelected={client.isActive}
+                  onValueChange={(value) => {
+                    if (value) {
+                      setActivateClient(id);
+                    } else {
+                      setDeactivateClient(id);
+                    }
+                  }}
+                />
+              )}
             </div>
           }
         >

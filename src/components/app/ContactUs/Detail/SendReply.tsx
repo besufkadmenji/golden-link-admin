@@ -10,10 +10,13 @@ import { showErrorMessage } from "@/utils/show.message";
 import { useManageMessage } from "./useManageMessage";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+import { usePermissions } from "@/hooks/useHasPermissions";
 
 export const SendReply = () => {
   const [sendReply, setSendReply] = useQueryState("sendReply");
   const dict = useDict();
+  const { hasPermission } = usePermissions();
+  const canReply = hasPermission("contact_us", "update");
   const [reply, setReply] = useState("");
   const params = useParams();
   const id = params.id as string;
@@ -28,7 +31,10 @@ export const SendReply = () => {
     }
   }, [sendReply, isReplied, setSendReply, dict.reply_message_form.messages.alreadyReplied]);
   return (
-    <Modal isOpen={!!sendReply && !isReplied} onClose={() => setSendReply(null)}>
+    <Modal
+      isOpen={!!sendReply && !isReplied && canReply}
+      onClose={() => setSendReply(null)}
+    >
       <ModalContent>
         <div className="grid grid-cols-1 gap-6 px-10 py-8">
           <div className="grid grid-cols-1 justify-items-center gap-4">
@@ -57,7 +63,7 @@ export const SendReply = () => {
             <PrimaryButton
               onPress={() => sendReplyHandle(id, reply)}
               isLoading={busy}
-              isDisabled={busy}
+              isDisabled={busy || !canReply}
             >
               {dict.reply_message_form.buttons.send}
             </PrimaryButton>

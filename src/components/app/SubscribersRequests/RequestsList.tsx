@@ -109,7 +109,9 @@ export const RequestsList = () => {
         }}
       />
       <SuccessModal />
-      {request && <RejectReasonModal id={request.id} />}
+      {request && hasPermission("subscriptionRequest", "delete") && (
+        <RejectReasonModal id={request.id} />
+      )}
     </>
   );
 };

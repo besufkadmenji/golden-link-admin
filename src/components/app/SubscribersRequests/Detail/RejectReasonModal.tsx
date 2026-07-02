@@ -5,16 +5,20 @@ import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { FormAreaInput } from "../../shared/forms/FormAreaInput";
+import { usePermissions } from "@/hooks/useHasPermissions";
+
 export const RejectReasonModal = ({ id }: { id: string }) => {
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
   const dict = useDict();
+  const { hasPermission } = usePermissions();
+  const canReject = hasPermission("subscriptionRequest", "delete");
   const [reason, setReason] = useState("");
   const { rejectRequest, busy } = useManageRequest();
 
   return (
     <Modal
-      isOpen={!!showRejectModal}
+      isOpen={!!showRejectModal && canReject}
       onClose={() => {
         setShowRejectModal(null);
       }}
@@ -38,7 +42,7 @@ export const RejectReasonModal = ({ id }: { id: string }) => {
           />
           <PrimaryButton
             className="w-full"
-            isDisabled={!reason.trim() || busy}
+            isDisabled={!reason.trim() || busy || !canReject}
             isLoading={busy}
             onPress={() => {
               rejectRequest(id, reason);

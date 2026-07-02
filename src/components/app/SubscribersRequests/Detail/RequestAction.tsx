@@ -6,12 +6,17 @@ import { PrimaryButton } from "../../shared/button/PrimaryButton";
 import { useDict } from "@/hooks/useDict";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { useQueryState } from "nuqs";
+import { usePermissions } from "@/hooks/useHasPermissions";
+
 export const RequestAction = ({
   request,
 }: {
   request: SubscriptionRequestDetail;
 }) => {
   const dict = useDict();
+  const { hasPermission } = usePermissions();
+  const canApprove = hasPermission("subscriptionRequest", "update");
+  const canReject = hasPermission("subscriptionRequest", "delete");
   const { approveRequest, busy } = useManageRequest();
   const [showRejectModal, setShowRejectModal] =
     useQueryState("showRejectModal");
@@ -19,25 +24,29 @@ export const RequestAction = ({
     <div className="flex items-center gap-4">
       <p>{moment(request.createdAt).format("DD/MM/YYYY h:mm a")}</p>
       <div className="flex gap-4">
-        <PrimaryButton
-          startContent={<ApproveIcon className="size-5" />}
-          onPress={() => {
-            approveRequest(request.id);
-          }}
-          isLoading={busy}
-          isDisabled={busy}
-        >
-          {dict.subscription_request_detail_page.buttons.approve}
-        </PrimaryButton>
-        <PrimaryButton
-          startContent={<RejectIcon className="size-5" />}
-          className="bg-[#EA5455]"
-          onPress={() => {
-            setShowRejectModal("true");
-          }}
-        >
-          {dict.subscription_request_detail_page.buttons.reject}
-        </PrimaryButton>
+        {canApprove && (
+          <PrimaryButton
+            startContent={<ApproveIcon className="size-5" />}
+            onPress={() => {
+              approveRequest(request.id);
+            }}
+            isLoading={busy}
+            isDisabled={busy}
+          >
+            {dict.subscription_request_detail_page.buttons.approve}
+          </PrimaryButton>
+        )}
+        {canReject && (
+          <PrimaryButton
+            startContent={<RejectIcon className="size-5" />}
+            className="bg-[#EA5455]"
+            onPress={() => {
+              setShowRejectModal("true");
+            }}
+          >
+            {dict.subscription_request_detail_page.buttons.reject}
+          </PrimaryButton>
+        )}
       </div>
     </div>
   );
