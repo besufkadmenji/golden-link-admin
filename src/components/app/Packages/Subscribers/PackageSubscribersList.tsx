@@ -51,6 +51,10 @@ export const PackageSubscribersList = () => {
       label: dict.packages.subscribers.table_headers.phone_number,
     },
     {
+      key: "packageName",
+      label: dict.packages.table_headers.package_name,
+    },
+    {
       key: "price",
       label: dict.packages.subscribers.table_headers.package_price_at_purchase,
     },
@@ -96,6 +100,10 @@ export const PackageSubscribersList = () => {
           ),
           username: subscriber.fullName,
           phone: subscriber.phoneNumber,
+          packageName:
+            subscriber.subscription?.package?.packageName ??
+            subscriber.package?.packageName ??
+            "-",
           price: formatAmount(subscriber.subscription?.subscriptionPrice),
           vat: formatAmount(subscriber.subscription?.vatAmount),
           from: subscriber.subscription?.startDate

@@ -2,7 +2,7 @@ import CalendarIcon from "@/assets/icons/app/calendar.svg";
 import { cn, DatePicker } from "@heroui/react";
 import { getLocalTimeZone, parseDate } from "@internationalized/date";
 import moment from "moment";
-import { ComponentProps, ReactNode, useState } from "react";
+import { ComponentProps, ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 export const FormDatePicker = ({
   label,
@@ -14,11 +14,18 @@ export const FormDatePicker = ({
   selectorButtonPlacement,
   readOnly,
   errorMessage,
+  hideLabel,
 }: {
   label: string;
   className?: string;
   classNames?: {
     inputWrapper?: string;
+    input?: string;
+    innerWrapper?: string;
+    label?: string;
+    segment?: string;
+    selectorButton?: string;
+    selectorIcon?: string;
   };
   value: string | null;
   onChange: (date: string | null) => void;
@@ -26,6 +33,7 @@ export const FormDatePicker = ({
   selectorButtonPlacement?: "start" | "end";
   readOnly?: boolean;
   errorMessage?: string;
+  hideLabel?: boolean;
 }) => {
   type PickerValue = ComponentProps<typeof DatePicker>["value"];
 
@@ -33,10 +41,14 @@ export const FormDatePicker = ({
     initial ? (parseDate(initial) as unknown as PickerValue) : null,
   );
 
+  useEffect(() => {
+    setValue(initial ? (parseDate(initial) as unknown as PickerValue) : null);
+  }, [initial]);
+
   return (
     <DatePicker
       label={label}
-      labelPlacement="outside"
+      labelPlacement={hideLabel ? undefined : "outside"}
       variant="bordered"
       className={twMerge(className, readOnly && "opacity-100!")}
       selectorButtonPlacement={selectorButtonPlacement}
@@ -46,6 +58,8 @@ export const FormDatePicker = ({
       value={value}
       onChange={(date: any) => {
         if (!date) {
+          setValue(null);
+          onChange(null);
           return;
         }
         setValue(date);
@@ -53,17 +67,33 @@ export const FormDatePicker = ({
       }}
       isDisabled={readOnly}
       classNames={{
-        label:
+        label: cn(
           "text-[#4D5464]! dark:text-white! text-sm! font-semibold! leading-5 tracking-tight after:text-subTitle after:font-normal after:text-sm after:ms-1 dark:after:text-white/70",
-        selectorButton: "p-2",
-        selectorIcon: "text-[#53545C] dark:text-white",
+          hideLabel && value && "hidden",
+          classNames?.label,
+        ),
+        selectorButton: cn("p-2", classNames?.selectorButton),
+        selectorIcon: cn(
+          "text-[#53545C] dark:text-white",
+          classNames?.selectorIcon,
+        ),
         inputWrapper: cn(
           "h-10 rounded-lg bg-gray-border border dark:bg-dark-gray-2 dark:border-dark-gray-3 border-gray-border-alt hover:border-app-primary focus-within:border-app-primary focus-within:hover:border-app-primary ",
+          hideLabel && "flex-row items-center gap-1",
           classNames?.inputWrapper,
         ),
-        input:
+        innerWrapper: cn(
+          hideLabel && !value && "w-auto",
+          classNames?.innerWrapper,
+        ),
+        input: cn(
           "placeholder:[#4D5464] dark:placeholder:text-white/50 dark:text-white text-secondary text-sm font-semibold leading-5 tracking-tight",
+          hideLabel && !value && "hidden",
+          classNames?.input,
+        ),
+        segment: classNames?.segment,
       }}
+      placeholderValue={undefined}
       calendarProps={{
         classNames: {
           cellButton:

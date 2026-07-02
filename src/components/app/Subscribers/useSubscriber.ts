@@ -19,6 +19,8 @@ export const useSubscribers = (
   const [type] = useQueryState("type", parseAsString.withDefault(""));
   const [duration] = useQueryState("duration", parseAsString.withDefault(""));
   const [option] = useQueryState("option", { defaultValue: "ALL" });
+  const [startDate] = useQueryState("startDate", parseAsString.withDefault(""));
+  const [endDate] = useQueryState("endDate", parseAsString.withDefault(""));
 
   const lang = useLang();
 
@@ -38,6 +40,8 @@ export const useSubscribers = (
       type: type as "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER",
     }),
     ...(duration && { duration }),
+    ...(startDate && { startDate }),
+    ...(endDate && { endDate }),
     ...initialParams,
   };
 
@@ -52,6 +56,8 @@ export const useSubscribers = (
       type,
       duration,
       option,
+      startDate,
+      endDate,
     ],
     queryFn: () => SubscriberService.getSubscribers(params),
   });

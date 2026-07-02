@@ -72,6 +72,8 @@ export interface GetSubscribersParams {
   status?: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
   duration?: string;
   period?: "DAY" | "WEEK" | "MONTH" | "YEAR" | "ALL";
+  startDate?: string;
+  endDate?: string;
   page?: number;
   limit?: number;
 }
