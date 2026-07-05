@@ -1,5 +1,6 @@
 export type NotificationEntityType =
-  | "price_offer"
+  | "price_offer_sent"
+  | "price_offer_received"
   | "contact_message"
   | "withdrawal_order"
   | "subscription_request"
