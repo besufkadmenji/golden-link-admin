@@ -1,4 +1,8 @@
-import { COUNTRY_CODE_LIST } from "@/assets/misc/country_code_list";
+import {
+  COUNTRY_CODE_LIST,
+  DEFAULT_COUNTRY_CODE,
+  findCountryByCode,
+} from "@/assets/misc/country_code_list";
 import { useLang } from "@/hooks/useLang";
 import { Select, SelectItem } from "@heroui/react";
 
@@ -13,15 +17,15 @@ export const CountryCodeSelect = ({
 }) => {
   const lang = useLang();
   const selectedCountry =
-    COUNTRY_CODE_LIST.find((country) => country.value === value) ??
-    COUNTRY_CODE_LIST[0];
-  const selectedKey = `${selectedCountry.value}|${selectedCountry.labelEn}`;
+    findCountryByCode(value) ??
+    findCountryByCode(DEFAULT_COUNTRY_CODE)!;
+  const selectedKey = `${selectedCountry.code}|${selectedCountry.labelEn}`;
 
   return (
     <Select
       aria-label={lang === "ar" ? "رمز الدولة" : "Country code"}
       items={COUNTRY_CODE_LIST.map((country) => ({
-        key: `${country.value}|${country.labelEn}`,
+        key: `${country.code}|${country.labelEn}`,
         label: country.value,
         name: lang === "ar" ? country.labelAr : country.labelEn,
         Flag: country.Flag,

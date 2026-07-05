@@ -1,4 +1,5 @@
 "use client";
+import { DEFAULT_COUNTRY_CODE } from "@/assets/misc/country_code_list";
 import PasswordIcon from "@/assets/icons/app/password.key.svg";
 import { ChangePassword } from "@/components/app/Settings/ChangePassword";
 import { useManageSettingsForm } from "@/components/app/Settings/useForm";
@@ -108,7 +109,7 @@ export const Settings = () => {
                   value={updateProfile.phoneNumber ?? ""}
                   startContent={
                     <CountryCodeSelect
-                      value={updateProfile.countryCode ?? "+966"}
+                      value={updateProfile.countryCode ?? DEFAULT_COUNTRY_CODE}
                       isDisabled={!canUpdate}
                       onChange={(countryCode) => {
                         setUpdateProfile({ countryCode });
