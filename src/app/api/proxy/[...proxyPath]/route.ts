@@ -7,7 +7,7 @@ const ZSTD_MAGIC = Buffer.from([0x28, 0xb5, 0x2f, 0xfd]);
 function decompressZstdIfNeeded(
   bodyBuffer: ArrayBuffer,
   contentEncoding: string | null,
-): Buffer {
+): ArrayBuffer {
   const buffer = Buffer.from(bodyBuffer);
   const encoding = contentEncoding?.toLowerCase() ?? "";
   const isZstdEncoded =
@@ -16,10 +16,14 @@ function decompressZstdIfNeeded(
     (buffer.length >= 4 && buffer.subarray(0, 4).equals(ZSTD_MAGIC));
 
   if (!isZstdEncoded) {
-    return buffer;
+    return bodyBuffer;
   }
 
-  return zstdDecompressSync(buffer);
+  const decompressed = zstdDecompressSync(buffer);
+  const responseBody = new Uint8Array(decompressed.byteLength);
+  responseBody.set(decompressed);
+
+  return responseBody.buffer;
 }
 
 const API_BASE_URL =
