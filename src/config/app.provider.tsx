@@ -3,6 +3,7 @@
 import { HeroUIProvider } from "@heroui/react";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
+import { SocketProvider } from "@/realtime/SocketProvider";
 import { queryClient } from "@/utils/query.client";
 import { TOAST_CLASS_NAMES } from "@/utils/toast.classNames";
 import { ToastProvider } from "@heroui/toast";
@@ -51,7 +52,9 @@ export const AppHeroUIProvider = ({
             toastProps={{ classNames: TOAST_CLASS_NAMES }}
           />
           <QueryClientProvider client={queryClient}>
-            {children}
+            <SocketProvider mode="admin">
+              {children}
+            </SocketProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </HeroUIProvider>

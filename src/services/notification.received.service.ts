@@ -1,5 +1,8 @@
 import { MyNotificationsResponse } from "@/types/me.notification";
-import { ApiResponse } from "@/types/response";
+import {
+  UnreadCountData,
+  UnreadCountResponse,
+} from "@/types/notifications/unread-count";
 import axiosClient from "@/utils/axios.client";
 import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 
@@ -33,14 +36,28 @@ export class NotificationReceivedService {
    * Get unread notification count for the current user
    * @returns Promise with unread count
    */
-  static async getUnreadNotificationCount(): Promise<ApiResponse<{
-    unreadCount: number;
-  }> | null> {
+  static async getUnreadNotificationCount(): Promise<UnreadCountData> {
     try {
-      const response = await axiosClient.get<
-        ApiResponse<{ unreadCount: number }>
-      >("/notifications/me/unread-count");
-      return unwrapAxiosResponse(response);
+      const response = await axiosClient.get<UnreadCountResponse>(
+        "/notifications/me/unread-count",
+      );
+
+      return (
+        unwrapAxiosResponse<UnreadCountData>(response.data) ?? { unreadCount: 0 }
+      );
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  static async markNotificationAsRead(id: string): Promise<void> {
+    try {
+      await axiosClient.patch(`/notifications/me/read/${id}`);
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(

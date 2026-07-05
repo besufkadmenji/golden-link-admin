@@ -11,11 +11,16 @@ import { usePermissions } from "@/hooks/useHasPermissions";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useMe } from "@/hooks/useMe";
 import {
+  useMarkNotificationAsRead,
   usePopoverNotifications,
   useUnreadNotificationsCount,
 } from "@/hooks/useNotification";
 import { MyNotification } from "@/types/me.notification";
 import { queryClient } from "@/utils/query.client";
+import {
+  resolveNotificationRoute,
+  resolveUnreadCount,
+} from "@/utils/notifications";
 import {
   Badge,
   Button,
@@ -29,6 +34,8 @@ import {
 } from "@heroui/react";
 import moment from "moment";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AppLoading } from "./AppLoading";
 
@@ -93,12 +100,16 @@ const LoggedUser = () => {
 };
 
 const NotificationPopover = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { data: unreadCount } = useUnreadNotificationsCount();
+  const unreadNotificationCount = resolveUnreadCount(unreadCount);
   const dict = useDict();
   return (
     <Popover
       placement="bottom"
       showArrow={true}
+      isOpen={isOpen}
+      onOpenChange={setIsOpen}
       onClose={() => {
         queryClient.invalidateQueries({
           queryKey: ["unreadNotificationsCount"],
@@ -106,20 +117,24 @@ const NotificationPopover = () => {
       }}
     >
       <PopoverTrigger>
-        <Button
-          isIconOnly
-          className="overflow-visible rounded-full bg-white dark:bg-black"
+        <Badge
+          classNames={{
+            badge: "bg-[#EA5455] text-white",
+          }}
+          color="danger"
+          content={unreadNotificationCount}
+          isInvisible={unreadNotificationCount === 0}
+          placement="top-right"
+          shape="circle"
+          size="sm"
         >
-          <Badge
-            classNames={{
-              badge: "bg-[#EA5455] text-white",
-            }}
-            content={unreadCount?.data.unreadCount || 0}
-            isInvisible={(unreadCount?.data.unreadCount || 0) === 0}
+          <Button
+            isIconOnly
+            className="overflow-visible rounded-full bg-white dark:bg-black"
           >
             <NotificationIcon className="size-5" />
-          </Badge>
-        </Button>
+          </Button>
+        </Badge>
       </PopoverTrigger>
       <PopoverContent className="grid w-fit min-w-[80vw] auto-rows-max grid-cols-1 items-start gap-2 px-0 py-6 md:min-w-[50vw] lg:min-w-[32vw]">
         <div className="flex items-center gap-1 px-6">
@@ -130,13 +145,13 @@ const NotificationPopover = () => {
             {dict.common.notifications}
           </p>
         </div>
-        <NotificationsList />
+        <NotificationsList onNavigate={() => setIsOpen(false)} />
       </PopoverContent>
     </Popover>
   );
 };
 
-const NotificationsList = () => {
+const NotificationsList = ({ onNavigate }: { onNavigate: () => void }) => {
   const dict = useDict();
   const {
     data,
@@ -159,7 +174,11 @@ const NotificationsList = () => {
       ) : (
         <>
           {notificationList.map((notification) => (
-            <NotificationItem key={notification.id} notification={notification} />
+            <NotificationItem
+              key={notification.id}
+              notification={notification}
+              onNavigate={onNavigate}
+            />
           ))}
           {hasNextPage && (
             <Button
@@ -180,10 +199,14 @@ const NotificationsList = () => {
 
 const NotificationItem = ({
   notification,
+  onNavigate,
 }: {
   notification: MyNotification;
+  onNavigate: () => void;
 }) => {
   const lang = useLang();
+  const router = useRouter();
+  const { mutateAsync: markAsRead } = useMarkNotificationAsRead();
   const title =
     lang === "ar" && notification.titleAr
       ? notification.titleAr
@@ -192,12 +215,43 @@ const NotificationItem = ({
     lang === "ar" && notification.contentAr
       ? notification.contentAr
       : notification.content;
+  const route = resolveNotificationRoute(
+    notification.type,
+    notification.entityId,
+  );
+  const isInteractive = !!route || !notification.readAt;
+
+  const handleClick = async () => {
+    if (!notification.readAt) {
+      await markAsRead(notification.id);
+    }
+
+    if (route) {
+      router.push(route);
+      onNavigate();
+    }
+  };
 
   return (
     <div
+      role={isInteractive ? "button" : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
+      onClick={isInteractive ? handleClick : undefined}
+      onKeyDown={
+        isInteractive
+          ? (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                void handleClick();
+              }
+            }
+          : undefined
+      }
       className={twMerge(
         "dark:border-dark-border grid grid-cols-[1fr_auto] items-center gap-5 rounded-xl border border-[#F8F7FC] p-4",
         notification.readAt && "dark:bg-dark-black bg-[#F8F7FC]",
+        isInteractive &&
+          "cursor-pointer transition-colors hover:bg-[#F0EEF8] dark:hover:bg-white/5",
       )}
     >
       <div className="grid grid-cols-[auto_1fr] gap-2">

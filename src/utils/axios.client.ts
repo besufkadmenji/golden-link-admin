@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import Cookie from "js-cookie";
+import { getValidAccessToken } from "@/utils/auth.token";
 import { getClientLocale } from "@/utils/locale.client";
 
 const axiosClient = axios.create({
@@ -24,37 +24,11 @@ axiosClient.interceptors.request.use(async (config) => {
     config.headers["Accept-Language"] = getClientLocale();
   }
 
-  const accessToken = Cookie.get("accessToken");
-  const refreshToken = Cookie.get("refreshToken");
-  const accessTokenExpiry = Cookie.get("accessTokenExpiry");
+  const tokenToUse = await getValidAccessToken();
 
-  const bufferMs = 10_000;
-  const isExpired = accessTokenExpiry
-    ? new Date(accessTokenExpiry).getTime() - bufferMs <= Date.now()
-    : false;
-
-  try {
-    let tokenToUse = accessToken;
-
-    if (isExpired && refreshToken) {
-      const res = await axios.post(
-        "/api/proxy/auth/refresh-token",
-        { refreshToken },
-        {
-          headers: {
-            "Accept-Language": getClientLocale(),
-          },
-        },
-      );
-      Cookie.set("accessToken", res.data.accessToken);
-      Cookie.set("accessTokenExpiry", res.data.accessTokenExpiry);
-      tokenToUse = res.data.accessToken;
-    }
-
-    if (tokenToUse && config.headers) {
-      config.headers.Authorization = `Bearer ${tokenToUse}`;
-    }
-  } catch (error) {}
+  if (tokenToUse && config.headers) {
+    config.headers.Authorization = `Bearer ${tokenToUse}`;
+  }
 
   return config;
 });
