@@ -1,7 +1,9 @@
 export interface MyNotification {
   id: string;
   title: string;
+  titleAr: string | null;
   content: string;
+  contentAr: string | null;
   createdAt: string;
   sentAt: string;
   readAt: string | null;

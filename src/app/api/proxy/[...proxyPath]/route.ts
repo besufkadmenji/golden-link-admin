@@ -1,5 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
+import { zstdDecompressSync } from "node:zlib";
 export const dynamic = "force-dynamic";
+
+const ZSTD_MAGIC = Buffer.from([0x28, 0xb5, 0x2f, 0xfd]);
+
+function decompressZstdIfNeeded(
+  bodyBuffer: ArrayBuffer,
+  contentEncoding: string | null,
+): Buffer {
+  const buffer = Buffer.from(bodyBuffer);
+  const encoding = contentEncoding?.toLowerCase() ?? "";
+  const isZstdEncoded =
+    encoding.includes("zstd") ||
+    encoding.includes("zst") ||
+    (buffer.length >= 4 && buffer.subarray(0, 4).equals(ZSTD_MAGIC));
+
+  if (!isZstdEncoded) {
+    return buffer;
+  }
+
+  return zstdDecompressSync(buffer);
+}
 
 const API_BASE_URL =
   process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -55,6 +76,8 @@ async function proxy(
       headers.set(key, value);
     }
   });
+  // Node fetch auto-decompresses gzip/deflate/br but not zstd.
+  headers.set("accept-encoding", "gzip, deflate, br");
 
   const init: RequestInit = {
     method: request.method,
@@ -72,7 +95,9 @@ async function proxy(
   try {
     const upstream = await fetch(targetUrl, init);
 
+    const contentEncoding = upstream.headers.get("content-encoding");
     const bodyBuffer = await upstream.arrayBuffer();
+    const responseBody = decompressZstdIfNeeded(bodyBuffer, contentEncoding);
     const responseHeaders = new Headers();
     upstream.headers.forEach((value, key) => {
       const lower = key.toLowerCase();
@@ -81,7 +106,7 @@ async function proxy(
       responseHeaders.set(key, value);
     });
 
-    return new NextResponse(bodyBuffer, {
+    return new NextResponse(responseBody, {
       status: upstream.status,
       headers: responseHeaders,
     });

@@ -32,7 +32,8 @@
       "confirm": "Confirm",
       "action": "Action",
       "actions": "Actions",
-      "saveAndPrint": "Save and Print"
+      "saveAndPrint": "Save and Print",
+      "showMore": "Show More"
     },
 
     "timeFilters": {

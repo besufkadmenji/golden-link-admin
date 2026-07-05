@@ -5,8 +5,32 @@ import { NotificationReceivedService } from "@/services/notification.received.se
 import { MyNotificationsResponse } from "@/types/me.notification";
 import { GetNotificationsParams } from "@/types/notification";
 import { ApiResponse } from "@/types/response";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery, UseQueryResult } from "@tanstack/react-query";
 import { parseAsInteger, parseAsString, useQueryState } from "nuqs";
+
+const NOTIFICATION_POLL_INTERVAL_MS = 30_000;
+const POPOVER_NOTIFICATIONS_LIMIT = 10;
+
+export const usePopoverNotifications = () => {
+  const lang = useLang();
+
+  return useInfiniteQuery({
+    queryKey: ["popoverNotifications", lang],
+    queryFn: ({ pageParam }) =>
+      NotificationReceivedService.getMyNotifications(
+        pageParam,
+        POPOVER_NOTIFICATIONS_LIMIT,
+      ),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage?.pagination.hasNext
+        ? lastPage.pagination.currentPage + 1
+        : undefined,
+    refetchOnWindowFocus: false,
+    refetchInterval: NOTIFICATION_POLL_INTERVAL_MS,
+    refetchIntervalInBackground: false,
+  });
+};
 
 export const useNotifications = (
   initialParams?: GetNotificationsParams,
@@ -33,6 +57,8 @@ export const useNotifications = (
     queryKey: ["notifications", lang, page, limit, search],
     queryFn: () => NotificationReceivedService.getMyNotifications(page, limit),
     refetchOnWindowFocus: false,
+    refetchInterval: NOTIFICATION_POLL_INTERVAL_MS,
+    refetchIntervalInBackground: false,
   });
 };
 
@@ -47,5 +73,7 @@ export const useUnreadNotificationsCount = (): UseQueryResult<
   return useQuery({
     queryKey: ["unreadNotificationsCount", lang],
     queryFn: () => NotificationReceivedService.getUnreadNotificationCount(),
+    refetchInterval: NOTIFICATION_POLL_INTERVAL_MS,
+    refetchIntervalInBackground: false,
   });
 };

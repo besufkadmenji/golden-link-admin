@@ -32,7 +32,8 @@
       "confirm": "تأكيد",
       "action": "الاجراء",
       "actions": "الاجراء",
-      "saveAndPrint": "حفظ وطباعة"
+      "saveAndPrint": "حفظ وطباعة",
+      "showMore": "عرض المزيد"
     },
 
     "timeFilters": {

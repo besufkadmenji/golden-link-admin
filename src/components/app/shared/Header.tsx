@@ -6,11 +6,12 @@ import { AppLink } from "@/components/app/shared/NoPrefetchLink";
 import { SelectLanguage } from "@/components/app/shared/SelectLanguage";
 import { MobileSidebar } from "@/components/app/shared/Sidebar";
 import { useDict } from "@/hooks/useDict";
+import { useLang } from "@/hooks/useLang";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useMe } from "@/hooks/useMe";
 import {
-  useNotifications,
+  usePopoverNotifications,
   useUnreadNotificationsCount,
 } from "@/hooks/useNotification";
 import { MyNotification } from "@/types/me.notification";
@@ -137,20 +138,41 @@ const NotificationPopover = () => {
 
 const NotificationsList = () => {
   const dict = useDict();
-  const { data: notifications, isLoading } = useNotifications();
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = usePopoverNotifications();
+  const notificationList =
+    data?.pages.flatMap((page) => page?.notifications ?? []) ?? [];
 
   return (
     <div className="grid max-h-[70vh] w-full grid-cols-1 gap-2 overflow-y-auto px-6 pt-7 lg:max-w-[36vw]">
       {isLoading ? (
         <AppLoading className="h-[50vh]" />
-      ) : notifications?.pagination.totalItems === 0 ? (
+      ) : notificationList.length === 0 ? (
         <div className="p-6 font-semibold text-black">
           {dict.notifications_page.no_notifications_yet}
         </div>
       ) : (
-        notifications?.notifications.map((notification) => (
-          <NotificationItem key={notification.id} notification={notification} />
-        ))
+        <>
+          {notificationList.map((notification) => (
+            <NotificationItem key={notification.id} notification={notification} />
+          ))}
+          {hasNextPage && (
+            <Button
+              fullWidth
+              variant="light"
+              className="text-app-primary font-semibold"
+              isLoading={isFetchingNextPage}
+              onPress={() => fetchNextPage()}
+            >
+              {dict.common.actions.showMore}
+            </Button>
+          )}
+        </>
       )}
     </div>
   );
@@ -161,6 +183,16 @@ const NotificationItem = ({
 }: {
   notification: MyNotification;
 }) => {
+  const lang = useLang();
+  const title =
+    lang === "ar" && notification.titleAr
+      ? notification.titleAr
+      : notification.title;
+  const content =
+    lang === "ar" && notification.contentAr
+      ? notification.contentAr
+      : notification.content;
+
   return (
     <div
       className={twMerge(
@@ -177,11 +209,9 @@ const NotificationItem = ({
         />
         <div className="grid grid-cols-1 items-center">
           <p className="text-lg font-semibold text-black dark:text-white">
-            {notification.title}
+            {title}
           </p>
-          <p className="text-subTitle text-sm dark:text-white/70">
-            {notification.content}
-          </p>
+          <p className="text-subTitle text-sm dark:text-white/70">{content}</p>
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-end gap-6">
