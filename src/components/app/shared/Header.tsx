@@ -117,24 +117,24 @@ const NotificationPopover = () => {
       }}
     >
       <PopoverTrigger>
-        <Badge
-          classNames={{
-            badge: "bg-[#EA5455] text-white",
-          }}
-          color="danger"
-          content={unreadNotificationCount}
-          isInvisible={unreadNotificationCount === 0}
-          placement="top-right"
-          shape="circle"
-          size="sm"
+        <Button
+          isIconOnly
+          className="overflow-visible rounded-full bg-white dark:bg-black"
         >
-          <Button
-            isIconOnly
-            className="overflow-visible rounded-full bg-white dark:bg-black"
+          <Badge
+            classNames={{
+              badge: "bg-[#EA5455] text-white",
+            }}
+            color="danger"
+            content={unreadNotificationCount}
+            isInvisible={unreadNotificationCount === 0}
+            placement="top-right"
+            shape="circle"
+            size="sm"
           >
             <NotificationIcon className="size-5" />
-          </Button>
-        </Badge>
+          </Badge>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="grid w-fit min-w-[80vw] auto-rows-max grid-cols-1 items-start gap-2 px-0 py-6 md:min-w-[50vw] lg:min-w-[32vw]">
         <div className="flex items-center gap-1 px-6">
