@@ -62,12 +62,21 @@ async function proxy(
     );
   }
   const segments = params.proxyPath ?? [];
-  const upstreamPath = segments.join("/");
+  // Re-encode each segment so a decoded "/" or ":" (e.g. from
+  // "http%3A%2F%2Fevil.com") can't turn the joined path into an absolute
+  // or protocol-relative URL that escapes API_BASE_URL.
+  const upstreamPath = segments.map(encodeURIComponent).join("/");
 
-  const targetUrl = new URL(
-    upstreamPath,
+  const apiBase = new URL(
     API_BASE_URL.endsWith("/") ? API_BASE_URL : `${API_BASE_URL}/`,
   );
+  const targetUrl = new URL(upstreamPath, apiBase);
+
+  // Defense in depth: reject if the resolved URL ever leaves the
+  // configured upstream origin.
+  if (targetUrl.origin !== apiBase.origin) {
+    return Response.json({ message: "Invalid upstream path." }, { status: 400 });
+  }
 
   const search = request.nextUrl.search;
   if (search) {
@@ -115,6 +124,7 @@ async function proxy(
       headers: responseHeaders,
     });
   } catch (error) {
+    console.error("Proxy request to upstream failed:", error);
     return Response.json(
       { message: "Unable to reach upstream service." },
       { status: 502 },
