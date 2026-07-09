@@ -1,26 +1,24 @@
 import { SubscriptionService } from "@/services/subscription.service";
 import { queryClient } from "@/utils/query.client";
-import { showErrorMessage } from "@/utils/show.message";
-import { useRouter } from "next/navigation";
-import { useQueryState } from "nuqs";
+import { showErrorMessage, showSuccessMessage } from "@/utils/show.message";
 import { useState } from "react";
 
 export const useManageRequest = () => {
   const [busy, setBusy] = useState(false);
-  const router = useRouter();
-  const [showSuccessMessage, setShowSuccessMessage] =
-    useQueryState("showSuccessMessage");
   const approveRequest = async (id: string) => {
     setBusy(true);
     try {
       const response = await SubscriptionService.approveSubscriptionRequest(id);
       if (response) {
-        setShowSuccessMessage("true");
+        showSuccessMessage(response.message);
         queryClient.invalidateQueries({
           queryKey: ["requests"],
         });
         queryClient.invalidateQueries({
           queryKey: ["request", id],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["latestJoinRequests"],
         });
       }
     } catch (error) {
@@ -32,7 +30,7 @@ export const useManageRequest = () => {
     }
   };
 
-  const rejectRequest = async (id: string, reason: string) => {
+  const rejectRequest = async (id: string, reason: string): Promise<boolean> => {
     setBusy(true);
     try {
       const response = await SubscriptionService.rejectSubscriptionRequest(
@@ -40,18 +38,24 @@ export const useManageRequest = () => {
         reason,
       );
       if (response) {
+        showSuccessMessage(response.message);
         queryClient.invalidateQueries({
           queryKey: ["requests"],
         });
         queryClient.invalidateQueries({
           queryKey: ["request", id],
         });
-        router.push(`/subscribers/requests`);
+        queryClient.invalidateQueries({
+          queryKey: ["latestJoinRequests"],
+        });
+        return true;
       }
+      return false;
     } catch (error) {
       showErrorMessage(
         error instanceof Error ? error.message : "An error occurred.",
       );
+      return false;
     } finally {
       setBusy(false);
     }

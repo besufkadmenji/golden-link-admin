@@ -104,7 +104,7 @@ export class SubscriptionService {
    */
   static async approveSubscriptionRequest(
     id: string
-  ): Promise<ApprovedSubscriptionData | null> {
+  ): Promise<{ data: ApprovedSubscriptionData | null; message: string } | null> {
     try {
       const response = await axiosClient.post<SubscriptionApproveResponse>(
         `/admin/subscriptions/${id}/approve`,
@@ -116,7 +116,7 @@ export class SubscriptionService {
       }
 
       const result = unwrapAxiosResponse<SubscriptionApproveResponse>(response);
-      return result?.data || null;
+      return result ? { data: result.data ?? null, message: result.message } : null;
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(
@@ -137,7 +137,7 @@ export class SubscriptionService {
   static async rejectSubscriptionRequest(
     id: string,
     reason: string
-  ): Promise<boolean> {
+  ): Promise<{ message: string } | null> {
     try {
       const response = await axiosClient.post<SubscriptionRejectResponse>(
         `/admin/subscriptions/${id}/reject`,
@@ -145,11 +145,11 @@ export class SubscriptionService {
       );
 
       if (response.status === 204) {
-        return false;
+        return null;
       }
 
-      unwrapAxiosResponse<SubscriptionRejectResponse>(response);
-      return true;
+      const result = unwrapAxiosResponse<SubscriptionRejectResponse>(response);
+      return result ? { message: result.message } : null;
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(

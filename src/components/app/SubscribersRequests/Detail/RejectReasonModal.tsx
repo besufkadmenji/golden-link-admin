@@ -44,8 +44,11 @@ export const RejectReasonModal = ({ id }: { id: string }) => {
             className="w-full"
             isDisabled={!reason.trim() || busy || !canReject}
             isLoading={busy}
-            onPress={() => {
-              rejectRequest(id, reason);
+            onPress={async () => {
+              const success = await rejectRequest(id, reason);
+              if (success) {
+                setShowRejectModal(null);
+              }
             }}
           >
             {dict.reject_subscription_form.buttons.send}

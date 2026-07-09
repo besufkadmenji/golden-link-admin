@@ -10,7 +10,6 @@ import { renderCell } from "./renderCell";
 import { normalizeSubscriberRole } from "@/utils/subscriber.helpers";
 import { useRequests } from "./useRequest";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
-import { SuccessModal } from "@/components/app/SubscribersRequests/Detail/SuccessModal";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
 import { usePermissions } from "@/hooks/useHasPermissions";
 
@@ -108,7 +107,6 @@ export const RequestsList = () => {
           },
         }}
       />
-      <SuccessModal />
       {request && hasPermission("subscriptionRequest", "delete") && (
         <RejectReasonModal id={request.id} />
       )}
