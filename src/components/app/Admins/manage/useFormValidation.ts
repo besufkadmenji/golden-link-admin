@@ -113,7 +113,7 @@ export const useFormValidation = (
 
   const validatePermissions = useCallback(
     (
-      permissionType: string,
+      permissionType: string | undefined,
       selectedPermissionIds: number[],
       availablePermissions: Permission[],
     ): string | null => {
