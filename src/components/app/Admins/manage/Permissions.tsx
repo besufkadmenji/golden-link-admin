@@ -1,16 +1,22 @@
-import { useForm, useManageForm } from "@/components/app/Admins/manage/useForm";
+import { useForm } from "@/components/app/Admins/manage/useForm";
 import { AppSwitch } from "@/components/app/shared/AppSwitch";
 import { useDict } from "@/hooks/useDict";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Permission } from "@/types/permission";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { AppCheckbox } from "../../shared/AppCheckbox";
+
+const WRITE_ACTIONS = new Set(["create", "update", "delete"]);
 
 export const Permissions = ({
   readOnly,
+  errorMessage,
+  onPermissionChange,
 }: {
   readOnly?: boolean;
   ready?: boolean;
+  errorMessage?: string;
+  onPermissionChange?: () => void;
 }) => {
   const dict = useDict();
   const { form, setForm, permissionIds, setPermissionIds } = useForm();
@@ -28,12 +34,9 @@ export const Permissions = ({
     return groups;
   }, [permissions]);
 
-  const handlePermissionToggle = (permissionId: number) => {
-    setPermissionIds(
-      permissionIds.includes(permissionId)
-        ? permissionIds.filter((id) => id !== permissionId)
-        : [...permissionIds, permissionId],
-    );
+  const updatePermissionIds = (ids: number[]) => {
+    setPermissionIds(ids);
+    onPermissionChange?.();
   };
 
   const handleModuleToggle = (module: string) => {
@@ -44,11 +47,11 @@ export const Permissions = ({
     );
 
     if (allSelected) {
-      setPermissionIds(
+      updatePermissionIds(
         permissionIds.filter((id) => !modulePermissionIds.includes(id)),
       );
     } else {
-      setPermissionIds([
+      updatePermissionIds([
         ...permissionIds.filter(
           (id) => !modulePermissionIds.includes(Number(id)),
         ),
@@ -70,15 +73,39 @@ export const Permissions = ({
   };
 
   const handleActionToggle = (module: string, action: string) => {
-    const permission = groupedPermissions[module]?.find(
-      (p) => p.action === action,
-    );
-    if (permission) {
-      handlePermissionToggle(permission.id);
-    }
-  };
+    const modulePermissions = groupedPermissions[module] || [];
+    const permission = modulePermissions.find((p) => p.action === action);
+    if (!permission) return;
 
-  console.log("Selected Permission IDs:", groupedPermissions);
+    const isCurrentlySelected = permissionIds.includes(permission.id);
+
+    if (isCurrentlySelected) {
+      if (action === "read") {
+        // View is required for other actions — clear the whole module
+        const modulePermissionIds = new Set(modulePermissions.map((p) => p.id));
+        updatePermissionIds(
+          permissionIds.filter((id) => !modulePermissionIds.has(id)),
+        );
+        return;
+      }
+
+      updatePermissionIds(permissionIds.filter((id) => id !== permission.id));
+      return;
+    }
+
+    const nextIds = new Set(permissionIds);
+    nextIds.add(permission.id);
+
+    // Auto-check view when add/edit/delete is selected
+    if (WRITE_ACTIONS.has(action)) {
+      const readPermission = modulePermissions.find((p) => p.action === "read");
+      if (readPermission) {
+        nextIds.add(readPermission.id);
+      }
+    }
+
+    updatePermissionIds([...nextIds]);
+  };
 
   return (
     !isLoading && (
@@ -95,7 +122,7 @@ export const Permissions = ({
               }
               onValueChange={() => {
                 setForm({ permissionType: "ADMINISTRATOR" });
-                setPermissionIds([]);
+                updatePermissionIds([]);
               }}
               isDisabled={readOnly}
             >
@@ -103,7 +130,10 @@ export const Permissions = ({
             </AppCheckbox>
             <AppCheckbox
               isSelected={form.permissionType === "CUSTOM"}
-              onValueChange={() => setForm({ permissionType: "CUSTOM" })}
+              onValueChange={() => {
+                setForm({ permissionType: "CUSTOM" });
+                onPermissionChange?.();
+              }}
               isDisabled={readOnly}
             >
               {dict.add_new_admin_form.permissions.limited_access}
@@ -162,6 +192,10 @@ export const Permissions = ({
               </div>
             ))}
           </div>
+        )}
+
+        {errorMessage && (
+          <p className="px-4 pb-4 text-sm text-red-500 md:px-6">{errorMessage}</p>
         )}
       </div>
     )

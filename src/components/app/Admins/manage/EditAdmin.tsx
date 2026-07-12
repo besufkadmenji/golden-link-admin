@@ -21,19 +21,27 @@ import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { AppLoading } from "@/components/app/shared/AppLoading";
 import { SuccessMessage } from "./SuccessMessage";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
+import { usePermissions } from "@/hooks/usePermissions";
 
 export const EditAdmin = ({ id }: { id: string }) => {
   useRequirePermission("user", "update");
   const { user } = useUserById(id);
   console.log("Edit Admin User:", user);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
+  const permissionIds = useForm((state) => state.permissionIds);
+  const { permissions } = usePermissions();
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
   const setProfileImageRemoved = useForm((state) => state.setProfileImageRemoved);
   const dict = useDict();
   const router = useRouter();
   const { busy, updateAdmin } = useManageAdmin();
-  const { errors, validateForm, clearError } = useFormValidation(form, "edit");
+  const { errors, validateForm, clearError } = useFormValidation(
+    form,
+    "edit",
+    permissionIds,
+    permissions,
+  );
   console.log("existingPicture:", existingPicture, user?.profileImagePath);
   useFormResetOnLeave(reset);
   return !user || !permissionsReady ? (
@@ -141,7 +149,10 @@ export const EditAdmin = ({ id }: { id: string }) => {
             />
           </div>
         </FormSection>
-        <Permissions />
+        <Permissions
+          errorMessage={errors.permissions}
+          onPermissionChange={() => clearError("permissions")}
+        />
       </AppForm>
     </div>
     <SuccessMessage />

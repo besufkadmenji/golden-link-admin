@@ -22,14 +22,21 @@ import { useFormValidation } from "./useFormValidation";
 import { useManageAdmin } from "./useManageAdmin";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
+import { usePermissions } from "@/hooks/usePermissions";
 
 export const AddAdmin = () => {
   useRequirePermission("user", "create");
-  const { form, setForm, reset } = useForm();
+  const { form, setForm, reset, permissionIds } = useForm();
+  const { permissions } = usePermissions();
   const dict = useDict();
   const router = useRouter();
   const { busy, createAdmin } = useManageAdmin();
-  const { errors, validateForm, clearError } = useFormValidation(form);
+  const { errors, validateForm, clearError } = useFormValidation(
+    form,
+    "add",
+    permissionIds,
+    permissions,
+  );
   useFormResetOnLeave(reset);
   return (
     <>
@@ -152,7 +159,10 @@ export const AddAdmin = () => {
               />
             </div>
           </FormSection>
-          <Permissions />
+          <Permissions
+            errorMessage={errors.permissions}
+            onPermissionChange={() => clearError("permissions")}
+          />
         </AppForm>
       </div>
       <SuccessMessage />

@@ -1,6 +1,8 @@
 import { useState, useCallback, useMemo } from "react";
 import { CreateUserDto } from "@/types/user";
+import { Permission } from "@/types/permission";
 import { useDict } from "@/hooks/useDict";
+import { showErrorMessage } from "@/utils/show.message";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_REGEX = /^[0-9\-+\s()]+$/;
@@ -16,6 +18,8 @@ interface FormWithPassword extends CreateUserDto {
 export const useFormValidation = (
   form: FormWithPassword,
   mode: "add" | "edit" = "add",
+  permissionIds: number[] = [],
+  permissions: Permission[] = [],
 ) => {
   const dict = useDict();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -107,6 +111,34 @@ export const useFormValidation = (
     [dict],
   );
 
+  const validatePermissions = useCallback(
+    (
+      permissionType: string,
+      selectedPermissionIds: number[],
+      availablePermissions: Permission[],
+    ): string | null => {
+      if (permissionType !== "CUSTOM") {
+        return null;
+      }
+
+      const readPermissionIds = new Set(
+        availablePermissions
+          .filter((permission) => permission.action === "read")
+          .map((permission) => permission.id),
+      );
+      const hasViewPermission = selectedPermissionIds.some((id) =>
+        readPermissionIds.has(id),
+      );
+
+      if (!hasViewPermission) {
+        return dict.add_new_admin_form.validation.viewPermissionRequired;
+      }
+
+      return null;
+    },
+    [dict],
+  );
+
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -135,6 +167,16 @@ export const useFormValidation = (
         newErrors.confirmPassword = confirmPasswordError;
     }
 
+    const permissionsError = validatePermissions(
+      form.permissionType,
+      permissionIds,
+      permissions,
+    );
+    if (permissionsError) {
+      newErrors.permissions = permissionsError;
+      showErrorMessage(permissionsError);
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
@@ -144,6 +186,9 @@ export const useFormValidation = (
     form.countryCode,
     form.password,
     form.confirmPassword,
+    form.permissionType,
+    permissionIds,
+    permissions,
     mode,
     validateFullName,
     validateEmail,
@@ -151,6 +196,7 @@ export const useFormValidation = (
     validateCountryCode,
     validatePassword,
     validateConfirmPassword,
+    validatePermissions,
   ]);
 
   const isFormValid = useMemo(() => {
@@ -158,10 +204,21 @@ export const useFormValidation = (
     const emailError = validateEmail(form.email);
     const phoneError = validatePhoneNumber(form.phoneNumber);
     const countryCodeError = validateCountryCode(form.countryCode);
+    const permissionsError = validatePermissions(
+      form.permissionType,
+      permissionIds,
+      permissions,
+    );
 
     // Skip password validation in edit mode
     if (mode === "edit") {
-      return !fullNameError && !emailError && !phoneError && !countryCodeError;
+      return (
+        !fullNameError &&
+        !emailError &&
+        !phoneError &&
+        !countryCodeError &&
+        !permissionsError
+      );
     }
 
     const passwordError = validatePassword(form.password);
@@ -176,7 +233,8 @@ export const useFormValidation = (
       !phoneError &&
       !countryCodeError &&
       !passwordError &&
-      !confirmPasswordError
+      !confirmPasswordError &&
+      !permissionsError
     );
   }, [
     form.fullName,
@@ -185,6 +243,9 @@ export const useFormValidation = (
     form.countryCode,
     form.password,
     form.confirmPassword,
+    form.permissionType,
+    permissionIds,
+    permissions,
     mode,
     validateFullName,
     validateEmail,
@@ -192,6 +253,7 @@ export const useFormValidation = (
     validateCountryCode,
     validatePassword,
     validateConfirmPassword,
+    validatePermissions,
   ]);
 
   const validateField = useCallback(

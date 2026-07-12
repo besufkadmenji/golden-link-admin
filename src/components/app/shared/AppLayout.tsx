@@ -1,22 +1,18 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { Sidebar } from "@/components/app/shared/Sidebar";
 import { Header } from "./Header";
 import { cairo } from "@/assets/fonts/cairo";
 import { twMerge } from "tailwind-merge";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { usePermissions } from "@/hooks/useHasPermissions";
-import { useEffect, useMemo } from "react";
 import { AppLoading } from "./AppLoading";
-import {
-  getFirstAllowedRoute,
-  isRouteAllowed,
-} from "@/config/routePermissions";
+import { PermissionDenied } from "./PermissionDenied";
+import { isRouteAllowed } from "@/config/routePermissions";
 
 export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
-  const router = useRouter();
   const { hasAnyPermission, isPermissionLoading } = usePermissions();
 
   const isAllowed = useMemo(
@@ -24,27 +20,8 @@ export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
     [hasAnyPermission, pathname],
   );
 
-  const fallbackRoute = useMemo(
-    () => getFirstAllowedRoute(hasAnyPermission),
-    [hasAnyPermission],
-  );
-
-  useEffect(() => {
-    if (!isPermissionLoading && !isAllowed) {
-      if (fallbackRoute) {
-        router.replace(fallbackRoute);
-      } else {
-        router.replace("/404");
-      }
-    }
-  }, [fallbackRoute, isAllowed, isPermissionLoading, router]);
-
   if (isPermissionLoading) {
     return <AppLoading className="h-screen" />;
-  }
-
-  if (!isAllowed) {
-    return null;
   }
 
   return (
@@ -57,7 +34,7 @@ export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
       <div className="grid h-full w-full grid-cols-1 grid-rows-[auto_1fr] overflow-y-auto">
         <Header />
         <div className="grid h-full auto-rows-max grid-cols-1 items-start overflow-y-auto p-4 lg:p-8">
-          {children}
+          {isAllowed ? children : <PermissionDenied />}
         </div>
       </div>
     </div>

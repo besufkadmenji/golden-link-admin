@@ -33,7 +33,13 @@
       "action": "الاجراء",
       "actions": "الاجراء",
       "saveAndPrint": "حفظ وطباعة",
-      "showMore": "عرض المزيد"
+      "showMore": "عرض المزيد",
+      "refresh": "تحديث"
+    },
+
+    "permission_denied": {
+      "title": "تم رفض الصلاحية",
+      "description": "ليس لديك صلاحية للوصول إلى هذه الصفحة. إذا قام المسؤول بمنحك الصلاحية للتو، قم بالتحديث للمحاولة مرة أخرى."
     },
 
     "timeFilters": {
@@ -533,7 +539,8 @@
       "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
       "passwordWeak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة وأرقام",
       "confirmPasswordRequired": "يرجى تأكيد كلمة المرور",
-      "confirmPasswordMismatch": "كلمات المرور غير متطابقة"
+      "confirmPasswordMismatch": "كلمات المرور غير متطابقة",
+      "viewPermissionRequired": "يجب تحديد صلاحية عرض واحدة على الأقل"
     }
   },
   "admin_permissions_management": {

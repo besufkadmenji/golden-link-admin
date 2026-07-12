@@ -33,7 +33,13 @@
       "action": "Action",
       "actions": "Actions",
       "saveAndPrint": "Save and Print",
-      "showMore": "Show More"
+      "showMore": "Show More",
+      "refresh": "Refresh"
+    },
+
+    "permission_denied": {
+      "title": "Permission denied",
+      "description": "You do not have permission to access this page. If an administrator has just granted you access, refresh to try again."
     },
 
     "timeFilters": {
@@ -535,7 +541,8 @@
       "passwordMinLength": "Password must be at least 8 characters long",
       "passwordWeak": "Password must contain uppercase, lowercase, and numeric characters",
       "confirmPasswordRequired": "Please confirm your password",
-      "confirmPasswordMismatch": "Passwords do not match"
+      "confirmPasswordMismatch": "Passwords do not match",
+      "viewPermissionRequired": "At least one view permission must be selected"
     }
   },
   "admin_permissions_management": {
