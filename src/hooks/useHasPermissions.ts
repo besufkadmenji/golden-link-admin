@@ -10,14 +10,17 @@ export const hasFullAccess = (permissionType?: string | null): boolean =>
   !!permissionType && FULL_ACCESS_TYPES.has(permissionType);
 
 export const usePermissions = () => {
-  const { me, userPermissions, isLoading } = useMe();
+  const { me, userPermissions, userPermissionsLoading, isLoading } = useMe();
   const permissions =
     me?.permissionType === "CUSTOM"
       ? userPermissions?.permissions ?? me?.permissions ?? []
       : me?.permissions ?? [];
 
-  // Profile already includes permissions; don't block the shell on a secondary fetch.
-  const isPermissionLoading = isLoading;
+  const isPermissionLoading =
+    isLoading ||
+    !me ||
+    (me.permissionType === "CUSTOM" &&
+      (userPermissionsLoading || userPermissions === undefined));
 
   const hasPermission = (
     module: string,
@@ -49,5 +52,5 @@ export const usePermissions = () => {
     type: PermissionAction,
   ): boolean => modules.some((module) => hasPermission(module, type));
 
-  return { hasPermission, hasAnyPermission, isPermissionLoading };
+  return { hasPermission, hasAnyPermission, isPermissionLoading, me };
 };
