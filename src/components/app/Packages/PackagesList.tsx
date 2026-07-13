@@ -15,6 +15,7 @@ import { renderCell } from "./renderCell";
 import { usePackages } from "./usePackages";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { packagesList } from "./packages_list";
+import { formatAmount } from "@/utils/format.amount";
 
 export const PackagesList = () => {
   const dict = useDict();
@@ -84,7 +85,7 @@ export const PackagesList = () => {
           id: pkg.id.toString(),
           name: pkg.packageName,
           duration: pkg.packageDuration.toString(),
-          price: pkg.packagePrice,
+          price: formatAmount(pkg.packagePrice),
           // users: pkg.maxUsers?.toStrxing() ?? "-",
           status: pkg.status,
           date: DateTimeHelpers.formatDate(pkg.createdAt),

@@ -15,6 +15,7 @@ import { usePackageById } from "../usePackages";
 import { Checkbox } from "@heroui/react";
 import { twMerge } from "tailwind-merge";
 import { sar } from "@/assets/fonts/sar";
+import { formatAmount } from "@/utils/format.amount";
 
 export const ViewPackage = ({ id }: { id: string }) => {
   const { pkg } = usePackageById(id);
@@ -46,7 +47,7 @@ export const ViewPackage = ({ id }: { id: string }) => {
             <FormInput
               label={dict.package_detail_page.labels.package_price}
               placeholder={dict.package_detail_page.labels.package_price}
-              value={pkg.packagePrice.toString()}
+              value={formatAmount(pkg.packagePrice)}
               onChange={(value: string): void => {}}
               readOnly
               endContent={

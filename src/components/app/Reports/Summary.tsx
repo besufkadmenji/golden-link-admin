@@ -9,6 +9,7 @@ import { twMerge } from "tailwind-merge";
 import DeltaUpIcon from "@/assets/icons/delta.up.svg";
 import DeltaDownIcon from "@/assets/icons/delta.down.svg";
 import { AdminReportResponse } from "@/types/report";
+import { formatAmount } from "@/utils/format.amount";
 
 export const Summary = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
@@ -17,13 +18,13 @@ export const Summary = ({ report }: { report: AdminReportResponse }) => {
       <SummaryItem
         icon={<TotalRevenueIcon className="size-10" />}
         label={dict.reports.cards.total_revenue}
-        value={`${report.summary.totalRevenue}`}
+        value={formatAmount(report.summary.totalRevenue)}
         valueDesc={<span className={sar.className}>A</span>}
       />
       <SummaryItem
         icon={<GrowthRateIcon className="size-10" />}
         label={dict.reports.cards.growth_rate}
-        value={`${report.summary.growthRate ?? 0}%`}
+        value={`${formatAmount(report.summary.growthRate ?? 0)}%`}
         valueDesc={
           <p className="text-xs font-light text-[#9FA2B4]">
             {dict.reports.cards.compared_to_last_week}

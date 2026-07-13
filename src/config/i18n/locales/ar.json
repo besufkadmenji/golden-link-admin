@@ -34,7 +34,8 @@
       "actions": "الاجراء",
       "saveAndPrint": "حفظ وطباعة",
       "showMore": "عرض المزيد",
-      "refresh": "تحديث"
+      "refresh": "تحديث",
+      "clear": "مسح"
     },
 
     "permission_denied": {

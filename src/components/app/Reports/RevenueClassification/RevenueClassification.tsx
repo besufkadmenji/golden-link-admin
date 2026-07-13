@@ -8,6 +8,7 @@ import { Doughnut } from "react-chartjs-2";
 import { twMerge } from "tailwind-merge";
 import { createChartData } from "./chartConfig";
 import { chartOptions } from "./chartOptions";
+import { formatAmount } from "@/utils/format.amount";
 
 export const RevenueClassification = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
@@ -33,7 +34,8 @@ export const RevenueClassification = ({ report }: { report: AdminReportResponse 
             {dict.reports.chart.total}
           </p>
           <p className="text-2xl leading-8 font-bold text-[#1C2A53] dark:text-dark-title">
-            {report.summary.totalRevenue} <span className={sar.className}>A</span>
+            {formatAmount(report.summary.totalRevenue)}{" "}
+            <span className={sar.className}>A</span>
           </p>
         </div>
       </div>
@@ -59,7 +61,7 @@ export const RevenueClassification = ({ report }: { report: AdminReportResponse 
               </div>
               <div className="flex items-center gap-2.5">
                 <p className="text-sm leading-5 font-bold tracking-tight text-[#1EB564]">
-                  {item.value}
+                  {formatAmount(item.value)}
                 </p>
                 <span className={twMerge("text-sm", sar.className)}>A</span>
               </div>

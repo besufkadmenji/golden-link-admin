@@ -3,6 +3,7 @@ import { AdminReportResponse } from "@/types/report";
 import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../../shared/tables/AppTable";
 import { renderCell } from "./renderCell";
+import { formatAmount } from "@/utils/format.amount";
 
 export const PackagesList = ({ report }: { report: AdminReportResponse }) => {
   const dict = useDict();
@@ -54,9 +55,9 @@ export const PackagesList = ({ report }: { report: AdminReportResponse }) => {
         number: pkg.packageNumber.toString(),
         name: pkg.packageName ?? "-",
         purchases: pkg.packagePurchasesCount.toString(),
-        sales: pkg.packageTotalRevenue.toString(),
-        profit: pkg.packageTotalMargin.toString(),
-        vat: pkg.packageTotalVAT.toString(),
+        sales: formatAmount(pkg.packageTotalRevenue),
+        profit: formatAmount(pkg.packageTotalMargin),
+        vat: formatAmount(pkg.packageTotalVAT),
       }))}
       renderCell={(row: RowType, column: Key): ReactNode =>
         renderCell(row, column)

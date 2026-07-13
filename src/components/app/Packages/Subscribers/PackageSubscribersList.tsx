@@ -15,16 +15,7 @@ import { Key, ReactNode } from "react";
 import { AppTable, ColumnType, RowType } from "../../shared/tables/AppTable";
 import { AppTableSkeleton } from "../../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
-
-const formatAmount = (value?: string | number | null) => {
-  if (value === undefined || value === null || value === "") return "-";
-  const amount = typeof value === "string" ? Number(value) : value;
-  if (Number.isNaN(amount)) return "-";
-
-  return amount.toLocaleString("en-US", {
-    maximumFractionDigits: 2,
-  });
-};
+import { formatAmount } from "@/utils/format.amount";
 
 export const PackageSubscribersList = () => {
   const dict = useDict();
@@ -104,8 +95,11 @@ export const PackageSubscribersList = () => {
             subscriber.subscription?.package?.packageName ??
             subscriber.package?.packageName ??
             "-",
-          price: formatAmount(subscriber.subscription?.subscriptionPrice),
-          vat: formatAmount(subscriber.subscription?.vatAmount),
+          price: formatAmount(
+            subscriber.subscription?.subscriptionPrice,
+            "-",
+          ),
+          vat: formatAmount(subscriber.subscription?.vatAmount, "-"),
           from: subscriber.subscription?.startDate
             ? DateTimeHelpers.formatDate(subscriber.subscription.startDate)
             : "-",

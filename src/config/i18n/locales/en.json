@@ -34,7 +34,8 @@
       "actions": "Actions",
       "saveAndPrint": "Save and Print",
       "showMore": "Show More",
-      "refresh": "Refresh"
+      "refresh": "Refresh",
+      "clear": "Clear"
     },
 
     "permission_denied": {

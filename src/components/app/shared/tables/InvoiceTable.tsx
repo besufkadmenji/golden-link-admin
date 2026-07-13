@@ -1,6 +1,7 @@
 import { inter } from "@/assets/fonts/inter";
 import { sar } from "@/assets/fonts/sar";
 import { useDict } from "@/hooks/useDict";
+import { formatAmount } from "@/utils/format.amount";
 import {
   Table,
   TableBody,
@@ -85,10 +86,7 @@ export const InvoiceTable = ({
         <h3
           className={`text-xs leading-4 flex items-center gap-1.5 font-bold text-[#8394f3] ${inter.className}`}
         >
-          {total.toLocaleString("en-US", {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2,
-          })}
+          {formatAmount(total)}
           <span className={`${sar.className}`}>A</span>
         </h3>
       </div>
