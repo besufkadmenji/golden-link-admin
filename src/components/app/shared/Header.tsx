@@ -265,7 +265,9 @@ const NotificationItem = ({
           <p className="text-lg font-semibold text-black dark:text-white">
             {title}
           </p>
-          <p className="text-subTitle text-sm dark:text-white/70">{content}</p>
+          <p className="text-subTitle whitespace-pre-wrap break-words text-sm dark:text-white/70">
+            {content}
+          </p>
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-end gap-6">
