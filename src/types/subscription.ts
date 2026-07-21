@@ -4,6 +4,8 @@
 
 export type SubscriptionType = "SUPPLIER" | "WAREHOUSE_OWNER" | "SELLER";
 
+export type SubscriptionRequestStatus = "PENDING" | "APPROVED" | "REJECTED";
+
 export interface SubscriptionRequest {
   id: string;
   fullName: string;
@@ -12,6 +14,7 @@ export interface SubscriptionRequest {
   phoneNumber: string;
   countryCode: string;
   type: SubscriptionType;
+  status: SubscriptionRequestStatus;
   createdAt: string;
 }
 
@@ -21,6 +24,25 @@ export interface SubscriptionRequestDetail extends SubscriptionRequest {
   commercialRegistrationNumber?: string;
   taxRegistrationNumber?: string;
 }
+
+export const isValidSubscriptionRequestDetail = (
+  data: SubscriptionRequestDetail | null | undefined,
+): data is SubscriptionRequestDetail => {
+  if (!data) return false;
+
+  return (
+    typeof data.id === "string" &&
+    data.id.length > 0 &&
+    typeof data.fullName === "string" &&
+    data.fullName.length > 0 &&
+    typeof data.organizationName === "string" &&
+    typeof data.email === "string" &&
+    typeof data.phoneNumber === "string" &&
+    typeof data.type === "string" &&
+    typeof data.status === "string" &&
+    typeof data.createdAt === "string"
+  );
+};
 
 export interface ApprovedSubscriptionData {
   id: string;

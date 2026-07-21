@@ -2,25 +2,40 @@
 
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { AppLoading } from "../../shared/AppLoading";
 import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { useRequest } from "../useRequest";
 import { FormSelect } from "../../shared/forms/FormSelect";
-import Image from "next/image";
 import { RequestAction } from "@/components/app/SubscribersRequests/Detail/RequestAction";
 import { normalizeSubscriberRole, typeMap } from "@/utils/subscriber.helpers";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
 import { DocumentDisplay } from "@/components/app/SubscribersRequests/Detail/DocumentDisplay";
+import { isValidSubscriptionRequestDetail } from "@/types/subscription";
+import { showErrorMessage } from "@/utils/show.message";
 
 export const SubscriberRequestDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const router = useRouter();
-  const { data: request } = useRequest(id);
-  console.log("Category Data:", request, id);
-  return !request ? (
-    <AppLoading className="h-[84vh]" />
-  ) : (
+  const { data: request, isLoading, isError, isFetched } = useRequest(id);
+  const isValid = isValidSubscriptionRequestDetail(request);
+  const handledInvalidRef = useRef(false);
+
+  useEffect(() => {
+    if (!isFetched || isLoading || handledInvalidRef.current) return;
+    if (isError || !isValid) {
+      handledInvalidRef.current = true;
+      showErrorMessage(dict.common.invalidData);
+      router.back();
+    }
+  }, [dict.common.invalidData, isError, isFetched, isLoading, isValid, router]);
+
+  if (isLoading || !isValid) {
+    return <AppLoading className="h-[84vh]" />;
+  }
+
+  return (
     <>
       <div className="grid grid-cols-1">
         <AppForm
@@ -123,7 +138,7 @@ export const SubscriberRequestDetail = ({ id }: { id: string }) => {
           </FormSection>
         </AppForm>
       </div>
-      <RejectReasonModal id={request.id} />
+      {request.status === "PENDING" && <RejectReasonModal id={request.id} />}
     </>
   );
 };

@@ -12,6 +12,7 @@
   "common": {
     "system_name": "نظام الرابط الذهبي",
     "errorOccurred": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "invalidData": "بيانات غير صالحة.",
     "contactUsSuccessMessage": "تم إرسال رسالتك بنجاح. سنعود إليك قريبًا.",
     "warehouseOwner": "صاحب مستودع",
     "notifications": "الاشعارات",
