@@ -41,22 +41,22 @@ export const PackageSubscribersFilter = () => {
         />
         <DateFilterInput
           placeholder={
-            dict.packages.subscribers.table_headers.subscription_period_to
-          }
-          value={endDate}
-          onChange={(value) => {
-            void setPage(1);
-            void setEndDate(value);
-          }}
-        />
-        <DateFilterInput
-          placeholder={
             dict.packages.subscribers.table_headers.subscription_period_from
           }
           value={startDate}
           onChange={(value) => {
             void setPage(1);
             void setStartDate(value);
+          }}
+        />
+        <DateFilterInput
+          placeholder={
+            dict.packages.subscribers.table_headers.subscription_period_to
+          }
+          value={endDate}
+          onChange={(value) => {
+            void setPage(1);
+            void setEndDate(value);
           }}
         />
       </div>
