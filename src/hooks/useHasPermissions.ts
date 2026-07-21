@@ -10,7 +10,8 @@ export const hasFullAccess = (permissionType?: string | null): boolean =>
   !!permissionType && FULL_ACCESS_TYPES.has(permissionType);
 
 export const usePermissions = () => {
-  const { me, userPermissions, userPermissionsLoading, isLoading } = useMe();
+  const { me, userPermissions, userPermissionsLoading, userPermissionsError, isLoading } =
+    useMe();
   const permissions =
     me?.permissionType === "CUSTOM"
       ? userPermissions?.permissions ?? me?.permissions ?? []
@@ -20,6 +21,7 @@ export const usePermissions = () => {
     isLoading ||
     !me ||
     (me.permissionType === "CUSTOM" &&
+      !userPermissionsError &&
       (userPermissionsLoading || userPermissions === undefined));
 
   const hasPermission = (

@@ -50,7 +50,24 @@ export class PermissionService {
   }
 
   /**
-   * Get user's assigned permissions
+   * Get the logged-in user's assigned permissions
+   */
+  static async getMyPermissions(): Promise<AssignedPermissionsResponse | null> {
+    try {
+      const response = await axiosClient.get("/permissions/user/me");
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(
+          error,
+          "Something went wrong, try again later.",
+        ),
+      );
+    }
+  }
+
+  /**
+   * Get a user's assigned permissions (e.g. when editing another admin)
    */
   static async getUserPermissions(
     userId: string

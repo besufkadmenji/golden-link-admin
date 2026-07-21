@@ -9,6 +9,7 @@ export const useMe = (): {
   me: AdminAuthPayload | null | undefined;
   userPermissions: AssignedPermissionsResponse | null | undefined;
   userPermissionsLoading: boolean;
+  userPermissionsError: boolean;
   isLoading: boolean;
   isError: boolean;
   logout: () => Promise<void>;
@@ -23,10 +24,13 @@ export const useMe = (): {
     queryFn: () => AuthService.getAdminProfile(),
   });
 
-  const { data: userPermissions, isLoading: userPermissionsLoading } =
-    useQuery<AssignedPermissionsResponse | null>({
-      queryKey: ["userPermissions", me?.id],
-      queryFn: () => PermissionService.getUserPermissions(me?.id || ""),
+  const {
+    data: userPermissions,
+    isLoading: userPermissionsLoading,
+    isError: userPermissionsError,
+  } = useQuery<AssignedPermissionsResponse | null>({
+      queryKey: ["userPermissions", "me"],
+      queryFn: () => PermissionService.getMyPermissions(),
       enabled: !!me?.id && me.permissionType === "CUSTOM",
     });
 
@@ -44,6 +48,7 @@ export const useMe = (): {
     me,
     userPermissions,
     userPermissionsLoading,
+    userPermissionsError,
     logout,
   };
 };
