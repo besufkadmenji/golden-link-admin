@@ -2,7 +2,7 @@
  * Subscription Request Types
  */
 
-export type SubscriptionType = "SUPPLIER" | "WAREHOUSE_OWNER";
+export type SubscriptionType = "SUPPLIER" | "WAREHOUSE_OWNER" | "SELLER";
 
 export interface SubscriptionRequest {
   id: string;

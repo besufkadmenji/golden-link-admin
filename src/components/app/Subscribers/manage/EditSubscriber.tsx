@@ -22,6 +22,7 @@ import { useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { CountryCodeSelect } from "./CountryCodeSelect";
+import { SubscriberType } from "@/types/subscriber";
 
 export const EditSubscriber = ({ id }: { id: string }) => {
   useRequirePermission("subscriber", "update");
@@ -122,7 +123,7 @@ export const EditSubscriber = ({ id }: { id: string }) => {
               value={form.type}
               onChange={(value: string): void => {
                 setForm({
-                  type: value as "WAREHOUSE_OWNER" | "SUPPLIER" | "CUSTOMER",
+                  type: value as SubscriberType,
                 });
                 clearError("type");
               }}

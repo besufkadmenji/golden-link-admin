@@ -6,6 +6,7 @@ import {
   getSubscriberRoleLabel,
   isActiveStatus,
   isDeletedStatus,
+  isSellerRole,
   isSupplierRole,
   isWarehouseOwnerRole,
   typeMap,
@@ -65,7 +66,7 @@ export const renderCell = (
             "grid h-6 w-max items-center rounded-full px-3",
             isWarehouseOwnerRole(row.type) &&
               "text-green-main dark:text-green-main bg-[#E7F4EE] dark:bg-[#E7F4EE]",
-            isSupplierRole(row.type) &&
+            (isSupplierRole(row.type) || isSellerRole(row.type)) &&
               "bg-[#FDF1E8] text-[#E46A11] dark:bg-[#FDF1E8] dark:text-[#E46A11]",
           )}
         >

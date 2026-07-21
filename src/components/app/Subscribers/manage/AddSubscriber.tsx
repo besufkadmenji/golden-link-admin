@@ -21,6 +21,7 @@ import { SuccessMessage } from "@/components/app/Subscribers/manage/SuccessMessa
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { CountryCodeSelect } from "./CountryCodeSelect";
+import { SubscriberType } from "@/types/subscriber";
 
 export const AddSubscriber = () => {
   useRequirePermission("subscriber", "create");
@@ -103,7 +104,7 @@ export const AddSubscriber = () => {
                 value={form.type}
                 onChange={(value: string): void => {
                   setForm({
-                    type: value as "WAREHOUSE_OWNER" | "SUPPLIER" | "CUSTOMER",
+                    type: value as SubscriberType,
                   });
                   clearError("type");
                 }}

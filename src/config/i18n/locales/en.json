@@ -16,6 +16,7 @@
     "warehouseOwner": "Warehouse Owner",
     "notifications": "Notifications",
     "supplier": "Supplier",
+    "seller": "Seller",
     "actions": {
       "cancel": "Cancel",
       "activate": "Activate",

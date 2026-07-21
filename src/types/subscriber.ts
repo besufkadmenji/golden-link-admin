@@ -66,9 +66,12 @@ export interface SubscriberDetailResponse {
   data: SubscriberDetail;
 }
 
+export type SubscriberType =
+  "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER" | "SELLER";
+
 export interface GetSubscribersParams {
   search?: string;
-  type?: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
+  type?: SubscriberType;
   status?: "ACTIVE" | "INACTIVE" | "SUSPENDED" | "PENDING_APPROVAL";
   duration?: string;
   period?: "DAY" | "WEEK" | "MONTH" | "YEAR" | "ALL";
@@ -88,7 +91,7 @@ export interface CreateSubscriberDto {
   confirmPassword: string;
   commercialRegistrationNumber: string;
   taxRegistrationNumber: string;
-  type: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
+  type: SubscriberType;
   commercialRegistrationImagePath?: File;
   taxRegistrationImagePath?: File;
 }
@@ -101,7 +104,7 @@ export interface UpdateSubscriberDto {
   phoneNumber: string;
   commercialRegistrationNumber: string;
   taxRegistrationNumber: string;
-  type: "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER";
+  type: SubscriberType;
   password?: string;
   confirmPassword?: string;
   commercialRegistrationImagePath?: File;

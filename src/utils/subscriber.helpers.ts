@@ -13,6 +13,7 @@ export const normalizeSubscriberStatus = (status?: string | null): string => {
 export const typeMap = (dict: Dictionary) => ({
   WAREHOUSE_OWNER: dict.common.warehouseOwner,
   SUPPLIER: dict.common.supplier,
+  SELLER: dict.common.seller,
 });
 
 export const getSubscriberRoleLabel = (
@@ -29,6 +30,9 @@ export const isWarehouseOwnerRole = (roleName?: string | null) =>
 
 export const isSupplierRole = (roleName?: string | null) =>
   normalizeSubscriberRole(roleName) === "SUPPLIER";
+
+export const isSellerRole = (roleName?: string | null) =>
+  normalizeSubscriberRole(roleName) === "SELLER";
 
 export const isDeletedStatus = (status?: string | null) =>
   normalizeSubscriberStatus(status) === "DELETED";

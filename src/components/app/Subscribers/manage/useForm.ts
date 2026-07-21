@@ -110,7 +110,7 @@ export const useManageForm = (
       commercialRegistrationNumber: subscriber.commercialRegistrationNumber,
       taxRegistrationNumber: subscriber.taxRegistrationNumber,
       type:
-        role === "SUPPLIER" || role === "CUSTOMER"
+        role === "SUPPLIER" || role === "CUSTOMER" || role === "SELLER"
           ? role
           : "WAREHOUSE_OWNER",
       password: "",

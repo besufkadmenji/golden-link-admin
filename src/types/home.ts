@@ -45,7 +45,7 @@ export interface DashboardSummaryResponse {
   data: DashboardSummaryData;
 }
 
-export type SubscriptionRequestType = "WAREHOUSE_OWNER" | "SUPPLIER";
+export type SubscriptionRequestType = "WAREHOUSE_OWNER" | "SUPPLIER" | "SELLER";
 
 export interface PhoneInfo {
   countryCode: string;

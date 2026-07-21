@@ -4,6 +4,7 @@ import {
   GetSubscribersParams,
   SubscriberDetail,
   SubscribersData,
+  SubscriberType,
 } from "@/types/subscriber";
 import { DashboardPeriod } from "@/types/home";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
@@ -37,7 +38,7 @@ export const useSubscribers = (
         | "PENDING_APPROVAL",
     }),
     ...(type && {
-      type: type as "SUPPLIER" | "WAREHOUSE_OWNER" | "CUSTOMER",
+      type: type as SubscriberType,
     }),
     ...(duration && { duration }),
     ...(startDate && { startDate }),

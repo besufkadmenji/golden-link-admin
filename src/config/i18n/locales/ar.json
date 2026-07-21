@@ -16,6 +16,7 @@
     "warehouseOwner": "صاحب مستودع",
     "notifications": "الاشعارات",
     "supplier": "مورد",
+    "seller": "بائع",
     "actions": {
       "cancel": "الغاء",
       "activate": "تفعيل",
