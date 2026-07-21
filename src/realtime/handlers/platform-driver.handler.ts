@@ -4,6 +4,7 @@ import { SOCKET_EVENTS } from "@/realtime/socket.events";
 import type {
   PlatformDriverLocationEvent,
   PlatformDriverStatusEvent,
+  SocketLocation,
 } from "@/realtime/socket.types";
 
 export interface PlatformDriverState {
@@ -11,7 +12,7 @@ export interface PlatformDriverState {
   driverName?: string;
   warehouseName?: string;
   shipmentId?: string;
-  location?: { lat: number; lng: number };
+  location?: SocketLocation;
   status?: string;
   notes?: string;
   timestamp?: string;
@@ -35,7 +36,7 @@ function patchPlatformDriver(
         ...old[driverId],
         ...patch,
         driverId,
-        lastUpdate: new Date().toISOString(),
+        lastUpdate: patch.timestamp ?? new Date().toISOString(),
       },
     }),
   );
@@ -50,9 +51,9 @@ export function registerPlatformDriverHandlers(
     patchPlatformDriver(queryClient, data.driverId, {
       driverName: data.driverName,
       warehouseName: data.warehouseName,
-      shipmentId: data.shipmentId,
       location: data.location,
       status: data.status,
+      timestamp: data.location.timestamp,
     });
   };
 

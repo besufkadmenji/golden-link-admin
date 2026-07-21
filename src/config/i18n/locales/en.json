@@ -784,7 +784,7 @@
         "required": "Package duration is required",
         "invalid": "Package duration must be a valid number",
         "min": "Package duration must be at least 1",
-        "max": "Package duration must not exceed 365"
+        "max": "Package duration must not exceed 999999"
       },
       "packagePrice": {
         "required": "Package price is required",

@@ -11,13 +11,7 @@ export type ShipmentStatus =
 export interface SocketLocation {
   lat: number;
   lng: number;
-}
-
-export interface ShipmentDriverLocationEvent {
-  shipmentId?: string;
-  driverId?: string;
-  location?: SocketLocation;
-  status?: ShipmentStatus;
+  timestamp?: string;
 }
 
 export interface ShipmentDriverStatusEvent {
@@ -37,12 +31,11 @@ export interface ShipmentStatusUpdateEvent {
 }
 
 export interface PlatformDriverLocationEvent {
-  shipmentId?: string;
-  driverId?: string;
-  location?: SocketLocation;
+  driverId: string;
+  location: SocketLocation & { timestamp: string };
   status?: string;
-  driverName?: string;
-  warehouseName?: string;
+  driverName: string;
+  warehouseName: string;
 }
 
 export interface PlatformDriverStatusEvent {

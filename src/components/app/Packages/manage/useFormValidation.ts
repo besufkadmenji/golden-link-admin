@@ -6,7 +6,7 @@ const PACKAGE_NAME_MIN_LENGTH = 3;
 const PACKAGE_NAME_MAX_LENGTH = 100;
 const DESCRIPTION_MAX_LENGTH = 500;
 const MIN_DURATION = 1;
-const MAX_DURATION = 365;
+const MAX_DURATION = 999999;
 const MIN_PRICE = 0;
 
 export type PackageFormValidationResult = {
