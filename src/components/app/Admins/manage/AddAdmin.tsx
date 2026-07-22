@@ -26,7 +26,7 @@ import { usePermissions } from "@/hooks/usePermissions";
 
 export const AddAdmin = () => {
   useRequirePermission("user", "create");
-  const { form, setForm, reset, permissionIds } = useForm();
+  const { form, setForm, reset, permissionNames } = useForm();
   const { permissions } = usePermissions();
   const dict = useDict();
   const router = useRouter();
@@ -34,7 +34,7 @@ export const AddAdmin = () => {
   const { errors, validateForm, clearError } = useFormValidation(
     form,
     "add",
-    permissionIds,
+    permissionNames,
     permissions,
   );
   useFormResetOnLeave(reset);

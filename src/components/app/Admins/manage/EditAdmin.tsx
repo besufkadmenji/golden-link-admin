@@ -28,7 +28,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
   const { user } = useUserById(id);
   console.log("Edit Admin User:", user);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);
-  const permissionIds = useForm((state) => state.permissionIds);
+  const permissionNames = useForm((state) => state.permissionNames);
   const { permissions } = usePermissions();
   const existingPicture = useForm((state) => state.existingPicture);
   const setExistingPicture = useForm((state) => state.setExistingPicture);
@@ -39,7 +39,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
   const { errors, validateForm, clearError } = useFormValidation(
     form,
     "edit",
-    permissionIds,
+    permissionNames,
     permissions,
   );
   console.log("existingPicture:", existingPicture, user?.profileImagePath);

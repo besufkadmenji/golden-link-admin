@@ -19,7 +19,7 @@ export const Permissions = ({
   onPermissionChange?: () => void;
 }) => {
   const dict = useDict();
-  const { form, setForm, permissionIds, setPermissionIds } = useForm();
+  const { form, setForm, permissionNames, setPermissionNames } = useForm();
   const { permissions, isLoading } = usePermissions();
 
   // Group permissions by module
@@ -34,42 +34,42 @@ export const Permissions = ({
     return groups;
   }, [permissions]);
 
-  const updatePermissionIds = (ids: number[]) => {
-    setPermissionIds(ids);
+  const updatePermissionNames = (names: string[]) => {
+    setPermissionNames(names);
     onPermissionChange?.();
   };
 
   const handleModuleToggle = (module: string) => {
     const modulePermissions = groupedPermissions[module];
-    const modulePermissionIds = modulePermissions.map((p) => p.id);
-    const allSelected = modulePermissionIds.every((id) =>
-      permissionIds.includes(id),
+    const modulePermissionNames = modulePermissions.map((p) => p.name);
+    const allSelected = modulePermissionNames.every((name) =>
+      permissionNames.includes(name),
     );
 
     if (allSelected) {
-      updatePermissionIds(
-        permissionIds.filter((id) => !modulePermissionIds.includes(id)),
+      updatePermissionNames(
+        permissionNames.filter((name) => !modulePermissionNames.includes(name)),
       );
     } else {
-      updatePermissionIds([
-        ...permissionIds.filter(
-          (id) => !modulePermissionIds.includes(Number(id)),
+      updatePermissionNames([
+        ...permissionNames.filter(
+          (name) => !modulePermissionNames.includes(name),
         ),
-        ...modulePermissionIds.map((id) => id),
+        ...modulePermissionNames,
       ]);
     }
   };
 
   const isModuleFullySelected = (module: string) => {
     const modulePermissions = groupedPermissions[module];
-    return modulePermissions.every((p) => permissionIds.includes(p.id));
+    return modulePermissions.every((p) => permissionNames.includes(p.name));
   };
 
   const isActionSelected = (module: string, action: string) => {
     const permission = groupedPermissions[module]?.find(
       (p) => p.action === action,
     );
-    return permission ? permissionIds.includes(permission.id) : false;
+    return permission ? permissionNames.includes(permission.name) : false;
   };
 
   const handleActionToggle = (module: string, action: string) => {
@@ -77,34 +77,38 @@ export const Permissions = ({
     const permission = modulePermissions.find((p) => p.action === action);
     if (!permission) return;
 
-    const isCurrentlySelected = permissionIds.includes(permission.id);
+    const isCurrentlySelected = permissionNames.includes(permission.name);
 
     if (isCurrentlySelected) {
       if (action === "read") {
         // View is required for other actions — clear the whole module
-        const modulePermissionIds = new Set(modulePermissions.map((p) => p.id));
-        updatePermissionIds(
-          permissionIds.filter((id) => !modulePermissionIds.has(id)),
+        const modulePermissionNames = new Set(
+          modulePermissions.map((p) => p.name),
+        );
+        updatePermissionNames(
+          permissionNames.filter((name) => !modulePermissionNames.has(name)),
         );
         return;
       }
 
-      updatePermissionIds(permissionIds.filter((id) => id !== permission.id));
+      updatePermissionNames(
+        permissionNames.filter((name) => name !== permission.name),
+      );
       return;
     }
 
-    const nextIds = new Set(permissionIds);
-    nextIds.add(permission.id);
+    const nextNames = new Set(permissionNames);
+    nextNames.add(permission.name);
 
     // Auto-check view when add/edit/delete is selected
     if (WRITE_ACTIONS.has(action)) {
       const readPermission = modulePermissions.find((p) => p.action === "read");
       if (readPermission) {
-        nextIds.add(readPermission.id);
+        nextNames.add(readPermission.name);
       }
     }
 
-    updatePermissionIds([...nextIds]);
+    updatePermissionNames([...nextNames]);
   };
 
   return (
@@ -122,7 +126,7 @@ export const Permissions = ({
               }
               onValueChange={() => {
                 setForm({ permissionType: "ADMINISTRATOR" });
-                updatePermissionIds([]);
+                updatePermissionNames([]);
               }}
               isDisabled={readOnly}
             >

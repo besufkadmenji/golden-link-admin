@@ -13,7 +13,7 @@ export const useManageAdmin = () => {
   const [busy, setBusy] = useState(false);
   const form = useForm((state) => state.form);
   const resetForm = useForm((state) => state.reset);
-  const permissionIds = useForm((state) => state.permissionIds);
+  const permissionNames = useForm((state) => state.permissionNames);
   const router = useRouter();
   const dict = useDict();
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
@@ -32,7 +32,7 @@ export const useManageAdmin = () => {
           await PermissionService.assignPermissions(
             {
               userId: response.id,
-              permissionIds: permissionIds || [],
+              permissionNames: permissionNames || [],
             }
           );
         }
@@ -59,12 +59,12 @@ export const useManageAdmin = () => {
     try {
       const {
         form: currentForm,
-        permissionIds: currentPermissionIds,
-        initialPermissionIds: currentInitialPermissionIds,
+        permissionNames: currentPermissionNames,
+        initialPermissionNames: currentInitialPermissionNames,
         profileImageRemoved,
         initialProfileImagePath,
-        setPermissionIds,
-        setInitialPermissionIds,
+        setPermissionNames,
+        setInitialPermissionNames,
       } = useForm.getState();
 
       const shouldRemoveProfileImage =
@@ -79,7 +79,7 @@ export const useManageAdmin = () => {
       const { password, confirmPassword, ...rest } = currentForm;
       const switchingToFullAccess =
         currentForm.permissionType !== "CUSTOM" &&
-        currentInitialPermissionIds.length > 0;
+        currentInitialPermissionNames.length > 0;
       const profileFields = { ...rest };
       delete profileFields.permissionType;
 
@@ -89,35 +89,35 @@ export const useManageAdmin = () => {
       );
       if (response) {
         if (currentForm.permissionType === "CUSTOM") {
-          const revokedIds = currentInitialPermissionIds.filter(
-            (pid) => !currentPermissionIds.includes(pid),
+          const revokedNames = currentInitialPermissionNames.filter(
+            (name) => !currentPermissionNames.includes(name),
           );
-          const newlyAddedIds = currentPermissionIds.filter(
-            (pid) => !currentInitialPermissionIds.includes(pid),
+          const newlyAddedNames = currentPermissionNames.filter(
+            (name) => !currentInitialPermissionNames.includes(name),
           );
           await Promise.all([
-            ...(newlyAddedIds.length > 0
+            ...(newlyAddedNames.length > 0
               ? [
                   PermissionService.assignPermissions(
                     {
                       userId: response.id,
-                      permissionIds: newlyAddedIds,
+                      permissionNames: newlyAddedNames,
                     }
                   ),
                 ]
               : []),
-            ...revokedIds.map((pid) =>
+            ...revokedNames.map((name) =>
               PermissionService.revokePermission(
-                pid,
+                name,
                 { userId: response.id }
               ),
             ),
           ]);
-          setInitialPermissionIds(currentPermissionIds);
+          setInitialPermissionNames(currentPermissionNames);
         } else if (switchingToFullAccess) {
           await Promise.all(
-            currentInitialPermissionIds.map((pid) =>
-              PermissionService.revokePermission(pid, {
+            currentInitialPermissionNames.map((name) =>
+              PermissionService.revokePermission(name, {
                 userId: response.id,
               }),
             ),
@@ -125,8 +125,8 @@ export const useManageAdmin = () => {
           await UserService.updateUser(id, {
             permissionType: currentForm.permissionType,
           });
-          setPermissionIds([]);
-          setInitialPermissionIds([]);
+          setPermissionNames([]);
+          setInitialPermissionNames([]);
         }
         queryClient.invalidateQueries({
           queryKey: ["user", id],

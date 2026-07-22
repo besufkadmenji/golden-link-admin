@@ -89,12 +89,12 @@ export class PermissionService {
    * Revoke a specific permission from a user
    */
   static async revokePermission(
-    permissionId: string | number,
+    permissionName: string,
     data: RevokePermissionRequest
   ): Promise<AssignedPermissionsResponse | null> {
     try {
       const response = await axiosClient.post(
-        `/permissions/revoke/${permissionId}`,
+        `/permissions/revoke/${encodeURIComponent(permissionName)}`,
         data,
       );
       return unwrapAxiosResponse(response.data);

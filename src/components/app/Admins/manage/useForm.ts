@@ -11,10 +11,10 @@ interface FormState {
   form: CreateUserWithFileDto;
   setForm: (form: Partial<CreateUserWithFileDto>) => void;
   reset: () => void;
-  permissionIds: number[];
-  setPermissionIds: (ids: number[]) => void;
-  initialPermissionIds: number[];
-  setInitialPermissionIds: (ids: number[]) => void;
+  permissionNames: string[];
+  setPermissionNames: (names: string[]) => void;
+  initialPermissionNames: string[];
+  setInitialPermissionNames: (names: string[]) => void;
   existingPicture: string | null;
   setExistingPicture: (picture: string | null) => void;
   initialProfileImagePath: string | null;
@@ -60,20 +60,20 @@ export const useForm = create<FormState>((set) => ({
         status: "ACTIVE",
       },
       existingPicture: null,
-      permissionIds: [],
-      initialPermissionIds: [],
+      permissionNames: [],
+      initialPermissionNames: [],
       initialProfileImagePath: null,
       profileImageRemoved: false,
     })),
-  permissionIds: [],
-  setPermissionIds: (ids) =>
+  permissionNames: [],
+  setPermissionNames: (names) =>
     set(() => ({
-      permissionIds: ids,
+      permissionNames: names,
     })),
-  initialPermissionIds: [],
-  setInitialPermissionIds: (ids) =>
+  initialPermissionNames: [],
+  setInitialPermissionNames: (names) =>
     set(() => ({
-      initialPermissionIds: ids,
+      initialPermissionNames: names,
     })),
   existingPicture: null,
   setExistingPicture: (picture) =>
@@ -111,9 +111,9 @@ export const useManageForm = (id: string, admin?: User | null) => {
   const setReady = useForm((state) => state.setReady);
   const permissionsReady = useForm((state) => state.permissionsReady);
   const setPermissionsReady = useForm((state) => state.setPermissionsReady);
-  const setPermissionIds = useForm((state) => state.setPermissionIds);
-  const setInitialPermissionIds = useForm(
-    (state) => state.setInitialPermissionIds,
+  const setPermissionNames = useForm((state) => state.setPermissionNames);
+  const setInitialPermissionNames = useForm(
+    (state) => state.setInitialPermissionNames,
   );
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export const useManageForm = (id: string, admin?: User | null) => {
       return;
     }
 
-    const newPermissionIds = permissions.map((p) => p.id);
+    const newPermissionNames = permissions.map((p) => p.name);
     const permissionType = assignedPermissionType ?? admin.permissionType;
 
     setForm({
@@ -143,8 +143,8 @@ export const useManageForm = (id: string, admin?: User | null) => {
       status: admin.status,
       permissionType,
     });
-    setPermissionIds(newPermissionIds);
-    setInitialPermissionIds(newPermissionIds);
+    setPermissionNames(newPermissionNames);
+    setInitialPermissionNames(newPermissionNames);
     setExistingPicture(admin.profileImagePath || null);
     setInitialProfileImagePath(admin.profileImagePath || null);
     setProfileImageRemoved(false);
@@ -161,9 +161,9 @@ export const useManageForm = (id: string, admin?: User | null) => {
     ready,
     setExistingPicture,
     setForm,
-    setInitialPermissionIds,
+    setInitialPermissionNames,
     setInitialProfileImagePath,
-    setPermissionIds,
+    setPermissionNames,
     setPermissionsReady,
     setProfileImageRemoved,
     setReady,

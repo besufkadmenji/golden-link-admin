@@ -32,7 +32,7 @@ export interface GetPermissionsParams {
 
 export interface AssignPermissionsRequest {
   userId: string;
-  permissionIds: number[];
+  permissionNames: string[];
 }
 
 export interface RevokePermissionRequest {

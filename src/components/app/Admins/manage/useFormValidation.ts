@@ -18,7 +18,7 @@ interface FormWithPassword extends CreateUserDto {
 export const useFormValidation = (
   form: FormWithPassword,
   mode: "add" | "edit" = "add",
-  permissionIds: number[] = [],
+  permissionNames: string[] = [],
   permissions: Permission[] = [],
 ) => {
   const dict = useDict();
@@ -114,20 +114,20 @@ export const useFormValidation = (
   const validatePermissions = useCallback(
     (
       permissionType: string | undefined,
-      selectedPermissionIds: number[],
+      selectedPermissionNames: string[],
       availablePermissions: Permission[],
     ): string | null => {
       if (permissionType !== "CUSTOM") {
         return null;
       }
 
-      const readPermissionIds = new Set(
+      const readPermissionNames = new Set(
         availablePermissions
           .filter((permission) => permission.action === "read")
-          .map((permission) => permission.id),
+          .map((permission) => permission.name),
       );
-      const hasViewPermission = selectedPermissionIds.some((id) =>
-        readPermissionIds.has(id),
+      const hasViewPermission = selectedPermissionNames.some((name) =>
+        readPermissionNames.has(name),
       );
 
       if (!hasViewPermission) {
@@ -169,7 +169,7 @@ export const useFormValidation = (
 
     const permissionsError = validatePermissions(
       form.permissionType,
-      permissionIds,
+      permissionNames,
       permissions,
     );
     if (permissionsError) {
@@ -187,7 +187,7 @@ export const useFormValidation = (
     form.password,
     form.confirmPassword,
     form.permissionType,
-    permissionIds,
+    permissionNames,
     permissions,
     mode,
     validateFullName,
@@ -206,7 +206,7 @@ export const useFormValidation = (
     const countryCodeError = validateCountryCode(form.countryCode);
     const permissionsError = validatePermissions(
       form.permissionType,
-      permissionIds,
+      permissionNames,
       permissions,
     );
 
@@ -244,7 +244,7 @@ export const useFormValidation = (
     form.password,
     form.confirmPassword,
     form.permissionType,
-    permissionIds,
+    permissionNames,
     permissions,
     mode,
     validateFullName,
