@@ -41,8 +41,12 @@ export const useSubscribers = (
       type: type as SubscriberType,
     }),
     ...(duration && { duration }),
-    ...(startDate && { startDate }),
-    ...(endDate && { endDate }),
+    ...(startDate && { startDate: new Date(startDate).toISOString() }),
+    ...(endDate && {
+      endDate: new Date(
+        new Date(endDate).setHours(23, 59, 59, 999),
+      ).toISOString(),
+    }),
     ...initialParams,
   };
 

@@ -7,6 +7,16 @@ export interface AdminLoginDto {
   password: string;
 }
 
+export interface AdminPermission {
+  id: number;
+  name: string;
+  nameAr: string;
+  description: string;
+  module: string;
+  action: string;
+  resource: string;
+}
+
 export interface AdminUser {
   id: string;
   email: string;
@@ -16,6 +26,7 @@ export interface AdminUser {
   permissionType: "ADMINISTRATOR" | "MODERATOR" | "VIEWER";
   userType: "PLATFORM" | "ORGANIZATION";
   status: "ACTIVE" | "INACTIVE" | "SUSPENDED";
+  permissions: AdminPermission[];
 }
 
 export interface AdminAuthTokens {
@@ -102,15 +113,7 @@ export interface AdminAuthPayload {
   countryCode: string;
   phoneNumber: string;
   profileImagePath: string | null;
-  permissions: {
-    id: number;
-    name: string;
-    nameAr: string;
-    description: string;
-    module: string;
-    action: string;
-    resource: string;
-  }[];
+  permissions: AdminPermission[];
   permissionType: string;
 }
 

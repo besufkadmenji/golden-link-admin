@@ -1,4 +1,4 @@
-import { PermissionAction } from "@/hooks/useHasPermissions";
+import type { PermissionAction } from "@/utils/permissions";
 
 export interface RoutePermissionRule {
   pathPrefix: string;
@@ -6,9 +6,7 @@ export interface RoutePermissionRule {
   action?: PermissionAction;
 }
 
-export const DASHBOARD_STATS_MODULES = [
-  "dashboard",
-] as const;
+export const DASHBOARD_STATS_MODULES = ["dashboard"] as const;
 
 interface ActionRouteRule {
   pattern: RegExp;
@@ -107,13 +105,13 @@ export const FALLBACK_ROUTES: { path: string; modules: string[] }[] = [
   { path: "/reports", modules: ["reports"] },
   { path: "/clients", modules: ["clients"] },
   { path: "/settings", modules: ["settings"] },
-  { path: "/notifications", modules: ["notifications"] },
-  { path: "/content/contact-us", modules: ["contact_us"] },
   { path: "/content/contact-management", modules: ["settings"] },
   { path: "/content/about-platform", modules: ["settings"] },
   { path: "/content/terms", modules: ["settings"] },
   { path: "/content/privacy-policy", modules: ["settings"] },
   { path: "/content/features", modules: ["features"] },
+  { path: "/content/contact-us", modules: ["contact_us"] },
+  { path: "/notifications", modules: ["notifications"] },
 ];
 
 export const CMS_SIDEBAR_ITEMS: {
@@ -127,12 +125,32 @@ export const CMS_SIDEBAR_ITEMS: {
     | "contact_us";
   modules: string[];
 }[] = [
-  { href: "/content/contact-management", labelKey: "contact_admin", modules: ["settings"] },
+  {
+    href: "/content/contact-management",
+    labelKey: "contact_admin",
+    modules: ["settings"],
+  },
   { href: "/content/about-platform", labelKey: "about", modules: ["settings"] },
-  { href: "/content/terms", labelKey: "terms_and_conditions", modules: ["settings"] },
-  { href: "/content/privacy-policy", labelKey: "privacy_policy", modules: ["settings"] },
-  { href: "/content/features", labelKey: "features_management", modules: ["features"] },
-  { href: "/content/contact-us", labelKey: "contact_us", modules: ["contact_us"] },
+  {
+    href: "/content/terms",
+    labelKey: "terms_and_conditions",
+    modules: ["settings"],
+  },
+  {
+    href: "/content/privacy-policy",
+    labelKey: "privacy_policy",
+    modules: ["settings"],
+  },
+  {
+    href: "/content/features",
+    labelKey: "features_management",
+    modules: ["features"],
+  },
+  {
+    href: "/content/contact-us",
+    labelKey: "contact_us",
+    modules: ["contact_us"],
+  },
 ];
 
 export function cleanPathname(pathname: string): string {
