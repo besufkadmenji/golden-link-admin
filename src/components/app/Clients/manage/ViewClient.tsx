@@ -22,7 +22,7 @@ import moment from "moment";
 export const ViewClient = ({ id }: { id: string }) => {
   const { client } = useClientById(Number(id));
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("client", "update");
+  const canUpdate = hasPermission("clients", "update");
   const [activateClient, setActivateClient] = useQueryState("activateClient");
   const [deactivateClient, setDeactivateClient] =
     useQueryState("deactivateClient");

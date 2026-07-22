@@ -20,7 +20,7 @@ import { AppLoading } from "@/components/app/shared/AppLoading";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const EditFeature = ({ id }: { id: string }) => {
-  useRequirePermission("feature", "update");
+  useRequirePermission("features", "update");
   const featureId = Number(id);
   const { feature, isLoading, isFetching } = useFeatureById(featureId);
   const { form, setForm, reset, ready } = useManageForm(featureId, feature);

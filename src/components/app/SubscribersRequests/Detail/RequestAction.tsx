@@ -22,8 +22,8 @@ export const RequestAction = ({
 }) => {
   const dict = useDict();
   const { hasPermission } = usePermissions();
-  const canApprove = hasPermission("subscriptionRequest", "update");
-  const canReject = hasPermission("subscriptionRequest", "delete");
+  const canApprove = hasPermission("subscriptions", "update");
+  const canReject = hasPermission("subscriptions", "update");
   const { approveRequest, busy } = useManageRequest();
   const [, setShowRejectModal] = useQueryState("showRejectModal");
   const isPending = request.status === "PENDING";

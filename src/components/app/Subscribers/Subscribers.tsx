@@ -35,7 +35,7 @@ export const Subscribers = () => {
         title={dict.subscribers_page.title}
         className="grid grid-cols-1 gap-2 md:flex"
       >
-        {hasPermission("subscriber", "create") && (
+        {hasPermission("subscribers", "create") && (
           <AddButton
             type={AddButtonType.Subscriber}
             onPress={() => {
@@ -43,7 +43,7 @@ export const Subscribers = () => {
             }}
           />
         )}
-        {hasPermission("subscriber", "read") && (
+        {hasPermission("subscribers", "read") && (
           <ExportButton model={ExportModel.SUBSCRIBER} />
         )}
       </PageBar>

@@ -18,7 +18,7 @@ import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddFeature = () => {
-  useRequirePermission("feature", "create");
+  useRequirePermission("features", "create");
   const { form, setForm, reset } = useForm();
   useFormResetOnLeave(reset);
   const dict = useDict();

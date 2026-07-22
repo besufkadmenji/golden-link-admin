@@ -7,9 +7,7 @@ export interface RoutePermissionRule {
 }
 
 export const DASHBOARD_STATS_MODULES = [
-  "subscriber",
-  "subscriptionRequest",
-  "report",
+  "dashboard",
 ] as const;
 
 interface ActionRouteRule {
@@ -22,57 +20,57 @@ interface ActionRouteRule {
 const ACTION_ROUTE_RULES: ActionRouteRule[] = [
   {
     pattern: /^\/subscribers\/add$/,
-    modules: ["subscriber"],
+    modules: ["subscribers"],
     action: "create",
   },
   {
     pattern: /^\/subscribers\/[^/]+\/edit$/,
-    modules: ["subscriber"],
+    modules: ["subscribers"],
     action: "update",
   },
   {
     pattern: /^\/packages\/add$/,
-    modules: ["package"],
+    modules: ["packages"],
     action: "create",
   },
   {
     pattern: /^\/packages\/[^/]+\/edit$/,
-    modules: ["package"],
+    modules: ["packages"],
     action: "update",
   },
   {
     pattern: /^\/clients\/add$/,
-    modules: ["client"],
+    modules: ["clients"],
     action: "create",
   },
   {
     pattern: /^\/clients\/[^/]+\/edit$/,
-    modules: ["client"],
+    modules: ["clients"],
     action: "update",
   },
   {
     pattern: /^\/content\/features\/add$/,
-    modules: ["feature"],
+    modules: ["features"],
     action: "create",
   },
   {
     pattern: /^\/content\/features\/[^/]+\/edit$/,
-    modules: ["feature"],
+    modules: ["features"],
     action: "update",
   },
   {
     pattern: /^\/admins\/add$/,
-    modules: ["user"],
+    modules: ["users"],
     action: "create",
   },
   {
     pattern: /^\/admins\/[^/]+\/edit$/,
-    modules: ["user"],
+    modules: ["users"],
     action: "update",
   },
   {
     pattern: /^\/notifications\/add$/,
-    modules: ["notification"],
+    modules: ["notifications"],
     action: "create",
   },
 ];
@@ -83,39 +81,39 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
     pathPrefix: "/dashboard",
     modules: [...DASHBOARD_STATS_MODULES],
   },
-  { pathPrefix: "/subscribers/requests", modules: ["subscriptionRequest"] },
-  { pathPrefix: "/subscribers", modules: ["subscriber"] },
-  { pathPrefix: "/packages/subscribers", modules: ["subscriber"] },
-  { pathPrefix: "/packages", modules: ["package"] },
-  { pathPrefix: "/admins", modules: ["user"] },
-  { pathPrefix: "/reports", modules: ["report"] },
-  { pathPrefix: "/clients", modules: ["client"] },
+  { pathPrefix: "/subscribers/requests", modules: ["subscriptions"] },
+  { pathPrefix: "/subscribers", modules: ["subscribers"] },
+  { pathPrefix: "/packages/subscribers", modules: ["subscribers"] },
+  { pathPrefix: "/packages", modules: ["packages"] },
+  { pathPrefix: "/admins", modules: ["users"] },
+  { pathPrefix: "/reports", modules: ["reports"] },
+  { pathPrefix: "/clients", modules: ["clients"] },
   { pathPrefix: "/settings", modules: ["settings"] },
-  { pathPrefix: "/notifications", modules: ["notification"] },
+  { pathPrefix: "/notifications", modules: ["notifications"] },
   { pathPrefix: "/content/contact-us", modules: ["contact_us"] },
-  { pathPrefix: "/content/contact-management", modules: ["message"] },
-  { pathPrefix: "/content/about-platform", modules: ["about"] },
-  { pathPrefix: "/content/terms", modules: ["terms"] },
-  { pathPrefix: "/content/privacy-policy", modules: ["privacy"] },
-  { pathPrefix: "/content/features", modules: ["feature"] },
+  { pathPrefix: "/content/contact-management", modules: ["settings"] },
+  { pathPrefix: "/content/about-platform", modules: ["settings"] },
+  { pathPrefix: "/content/terms", modules: ["settings"] },
+  { pathPrefix: "/content/privacy-policy", modules: ["settings"] },
+  { pathPrefix: "/content/features", modules: ["features"] },
 ];
 
 export const FALLBACK_ROUTES: { path: string; modules: string[] }[] = [
   { path: "/dashboard", modules: [...DASHBOARD_STATS_MODULES] },
-  { path: "/admins", modules: ["user"] },
-  { path: "/subscribers/requests", modules: ["subscriptionRequest"] },
-  { path: "/subscribers", modules: ["subscriber"] },
-  { path: "/packages", modules: ["package"] },
-  { path: "/reports", modules: ["report"] },
-  { path: "/clients", modules: ["client"] },
+  { path: "/admins", modules: ["users"] },
+  { path: "/subscribers/requests", modules: ["subscriptions"] },
+  { path: "/subscribers", modules: ["subscribers"] },
+  { path: "/packages", modules: ["packages"] },
+  { path: "/reports", modules: ["reports"] },
+  { path: "/clients", modules: ["clients"] },
   { path: "/settings", modules: ["settings"] },
-  { path: "/notifications", modules: ["notification"] },
+  { path: "/notifications", modules: ["notifications"] },
   { path: "/content/contact-us", modules: ["contact_us"] },
-  { path: "/content/contact-management", modules: ["message"] },
-  { path: "/content/about-platform", modules: ["about"] },
-  { path: "/content/terms", modules: ["terms"] },
-  { path: "/content/privacy-policy", modules: ["privacy"] },
-  { path: "/content/features", modules: ["feature"] },
+  { path: "/content/contact-management", modules: ["settings"] },
+  { path: "/content/about-platform", modules: ["settings"] },
+  { path: "/content/terms", modules: ["settings"] },
+  { path: "/content/privacy-policy", modules: ["settings"] },
+  { path: "/content/features", modules: ["features"] },
 ];
 
 export const CMS_SIDEBAR_ITEMS: {
@@ -129,16 +127,16 @@ export const CMS_SIDEBAR_ITEMS: {
     | "contact_us";
   modules: string[];
 }[] = [
-  { href: "/content/contact-management", labelKey: "contact_admin", modules: ["message"] },
-  { href: "/content/about-platform", labelKey: "about", modules: ["about"] },
-  { href: "/content/terms", labelKey: "terms_and_conditions", modules: ["terms"] },
-  { href: "/content/privacy-policy", labelKey: "privacy_policy", modules: ["privacy"] },
-  { href: "/content/features", labelKey: "features_management", modules: ["feature"] },
+  { href: "/content/contact-management", labelKey: "contact_admin", modules: ["settings"] },
+  { href: "/content/about-platform", labelKey: "about", modules: ["settings"] },
+  { href: "/content/terms", labelKey: "terms_and_conditions", modules: ["settings"] },
+  { href: "/content/privacy-policy", labelKey: "privacy_policy", modules: ["settings"] },
+  { href: "/content/features", labelKey: "features_management", modules: ["features"] },
   { href: "/content/contact-us", labelKey: "contact_us", modules: ["contact_us"] },
 ];
 
 export function cleanPathname(pathname: string): string {
-  return pathname.replace(/^\/(en|ar)/, "");
+  return pathname.replace(/^\/(en|ar)(?=\/|$)/, "");
 }
 
 function getActionRoutePermission(

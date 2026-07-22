@@ -12,7 +12,7 @@ export const RejectReasonModal = ({ id }: { id: string }) => {
     useQueryState("showRejectModal");
   const dict = useDict();
   const { hasPermission } = usePermissions();
-  const canReject = hasPermission("subscriptionRequest", "delete");
+  const canReject = hasPermission("subscriptions", "update");
   const [reason, setReason] = useState("");
   const { rejectRequest, busy } = useManageRequest();
 

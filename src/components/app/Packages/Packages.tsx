@@ -30,7 +30,7 @@ export const Packages = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.packages.title} className="grid grid-cols-1 gap-2 md:flex">
-        {hasPermission("subscriber", "read") && (
+        {hasPermission("subscribers", "read") && (
           <Button
             startContent={<SubscribersIcon className="size-5" />}
             onPress={() => {
@@ -41,7 +41,7 @@ export const Packages = () => {
             {dict.packages.buttons.subscribers_in_package}
           </Button>
         )}
-        {hasPermission("package", "create") && (
+        {hasPermission("packages", "create") && (
           <AddButton
             type={AddButtonType.Package}
             onPress={() => {
@@ -49,7 +49,7 @@ export const Packages = () => {
             }}
           />
         )}
-        {hasPermission("package", "read") && (
+        {hasPermission("packages", "read") && (
           <ExportButton model={ExportModel.PACKAGE} />
         )}
       </PageBar>

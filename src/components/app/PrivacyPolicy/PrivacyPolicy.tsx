@@ -13,7 +13,7 @@ export const PrivacyPolicy = () => {
   const { valueAr, valueEn, setValueAr, setValueEn } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("privacy", "update");
+  const canUpdate = hasPermission("settings", "update");
 
   return (
     <PageWrapper>

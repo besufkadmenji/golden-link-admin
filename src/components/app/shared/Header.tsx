@@ -46,7 +46,7 @@ const ThemeSwitcher = dynamic(
 
 export const Header = () => {
   const { hasPermission } = usePermissions();
-  const canViewNotifications = hasPermission("notification", "read");
+  const canViewNotifications = hasPermission("notifications", "read");
 
   return (
     <header

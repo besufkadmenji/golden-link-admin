@@ -6,7 +6,14 @@ import { Permission } from "@/types/permission";
 import { useMemo } from "react";
 import { AppCheckbox } from "../../shared/AppCheckbox";
 
-const WRITE_ACTIONS = new Set(["create", "update", "delete"]);
+const WRITE_ACTIONS = new Set([
+  "create",
+  "update",
+  "delete",
+  "manage",
+  "activate",
+  "deactivate",
+]);
 
 export const Permissions = ({
   readOnly,
@@ -168,7 +175,15 @@ export const Permissions = ({
                 <div className="dark:bg-dark-border my-5 h-[0.50px] w-full bg-[#EEEEEE]"></div>
 
                 <div className="flex flex-wrap justify-start gap-4 lg:justify-start lg:gap-8">
-                  {(["read", "create", "update", "delete"] as const).map(
+                  {([
+                    "read",
+                    "create",
+                    "update",
+                    "delete",
+                    "manage",
+                    "activate",
+                    "deactivate",
+                  ] as const).map(
                     (action) => {
                       const hasAction = perms.some((p) => p.action === action);
                       if (!hasAction) return null;

@@ -2,9 +2,7 @@ import { useMe } from "@/hooks/useMe";
 import { hasFullAccess, usePermissions } from "@/hooks/useHasPermissions";
 
 const DASHBOARD_STATS_MODULES = [
-  "subscriber",
-  "subscriptionRequest",
-  "report",
+  "dashboard",
 ] as const;
 
 export const useCanViewDashboardStats = () => {

@@ -24,7 +24,7 @@ export const PackageSubscribers = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.packages.subscribers.title}>
-        {hasPermission("subscriber", "read") && (
+        {hasPermission("subscribers", "read") && (
           <ExportButton model={ExportModel.SUBSCRIBER} />
         )}
       </PageBar>

@@ -27,6 +27,8 @@ export const SubscribersList = () => {
   const { data, isLoading } = useSubscribers();
   const { deleteSubscriber, busy } = useManageSubscriber();
   const { hasPermission } = usePermissions();
+  const canActivate = hasPermission("subscribers", "activate");
+  const canDeactivate = hasPermission("subscribers", "deactivate");
   const [isDeleteWarningOpen, setIsDeleteWarningOpen] = useQueryState(
     "isDeleteWarningOpen",
   );
@@ -105,19 +107,19 @@ export const SubscribersList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("subscriber", "update")
+            onEdit: hasPermission("subscribers", "update")
               ? () => {
                   router.push(`${pathname}/${row.key}/edit`);
                 }
               : undefined,
-            onDelete: hasPermission("subscriber", "delete")
+            onDelete: hasPermission("subscribers", "delete")
               ? () => {
                   setIsDeleteWarningOpen(row.key as string, {
                     history: "push",
                   });
                 }
               : undefined,
-            onActivate: hasPermission("subscriber", "update")
+            onActivate: (row.status === "ACTIVE" ? canDeactivate : canActivate)
               ? (value: boolean) => {
                   if (value) {
                     setActivateSubscriber(row.key as string, { history: "push" });

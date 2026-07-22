@@ -13,7 +13,7 @@ export const Terms = () => {
   const { valueAr, valueEn, setValueAr, setValueEn } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("terms", "update");
+  const canUpdate = hasPermission("settings", "update");
 
   return (
     <PageWrapper>

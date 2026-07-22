@@ -25,7 +25,7 @@ import { CountryCodeSelect } from "./CountryCodeSelect";
 import { SubscriberType } from "@/types/subscriber";
 
 export const EditSubscriber = ({ id }: { id: string }) => {
-  useRequirePermission("subscriber", "update");
+  useRequirePermission("subscribers", "update");
   const { data: subscriber } = useSubscriber(id);
   const {
     form,

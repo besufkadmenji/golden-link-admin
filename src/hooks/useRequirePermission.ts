@@ -3,11 +3,15 @@ import {
   usePermissions,
 } from "@/hooks/useHasPermissions";
 
-// Status toggles use update until backend ships a dedicated activate action.
 export const canActivate = (
   hasPermission: (module: string, type: PermissionAction) => boolean,
   module: string,
-): boolean => hasPermission(module, "update");
+): boolean => hasPermission(module, "activate");
+
+export const canDeactivate = (
+  hasPermission: (module: string, type: PermissionAction) => boolean,
+  module: string,
+): boolean => hasPermission(module, "deactivate");
 
 export const useRequirePermission = (
   module: string,

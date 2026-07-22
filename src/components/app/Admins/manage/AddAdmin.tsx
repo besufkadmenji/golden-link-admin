@@ -25,7 +25,7 @@ import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { usePermissions } from "@/hooks/usePermissions";
 
 export const AddAdmin = () => {
-  useRequirePermission("user", "create");
+  useRequirePermission("users", "create");
   const { form, setForm, reset, permissionNames } = useForm();
   const { permissions } = usePermissions();
   const dict = useDict();

@@ -29,7 +29,7 @@ import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { showErrorMessage } from "@/utils/show.message";
 
 export const EditPackage = ({ id }: { id: string }) => {
-  useRequirePermission("package", "update");
+  useRequirePermission("packages", "update");
   const { pkg } = usePackageById(id);
   const { form, setForm, reset, ready, features, setFeatures } = useManageForm(
     id,

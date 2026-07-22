@@ -23,7 +23,8 @@ import { DeactivateSubscriber } from "@/components/app/Subscribers/DeactivateSub
 export const SubscriberDetail = ({ id }: { id: string }) => {
   const dict = useDict();
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("subscriber", "update");
+  const canActivate = hasPermission("subscribers", "activate");
+  const canDeactivate = hasPermission("subscribers", "deactivate");
   const router = useRouter();
   const { data: subscriber } = useSubscriber(id);
   const [activateSubscriber, setActivateSubscriber] =
@@ -41,7 +42,7 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
           type={FormType.SubscriberDetail}
           action="view"
           titleChildren={
-            canUpdate ? (
+            (isActiveStatus(subscriber.status) ? canDeactivate : canActivate) ? (
               <AppSwitch
                 isSelected={isActiveStatus(subscriber.status)}
                 onValueChange={(value) => {

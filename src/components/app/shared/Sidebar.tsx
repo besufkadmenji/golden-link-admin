@@ -39,19 +39,19 @@ export const Sidebar = ({ className }: { className?: string }) => {
 
   const subscriberOptions = useMemo(() => {
     const options: { href: string; label: string }[] = [];
-    if (hasPermission("subscriptionRequest", "read")) {
+    if (hasPermission("subscriptions", "read")) {
       options.push({
         href: "/subscribers/requests",
         label: dict.navigation.subscription_requests,
       });
     }
-    if (hasPermission("subscriber", "read")) {
+    if (hasPermission("subscribers", "read")) {
       options.push({
         href: "/subscribers",
         label: dict.navigation.subscribers,
       });
     }
-    if (hasPermission("subscriber", "create")) {
+    if (hasPermission("subscribers", "create")) {
       options.push({
         href: "/subscribers/add",
         label: dict.navigation.add_subscriber,
@@ -93,7 +93,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
           />
         )}
 
-        {hasPermission("user", "read") && (
+        {hasPermission("users", "read") && (
           <OptionLink
             href="/admins"
             icon={<AdminsIcon className="size-5" />}
@@ -107,21 +107,21 @@ export const Sidebar = ({ className }: { className?: string }) => {
             options={subscriberOptions}
           />
         )}
-        {hasPermission("package", "read") && (
+        {hasPermission("packages", "read") && (
           <OptionLink
             href="/packages"
             icon={<GiftIcon className="size-5" />}
             label={dict.navigation.package_management}
           />
         )}
-        {hasPermission("report", "read") && (
+        {hasPermission("reports", "read") && (
           <OptionLink
             href="/reports"
             icon={<ReportsIcon className="size-5" />}
             label={dict.navigation.reports}
           />
         )}
-        {hasPermission("client", "read") && (
+        {hasPermission("clients", "read") && (
           <OptionLink
             href="/clients"
             icon={<CustomersIcon className="size-5" />}
@@ -142,7 +142,7 @@ export const Sidebar = ({ className }: { className?: string }) => {
             options={cmsOptions}
           />
         )}
-        {hasPermission("notification", "read") && (
+        {hasPermission("notifications", "read") && (
           <OptionLink
             href="/notifications"
             icon={<NotificationIcon className="size-5" />}

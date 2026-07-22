@@ -74,17 +74,17 @@ export const ClientsList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("client", "update")
+            onEdit: hasPermission("clients", "update")
               ? () => {
                   router.push(`${pathname}/${row.key}/edit`);
                 }
               : undefined,
-            onDelete: hasPermission("client", "delete")
+            onDelete: hasPermission("clients", "delete")
               ? () => {
                   setIsDeleteWarningOpen(row.key, { history: "push" });
                 }
               : undefined,
-            onActivate: hasPermission("client", "update")
+            onActivate: hasPermission("clients", "update")
               ? (value: boolean) => {
                   if (value) {
                     setActivateClient(row.key, { history: "push" });

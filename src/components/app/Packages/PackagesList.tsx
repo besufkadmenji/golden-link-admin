@@ -95,13 +95,13 @@ export const PackagesList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("package", "update") ? () => {
+            onEdit: hasPermission("packages", "update") ? () => {
               router.push(`${pathname}/${row.key}/edit`);
             } : undefined,
-            onDelete: hasPermission("package", "delete") ? () => {
+            onDelete: hasPermission("packages", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             } : undefined,
-            onActivate: hasPermission("package", "update")
+            onActivate: hasPermission("packages", "update")
               ? (value: boolean) => {
                   if (value) {
                     togglePackageStatus(row.key, "ACTIVE");

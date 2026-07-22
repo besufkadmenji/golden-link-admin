@@ -13,7 +13,7 @@ export const AboutPlatform = () => {
   const { valueAr, valueEn, setValueAr, setValueEn } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("about", "update");
+  const canUpdate = hasPermission("settings", "update");
 
   return (
     <PageWrapper>

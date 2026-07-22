@@ -24,7 +24,7 @@ export const Clients = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.clients_management.title}>
-        {hasPermission("client", "create") && (
+        {hasPermission("clients", "create") && (
           <AddButton
             type={AddButtonType.Client}
             onPress={() => {

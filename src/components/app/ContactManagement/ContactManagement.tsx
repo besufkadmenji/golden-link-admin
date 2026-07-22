@@ -31,7 +31,7 @@ export const ContactManagement = () => {
   const { errors, clearError, validateForm, validateNewPhoneNumber } =
     useContactManagementValidation();
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("message", "update");
+  const canUpdate = hasPermission("settings", "update");
 
   return (
     <PageWrapper>

@@ -573,7 +573,10 @@
       "create": "Add",
       "read": "View",
       "update": "Edit",
-      "delete": "Delete"
+      "delete": "Delete",
+      "manage": "Manage",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
     },
     "modules": {
       "auth": "Authentication",
@@ -606,7 +609,18 @@
       "admin": "System Manager",
       "report": "Report",
       "subscriber": "Subscriber",
-      "feature": "Platform Features"
+      "feature": "Platform Features",
+      "users": "System Managers",
+      "roles": "Roles",
+      "warehouses": "Warehouses",
+      "subscriptions": "Subscriptions",
+      "subscribers": "Subscribers",
+      "packages": "Packages",
+      "clients": "Clients",
+      "drivers": "Drivers",
+      "notifications": "Notification Management",
+      "reports": "Reports",
+      "features": "Platform Features"
     }
   },
   "activate_admin_confirmation": {

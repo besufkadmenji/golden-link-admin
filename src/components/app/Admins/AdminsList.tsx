@@ -85,13 +85,13 @@ export const AdminsList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("user", "update") ? () => {
+            onEdit: hasPermission("users", "update") ? () => {
               router.push(`${pathname}/${row.key}/edit`);
             } : undefined,
-            onDelete: hasPermission("user", "delete") ? () => {
+            onDelete: hasPermission("users", "delete") ? () => {
               setIsDeleteWarningOpen(row.key, { history: "push" });
             } : undefined,
-            onActivate: hasPermission("user", "update")
+            onActivate: hasPermission("users", "update")
               ? (value: boolean) => {
                   if (value) {
                     setActivateAdmin(row.key, { history: "push" });

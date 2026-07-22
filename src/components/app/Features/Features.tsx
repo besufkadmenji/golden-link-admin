@@ -24,7 +24,7 @@ export const Features = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.features_management.title}>
-        {hasPermission("feature", "create") && (
+        {hasPermission("features", "create") && (
           <AddButton
             type={AddButtonType.Feature}
             onPress={() => {

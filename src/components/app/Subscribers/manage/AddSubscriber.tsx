@@ -24,7 +24,7 @@ import { CountryCodeSelect } from "./CountryCodeSelect";
 import { SubscriberType } from "@/types/subscriber";
 
 export const AddSubscriber = () => {
-  useRequirePermission("subscriber", "create");
+  useRequirePermission("subscribers", "create");
   const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

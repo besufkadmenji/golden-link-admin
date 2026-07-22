@@ -20,7 +20,7 @@ import { ALL_RECIPIENTS_KEY } from "./constants";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddNotification = () => {
-  useRequirePermission("notification", "create");
+  useRequirePermission("notifications", "create");
   const { form, setForm, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

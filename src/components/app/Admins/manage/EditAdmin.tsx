@@ -24,7 +24,7 @@ import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { usePermissions } from "@/hooks/usePermissions";
 
 export const EditAdmin = ({ id }: { id: string }) => {
-  useRequirePermission("user", "update");
+  useRequirePermission("users", "update");
   const { user } = useUserById(id);
   console.log("Edit Admin User:", user);
   const { form, setForm, reset, permissionsReady } = useManageForm(id, user);

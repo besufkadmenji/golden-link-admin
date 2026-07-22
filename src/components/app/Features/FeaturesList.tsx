@@ -75,17 +75,17 @@ export const FeaturesList = () => {
             onView: () => {
               router.push(`${pathname}/${row.key}`);
             },
-            onEdit: hasPermission("feature", "update")
+            onEdit: hasPermission("features", "update")
               ? () => {
                   router.push(`${pathname}/${row.key}/edit`);
                 }
               : undefined,
-            onDelete: hasPermission("feature", "delete")
+            onDelete: hasPermission("features", "delete")
               ? () => {
                   setIsDeleteWarningOpen(row.key, { history: "push" });
                 }
               : undefined,
-            onActivate: hasPermission("feature", "update")
+            onActivate: hasPermission("features", "update")
               ? (value: boolean) => {
                   if (value) {
                     setActivateFeature(row.key as string, { history: "push" });

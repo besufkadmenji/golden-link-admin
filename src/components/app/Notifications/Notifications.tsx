@@ -24,7 +24,7 @@ export const Notifications = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.notifications_page.title}>
-        {hasPermission("notification", "create") && (
+        {hasPermission("notifications", "create") && (
           <AddButton
             type={AddButtonType.Notification}
             onPress={() => {

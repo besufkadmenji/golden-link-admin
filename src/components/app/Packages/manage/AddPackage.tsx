@@ -24,7 +24,7 @@ import { sar } from "@/assets/fonts/sar";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 
 export const AddPackage = () => {
-  useRequirePermission("package", "create");
+  useRequirePermission("packages", "create");
   const { form, setForm, features, setFeatures, reset } = useForm();
   const dict = useDict();
   const router = useRouter();

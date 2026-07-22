@@ -23,7 +23,7 @@ export const Admins = () => {
   return (
     <PageWrapper>
       <PageBar title={dict.system_managers_page.title}>
-        {hasPermission("user", "create") && (
+        {hasPermission("users", "create") && (
           <AddButton
             type={AddButtonType.Admin}
             onPress={() => {

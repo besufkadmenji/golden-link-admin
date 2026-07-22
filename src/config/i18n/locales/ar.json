@@ -571,7 +571,10 @@
       "create": "إضافة",
       "read": "عرض",
       "update": "تعديل",
-      "delete": "حذف"
+      "delete": "حذف",
+      "manage": "إدارة",
+      "activate": "تفعيل",
+      "deactivate": "إلغاء التفعيل"
     },
     "modules": {
       "auth": "المصادقة",
@@ -605,7 +608,18 @@
       "admin": "مدير النظام",
       "report": "تقرير",
       "subscriber": "مشترك",
-      "feature": "مميزات المنصة"
+      "feature": "مميزات المنصة",
+      "users": "مديري النظام",
+      "roles": "الأدوار",
+      "warehouses": "المستودعات",
+      "subscriptions": "الاشتراكات",
+      "subscribers": "المشتركين",
+      "packages": "الباقات",
+      "clients": "العملاء",
+      "drivers": "السائقين",
+      "notifications": "إدارة الإشعارات",
+      "reports": "التقارير",
+      "features": "مميزات المنصة"
     }
   },
   "activate_admin_confirmation": {

@@ -22,7 +22,7 @@ import { useFeatureById } from "../useFeatures";
 export const ViewFeature = ({ id }: { id: string }) => {
   const { feature } = useFeatureById(Number(id));
   const { hasPermission } = usePermissions();
-  const canUpdate = hasPermission("feature", "update");
+  const canUpdate = hasPermission("features", "update");
   const [activateFeature, setActivateFeature] =
     useQueryState("activateFeature");
   const [deactivateFeature, setDeactivateFeature] =

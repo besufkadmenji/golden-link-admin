@@ -94,12 +94,12 @@ export const DashboardTable = () => {
                 onView: () => {
                   router.push(`/subscribers/requests/${row.key}`);
                 },
-                onApprove: hasPermission("subscriptionRequest", "update")
+                onApprove: hasPermission("subscriptions", "update")
                   ? () => {
                       approveRequest(row.key);
                     }
                   : undefined,
-                onReject: hasPermission("subscriptionRequest", "delete")
+                onReject: hasPermission("subscriptions", "update")
                   ? () => {
                       setShowRejectModal(row.key, { history: "push" });
                     }
@@ -108,7 +108,7 @@ export const DashboardTable = () => {
             }
           />
         )}
-        {request && hasPermission("subscriptionRequest", "delete") && (
+        {request && hasPermission("subscriptions", "update") && (
           <RejectReasonModal id={request.id} />
         )}
       </div>
