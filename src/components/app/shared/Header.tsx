@@ -35,7 +35,7 @@ import {
 import moment from "moment";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { AppLoading } from "./AppLoading";
 
@@ -254,20 +254,21 @@ const NotificationItem = ({
           "cursor-pointer transition-colors hover:bg-[#F0EEF8] dark:hover:bg-white/5",
       )}
     >
-      <div className="grid grid-cols-[auto_1fr] gap-2">
+      <div className="grid min-w-0 grid-cols-[auto_1fr] gap-2">
         <NotificationItemIcon
           className={twMerge(
             "dark:text-dark-gray-border-alt size-12 text-[#F8F7FC]",
             notification.readAt && "text-white dark:text-black",
           )}
         />
-        <div className="grid grid-cols-1 items-center">
+        <div className="grid min-w-0 grid-cols-1 items-center">
           <p className="text-lg font-semibold text-black dark:text-white">
             {title}
           </p>
-          <p className="text-subTitle whitespace-pre-wrap break-words text-sm dark:text-white/70">
-            {content}
-          </p>
+          <ExpandableNotificationContent
+            content={content}
+            className="text-subTitle dark:text-white/70"
+          />
         </div>
       </div>
       <div className="grid grid-cols-1 justify-items-end gap-6">
@@ -278,6 +279,68 @@ const NotificationItem = ({
           {moment(notification.sentAt).fromNow()}
         </p>
       </div>
+    </div>
+  );
+};
+
+const COLLAPSED_NOTIFICATION_HEIGHT_PX = 40;
+
+const ExpandableNotificationContent = ({
+  content,
+  className,
+}: {
+  content: string;
+  className?: string;
+}) => {
+  const dict = useDict();
+  const contentRef = useRef<HTMLParagraphElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [canExpand, setCanExpand] = useState(false);
+
+  useEffect(() => {
+    const element = contentRef.current;
+    if (!element) return;
+
+    setIsExpanded(false);
+    const updateCanExpand = () => {
+      setCanExpand(
+        element.scrollHeight > COLLAPSED_NOTIFICATION_HEIGHT_PX + 1,
+      );
+    };
+
+    updateCanExpand();
+    const observer = new ResizeObserver(updateCanExpand);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [content]);
+
+  return (
+    <div className="min-w-0">
+      <p
+        ref={contentRef}
+        className={twMerge(
+          "whitespace-pre-wrap break-words text-sm leading-5",
+          !isExpanded && "max-h-10 overflow-hidden",
+          className,
+        )}
+      >
+        {content}
+      </p>
+      {canExpand && (
+        <button
+          type="button"
+          className="text-app-primary mt-1 cursor-pointer text-xs font-semibold"
+          onClick={(event) => {
+            event.stopPropagation();
+            setIsExpanded((expanded) => !expanded);
+          }}
+          onKeyDown={(event) => event.stopPropagation()}
+        >
+          {isExpanded
+            ? dict.common.actions.showLess
+            : dict.common.actions.showMore}
+        </button>
+      )}
     </div>
   );
 };
