@@ -22,7 +22,6 @@ export const adminFormStatusMap = (
 } => ({
   ACTIVE: dict.common.statuses.ACTIVE,
   INACTIVE: dict.common.statuses.INACTIVE,
-  SUSPENDED: dict.common.statuses.SUSPENDED,
 });
 
 export const roleMap = (

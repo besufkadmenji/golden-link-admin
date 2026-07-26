@@ -99,7 +99,7 @@ export const EditAdmin = ({ id }: { id: string }) => {
               value={form.status}
               onChange={(value: string): void => {
                 setForm({
-                  status: value as "ACTIVE" | "INACTIVE" | "SUSPENDED",
+                  status: value as "ACTIVE" | "INACTIVE",
                 });
                 clearError("status");
               }}

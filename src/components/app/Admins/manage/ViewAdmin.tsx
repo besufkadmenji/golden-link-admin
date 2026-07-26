@@ -1,7 +1,7 @@
 "use client";
 
 import { Permissions } from "@/components/app/Admins/manage/Permissions";
-import { statusMap } from "@/components/app/Admins/renderCell";
+import { adminFormStatusMap } from "@/components/app/Admins/renderCell";
 import {
   AppForm,
   FormSection,
@@ -49,10 +49,12 @@ export const ViewAdmin = ({ id }: { id: string }) => {
               placeholder={dict.add_new_admin_form.labels.status}
               value={user.status}
               onChange={(value: string): void => {}}
-              options={Object.entries(statusMap(dict)).map(([key, value]) => ({
-                label: value,
-                key: key,
-              }))}
+              options={Object.entries(adminFormStatusMap(dict)).map(
+                ([key, value]) => ({
+                  label: value,
+                  key: key,
+                }),
+              )}
               readOnly
             />
           </div>

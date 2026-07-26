@@ -5,7 +5,7 @@ import {
   startOfYear,
   subDays,
 } from "date-fns";
-import moment from "moment";
+import { toApiEndDateIso, toApiStartDateIso } from "@/utils/dateFilter.helpers";
 
 /** Values written to the URL by `TimeFilter` */
 export type TimeFilterQueryOption = "DAY" | "WEEK" | "MONTH" | "YEAR" | "ALL";
@@ -100,8 +100,11 @@ export const getDateRangeByOption = (
   }
 
   return {
-    startDate: moment(startDate).format("YYYY-MM-DD"),
-    endDate: moment(endDate).format("YYYY-MM-DD"),
+    startDate: toApiStartDateIso(startDate),
+    endDate:
+      period === "12months"
+        ? toApiEndDateIso(endDate)
+        : toApiStartDateIso(endDate),
   };
 };
 

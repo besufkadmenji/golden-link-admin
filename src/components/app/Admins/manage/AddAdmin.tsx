@@ -93,7 +93,7 @@ export const AddAdmin = () => {
                 value={form.status}
                 onChange={(value: string): void => {
                   setForm({
-                    status: value as "ACTIVE" | "INACTIVE" | "SUSPENDED",
+                    status: value as "ACTIVE" | "INACTIVE",
                   });
                   clearError("status");
                 }}
