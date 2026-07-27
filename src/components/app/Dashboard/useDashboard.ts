@@ -48,60 +48,25 @@ export const useLatestJoinRequests = () => {
 };
 
 export const useMonthlySubscriptionsComparison = (
-  interval: string = "this_month",
+  params: SubscriptionComparisonParams,
 ) => {
   const { canView, isReady } = useCanViewDashboardStats();
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
-
-  let inactiveMonth = currentMonth;
-  let inactiveYear = currentYear;
-
-  if (interval === "this_month") {
-    inactiveMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-    inactiveYear = currentMonth === 0 ? currentYear - 1 : currentYear;
-  } else if (interval === "last_6_months") {
-    inactiveMonth = currentMonth >= 6 ? currentMonth - 6 : currentMonth + 6;
-    inactiveYear = currentMonth >= 6 ? currentYear : currentYear - 1;
-  } else if (interval === "this_year") {
-    inactiveMonth = currentMonth;
-    inactiveYear = currentYear - 1;
-  }
-
-  const params: SubscriptionComparisonParams = {
-    activeMonthIndex: currentMonth,
-    activeYear: currentYear,
-    inactiveMonthIndex: inactiveMonth,
-    inactiveYear: inactiveYear,
-  };
 
   const { data, isFetching, isError } = useQuery({
-    queryKey: ["monthlySubscriptionsComparison", interval],
+    queryKey: [
+      "monthlySubscriptionsComparison",
+      params.activeMonthIndex,
+      params.activeYear,
+      params.inactiveMonthIndex,
+      params.inactiveYear,
+    ],
     queryFn: () => HomeService.getMonthlySubscriptionsComparison(params),
     enabled: isReady && canView,
   });
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const previousPeriodLabel = `${monthNames[inactiveMonth]} ${inactiveYear}`;
 
   return {
     subscriptionsComparison: data,
     isLoading: canView && isFetching,
     isError,
-    previousPeriodLabel,
   };
 };

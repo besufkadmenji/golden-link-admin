@@ -1568,9 +1568,12 @@
       },
       "date_range": "30 Sep 2021",
       "filters": {
-        "this_month": "This Month",
-        "last_6_months": "Last 6 Months",
-        "this_year": "This Year"
+        "title": "Compare months",
+        "active_month": "Selected month",
+        "compare_with": "Compare with",
+        "month": "Month",
+        "year": "Year",
+        "show": "Show"
       }
     },
     "status": {

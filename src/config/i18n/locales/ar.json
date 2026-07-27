@@ -1569,9 +1569,12 @@
       },
       "date_range": "30 سبتمبر 2021",
       "filters": {
-        "this_month": "هذا الشهر",
-        "last_6_months": "آخر 6 أشهر",
-        "this_year": "هذا العام"
+        "title": "مقارنة الأشهر",
+        "active_month": "الشهر المحدد",
+        "compare_with": "مقارنة مع",
+        "month": "الشهر",
+        "year": "السنة",
+        "show": "عرض"
       }
     },
     "status": {
