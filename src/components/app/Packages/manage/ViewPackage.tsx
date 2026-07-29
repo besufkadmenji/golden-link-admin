@@ -69,20 +69,6 @@ export const ViewPackage = ({ id }: { id: string }) => {
               ]}
               readOnly
             />
-            <FormInput
-              label={dict.package_detail_page.labels.max_warehouses}
-              placeholder={dict.package_detail_page.labels.max_warehouses}
-              value={pkg.maxWarehouses?.toString() ?? "N/A"}
-              onChange={(value: string): void => {}}
-              readOnly
-            />
-            <FormInput
-              label={dict.package_detail_page.labels.max_users}
-              placeholder={dict.package_detail_page.labels.max_users}
-              value={pkg.maxUsers?.toString() ?? "N/A"}
-              onChange={(value: string): void => {}}
-              readOnly
-            />
           </div>
           <div className="mt-4 grid grid-cols-1 gap-4">
             <FormAreaInput

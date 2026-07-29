@@ -6,6 +6,7 @@ export const PACKAGE_FEATURE_GRID_ROWS: (keyof PackageFeatures)[][] = [
   ["customers", "suppliers", "reportsAndAnalytics"],
   ["shipmentTracking", "drivers", "rentedSpaces"],
   ["settings", "rolesAndPermissions", "packagesAndSubscriptions"],
+  ["messages", "notifications", "archives"],
 ];
 
 export const ALL_PACKAGE_FEATURES_ENABLED = PACKAGE_FEATURE_GRID_ROWS.flat().reduce(

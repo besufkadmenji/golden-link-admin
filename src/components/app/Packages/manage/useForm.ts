@@ -32,6 +32,9 @@ const defaultFeatures: PackageFeatures = {
   settings: false,
   rolesAndPermissions: false,
   packagesAndSubscriptions: false,
+  messages: false,
+  notifications: false,
+  archives: false,
 };
 
 export const useForm = create<FormState>((set) => ({

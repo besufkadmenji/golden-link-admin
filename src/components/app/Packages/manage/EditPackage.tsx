@@ -128,17 +128,6 @@ export const EditPackage = ({ id }: { id: string }) => {
               ]}
               errorMessage={errors.status}
             />
-            <FormInput
-              label={dict.edit_package_form.labels.max_users}
-              placeholder={dict.edit_package_form.placeholders.max_users}
-              value={form.maxUsers?.toString() ?? ""}
-              onChange={(value: string): void => {
-                setForm({ maxUsers: value ? parseInt(value) : undefined });
-                clearError("maxUsers");
-              }}
-              type="number"
-              errorMessage={errors.maxUsers}
-            />
           </div>
           <div className="mt-4 grid grid-cols-1 gap-4">
             <FormAreaInput

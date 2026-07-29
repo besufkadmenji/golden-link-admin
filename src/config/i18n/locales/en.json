@@ -787,7 +787,10 @@
       "rentedSpaces": "Rented Spaces",
       "settings": "Settings",
       "rolesAndPermissions": "Roles and Permissions",
-      "packagesAndSubscriptions": "Packages and Subscriptions"
+      "packagesAndSubscriptions": "Packages and Subscriptions",
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "archives": "Archives"
     },
     "validation": {
       "packageName": {

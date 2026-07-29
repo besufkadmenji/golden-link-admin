@@ -19,6 +19,9 @@ export interface PackageFeatures {
   settings: boolean;
   rolesAndPermissions: boolean;
   packagesAndSubscriptions: boolean;
+  messages: boolean;
+  notifications: boolean;
+  archives: boolean;
 }
 
 /**

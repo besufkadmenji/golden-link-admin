@@ -786,7 +786,10 @@
       "rentedSpaces": "المساحات المستأجرة",
       "settings": "الإعدادات",
       "rolesAndPermissions": "الأدوار والصلاحيات",
-      "packagesAndSubscriptions": "الباقات والاشتراكات"
+      "packagesAndSubscriptions": "الباقات والاشتراكات",
+      "messages": "الرسائل",
+      "notifications": "الإشعارات",
+      "archives": "الأرشيف"
     },
     "validation": {
       "packageName": {
