@@ -7,6 +7,7 @@ import { createPermissionEvaluator } from "@/utils/permissions";
 import { showErrorMessage } from "@/utils/show.message";
 import Cookie from "js-cookie";
 import { useState } from "react";
+import { storeAccessToken } from "@/utils/auth.token";
 
 export const useLogIn = () => {
   const [busy, setBusy] = useState(false);
@@ -43,9 +44,7 @@ export const useLogIn = () => {
         password,
       });
       if (response) {
-        Cookie.set("accessToken", response.accessToken);
-        Cookie.set("refreshToken", response.refreshToken);
-        Cookie.set("accessTokenExpiry", response.accessTokenExpiry);
+        storeAccessToken(response.accessToken, response.accessTokenExpiry);
         Cookie.set("refreshTokenExpiry", response.refreshTokenExpiry);
         const { hasAnyPermission } = createPermissionEvaluator({
           permissionType: response.user.permissionType,

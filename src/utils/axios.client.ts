@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { getValidAccessToken } from "@/utils/auth.token";
+import { getValidAccessToken, storeAccessToken } from "@/utils/auth.token";
 import { getClientLocale } from "@/utils/locale.client";
 
 const axiosClient = axios.create({
@@ -34,8 +34,22 @@ axiosClient.interceptors.request.use(async (config) => {
 });
 
 axiosClient.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => Promise.reject(error),
+  (response) => {
+    const newAccessToken = response.headers["x-new-access-token"];
+    if (typeof newAccessToken === "string" && newAccessToken) {
+      storeAccessToken(newAccessToken);
+    }
+
+    return response;
+  },
+  (error: AxiosError) => {
+    const newAccessToken = error.response?.headers["x-new-access-token"];
+    if (typeof newAccessToken === "string" && newAccessToken) {
+      storeAccessToken(newAccessToken);
+    }
+
+    return Promise.reject(error);
+  },
 );
 
 export default axiosClient;

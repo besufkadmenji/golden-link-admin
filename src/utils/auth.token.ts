@@ -1,42 +1,46 @@
-import axios from "axios";
 import Cookie from "js-cookie";
-import { getClientLocale } from "@/utils/locale.client";
 
-const TOKEN_BUFFER_MS = 10_000;
+function getAccessTokenExpiry(accessToken: string): string | null {
+  try {
+    const payload = accessToken.split(".")[1];
+    if (!payload) return null;
+
+    const normalizedPayload = payload
+      .replace(/-/g, "+")
+      .replace(/_/g, "/")
+      .padEnd(Math.ceil(payload.length / 4) * 4, "=");
+    const bytes = Uint8Array.from(atob(normalizedPayload), (character) =>
+      character.charCodeAt(0),
+    );
+    const decoded = JSON.parse(new TextDecoder().decode(bytes)) as {
+      exp?: number;
+    };
+
+    return typeof decoded.exp === "number"
+      ? new Date(decoded.exp * 1000).toISOString()
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+export function storeAccessToken(
+  accessToken: string,
+  accessTokenExpiry?: string,
+): void {
+  if (typeof window === "undefined" || !accessToken) return;
+
+  Cookie.set("accessToken", accessToken);
+
+  const expiry = accessTokenExpiry ?? getAccessTokenExpiry(accessToken);
+  if (expiry) {
+    Cookie.set("accessTokenExpiry", expiry);
+  }
+}
 
 export async function getValidAccessToken(): Promise<string | null> {
   if (typeof window === "undefined") return null;
-
-  const accessToken = Cookie.get("accessToken");
-  const refreshToken = Cookie.get("refreshToken");
-  const accessTokenExpiry = Cookie.get("accessTokenExpiry");
-
-  const isExpired = accessTokenExpiry
-    ? new Date(accessTokenExpiry).getTime() - TOKEN_BUFFER_MS <= Date.now()
-    : false;
-
-  try {
-    let tokenToUse = accessToken;
-
-    if (isExpired && refreshToken) {
-      const res = await axios.post(
-        "/api/proxy/auth/refresh-token",
-        { refreshToken },
-        {
-          headers: {
-            "Accept-Language": getClientLocale(),
-          },
-        },
-      );
-      Cookie.set("accessToken", res.data.accessToken);
-      Cookie.set("accessTokenExpiry", res.data.accessTokenExpiry);
-      tokenToUse = res.data.accessToken;
-    }
-
-    return tokenToUse ?? null;
-  } catch {
-    return accessToken ?? null;
-  }
+  return Cookie.get("accessToken") ?? null;
 }
 
 export function hasAccessToken(): boolean {
