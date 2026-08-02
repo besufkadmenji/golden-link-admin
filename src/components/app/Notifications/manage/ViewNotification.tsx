@@ -13,6 +13,7 @@ import { FormSelectMultiple } from "@/components/app/shared/forms/FormSelect";
 import { useDict } from "@/hooks/useDict";
 import { useRouter } from "next/navigation";
 import { AppLoading } from "../../shared/AppLoading";
+import { getBusinessDisplayName } from "@/utils/business.display.name";
 
 export const ViewNotification = ({ id }: { id: string }) => {
   const { notification } = useNotificationById(id);
@@ -45,7 +46,7 @@ export const ViewNotification = ({ id }: { id: string }) => {
               onChange={(value: string[]): void => {}}
               options={
                 subscribers?.subscribers.map((subscriber) => ({
-                  label: subscriber.fullName,
+                  label: getBusinessDisplayName(subscriber),
                   key: subscriber.id,
                 })) ?? []
               }

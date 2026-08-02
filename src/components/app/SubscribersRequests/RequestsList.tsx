@@ -12,6 +12,7 @@ import { useRequests } from "./useRequest";
 import { useManageRequest } from "@/components/app/SubscribersRequests/Detail/useManageRequest";
 import { RejectReasonModal } from "@/components/app/SubscribersRequests/Detail/RejectReasonModal";
 import { usePermissions } from "@/hooks/useHasPermissions";
+import { getBusinessDisplayName } from "@/utils/business.display.name";
 
 export const RequestsList = () => {
   const dict = useDict();
@@ -33,10 +34,6 @@ export const RequestsList = () => {
   const columns: ColumnType[] = [
     {
       key: "name",
-      label: dict.subscription_requests_page.table_headers.name,
-    },
-    {
-      key: "organizationName",
       label: dict.subscription_requests_page.table_headers.organization_name,
     },
     {
@@ -75,8 +72,7 @@ export const RequestsList = () => {
         columns={columns}
         rows={data.subscriptionRequests.map((request) => ({
           key: request.id,
-          name: request.fullName,
-          organizationName: request.organizationName,
+          name: getBusinessDisplayName(request),
           phone: request.phoneNumber,
           email: request.email,
           type: normalizeSubscriberRole(request.type),

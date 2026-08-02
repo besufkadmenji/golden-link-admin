@@ -16,6 +16,7 @@ import { AppTable, ColumnType, RowType } from "../../shared/tables/AppTable";
 import { AppTableSkeleton } from "../../shared/tables/AppTableSkeleton";
 import { renderCell } from "./renderCell";
 import { formatAmount } from "@/utils/format.amount";
+import { getBusinessDisplayName } from "@/utils/business.display.name";
 
 export const PackageSubscribersList = () => {
   const dict = useDict();
@@ -89,7 +90,7 @@ export const PackageSubscribersList = () => {
               index +
               1,
           ),
-          username: subscriber.fullName,
+          username: getBusinessDisplayName(subscriber),
           phone: subscriber.phoneNumber,
           packageName:
             subscriber.subscription?.package?.packageName ??

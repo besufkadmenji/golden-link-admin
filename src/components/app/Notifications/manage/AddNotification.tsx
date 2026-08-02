@@ -18,6 +18,7 @@ import { useSubscribers } from "../../Subscribers/useSubscriber";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { ALL_RECIPIENTS_KEY } from "./constants";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
+import { getBusinessDisplayName } from "@/utils/business.display.name";
 
 export const AddNotification = () => {
   useRequirePermission("notifications", "create");
@@ -41,7 +42,7 @@ export const AddNotification = () => {
       ...(subscribers?.subscribers
         .filter((subscriber) => subscriber.status === "ACTIVE")
         .map((subscriber) => ({
-          label: subscriber.fullName,
+          label: getBusinessDisplayName(subscriber),
           key: subscriber.id,
         })) ?? []),
     ],

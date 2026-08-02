@@ -21,6 +21,7 @@ import {
 } from "@/components/app/shared/DeleteWarning";
 import { ActivateSubscriber } from "./ActivateSubscriber";
 import { DeactivateSubscriber } from "./DeactivateSubscriber";
+import { getBusinessDisplayName } from "@/utils/business.display.name";
 
 export const SubscribersList = () => {
   const dict = useDict();
@@ -47,10 +48,6 @@ export const SubscribersList = () => {
   const columns: ColumnType[] = [
     {
       key: "name",
-      label: dict.subscribers_page.table_headers.name,
-    },
-    {
-      key: "organizationName",
       label: dict.subscribers_page.table_headers.organization_name,
     },
     {
@@ -94,8 +91,7 @@ export const SubscribersList = () => {
         columns={columns}
         rows={data.subscribers.map((subscriber) => ({
           key: subscriber.id,
-          name: subscriber.fullName,
-          organizationName: subscriber.organizationName,
+          name: getBusinessDisplayName(subscriber),
           phone: subscriber.phoneNumber,
           email: subscriber.email,
           type: normalizeSubscriberRole(subscriber.roleName),
