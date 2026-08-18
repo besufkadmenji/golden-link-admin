@@ -18,7 +18,12 @@ import {
 } from "@/realtime/socket.handlers";
 import { SOCKET_EVENTS } from "@/realtime/socket.events";
 import type { SocketErrorEvent } from "@/realtime/socket.types";
-import { getValidAccessToken, hasAccessToken } from "@/utils/auth.token";
+import {
+  getValidAccessToken,
+  hasAccessToken,
+  redirectToLogin,
+  refreshAccessToken,
+} from "@/utils/auth.token";
 
 export type SocketStatus = "disconnected" | "connecting" | "connected";
 
@@ -41,6 +46,11 @@ export function SocketProvider({
   const socketRef = useRef<Socket | null>(null);
   const subscribedShipmentsRef = useRef<Set<string>>(new Set());
   const cleanupHandlersRef = useRef<(() => void) | null>(null);
+  const recoveringSessionRef = useRef(false);
+  const recoveryAttemptedRef = useRef(false);
+  const recoveryResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const [status, setStatus] = useState<SocketStatus>("disconnected");
 
   const subscribeShipment = useCallback((shipmentId: string) => {
@@ -70,6 +80,10 @@ export function SocketProvider({
   }, []);
 
   const disconnect = useCallback(() => {
+    if (recoveryResetTimerRef.current) {
+      clearTimeout(recoveryResetTimerRef.current);
+      recoveryResetTimerRef.current = null;
+    }
     cleanupHandlersRef.current?.();
     cleanupHandlersRef.current = null;
 
@@ -111,6 +125,13 @@ export function SocketProvider({
     socketRef.current = socket;
 
     socket.on("connect", () => {
+      if (recoveryResetTimerRef.current) {
+        clearTimeout(recoveryResetTimerRef.current);
+      }
+      recoveryResetTimerRef.current = setTimeout(() => {
+        recoveryAttemptedRef.current = false;
+        recoveryResetTimerRef.current = null;
+      }, 5_000);
       setStatus("connected");
       resubscribeAllShipments();
     });
@@ -121,9 +142,32 @@ export function SocketProvider({
 
     socket.on(SOCKET_EVENTS.ERROR, (error: SocketErrorEvent) => {
       if (error?.message?.toLowerCase().includes("unauthorized")) {
-        disconnect();
-        const lang = document.documentElement.lang || "en";
-        window.location.href = `/${lang}/auth`;
+        if (recoveringSessionRef.current) return;
+        if (recoveryAttemptedRef.current) {
+          disconnect();
+          redirectToLogin();
+          return;
+        }
+
+        recoveringSessionRef.current = true;
+        recoveryAttemptedRef.current = true;
+
+        void refreshAccessToken()
+          .then((accessToken) => {
+            socket.auth = { token: accessToken };
+            socket.io.opts.query = {
+              ...(socket.io.opts.query ?? {}),
+              token: accessToken,
+            };
+            socket.disconnect().connect();
+          })
+          .catch(() => {
+            disconnect();
+            redirectToLogin();
+          })
+          .finally(() => {
+            recoveringSessionRef.current = false;
+          });
       }
     });
 

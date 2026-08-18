@@ -31,7 +31,6 @@ export interface AdminUser {
 
 export interface AdminAuthTokens {
   accessToken: string;
-  refreshToken: string;
   accessTokenExpiry: string;
   refreshTokenExpiry: string;
 }

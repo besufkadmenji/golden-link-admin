@@ -5,9 +5,8 @@ import { AuthService } from "@/services/auth.service";
 import { getFirstAllowedRoute } from "@/config/routePermissions";
 import { createPermissionEvaluator } from "@/utils/permissions";
 import { showErrorMessage } from "@/utils/show.message";
-import Cookie from "js-cookie";
 import { useState } from "react";
-import { storeAccessToken } from "@/utils/auth.token";
+import { storeAccessToken, storeRefreshTokenExpiry } from "@/utils/auth.token";
 
 export const useLogIn = () => {
   const [busy, setBusy] = useState(false);
@@ -45,7 +44,7 @@ export const useLogIn = () => {
       });
       if (response) {
         storeAccessToken(response.accessToken, response.accessTokenExpiry);
-        Cookie.set("refreshTokenExpiry", response.refreshTokenExpiry);
+        storeRefreshTokenExpiry(response.refreshTokenExpiry);
         const { hasAnyPermission } = createPermissionEvaluator({
           permissionType: response.user.permissionType,
           permissions: response.user.permissions,

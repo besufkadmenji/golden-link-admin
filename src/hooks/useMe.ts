@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import Cookie from "js-cookie";
 import { AdminAuthPayload } from "@/types/admin.auth";
 import { AuthService } from "@/services/auth.service";
 import { PermissionService } from "@/services/permission.service";
 import { AssignedPermissionsResponse } from "@/types/permission";
 import { useLang } from "./useLang";
+import { clearClientAuthState } from "@/utils/auth.token";
+import { showErrorMessage } from "@/utils/show.message";
 export const useMe = (): {
   me: AdminAuthPayload | null | undefined;
   userPermissions: AssignedPermissionsResponse | null | undefined;
@@ -29,17 +30,21 @@ export const useMe = (): {
     isLoading: userPermissionsLoading,
     isError: userPermissionsError,
   } = useQuery<AssignedPermissionsResponse | null>({
-      queryKey: ["userPermissions", "me"],
-      queryFn: () => PermissionService.getMyPermissions(),
-      enabled: !!me?.id && me.permissionType === "CUSTOM",
-    });
+    queryKey: ["userPermissions", "me"],
+    queryFn: () => PermissionService.getMyPermissions(),
+    enabled: !!me?.id && me.permissionType === "CUSTOM",
+  });
 
   const logout = async (): Promise<void> => {
-    Cookie.remove("accessToken");
-    Cookie.remove("refreshToken");
-    Cookie.remove("accessTokenExpiry");
-    Cookie.remove("refreshTokenExpiry");
-    window.location.reload();
+    try {
+      await AuthService.logout();
+      clearClientAuthState();
+      window.location.replace(`/${lang}/login`);
+    } catch (error) {
+      showErrorMessage(
+        error instanceof Error ? error.message : "Failed to logout as admin.",
+      );
+    }
   };
 
   return {

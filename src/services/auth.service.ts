@@ -19,15 +19,23 @@ import {
 } from "@/types/admin.auth";
 
 export class AuthService {
+  static async logout(): Promise<void> {
+    try {
+      await axiosClient.post("/admin/auth/logout", {});
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(error, "Failed to logout as admin."),
+      );
+    }
+  }
+
   /**
    * Admin login endpoint
    * POST /admin/auth/login
    * @param data - Login credentials (email and password)
    * @returns Admin authentication data with tokens and user info
    */
-  static async adminLogin(
-    data: AdminLoginDto
-  ): Promise<AdminAuthData | null> {
+  static async adminLogin(data: AdminLoginDto): Promise<AdminAuthData | null> {
     try {
       const response = await axiosClient.post<AdminLoginResponse>(
         "/admin/auth/login",
@@ -78,7 +86,7 @@ export class AuthService {
    * @returns Session ID for password reset flow
    */
   static async forgotPassword(
-    data: ForgotPasswordDto
+    data: ForgotPasswordDto,
   ): Promise<ForgotPasswordData | null> {
     try {
       const response = await axiosClient.post<ForgotPasswordResponse>(
@@ -106,7 +114,7 @@ export class AuthService {
    * @returns Verified session ID for password reset completion
    */
   static async verifyResetCode(
-    data: VerifyResetCodeDto
+    data: VerifyResetCodeDto,
   ): Promise<VerifyResetCodeData | null> {
     try {
       const response = await axiosClient.post<VerifyResetCodeResponse>(
@@ -133,9 +141,7 @@ export class AuthService {
    * @param data - Email, new password, confirm password, and session ID
    * @returns null on successful password reset
    */
-  static async resetPassword(
-    data: ResetPasswordDto
-  ): Promise<boolean> {
+  static async resetPassword(data: ResetPasswordDto): Promise<boolean> {
     try {
       const response = await axiosClient.post<ResetPasswordResponse>(
         "/admin/auth/reset-password",
@@ -161,9 +167,7 @@ export class AuthService {
    * @param data - Current password, new password, and confirm password
    * @returns true on successful password change
    */
-  static async changePassword(
-    data: ChangePasswordDto
-  ): Promise<boolean> {
+  static async changePassword(data: ChangePasswordDto): Promise<boolean> {
     try {
       const response = await axiosClient.post<ChangePasswordResponse>(
         "/admin/auth/change-password",
