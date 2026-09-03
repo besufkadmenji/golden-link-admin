@@ -1,6 +1,7 @@
 "use client";
 
-import FallbackLogo from "@/assets/icons/logo.horizontal.svg";
+import HorizontalFallbackLogo from "@/assets/icons/logo.horizontal.svg";
+import MainFallbackLogo from "@/assets/icons/main.logo.svg";
 import { useSetting } from "@/components/app/Settings/useSettings";
 import { resolveApiAssetUrl } from "@/utils/url";
 import Image from "next/image";
@@ -9,11 +10,18 @@ import { useEffect, useMemo, useState } from "react";
 export const PlatformLogo = ({
   className,
   initialLogoPath,
+  fallback = "horizontal",
+  refreshFromAuthenticatedSetting = true,
 }: {
   className?: string;
   initialLogoPath: string | null;
+  fallback?: "horizontal" | "main";
+  refreshFromAuthenticatedSetting?: boolean;
 }) => {
-  const { setting } = useSetting("header_logo");
+  const { setting } = useSetting(
+    "header_logo",
+    refreshFromAuthenticatedSetting,
+  );
   const currentLogoPath =
     typeof setting?.value === "string" ? setting.value : initialLogoPath;
   const logoUrl = useMemo(
@@ -21,13 +29,16 @@ export const PlatformLogo = ({
     [currentLogoPath],
   );
   const [imageFailed, setImageFailed] = useState(false);
+  const logoClassName = `size-full ${className ?? ""}`;
 
   useEffect(() => {
     setImageFailed(false);
   }, [logoUrl]);
 
   if (!logoUrl || imageFailed) {
-    return <FallbackLogo className={className} />;
+    const FallbackLogo =
+      fallback === "main" ? MainFallbackLogo : HorizontalFallbackLogo;
+    return <FallbackLogo className={logoClassName} />;
   }
 
   return (
@@ -35,7 +46,7 @@ export const PlatformLogo = ({
       src={logoUrl}
       alt="Golden Link"
       fill
-      className={`object-contain ${className ?? ""}`}
+      className={`object-contain ${logoClassName}`}
       onError={() => setImageFailed(true)}
     />
   );

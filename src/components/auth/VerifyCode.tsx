@@ -1,12 +1,16 @@
 "use client";
-import LogoIcon from "@/assets/icons/main.logo.svg";
+import { PlatformLogo } from "@/components/app/shared/PlatformLogo";
 import { useForgotPassword } from "@/components/auth/useForgotPassword";
 import { useDict } from "@/hooks/useDict";
 import { Button, InputOtp } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { PrimaryButton } from "../app/shared/button/PrimaryButton";
 import { SiteLayout } from "../shared/SiteLayout";
-export const VerifyCode = () => {
+export const VerifyCode = ({
+  headerLogoPath,
+}: {
+  headerLogoPath: string | null;
+}) => {
   const dict = useDict();
   const [code, setCode] = useState("");
   const { verifyResetCode, busy, resendCode, startTimer, resetSeconds } =
@@ -16,10 +20,16 @@ export const VerifyCode = () => {
   }, [startTimer]);
 
   return (
-    <SiteLayout>
+    <SiteLayout headerLogoPath={headerLogoPath}>
       <div className="dark:bg-dark-app-background mx-6 grid min-w-[26vw] grid-cols-1 justify-items-center gap-12 self-center rounded-xl bg-white px-8.5 py-8 pb-16 lg:justify-self-center">
         <div className="grid grid-cols-1 justify-items-center gap-5">
-          <LogoIcon className="size-25" />
+          <span className="relative block h-25 w-52 max-w-full">
+            <PlatformLogo
+              initialLogoPath={headerLogoPath}
+              fallback="main"
+              refreshFromAuthenticatedSetting={false}
+            />
+          </span>
           <div className="grid grid-cols-1 justify-items-center gap-1">
             <p className="text-xl font-medium text-black dark:text-white">
               {dict.admin_verify_code_form.title}

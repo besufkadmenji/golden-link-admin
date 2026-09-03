@@ -1,21 +1,31 @@
 "use client";
-import LogoIcon from "@/assets/icons/main.logo.svg";
+import { PlatformLogo } from "@/components/app/shared/PlatformLogo";
 import { PasswordInput } from "@/components/app/shared/forms/FormInput";
 import { useForgotPassword } from "@/components/auth/useForgotPassword";
 import { useDict } from "@/hooks/useDict";
 import { useState } from "react";
 import { PrimaryButton } from "../app/shared/button/PrimaryButton";
 import { SiteLayout } from "../shared/SiteLayout";
-export const ResetPassword = () => {
+export const ResetPassword = ({
+  headerLogoPath,
+}: {
+  headerLogoPath: string | null;
+}) => {
   const dict = useDict();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { resetPassword, busy } = useForgotPassword();
   return (
-    <SiteLayout>
+    <SiteLayout headerLogoPath={headerLogoPath}>
       <div className="dark:bg-dark-app-background mx-6 grid min-w-[26vw] grid-cols-1 justify-items-center gap-16 self-center rounded-xl bg-white px-8.5 py-8 pb-16 lg:justify-self-center">
         <div className="grid grid-cols-1 justify-items-center gap-5">
-          <LogoIcon className="size-25" />
+          <span className="relative block h-25 w-52 max-w-full">
+            <PlatformLogo
+              initialLogoPath={headerLogoPath}
+              fallback="main"
+              refreshFromAuthenticatedSetting={false}
+            />
+          </span>
           <div className="grid grid-cols-1 justify-items-center gap-1">
             <p className="text-xl font-medium text-black dark:text-white">
               {dict.admin_forgot_password_form.title}

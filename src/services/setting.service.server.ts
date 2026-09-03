@@ -38,3 +38,9 @@ export const getPublicSettingServerSide = async <TValue = string | object>(
     return null;
   }
 };
+
+export const getHeaderLogoPathServerSide = async (lang: string) => {
+  const setting = await getPublicSettingServerSide<string>("header_logo", lang);
+
+  return typeof setting?.value === "string" ? setting.value : null;
+};
