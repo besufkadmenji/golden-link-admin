@@ -44,7 +44,11 @@ const ThemeSwitcher = dynamic(
   { ssr: false },
 );
 
-export const Header = () => {
+export const Header = ({
+  headerLogoPath,
+}: {
+  headerLogoPath: string | null;
+}) => {
   const { hasPermission } = usePermissions();
   const canViewNotifications = hasPermission("notifications", "read");
 
@@ -54,7 +58,7 @@ export const Header = () => {
         "flex h-16 items-center justify-between gap-1 bg-white px-2 lg:justify-end lg:gap-5 lg:px-10 dark:bg-black",
       )}
     >
-      <MobileSidebar />
+      <MobileSidebar headerLogoPath={headerLogoPath} />
       <div className="flex items-center gap-0 lg:gap-5">
         <ThemeSwitcher />
         <SelectLanguage />
@@ -153,13 +157,8 @@ const NotificationPopover = () => {
 
 const NotificationsList = ({ onNavigate }: { onNavigate: () => void }) => {
   const dict = useDict();
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = usePopoverNotifications();
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    usePopoverNotifications();
   const notificationList =
     data?.pages.flatMap((page) => page?.notifications ?? []) ?? [];
 
@@ -303,9 +302,7 @@ const ExpandableNotificationContent = ({
 
     setIsExpanded(false);
     const updateCanExpand = () => {
-      setCanExpand(
-        element.scrollHeight > COLLAPSED_NOTIFICATION_HEIGHT_PX + 1,
-      );
+      setCanExpand(element.scrollHeight > COLLAPSED_NOTIFICATION_HEIGHT_PX + 1);
     };
 
     updateCanExpand();
@@ -319,7 +316,7 @@ const ExpandableNotificationContent = ({
       <p
         ref={contentRef}
         className={twMerge(
-          "whitespace-pre-wrap break-words text-sm leading-5",
+          "text-sm leading-5 break-words whitespace-pre-wrap",
           !isExpanded && "max-h-10 overflow-hidden",
           className,
         )}

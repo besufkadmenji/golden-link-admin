@@ -1152,6 +1152,10 @@
       "attach": "Upload Profile Image",
       "desc": "Upload a profile image in Png format"
     },
+    "header_logo": {
+      "attach": "Upload Header Logo",
+      "desc": "Upload a PNG or JPEG logo for the public website and admin dashboard"
+    },
     "messages": {
       "updateSuccess": "Settings updated successfully.",
       "passwordChangeSuccess": "Password changed successfully."

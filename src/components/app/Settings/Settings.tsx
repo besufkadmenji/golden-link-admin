@@ -15,6 +15,8 @@ import { usePermissions } from "@/hooks/useHasPermissions";
 import { useMe } from "@/hooks/useMe";
 import { SaveButton, SaveButtonType } from "../shared/button/SaveButton";
 import { useQueryState } from "nuqs";
+import { IMAGE_FILE_ACCEPT } from "@/utils/fileAccept";
+import { resolveApiAssetUrl } from "@/utils/url";
 export const Settings = () => {
   const dict = useDict();
   const { me } = useMe();
@@ -30,6 +32,9 @@ export const Settings = () => {
     setProfileImageRemoved,
     vatRateReady,
     trialPeriodDurationReady,
+    headerLogo,
+    setHeaderLogo,
+    existingHeaderLogoPath,
   } = useManageSettingsForm();
   const { updateSetting, busy } = useManageSetting();
   const { hasPermission } = usePermissions();
@@ -78,6 +83,19 @@ export const Settings = () => {
                   readOnly={!canUpdate}
                 />
               )}
+              <UploadInput
+                label={dict.settings_page.header_logo.attach}
+                desc={dict.settings_page.header_logo.desc}
+                file={headerLogo}
+                onChange={setHeaderLogo}
+                accept={IMAGE_FILE_ACCEPT}
+                initUrl={
+                  resolveApiAssetUrl(existingHeaderLogoPath) ?? undefined
+                }
+                isDisabled={!canUpdate}
+                canRemoveInitialFile={false}
+                className="md:col-span-2"
+              />
             </div>
           </FormSection>
           <FormSection title={dict.settings_page.sections.personal_profile}>

@@ -18,6 +18,14 @@ export interface Setting {
   } | null;
 }
 
+export interface PublicSettingValue<TValue = string | object> {
+  key: string;
+  keyAr: string;
+  value: TValue;
+  type: string;
+  description: string;
+}
+
 export interface SettingsResponse {
   settings: Setting[];
   pagination: {

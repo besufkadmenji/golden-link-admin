@@ -11,7 +11,13 @@ import { AppLoading } from "./AppLoading";
 import { PermissionDenied } from "./PermissionDenied";
 import { isRouteAllowed } from "@/config/routePermissions";
 
-export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
+export const AppLayoutWrapper = ({
+  children,
+  headerLogoPath,
+}: {
+  children: ReactNode;
+  headerLogoPath: string | null;
+}) => {
   const pathname = usePathname();
   const { hasAnyPermission, isPermissionLoading } = usePermissions();
 
@@ -30,9 +36,9 @@ export const AppLayoutWrapper = ({ children }: { children: ReactNode }) => {
         `${cairo.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]`,
       )}
     >
-      <Sidebar />
+      <Sidebar headerLogoPath={headerLogoPath} />
       <div className="grid h-full w-full grid-cols-1 grid-rows-[auto_1fr] overflow-y-auto">
-        <Header />
+        <Header headerLogoPath={headerLogoPath} />
         <div className="grid h-full auto-rows-max grid-cols-1 items-start overflow-y-auto p-4 lg:p-8">
           {isAllowed ? children : <PermissionDenied />}
         </div>

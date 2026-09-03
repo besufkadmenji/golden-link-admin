@@ -2,10 +2,7 @@ import UploadIcon from "@/assets/icons/app/upload.alt.svg";
 import UploadButtonIcon from "@/assets/icons/app/upload.svg";
 import { SelectedFile } from "@/components/app/shared/SelectedFile";
 import { useDict } from "@/hooks/useDict";
-import {
-  IMAGE_AND_PDF_FILE_ACCEPT,
-  normalizeAccept,
-} from "@/utils/fileAccept";
+import { IMAGE_AND_PDF_FILE_ACCEPT, normalizeAccept } from "@/utils/fileAccept";
 import { useCallback, useState } from "react";
 import Dropzone, { Accept, FileRejection } from "react-dropzone";
 import { twMerge } from "tailwind-merge";
@@ -21,6 +18,8 @@ export const UploadInput = ({
   accept,
   initUrl,
   className,
+  isDisabled = false,
+  canRemoveInitialFile = true,
 }: {
   label: string;
   desc: string;
@@ -30,6 +29,8 @@ export const UploadInput = ({
   accept?: Accept;
   initUrl?: string;
   className?: string;
+  isDisabled?: boolean;
+  canRemoveInitialFile?: boolean;
 }) => {
   const dict = useDict();
   const [rejectionError, setRejectionError] = useState("");
@@ -77,12 +78,14 @@ export const UploadInput = ({
         onDrop={handleDrop}
         onDropRejected={handleDropRejected}
         accept={resolvedAccept}
+        disabled={isDisabled}
       >
         {({ getRootProps, getInputProps }) => (
           <div
             className={
               "bg-gray-background dark:bg-dark-border dark:border-dark-gray relative grid min-h-41.5 w-full grid-cols-1 rounded-xl border border-dashed border-[#EEEEEE] p-0.5 py-6" +
-              (hasError ? " ring-danger-500 ring-2" : "")
+              (hasError ? " ring-danger-500 ring-2" : "") +
+              (isDisabled ? " cursor-not-allowed opacity-60" : "")
             }
             {...getRootProps()}
           >
@@ -120,7 +123,11 @@ export const UploadInput = ({
           <SelectedFile
             file={file ?? undefined}
             initUrl={initUrl}
-            onRemove={handleRemove}
+            onRemove={
+              isDisabled || (!file && !canRemoveInitialFile)
+                ? undefined
+                : handleRemove
+            }
           />
         )}
       </div>

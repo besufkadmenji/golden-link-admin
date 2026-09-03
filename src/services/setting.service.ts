@@ -9,7 +9,7 @@ import {
 
 export class SettingService {
   static async getSettings(
-    params?: GetSettingsParams
+    params?: GetSettingsParams,
   ): Promise<SettingsResponse | null> {
     try {
       const response = await axiosClient.get<SettingsResponse>("/settings", {
@@ -26,9 +26,7 @@ export class SettingService {
     }
   }
 
-  static async getSettingByKey(
-    key: string
-  ): Promise<Setting | null> {
+  static async getSettingByKey(key: string): Promise<Setting | null> {
     try {
       const response = await axiosClient.get<Setting>(`/settings/key/${key}`);
       return unwrapAxiosResponse(response.data);
@@ -44,7 +42,7 @@ export class SettingService {
 
   static async updateSetting(
     key: string,
-    dto: UpdateSettingDto
+    dto: UpdateSettingDto,
   ): Promise<Setting | null> {
     try {
       const response = await axiosClient.put<Setting>(

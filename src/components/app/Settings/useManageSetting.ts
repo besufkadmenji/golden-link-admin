@@ -12,6 +12,7 @@ import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useChangePasswordForm } from "@/components/app/Settings/useChangePasswordForm";
 import { UserService } from "@/services/user.service";
+import { UploadService } from "@/services/upload.service";
 
 export const useManageSetting = () => {
   const [busy, setBusy] = useState(false);
@@ -27,22 +28,19 @@ export const useManageSetting = () => {
     updateProfile,
     profileImageRemoved,
     initialProfileImagePath,
+    headerLogo,
+    setHeaderLogo,
+    setExistingHeaderLogoPath,
   } = useManageSettingsForm();
   const updateSetting = async () => {
     setBusy(true);
     try {
-      await SettingService.updateSetting(
-        "vat_rate",
-        {
-          value: vatRate,
-        }
-      );
-      await SettingService.updateSetting(
-        "trial_period_duration",
-        {
-          value: trialPeriodDuration,
-        }
-      );
+      await SettingService.updateSetting("vat_rate", {
+        value: vatRate,
+      });
+      await SettingService.updateSetting("trial_period_duration", {
+        value: trialPeriodDuration,
+      });
 
       const userId = me?.id ?? "";
       const shouldRemoveProfileImage =
@@ -55,6 +53,22 @@ export const useManageSetting = () => {
       }
 
       await UserService.updateUser(userId, updateProfile);
+
+      if (headerLogo) {
+        const uploadedLogo = await UploadService.upload(
+          headerLogo,
+          dict.common.upload.uploadFailed,
+        );
+        await SettingService.updateSetting("header_logo", {
+          value: uploadedLogo.path,
+        });
+        setExistingHeaderLogoPath(uploadedLogo.path);
+        setHeaderLogo(undefined);
+        await queryClient.invalidateQueries({
+          queryKey: ["setting", "header_logo"],
+        });
+      }
+
       await HomepageRevalidationService.trigger();
       queryClient.invalidateQueries({
         queryKey: ["me"],

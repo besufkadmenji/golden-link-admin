@@ -1,4 +1,9 @@
 const FALLBACK_SITE_URL = "http://localhost:3000";
+const DEFAULT_UPLOAD_BASE_URL = "https://storage.googleapis.com/goldenlink";
+
+export const getUploadBaseUrl = () =>
+  process.env.NEXT_PUBLIC_UPLOAD_BASE_URL?.replace(/\/$/, "") ??
+  DEFAULT_UPLOAD_BASE_URL;
 
 export const getSiteOrigin = () => {
   if (typeof window !== "undefined") {
@@ -28,4 +33,23 @@ export const buildProxyUrl = (path: string) => {
   }
 
   return `${origin.replace(/\/$/, "")}${normalizedPath}`;
+};
+
+export const resolveApiAssetUrl = (
+  path: string | null | undefined,
+): string | null => {
+  if (!path?.trim()) {
+    return null;
+  }
+
+  const trimmed = path.trim();
+  if (
+    trimmed.startsWith("data:") ||
+    trimmed.startsWith("http://") ||
+    trimmed.startsWith("https://")
+  ) {
+    return trimmed;
+  }
+
+  return `${getUploadBaseUrl()}/${trimmed.replace(/^\//, "")}`;
 };

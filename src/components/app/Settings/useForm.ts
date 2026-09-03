@@ -7,6 +7,8 @@ import { create } from "zustand";
 interface SettingsState {
   trialPeriodDuration: string;
   vatRate: string;
+  headerLogo?: File;
+  existingHeaderLogoPath?: string | null;
   updateProfile: UpdateUserWithFileDto;
   existingPicture?: string | null;
   initialProfileImagePath?: string | null;
@@ -18,12 +20,16 @@ interface SettingsState {
   setUpdateProfile: (value: Partial<UpdateUserWithFileDto>) => void;
   setTrialPeriodDuration: (value: string) => void;
   setVatRate: (value: string) => void;
+  setHeaderLogo: (value?: File) => void;
+  setExistingHeaderLogoPath: (value: string | null) => void;
   reset: () => void;
 }
 
 export const useSettings = create<SettingsState>((set) => ({
   trialPeriodDuration: "",
   vatRate: "",
+  headerLogo: undefined,
+  existingHeaderLogoPath: null,
   updateProfile: {
     fullName: "",
     email: "",
@@ -35,18 +41,23 @@ export const useSettings = create<SettingsState>((set) => ({
   profileImageRemoved: false,
 
   setExistingPicture: (value) => set({ existingPicture: value }),
-  setInitialProfileImagePath: (value) => set({ initialProfileImagePath: value }),
+  setInitialProfileImagePath: (value) =>
+    set({ initialProfileImagePath: value }),
   setProfileImageRemoved: (value) => set({ profileImageRemoved: value }),
   setUpdateProfile: (value) =>
     set((state) => ({ updateProfile: { ...state.updateProfile, ...value } })),
   setTrialPeriodDuration: (value) => set({ trialPeriodDuration: value }),
 
   setVatRate: (value) => set({ vatRate: value }),
+  setHeaderLogo: (value) => set({ headerLogo: value }),
+  setExistingHeaderLogoPath: (value) => set({ existingHeaderLogoPath: value }),
 
   reset: () =>
     set({
       trialPeriodDuration: "",
       vatRate: "",
+      headerLogo: undefined,
+      existingHeaderLogoPath: null,
     }),
 }));
 
@@ -64,11 +75,16 @@ export const useManageSettingsForm = () => {
     profileImageRemoved,
     setInitialProfileImagePath,
     setProfileImageRemoved,
+    headerLogo,
+    setHeaderLogo,
+    existingHeaderLogoPath,
+    setExistingHeaderLogoPath,
   } = useSettings();
   const { setting: trialPeriodDurationData } = useSetting(
     "trial_period_duration",
   );
   const { setting: vatRateData } = useSetting("vat_rate");
+  const { setting: headerLogoData } = useSetting("header_logo");
   const { me } = useMe();
 
   useEffect(() => {
@@ -77,6 +93,9 @@ export const useManageSettingsForm = () => {
     }
     if (vatRateData) {
       setVatRate(vatRateData.value as string);
+    }
+    if (typeof headerLogoData?.value === "string") {
+      setExistingHeaderLogoPath(headerLogoData.value);
     }
     if (me) {
       setUpdateProfile({
@@ -100,6 +119,8 @@ export const useManageSettingsForm = () => {
     setTrialPeriodDuration,
     setUpdateProfile,
     setVatRate,
+    headerLogoData,
+    setExistingHeaderLogoPath,
     trialPeriodDurationData,
     vatRateData,
   ]);
@@ -118,5 +139,9 @@ export const useManageSettingsForm = () => {
     setProfileImageRemoved,
     vatRateReady: !!vatRateData,
     trialPeriodDurationReady: !!trialPeriodDurationData,
+    headerLogo,
+    setHeaderLogo,
+    existingHeaderLogoPath,
+    setExistingHeaderLogoPath,
   };
 };

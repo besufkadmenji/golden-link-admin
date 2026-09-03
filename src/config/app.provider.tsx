@@ -52,9 +52,7 @@ export const AppHeroUIProvider = ({
             toastProps={{ classNames: TOAST_CLASS_NAMES }}
           />
           <QueryClientProvider client={queryClient}>
-            <SocketProvider mode="admin">
-              {children}
-            </SocketProvider>
+            <SocketProvider mode="admin">{children}</SocketProvider>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </HeroUIProvider>

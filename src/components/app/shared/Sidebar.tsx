@@ -26,12 +26,18 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import LogoIcon from "@/assets/icons/logo.horizontal.svg";
 import { useLogoutConfirmation } from "@/hooks/useLogoutConfirmation";
 import { useCanViewDashboardStats } from "@/hooks/useCanViewDashboardStats";
 import { usePermissions } from "../../../hooks/useHasPermissions";
+import { PlatformLogo } from "@/components/app/shared/PlatformLogo";
 
-export const Sidebar = ({ className }: { className?: string }) => {
+export const Sidebar = ({
+  className,
+  headerLogoPath,
+}: {
+  className?: string;
+  headerLogoPath: string | null;
+}) => {
   const dict = useDict();
   const { requestLogout, LogoutConfirmationModal } = useLogoutConfirmation();
   const { hasPermission, hasAnyPermission } = usePermissions();
@@ -82,7 +88,10 @@ export const Sidebar = ({ className }: { className?: string }) => {
         href={"/dashboard"}
         className="relative mx-12 my-5 aspect-182/40 w-1/2 justify-self-center text-[#2E2E2E] lg:w-[12vw] dark:text-white"
       >
-        <LogoIcon className="h-full w-full" />
+        <PlatformLogo
+          initialLogoPath={headerLogoPath}
+          className="h-full w-full"
+        />
       </AppLink>
       <div className="grid grid-cols-1 gap-2 px-4 py-6">
         {canViewDashboard && (
@@ -268,7 +277,11 @@ const ExpandableOption = ({
   );
 };
 
-export const MobileSidebar = () => {
+export const MobileSidebar = ({
+  headerLogoPath,
+}: {
+  headerLogoPath: string | null;
+}) => {
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const pathname = usePathname();
   const lang = useLang();
@@ -295,7 +308,10 @@ export const MobileSidebar = () => {
           {() => (
             <>
               <DrawerBody className="p-0">
-                <Sidebar className="grid h-screen" />
+                <Sidebar
+                  headerLogoPath={headerLogoPath}
+                  className="grid h-screen"
+                />
               </DrawerBody>
             </>
           )}
