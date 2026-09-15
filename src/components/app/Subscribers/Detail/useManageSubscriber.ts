@@ -88,9 +88,6 @@ export const useManageSubscriber = () => {
         queryClient.invalidateQueries({
           queryKey: ["subscriber", id],
         });
-        queryClient.invalidateQueries({
-          queryKey: ["latestJoinRequests"],
-        });
         router.push(redirectTo);
       }
     } catch (error) {

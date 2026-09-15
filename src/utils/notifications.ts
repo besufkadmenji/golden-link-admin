@@ -6,7 +6,7 @@ const ADMIN_NOTIFICATION_ROUTES: Partial<
   Record<NotificationEntityType, (entityId: string) => string>
 > = {
   contact_message: (entityId) => `/content/contact-us/${entityId}`,
-  subscription_request: (entityId) => `/subscribers/requests/${entityId}`,
+  subscription_request: () => `/subscribers`,
 };
 
 export function resolveNotificationRoute(

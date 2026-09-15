@@ -45,38 +45,6 @@ export interface DashboardSummaryResponse {
   data: DashboardSummaryData;
 }
 
-export type SubscriptionRequestType = "WAREHOUSE_OWNER" | "SUPPLIER" | "SELLER";
-
-export interface PhoneInfo {
-  countryCode: string;
-  number: string;
-  formatted: string;
-}
-
-export interface LatestJoinRequest {
-  order: number;
-  id: string;
-  name: string;
-  organizationName: string;
-  phone: PhoneInfo;
-  email: string;
-  type: SubscriptionRequestType;
-  typeLabel: SubscriptionRequestType;
-  requestedAt: string;
-  requestedAtISO: string;
-}
-
-export interface LatestJoinRequestsResponse {
-  status: "success" | "error";
-  statusCode: number;
-  message: string;
-  data: LatestJoinRequest[];
-}
-
-export interface LatestJoinRequestsParams {
-  limit?: number;
-}
-
 export interface SubscriptionComparisonParams {
   activeMonthIndex: number;
   activeYear: number;

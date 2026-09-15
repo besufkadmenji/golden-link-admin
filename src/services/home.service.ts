@@ -4,9 +4,6 @@ import {
   DashboardSummaryParams,
   DashboardSummaryData,
   DashboardSummaryResponse,
-  LatestJoinRequest,
-  LatestJoinRequestsResponse,
-  LatestJoinRequestsParams,
   SubscriptionComparisonParams,
   MonthlySubscriptionsComparisonData,
   MonthlySubscriptionsComparisonResponse,
@@ -34,34 +31,6 @@ export class HomeService {
     } catch (error) {
       throw new Error(
         extractAxiosErrorMessage(error, "Failed to fetch dashboard summary."),
-      );
-    }
-  }
-
-  /**
-   * Get latest join requests
-   * GET /admin/dashboard/latest-join-requests?limit={limit}
-   * @param params - Latest join requests parameters
-   * @returns Array of latest join requests
-   */
-  static async getLatestJoinRequests(
-    params?: LatestJoinRequestsParams
-  ): Promise<LatestJoinRequest[]> {
-    try {
-      const response = await axiosClient.get<LatestJoinRequestsResponse>(
-        "/admin/dashboard/latest-join-requests",
-        {
-          params: params || { limit: 5 },
-        },
-      );
-
-      return response.data.data;
-    } catch (error) {
-      throw new Error(
-        extractAxiosErrorMessage(
-          error,
-          "Failed to fetch latest join requests.",
-        ),
       );
     }
   }

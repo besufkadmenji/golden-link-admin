@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import { TitleBar } from "./TitleBar";
 export enum FormType {
-  SubscriberRequests,
   Subscribers,
   SubscriberDetail,
   Admins,

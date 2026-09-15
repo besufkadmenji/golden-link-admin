@@ -32,21 +32,6 @@ export const useDashboard = () => {
   };
 };
 
-export const useLatestJoinRequests = () => {
-  const { canView, isReady } = useCanViewDashboardStats();
-  const { data, isFetching, isError } = useQuery({
-    queryKey: ["latestJoinRequests"],
-    queryFn: () => HomeService.getLatestJoinRequests(undefined),
-    enabled: isReady && canView,
-  });
-
-  return {
-    joinRequests: data,
-    isLoading: canView && isFetching,
-    isError,
-  };
-};
-
 export const useMonthlySubscriptionsComparison = (
   params: SubscriptionComparisonParams,
 ) => {

@@ -3,7 +3,6 @@
 import { Summary } from "@/components/app/Dashboard/Summary";
 import { useDict } from "@/hooks/useDict";
 import { TimeFilter } from "../shared/TimeFilter";
-import { DashboardTable } from "./DashboardTable";
 import { SubscribersChart } from "./SubscribersChart/SubscribersChart";
 import { useDashboard } from "@/components/app/Dashboard/useDashboard";
 import { DashboardWelcome } from "./DashboardWelcome";
@@ -27,7 +26,6 @@ export const Dashboard = () => {
       {canView && (
         <>
           <Summary />
-          <DashboardTable />
           <SubscribersChart />
         </>
       )}

@@ -45,12 +45,6 @@ export const Sidebar = ({
 
   const subscriberOptions = useMemo(() => {
     const options: { href: string; label: string }[] = [];
-    if (hasPermission("subscriptions", "read")) {
-      options.push({
-        href: "/subscribers/requests",
-        label: dict.navigation.subscription_requests,
-      });
-    }
     if (hasPermission("subscribers", "read")) {
       options.push({
         href: "/subscribers",

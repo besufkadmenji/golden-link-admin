@@ -39,10 +39,6 @@ export const SubscribersList = () => {
     "deactivateSubscriber",
   );
   const [page, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
-  // const { approveRequest, rejectRequest, busy } = useManageRequest();
-  const [showRejectModal, setShowRejectModal] =
-    useQueryState("showRejectModal");
-  const request = data?.subscribers.find((req) => req.id === showRejectModal);
   const router = useRouter();
   const pathname = usePathname();
   const columns: ColumnType[] = [

@@ -79,7 +79,6 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
     pathPrefix: "/dashboard",
     modules: [...DASHBOARD_STATS_MODULES],
   },
-  { pathPrefix: "/subscribers/requests", modules: ["subscriptions"] },
   { pathPrefix: "/subscribers", modules: ["subscribers"] },
   { pathPrefix: "/packages/subscribers", modules: ["subscribers"] },
   { pathPrefix: "/packages", modules: ["packages"] },
@@ -99,7 +98,6 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
 export const FALLBACK_ROUTES: { path: string; modules: string[] }[] = [
   { path: "/dashboard", modules: [...DASHBOARD_STATS_MODULES] },
   { path: "/admins", modules: ["users"] },
-  { path: "/subscribers/requests", modules: ["subscriptions"] },
   { path: "/subscribers", modules: ["subscribers"] },
   { path: "/packages", modules: ["packages"] },
   { path: "/reports", modules: ["reports"] },

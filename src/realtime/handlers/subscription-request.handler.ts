@@ -6,19 +6,14 @@ export function registerSubscriptionRequestHandlers(
   socket: Socket,
   queryClient: QueryClient,
 ): () => void {
-  const invalidateRequests = (): void => {
-    queryClient.invalidateQueries({ queryKey: ["requests"] });
-    queryClient.invalidateQueries({ queryKey: ["request"] });
-    queryClient.invalidateQueries({ queryKey: ["latestJoinRequests"] });
-  };
-
   const invalidateSubscribers = (): void => {
     queryClient.invalidateQueries({ queryKey: ["subscribers"] });
     queryClient.invalidateQueries({ queryKey: ["subscriber"] });
+    queryClient.invalidateQueries({ queryKey: ["dashboard"] });
   };
 
   const requestHandlers = SUBSCRIPTION_REQUEST_EVENTS.map(
-    (event) => [event, invalidateRequests] as const,
+    (event) => [event, invalidateSubscribers] as const,
   );
 
   requestHandlers.forEach(([event, handler]) => socket.on(event, handler));
