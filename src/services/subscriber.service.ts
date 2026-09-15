@@ -83,6 +83,7 @@ export class SubscriberService {
       );
       formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
       formData.append("type", dto.type);
+      formData.append("packageId", String(dto.packageId));
 
       if (dto.commercialRegistrationImagePath instanceof File) {
         formData.append(

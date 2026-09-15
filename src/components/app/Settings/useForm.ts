@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { create } from "zustand";
 
 interface SettingsState {
-  trialPeriodDuration: string;
   vatRate: string;
   headerLogo?: File;
   existingHeaderLogoPath?: string | null;
@@ -18,7 +17,6 @@ interface SettingsState {
   setInitialProfileImagePath: (value: string | null) => void;
   setProfileImageRemoved: (value: boolean) => void;
   setUpdateProfile: (value: Partial<UpdateUserWithFileDto>) => void;
-  setTrialPeriodDuration: (value: string) => void;
   setVatRate: (value: string) => void;
   setHeaderLogo: (value?: File) => void;
   setExistingHeaderLogoPath: (value: string | null) => void;
@@ -26,7 +24,6 @@ interface SettingsState {
 }
 
 export const useSettings = create<SettingsState>((set) => ({
-  trialPeriodDuration: "",
   vatRate: "",
   headerLogo: undefined,
   existingHeaderLogoPath: null,
@@ -46,15 +43,12 @@ export const useSettings = create<SettingsState>((set) => ({
   setProfileImageRemoved: (value) => set({ profileImageRemoved: value }),
   setUpdateProfile: (value) =>
     set((state) => ({ updateProfile: { ...state.updateProfile, ...value } })),
-  setTrialPeriodDuration: (value) => set({ trialPeriodDuration: value }),
-
   setVatRate: (value) => set({ vatRate: value }),
   setHeaderLogo: (value) => set({ headerLogo: value }),
   setExistingHeaderLogoPath: (value) => set({ existingHeaderLogoPath: value }),
 
   reset: () =>
     set({
-      trialPeriodDuration: "",
       vatRate: "",
       headerLogo: undefined,
       existingHeaderLogoPath: null,
@@ -63,10 +57,8 @@ export const useSettings = create<SettingsState>((set) => ({
 
 export const useManageSettingsForm = () => {
   const {
-    setTrialPeriodDuration,
     setVatRate,
     vatRate,
-    trialPeriodDuration,
     updateProfile,
     setUpdateProfile,
     existingPicture,
@@ -80,17 +72,11 @@ export const useManageSettingsForm = () => {
     existingHeaderLogoPath,
     setExistingHeaderLogoPath,
   } = useSettings();
-  const { setting: trialPeriodDurationData } = useSetting(
-    "trial_period_duration",
-  );
   const { setting: vatRateData } = useSetting("vat_rate");
   const { setting: headerLogoData } = useSetting("header_logo");
   const { me } = useMe();
 
   useEffect(() => {
-    if (trialPeriodDurationData) {
-      setTrialPeriodDuration(trialPeriodDurationData.value as string);
-    }
     if (vatRateData) {
       setVatRate(vatRateData.value as string);
     }
@@ -116,19 +102,15 @@ export const useManageSettingsForm = () => {
     setExistingPicture,
     setInitialProfileImagePath,
     setProfileImageRemoved,
-    setTrialPeriodDuration,
     setUpdateProfile,
     setVatRate,
     headerLogoData,
     setExistingHeaderLogoPath,
-    trialPeriodDurationData,
     vatRateData,
   ]);
 
   return {
-    trialPeriodDuration,
     vatRate,
-    setTrialPeriodDuration,
     setVatRate,
     updateProfile,
     setUpdateProfile,
@@ -138,7 +120,6 @@ export const useManageSettingsForm = () => {
     profileImageRemoved,
     setProfileImageRemoved,
     vatRateReady: !!vatRateData,
-    trialPeriodDurationReady: !!trialPeriodDurationData,
     headerLogo,
     setHeaderLogo,
     existingHeaderLogoPath,

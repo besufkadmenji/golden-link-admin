@@ -82,6 +82,7 @@ export interface GetSubscribersParams {
 }
 
 export interface CreateSubscriberDto {
+  packageId: number;
   fullName: string;
   organizationName: string;
   email: string;

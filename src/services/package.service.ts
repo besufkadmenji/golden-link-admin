@@ -9,6 +9,19 @@ import axiosClient from "@/utils/axios.client";
 import { extractAxiosErrorMessage, unwrapAxiosResponse } from "@/utils/http";
 
 export class PackageService {
+  static async getPublishedPackages(
+    params?: GetPackagesParams
+  ): Promise<PackagesListResponse | null> {
+    try {
+      const response = await axiosClient.get("/packages/published", { params });
+      return unwrapAxiosResponse(response.data);
+    } catch (error) {
+      throw new Error(
+        extractAxiosErrorMessage(error, "Something went wrong, try again later."),
+      );
+    }
+  }
+
   /**
    * Get list of packages with optional search and pagination
    * GET /packages

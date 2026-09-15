@@ -22,6 +22,8 @@ import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { CountryCodeSelect } from "./CountryCodeSelect";
 import { SubscriberType } from "@/types/subscriber";
+import { PackageService } from "@/services/package.service";
+import { useQuery } from "@tanstack/react-query";
 
 export const AddSubscriber = () => {
   useRequirePermission("subscribers", "create");
@@ -30,6 +32,10 @@ export const AddSubscriber = () => {
   const router = useRouter();
   const { busy, createSubscriber } = useManageSubscriber();
   const { errors, validateForm, clearError } = useFormValidation(form);
+  const { data: packageData, isLoading: packagesLoading } = useQuery({
+    queryKey: ["subscriber-package-options"],
+    queryFn: () => PackageService.getPublishedPackages({ page: 1, limit: 100, status: "ACTIVE" }),
+  });
   useFormResetOnLeave(reset);
 
   return (
@@ -113,6 +119,21 @@ export const AddSubscriber = () => {
                   key: key,
                 }))}
                 errorMessage={errors.status}
+              />
+              <FormSelect
+                label={dict.add_new_subscriber_form.labels.package}
+                placeholder={dict.add_new_subscriber_form.placeholders.package}
+                value={form.packageId ? String(form.packageId) : ""}
+                onChange={(value: string): void => {
+                  setForm({ packageId: Number(value) });
+                  clearError("packageId");
+                }}
+                options={(packageData?.data ?? []).map((pkg) => ({
+                  label: pkg.packageName,
+                  key: String(pkg.id),
+                }))}
+                isDisabled={packagesLoading}
+                errorMessage={errors.packageId}
               />
               <FormInput
                 label={

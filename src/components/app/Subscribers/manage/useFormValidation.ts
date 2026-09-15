@@ -206,6 +206,9 @@ export const useFormValidation = (
     if (taxImageError) newErrors.taxRegistrationImagePath = taxImageError;
 
     if (mode === "add") {
+      if (!Number.isSafeInteger(form.packageId) || form.packageId <= 0) {
+        newErrors.packageId = validation.packageRequired;
+      }
       const passwordError = validatePassword(form.password);
       if (passwordError) newErrors.password = passwordError;
 
@@ -235,6 +238,7 @@ export const useFormValidation = (
     form.phoneNumber,
     form.countryCode,
     form.password,
+    form.packageId,
     form.confirmPassword,
     form.taxRegistrationNumber,
     form.commercialRegistrationNumber,
@@ -303,6 +307,8 @@ export const useFormValidation = (
     );
 
     return (
+      Number.isSafeInteger(form.packageId) &&
+      form.packageId > 0 &&
       !fullNameError &&
       !emailError &&
       !phoneError &&
@@ -320,6 +326,7 @@ export const useFormValidation = (
     form.phoneNumber,
     form.countryCode,
     form.password,
+    form.packageId,
     form.confirmPassword,
     form.taxRegistrationNumber,
     form.commercialRegistrationNumber,

@@ -19,6 +19,7 @@ export const useForm = create<FormState>((set) => ({
   ready: false,
   setReady: (ready) => set(() => ({ ready })),
   form: {
+    packageId: 0,
     fullName: "",
     email: "",
     phoneNumber: "",
@@ -41,6 +42,7 @@ export const useForm = create<FormState>((set) => ({
     set(() => ({
       ready: false,
       form: {
+        packageId: 0,
         fullName: "",
         email: "",
         phoneNumber: "",

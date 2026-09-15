@@ -942,7 +942,8 @@
       "tax_number": "رقم السجل الضريبي",
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
-      "organization_name": "اسم المؤسسة"
+      "organization_name": "اسم المؤسسة",
+      "package": "الباقة"
     },
     "placeholders": {
       "name": "ادخل اسم المشترك",
@@ -953,7 +954,8 @@
       "tax_number": "ادخل رقم السجل الضريبي",
       "password": "ادخل كلمة المرور",
       "confirm_password": "ادخل تأكيد كلمة المرور",
-      "organization_name": "ادخل اسم المؤسسة"
+      "organization_name": "ادخل اسم المؤسسة",
+      "package": "اختر باقة"
     },
     "image": {
       "attach": "ارفق صورة السجل التجاري",
@@ -985,7 +987,8 @@
       "taxNumberInvalid": "يجب أن يكون رقم السجل الضريبي 15 رقماً.",
       "commercialRegistrationNumberMinLength": "يجب أن يكون رقم التسجيل التجاري 5 أحرف على الأقل",
       "commercialRegistrationImageRequired": "صورة السجل التجاري مطلوبة عند إدخال رقم التسجيل التجاري",
-      "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة"
+      "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة",
+      "packageRequired": "الباقة مطلوبة"
     }
   },
   "edit_subscriber_form": {
@@ -1127,7 +1130,6 @@
       "personal_profile": "الملف الشخصي"
     },
     "labels": {
-      "trial_period_duration": "مدة الفترة التجريبية",
       "full_name": "اسم المستخدم",
       "account_number": "رقم الحساب",
       "email": "البريد الإلكتروني",

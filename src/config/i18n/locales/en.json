@@ -943,7 +943,8 @@
       "tax_number": "Tax Number",
       "password": "Password",
       "confirm_password": "Confirm Password",
-      "organization_name": "Organization Name"
+      "organization_name": "Organization Name",
+      "package": "Package"
     },
     "placeholders": {
       "name": "Enter subscriber name",
@@ -954,7 +955,8 @@
       "tax_number": "Enter tax number",
       "password": "Enter password",
       "confirm_password": "Enter confirm password",
-      "organization_name": "Enter organization name"
+      "organization_name": "Enter organization name",
+      "package": "Select a package"
     },
     "image": {
       "attach": "Attach Commercial Registration Image",
@@ -986,7 +988,8 @@
       "taxNumberInvalid": "Tax registration number must be 15 digits.",
       "commercialRegistrationNumberMinLength": "Commercial registration number must be at least 5 characters long",
       "commercialRegistrationImageRequired": "Commercial registration image is required when commercial number is provided",
-      "taxRegistrationImageRequired": "Tax registration image is required"
+      "taxRegistrationImageRequired": "Tax registration image is required",
+      "packageRequired": "Package is required"
     }
   },
   "edit_subscriber_form": {
@@ -1128,7 +1131,6 @@
       "personal_profile": "Personal Profile"
     },
     "labels": {
-      "trial_period_duration": "Trial Period Duration",
       "full_name": "Full Name",
       "account_number": "Account Number",
       "email": "Email",

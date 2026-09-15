@@ -22,8 +22,6 @@ export const Settings = () => {
   const { me } = useMe();
   const {
     vatRate,
-    setTrialPeriodDuration,
-    trialPeriodDuration,
     setVatRate,
     updateProfile,
     setUpdateProfile,
@@ -31,7 +29,6 @@ export const Settings = () => {
     setExistingPicture,
     setProfileImageRemoved,
     vatRateReady,
-    trialPeriodDurationReady,
     headerLogo,
     setHeaderLogo,
     existingHeaderLogoPath,
@@ -70,17 +67,6 @@ export const Settings = () => {
                   endContent={
                     <div className="text-gray-4 text-sm font-semibold">%</div>
                   }
-                />
-              )}
-              {trialPeriodDurationReady && (
-                <FormInput
-                  label={dict.settings_page.labels.trial_period_duration}
-                  placeholder={dict.settings_page.labels.trial_period_duration}
-                  value={trialPeriodDuration}
-                  onChange={(value: string): void => {
-                    setTrialPeriodDuration(value);
-                  }}
-                  readOnly={!canUpdate}
                 />
               )}
               <UploadInput

@@ -24,7 +24,6 @@ export const useManageSetting = () => {
   const { me } = useMe();
   const {
     vatRate,
-    trialPeriodDuration,
     updateProfile,
     profileImageRemoved,
     initialProfileImagePath,
@@ -38,10 +37,6 @@ export const useManageSetting = () => {
       await SettingService.updateSetting("vat_rate", {
         value: vatRate,
       });
-      await SettingService.updateSetting("trial_period_duration", {
-        value: trialPeriodDuration,
-      });
-
       const userId = me?.id ?? "";
       const shouldRemoveProfileImage =
         profileImageRemoved &&
