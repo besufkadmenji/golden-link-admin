@@ -47,16 +47,6 @@ const ACTION_ROUTE_RULES: ActionRouteRule[] = [
     action: "update",
   },
   {
-    pattern: /^\/content\/features\/add$/,
-    modules: ["features"],
-    action: "create",
-  },
-  {
-    pattern: /^\/content\/features\/[^/]+\/edit$/,
-    modules: ["features"],
-    action: "update",
-  },
-  {
     pattern: /^\/admins\/add$/,
     modules: ["users"],
     action: "create",
@@ -92,7 +82,8 @@ export const ROUTE_PERMISSION_RULES: RoutePermissionRule[] = [
   { pathPrefix: "/content/about-platform", modules: ["settings"] },
   { pathPrefix: "/content/terms", modules: ["settings"] },
   { pathPrefix: "/content/privacy-policy", modules: ["settings"] },
-  { pathPrefix: "/content/features", modules: ["features"] },
+  // Public website no longer consumes admin-managed features.
+  { pathPrefix: "/content/features", modules: [] },
 ];
 
 export const FALLBACK_ROUTES: { path: string; modules: string[] }[] = [
@@ -107,7 +98,6 @@ export const FALLBACK_ROUTES: { path: string; modules: string[] }[] = [
   { path: "/content/about-platform", modules: ["settings"] },
   { path: "/content/terms", modules: ["settings"] },
   { path: "/content/privacy-policy", modules: ["settings"] },
-  { path: "/content/features", modules: ["features"] },
   { path: "/content/contact-us", modules: ["contact_us"] },
   { path: "/notifications", modules: ["notifications"] },
 ];
@@ -119,7 +109,6 @@ export const CMS_SIDEBAR_ITEMS: {
     | "about"
     | "terms_and_conditions"
     | "privacy_policy"
-    | "features_management"
     | "contact_us";
   modules: string[];
 }[] = [
@@ -138,11 +127,6 @@ export const CMS_SIDEBAR_ITEMS: {
     href: "/content/privacy-policy",
     labelKey: "privacy_policy",
     modules: ["settings"],
-  },
-  {
-    href: "/content/features",
-    labelKey: "features_management",
-    modules: ["features"],
   },
   {
     href: "/content/contact-us",
