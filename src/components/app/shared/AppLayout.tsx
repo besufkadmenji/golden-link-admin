@@ -3,8 +3,6 @@
 import { ReactNode, useMemo } from "react";
 import { Sidebar } from "@/components/app/shared/Sidebar";
 import { Header } from "./Header";
-import { cairo } from "@/assets/fonts/cairo";
-import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
 import { usePermissions } from "@/hooks/useHasPermissions";
 import { AppLoading } from "./AppLoading";
@@ -31,11 +29,7 @@ export const AppLayoutWrapper = ({
   }
 
   return (
-    <div
-      className={twMerge(
-        `${cairo.className} bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]`,
-      )}
-    >
+    <div className="bg-app-background dark:bg-dark-app-background grid h-screen w-screen grid-cols-1 lg:grid-cols-[minmax(19vw,auto)_1fr]">
       <Sidebar headerLogoPath={headerLogoPath} />
       <div className="grid h-full w-full grid-cols-1 grid-rows-[auto_1fr] overflow-y-auto">
         <Header headerLogoPath={headerLogoPath} />

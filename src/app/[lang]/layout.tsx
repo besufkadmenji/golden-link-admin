@@ -6,7 +6,6 @@ import { dir } from "i18next";
 import Script from "next/script";
 import { cairo } from "@/assets/fonts/cairo";
 import { inter } from "@/assets/fonts/inter";
-import { twMerge } from "tailwind-merge";
 
 export const metadata: Metadata = {
   title: "Golden Link",
@@ -24,18 +23,19 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params;
   return (
-    <html lang={lang} dir={dir(lang)} key={lang} suppressHydrationWarning>
+    <html
+      lang={lang}
+      dir={dir(lang)}
+      key={lang}
+      className={`${inter.variable} ${cairo.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <Script id="remove-hash" strategy="beforeInteractive">
           {`if (location.hash) history.replaceState(null, '', location.href.split('#')[0]);`}
         </Script>
       </head>
-      <body
-        className={twMerge(
-          "overflow-hidden antialiased",
-          lang === "en" ? `${inter.className}` : `${cairo.className}`,
-        )}
-      >
+      <body className="overflow-hidden font-sans antialiased">
         <AppHeroUIProvider>{children}</AppHeroUIProvider>
       </body>
     </html>

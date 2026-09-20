@@ -1,4 +1,3 @@
-import { inter } from "@/assets/fonts/inter";
 import { sar } from "@/assets/fonts/sar";
 import { useDict } from "@/hooks/useDict";
 import { formatAmount } from "@/utils/format.amount";
@@ -54,7 +53,7 @@ export const InvoiceTable = ({
         aria-label={label ?? "Invoice Table"}
         classNames={{
           wrapper: "shadow-none p-0 rounded-xl overflow-hidden border-none",
-          th: `rounded-none! bg-[#F9FAFC] dark:bg-title border-b text-title text-sm font-semibold leading-5 tracking-tight border-b-dark-white dark:text-white dark:border-b-dark-border ${inter.className} ps-8!`,
+          th: "rounded-none! bg-[#F9FAFC] dark:bg-title border-b text-title text-sm font-semibold leading-5 tracking-tight border-b-dark-white dark:text-white dark:border-b-dark-border ps-8!",
           tr: "border-b-[.5px] border-[#D7DAE0] dark:border-dark-border text-[#5E6470] text-sm font-normal dark:text-dark-white leading-5 tracking-tight h-8.5 last:border-none",
           td: "ps-8!",
         }}
@@ -79,13 +78,11 @@ export const InvoiceTable = ({
           )}
         </TableBody>
       </Table>
-      <div className="flex h-8.5 items-center justify-between border-t-[0.5px] border-t-[#D7DAE0] bg-[#F9FAFC] dark:bg-title ps-8 pe-[5%] dark:border-t-dark-border">
+      <div className="dark:bg-title dark:border-t-dark-border flex h-8.5 items-center justify-between border-t-[0.5px] border-t-[#D7DAE0] bg-[#F9FAFC] ps-8 pe-[5%]">
         <h3 className="text-xs leading-4 font-bold text-[#4358D1] dark:text-[#8394f3]">
           {dict.common.fields.total}
         </h3>
-        <h3
-          className={`text-xs leading-4 flex items-center gap-1.5 font-bold text-[#8394f3] ${inter.className}`}
-        >
+        <h3 className="flex items-center gap-1.5 text-xs leading-4 font-bold text-[#8394f3]">
           {formatAmount(total)}
           <span className={`${sar.className}`}>A</span>
         </h3>

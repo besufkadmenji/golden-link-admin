@@ -6,6 +6,7 @@ import { useMonthlySubscriptionsComparison } from "@/components/app/Dashboard/us
 import { AppLoading } from "@/components/app/shared/AppLoading";
 import { useDict } from "@/hooks/useDict";
 import { useLang } from "@/hooks/useLang";
+import { getGregorianLocale } from "@/utils/date.time.helpers";
 import type { SubscriptionComparisonParams } from "@/types/home";
 import {
   Button,
@@ -196,7 +197,8 @@ export const SubscribersChart = () => {
   const previous = orderedComparison.map(
     ([, item]) => item.previousMonthNewSubscriptions,
   );
-  const monthFormatter = new Intl.DateTimeFormat(lang === "ar" ? "ar" : "en", {
+  const monthFormatter = new Intl.DateTimeFormat(getGregorianLocale(lang), {
+    calendar: "gregory",
     month: "long",
   });
   const monthNames = MONTHS.map((monthIndex) =>

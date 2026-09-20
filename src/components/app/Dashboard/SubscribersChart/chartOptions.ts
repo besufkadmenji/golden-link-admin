@@ -60,7 +60,6 @@ export const chartOptions = (theme: string): ChartOptions<"line"> => ({
         color: theme !== "dark" ? "#9FA2B4" : "#fff",
         font: {
           size: 12,
-          family: "Inter",
         },
         callback: function (value: number | string) {
           if (typeof value === "number") {

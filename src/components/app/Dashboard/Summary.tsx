@@ -5,7 +5,6 @@ import RevenueIcon from "@/assets/icons/app/dashboard/revenue.svg";
 import RequestsIcon from "@/assets/icons/app/dashboard/requests.svg";
 import { useDict } from "@/hooks/useDict";
 import { twMerge } from "tailwind-merge";
-import { inter } from "@/assets/fonts/inter";
 import { useDashboard } from "@/components/app/Dashboard/useDashboard";
 export const Summary = () => {
   const dict = useDict();
@@ -63,12 +62,7 @@ const SummaryCard = ({
           {title}
         </h3>
         <div className="flex items-center gap-2">
-          <p
-            className={twMerge(
-              "text-title text-2xl leading-8 font-medium tracking-tight dark:text-white",
-              inter.className,
-            )}
-          >
+          <p className="text-title text-2xl leading-8 font-medium tracking-tight dark:text-white">
             {value}
           </p>
           {deltaValue !== 0 && (
@@ -78,7 +72,6 @@ const SummaryCard = ({
                 deltaValue > 0
                   ? "bg-[#E7F4EE] text-[#1EB564]"
                   : "bg-[#FEEDEC] text-[#FE3B00]",
-                inter.className,
               )}
             >
               {deltaValue}%

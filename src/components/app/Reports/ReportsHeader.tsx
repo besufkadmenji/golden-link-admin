@@ -1,8 +1,6 @@
 import { useDict } from "@/hooks/useDict";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
 import CalendarIcon from "@/assets/icons/app/calendar.svg";
-import { twMerge } from "tailwind-merge";
-import { cairo } from "@/assets/fonts/cairo";
 import { FilterByDate } from "./FilterByDate";
 import { ExportButton } from "../shared/button/ExportButton";
 import { ReportService } from "@/services/report.service";
@@ -39,10 +37,7 @@ export const ReportsHeader = () => {
         >
           <PopoverTrigger>
             <Button
-              className={twMerge(
-                "rounded-sm border-[1.5px] border-[#53545C] dark:border-dark-dashboard-border px-9 text-xs text-[#53545C] dark:text-dark-dashboard-title",
-                cairo.className,
-              )}
+              className="dark:border-dark-dashboard-border dark:text-dark-dashboard-title rounded-sm border-[1.5px] border-[#53545C] px-9 text-xs text-[#53545C]"
               endContent={<CalendarIcon className="size-4" />}
               variant="bordered"
             >

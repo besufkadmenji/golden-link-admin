@@ -1,4 +1,3 @@
-import { inter } from "@/assets/fonts/inter";
 import { sar } from "@/assets/fonts/sar";
 import ExchangeGoodsIcon from "@/assets/icons/app/analytics/exchange.goods.svg";
 import GrowthRateIcon from "@/assets/icons/app/growth.rate.svg";
@@ -55,20 +54,12 @@ const SummaryItem = ({
       <div className="grid grid-cols-1 gap-2">
         <p className="text-subTitle font-medium">{label}</p>
         <div className="flex items-center gap-2">
-          <p
-            className={twMerge(
-              "text-2xl leading-8 font-bold tracking-tight",
-              inter.className,
-            )}
-          >
-            {value}
-          </p>
+          <p className="text-2xl leading-8 font-bold tracking-tight">{value}</p>
           {valueDesc && valueDesc}
           {delta && delta !== 0 ? (
             <div
               className={twMerge(
                 "flex h-5.5 items-center text-xs leading-none font-semibold",
-                inter.className,
                 delta > 0 ? "text-green-main" : "text-[#FE3B00]",
               )}
             >

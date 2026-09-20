@@ -55,6 +55,29 @@
 
   --color-dark-dashboard-title: #ffffff;
   --color-dark-dashboard-border: #3a3a3a;
+
+  --font-sans: var(--font-app), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  --font-app: var(--font-inter);
+}
+
+html[lang="ar"] {
+  --font-app: var(--font-cairo);
+}
+
+html,
+body {
+  font-family: var(--font-app), ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+input,
+textarea,
+select,
+optgroup {
+  font-family: inherit;
 }
 
 * {

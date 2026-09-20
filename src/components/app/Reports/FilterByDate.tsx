@@ -1,5 +1,6 @@
-import { cairo } from "@/assets/fonts/cairo";
 import { useDict } from "@/hooks/useDict";
+import { useLang } from "@/hooks/useLang";
+import { getGregorianLocale } from "@/utils/date.time.helpers";
 import { Button } from "@heroui/react";
 import { useState } from "react";
 import { DayPicker } from "react-day-picker";
@@ -8,6 +9,7 @@ import { useQueryState } from "nuqs";
 
 export const FilterByDate = ({ close }: { close: () => void }) => {
   const dict = useDict();
+  const gregorianLocale = getGregorianLocale(useLang());
   const [period, setPeriod] = useQueryState("period", {
     defaultValue: "ALL",
   });
@@ -89,20 +91,10 @@ export const FilterByDate = ({ close }: { close: () => void }) => {
         {selected === "CUSTOM" && (
           <div className="grid grid-cols-1 gap-4">
             <div className="grid h-7.5 grid-cols-2 rounded-lg bg-[#EBEEFD]">
-              <div
-                className={twMerge(
-                  "grid items-center rounded-lg bg-[#2563EB] text-center text-sm leading-5 font-medium text-white",
-                  cairo.className,
-                )}
-              >
+              <div className="grid items-center rounded-lg bg-[#2563EB] text-center text-sm leading-5 font-medium text-white">
                 {dict.filterByDate.from}
               </div>
-              <div
-                className={twMerge(
-                  "grid items-center text-center text-sm leading-5 font-medium text-[#2563EB]",
-                  cairo.className,
-                )}
-              >
+              <div className="grid items-center text-center text-sm leading-5 font-medium text-[#2563EB]">
                 {dict.filterByDate.to}
               </div>
             </div>
@@ -110,16 +102,20 @@ export const FilterByDate = ({ close }: { close: () => void }) => {
               mode="range"
               captionLayout="dropdown"
               classNames={{
-                caption_label: twMerge(
+                caption_label:
                   "text-sm font-medium text-[#8B8D97] flex items-center gap-3 ltr:mr-6 rtl:ml-6",
-                  cairo.className,
-                ),
                 chevron: "text-[#000000] size-4",
               }}
               formatters={{
-                formatWeekdayName: (date, options) =>
-                  date.toLocaleDateString(options!.locale!.labels! as string, {
+                formatWeekdayName: (date) =>
+                  date.toLocaleDateString(gregorianLocale, {
+                    calendar: "gregory",
                     weekday: "narrow",
+                  }),
+                formatMonthDropdown: (date) =>
+                  date.toLocaleDateString(gregorianLocale, {
+                    calendar: "gregory",
+                    month: "short",
                   }),
               }}
               selected={{

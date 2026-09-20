@@ -10,6 +10,9 @@ import { ToastProvider } from "@heroui/toast";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
+import { useLang } from "@/hooks/useLang";
+import { getLocaleFontFamily } from "@/assets/fonts/locale-font";
+import { getGregorianLocale } from "@/utils/date.time.helpers";
 import {
   ArcElement,
   CategoryScale,
@@ -39,6 +42,9 @@ export const AppHeroUIProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const lang = useLang();
+  ChartJS.defaults.font.family = getLocaleFontFamily(lang);
+
   return (
     <NuqsAdapter>
       <ThemeProvider
@@ -46,7 +52,7 @@ export const AppHeroUIProvider = ({
         defaultTheme="system"
         attribute="class"
       >
-        <HeroUIProvider>
+        <HeroUIProvider locale={getGregorianLocale(lang)}>
           <ToastProvider
             placement="top-right"
             toastProps={{ classNames: TOAST_CLASS_NAMES }}

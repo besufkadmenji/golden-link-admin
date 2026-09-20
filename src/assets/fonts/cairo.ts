@@ -3,4 +3,5 @@ export const cairo = localFont({
   src: "./Cairo/Cairo.ttf",
   display: "swap",
   weight: "200 1000",
+  variable: "--font-cairo",
 });
