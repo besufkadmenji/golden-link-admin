@@ -4,7 +4,7 @@ import "react-day-picker/style.css";
 import "../globals.css";
 import { dir } from "i18next";
 import Script from "next/script";
-import { expoArabic } from "@/assets/fonts/expo.arabic";
+import { cairo } from "@/assets/fonts/cairo";
 import { inter } from "@/assets/fonts/inter";
 import { twMerge } from "tailwind-merge";
 
@@ -33,7 +33,7 @@ export default async function RootLayout({
       <body
         className={twMerge(
           "overflow-hidden antialiased",
-          lang === "en" ? `${inter.className}` : `${expoArabic.className}`,
+          lang === "en" ? `${inter.className}` : `${cairo.className}`,
         )}
       >
         <AppHeroUIProvider>{children}</AppHeroUIProvider>
