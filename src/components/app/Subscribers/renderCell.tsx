@@ -84,5 +84,5 @@ export const renderCell = (
       />
     );
   }
-  return <p className="break-all max-w-[200px]">{row[column as string]}</p>;
+  return <p className="whitespace-nowrap">{row[column as string]}</p>;
 };
