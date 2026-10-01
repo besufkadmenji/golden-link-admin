@@ -24,8 +24,8 @@ export const SubscribersFilter = () => {
   const [status, setStatus] = useQueryState("status");
 
   return (
-    <div className="grid grid-cols-3 items-center gap-4 lg:flex">
-      <SearchInput className="w-full lg:w-max" />
+    <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 lg:flex">
+      <SearchInput className="w-full sm:col-span-2 lg:w-max" />
       <FilterSelect
         options={types}
         placeholder={dict.subscribers_page.table_headers.type}

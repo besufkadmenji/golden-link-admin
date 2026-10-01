@@ -34,8 +34,8 @@ export const PackagesFilter = () => {
   const [, setPage] = useQueryState("page", parseAsInteger.withDefault(1));
 
   return (
-    <div className="grid grid-cols-3 items-center gap-4 lg:flex">
-      <SearchInput className="w-full lg:w-max" />
+    <div className="grid grid-cols-1 items-center gap-4 sm:grid-cols-2 lg:flex">
+      <SearchInput className="w-full sm:col-span-2 lg:w-max" />
       <FilterSelect
         isSearchable
         options={durationOptions}
