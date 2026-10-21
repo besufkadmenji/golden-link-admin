@@ -46,13 +46,19 @@ const nationalAddressError = (
   if (!value) return null;
   switch (field) {
     case "nationalBuildingNumber":
-      return /^\d{4}$/.test(value) ? null : messages.nationalBuildingNumberInvalid;
+      return /^\d{4}$/.test(value)
+        ? null
+        : messages.nationalBuildingNumberInvalid;
     case "nationalAdditionalNumber":
-      return /^\d{4}$/.test(value) ? null : messages.nationalAdditionalNumberInvalid;
+      return /^\d{4}$/.test(value)
+        ? null
+        : messages.nationalAdditionalNumberInvalid;
     case "nationalPostalCode":
       return /^\d{5}$/.test(value) ? null : messages.nationalPostalCodeInvalid;
     default:
-      return value.length >= 2 && value.length <= 100 ? null : messages.nationalTextLength;
+      return value.length >= 2 && value.length <= 100
+        ? null
+        : messages.nationalTextLength;
   }
 };
 
@@ -212,6 +218,32 @@ export const useFormValidation = (
     [validation],
   );
 
+  // Read field by field (not form[field]) so the hooks below depend on these six values only.
+  const nationalAddressErrors = useMemo(() => {
+    const values: Record<NationalAddressField, string | undefined> = {
+      nationalBuildingNumber: form.nationalBuildingNumber,
+      nationalStreet: form.nationalStreet,
+      nationalDistrict: form.nationalDistrict,
+      nationalCity: form.nationalCity,
+      nationalPostalCode: form.nationalPostalCode,
+      nationalAdditionalNumber: form.nationalAdditionalNumber,
+    };
+    const result: Partial<Record<NationalAddressField, string>> = {};
+    for (const field of NATIONAL_ADDRESS_FIELDS) {
+      const error = nationalAddressError(field, values[field], validation);
+      if (error) result[field] = error;
+    }
+    return result;
+  }, [
+    form.nationalBuildingNumber,
+    form.nationalStreet,
+    form.nationalDistrict,
+    form.nationalCity,
+    form.nationalPostalCode,
+    form.nationalAdditionalNumber,
+    validation,
+  ]);
+
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -275,21 +307,12 @@ export const useFormValidation = (
         newErrors.confirmPassword = confirmPasswordError;
     }
 
-    for (const field of NATIONAL_ADDRESS_FIELDS) {
-      const error = nationalAddressError(field, form[field], validation);
-      if (error) newErrors[field] = error;
-    }
+    Object.assign(newErrors, nationalAddressErrors);
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
-    form.nationalBuildingNumber,
-    form.nationalStreet,
-    form.nationalDistrict,
-    form.nationalCity,
-    form.nationalPostalCode,
-    form.nationalAdditionalNumber,
-    validation,
+    nationalAddressErrors,
     form.fullName,
     form.email,
     form.phoneNumber,
@@ -334,9 +357,8 @@ export const useFormValidation = (
       form.taxRegistrationImagePath,
       existingImages?.taxRegistrationImagePath,
     );
-    const nationalAddressValid = NATIONAL_ADDRESS_FIELDS.every(
-      (field) => !nationalAddressError(field, form[field], validation),
-    );
+    const nationalAddressValid =
+      Object.keys(nationalAddressErrors).length === 0;
 
     if (mode === "edit") {
       const passwordError = form.password
@@ -383,13 +405,7 @@ export const useFormValidation = (
       nationalAddressValid
     );
   }, [
-    form.nationalBuildingNumber,
-    form.nationalStreet,
-    form.nationalDistrict,
-    form.nationalCity,
-    form.nationalPostalCode,
-    form.nationalAdditionalNumber,
-    validation,
+    nationalAddressErrors,
     form.fullName,
     form.email,
     form.phoneNumber,

@@ -115,7 +115,10 @@ export class ZatcaInvoiceService {
   }
 
   static exportToExcel(params?: GetZatcaInvoicesParams) {
-    const { page: _page, limit: _limit, ...filters } = params ?? {};
+    // Export every matching invoice, not one page
+    const filters = { ...params };
+    delete filters.page;
+    delete filters.limit;
     return download(`${BASE}/export`, "zatca-e-invoices.xlsx", filters);
   }
 }
