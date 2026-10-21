@@ -934,7 +934,8 @@
     "sections": {
       "subscriber_information": "معلومات المشترك",
       "login_information": "معلومات الدخول",
-      "tax_registration_information": "معلومات السجل الضريبي"
+      "tax_registration_information": "معلومات السجل الضريبي",
+      "national_address": "العنوان الوطني"
     },
     "labels": {
       "name": "الاسم",
@@ -946,7 +947,13 @@
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
       "organization_name": "اسم المؤسسة",
-      "package": "الباقة"
+      "package": "الباقة",
+      "national_building_number": "رقم المبنى",
+      "national_street": "الشارع",
+      "national_district": "الحي",
+      "national_city": "المدينة",
+      "national_postal_code": "الرمز البريدي",
+      "national_additional_number": "الرقم الإضافي"
     },
     "placeholders": {
       "name": "ادخل اسم المشترك",
@@ -958,7 +965,13 @@
       "password": "ادخل كلمة المرور",
       "confirm_password": "ادخل تأكيد كلمة المرور",
       "organization_name": "ادخل اسم المؤسسة",
-      "package": "اختر باقة"
+      "package": "اختر باقة",
+      "national_building_number": "4 أرقام",
+      "national_street": "اسم الشارع",
+      "national_district": "اسم الحي",
+      "national_city": "المدينة",
+      "national_postal_code": "5 أرقام",
+      "national_additional_number": "4 أرقام"
     },
     "image": {
       "attach": "ارفق صورة السجل التجاري",
@@ -991,7 +1004,11 @@
       "commercialRegistrationNumberMinLength": "يجب أن يكون رقم التسجيل التجاري 5 أحرف على الأقل",
       "commercialRegistrationImageRequired": "صورة السجل التجاري مطلوبة عند إدخال رقم التسجيل التجاري",
       "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة",
-      "packageRequired": "الباقة مطلوبة"
+      "packageRequired": "الباقة مطلوبة",
+      "nationalBuildingNumberInvalid": "يجب أن يتكون رقم المبنى من 4 أرقام.",
+      "nationalPostalCodeInvalid": "يجب أن يتكون الرمز البريدي من 5 أرقام.",
+      "nationalAdditionalNumberInvalid": "يجب أن يتكون الرقم الإضافي من 4 أرقام.",
+      "nationalTextLength": "يجب أن يكون بين 2 و 100 حرف."
     }
   },
   "edit_subscriber_form": {
@@ -1002,7 +1019,8 @@
     "sections": {
       "subscriber_information": "معلومات المشترك",
       "login_information": "معلومات الدخول",
-      "tax_registration_information": "معلومات السجل الضريبي"
+      "tax_registration_information": "معلومات السجل الضريبي",
+      "national_address": "العنوان الوطني"
     },
     "labels": {
       "name": "الاسم",

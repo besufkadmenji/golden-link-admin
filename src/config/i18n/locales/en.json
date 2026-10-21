@@ -935,7 +935,8 @@
     "sections": {
       "subscriber_information": "Subscriber Information",
       "login_information": "Login Information",
-      "tax_registration_information": "Tax Registration Information"
+      "tax_registration_information": "Tax Registration Information",
+      "national_address": "National address"
     },
     "labels": {
       "name": "Name",
@@ -947,7 +948,13 @@
       "password": "Password",
       "confirm_password": "Confirm Password",
       "organization_name": "Organization Name",
-      "package": "Package"
+      "package": "Package",
+      "national_building_number": "Building number",
+      "national_street": "Street",
+      "national_district": "District",
+      "national_city": "City",
+      "national_postal_code": "Postal code",
+      "national_additional_number": "Additional number"
     },
     "placeholders": {
       "name": "Enter subscriber name",
@@ -959,7 +966,13 @@
       "password": "Enter password",
       "confirm_password": "Enter confirm password",
       "organization_name": "Enter organization name",
-      "package": "Select a package"
+      "package": "Select a package",
+      "national_building_number": "4 digits",
+      "national_street": "Street name",
+      "national_district": "District name",
+      "national_city": "City",
+      "national_postal_code": "5 digits",
+      "national_additional_number": "4 digits"
     },
     "image": {
       "attach": "Attach Commercial Registration Image",
@@ -992,7 +1005,11 @@
       "commercialRegistrationNumberMinLength": "Commercial registration number must be at least 5 characters long",
       "commercialRegistrationImageRequired": "Commercial registration image is required when commercial number is provided",
       "taxRegistrationImageRequired": "Tax registration image is required",
-      "packageRequired": "Package is required"
+      "packageRequired": "Package is required",
+      "nationalBuildingNumberInvalid": "Building number must be 4 digits.",
+      "nationalPostalCodeInvalid": "Postal code must be 5 digits.",
+      "nationalAdditionalNumberInvalid": "Additional number must be 4 digits.",
+      "nationalTextLength": "Must be between 2 and 100 characters."
     }
   },
   "edit_subscriber_form": {
@@ -1003,7 +1020,8 @@
     "sections": {
       "subscriber_information": "Subscriber Information",
       "login_information": "Login Information",
-      "tax_registration_information": "Tax Registration Information"
+      "tax_registration_information": "Tax Registration Information",
+      "national_address": "National address"
     },
     "labels": {
       "name": "Name",

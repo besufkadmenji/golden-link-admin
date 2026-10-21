@@ -17,6 +17,7 @@ import { AppForm, FormSection, FormType } from "../../shared/forms/AppForm";
 import { FormInput } from "../../shared/forms/FormInput";
 import { FormSelect } from "../../shared/forms/FormSelect";
 import { useSubscriber } from "../useSubscriber";
+import { NationalAddressSection } from "../manage/NationalAddressSection";
 import { ActivateSubscriber } from "@/components/app/Subscribers/ActivateSubscriber";
 import { DeactivateSubscriber } from "@/components/app/Subscribers/DeactivateSubscriber";
 
@@ -175,6 +176,11 @@ export const SubscriberDetail = ({ id }: { id: string }) => {
               </div>
             </div>
           </FormSection>
+          <NationalAddressSection
+            title={dict.add_new_subscriber_form.sections.national_address}
+            values={subscriber}
+            readOnly
+          />
         </AppForm>
       </div>
       <ActivateSubscriber />

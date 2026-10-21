@@ -20,6 +20,7 @@ import { UploadInput } from "../../shared/UploadInput";
 import { typeMap } from "../renderCell";
 import { useManageForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
+import { NationalAddressSection } from "./NationalAddressSection";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
 import { CountryCodeSelect } from "./CountryCodeSelect";
 import { SubscriberType } from "@/types/subscriber";
@@ -250,6 +251,15 @@ export const EditSubscriber = ({ id }: { id: string }) => {
             </div>
           </div>
         </FormSection>
+        <NationalAddressSection
+          title={dict.edit_subscriber_form.sections.national_address}
+          values={form}
+          onChange={(field, value) => {
+            setForm({ [field]: value });
+            clearError(field);
+          }}
+          errors={errors}
+        />
       </AppForm>
     </div>
   );
