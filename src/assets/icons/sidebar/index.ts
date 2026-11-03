@@ -10,3 +10,4 @@ export { default as NotificationIcon } from "./notification.svg";
 export { default as ReportsIcon } from "./reports.svg";
 export { default as SettingsIcon } from "./settings.svg";
 export { default as SubscribersIcon } from "./subscribers.svg";
+export { default as InvoiceIcon } from "./invoice.svg";

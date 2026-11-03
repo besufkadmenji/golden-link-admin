@@ -11,6 +11,57 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9@$!%*?&]{8,}$/;
 const FULL_NAME_MAX_LENGTH = 50;
 const TAX_NUMBER_REGEX = /^\d{15}$/;
 
+type NationalAddressField =
+  | "nationalBuildingNumber"
+  | "nationalStreet"
+  | "nationalDistrict"
+  | "nationalCity"
+  | "nationalPostalCode"
+  | "nationalAdditionalNumber";
+
+const NATIONAL_ADDRESS_FIELDS: NationalAddressField[] = [
+  "nationalBuildingNumber",
+  "nationalStreet",
+  "nationalDistrict",
+  "nationalCity",
+  "nationalPostalCode",
+  "nationalAdditionalNumber",
+];
+
+/**
+ * National address is optional for admin-created subscribers; filled fields must match
+ * Saudi Post formats (needed for ZATCA tax invoices).
+ */
+const nationalAddressError = (
+  field: NationalAddressField,
+  rawValue: string | undefined,
+  messages: {
+    nationalBuildingNumberInvalid: string;
+    nationalPostalCodeInvalid: string;
+    nationalAdditionalNumberInvalid: string;
+    nationalTextLength: string;
+  },
+): string | null => {
+  const value = rawValue?.trim() ?? "";
+  if (!value) return null;
+  switch (field) {
+    case "nationalBuildingNumber":
+      return /^\d{4}$/.test(value)
+        ? null
+        : messages.nationalBuildingNumberInvalid;
+    case "nationalAdditionalNumber":
+      return /^\d{4}$/.test(value)
+        ? null
+        : messages.nationalAdditionalNumberInvalid;
+    case "nationalPostalCode":
+      return /^\d{5}$/.test(value) ? null : messages.nationalPostalCodeInvalid;
+    default:
+      return value.length >= 2 && value.length <= 100
+        ? null
+        : messages.nationalTextLength;
+  }
+};
+
 interface FormWithPassword extends CreateSubscriberDto {
   confirmPassword: string;
 }
@@ -167,6 +218,32 @@ export const useFormValidation = (
     [validation],
   );
 
+  // Read field by field (not form[field]) so the hooks below depend on these six values only.
+  const nationalAddressErrors = useMemo(() => {
+    const values: Record<NationalAddressField, string | undefined> = {
+      nationalBuildingNumber: form.nationalBuildingNumber,
+      nationalStreet: form.nationalStreet,
+      nationalDistrict: form.nationalDistrict,
+      nationalCity: form.nationalCity,
+      nationalPostalCode: form.nationalPostalCode,
+      nationalAdditionalNumber: form.nationalAdditionalNumber,
+    };
+    const result: Partial<Record<NationalAddressField, string>> = {};
+    for (const field of NATIONAL_ADDRESS_FIELDS) {
+      const error = nationalAddressError(field, values[field], validation);
+      if (error) result[field] = error;
+    }
+    return result;
+  }, [
+    form.nationalBuildingNumber,
+    form.nationalStreet,
+    form.nationalDistrict,
+    form.nationalCity,
+    form.nationalPostalCode,
+    form.nationalAdditionalNumber,
+    validation,
+  ]);
+
   const validateForm = useCallback(() => {
     const newErrors: { [key: string]: string } = {};
 
@@ -230,9 +307,12 @@ export const useFormValidation = (
         newErrors.confirmPassword = confirmPasswordError;
     }
 
+    Object.assign(newErrors, nationalAddressErrors);
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   }, [
+    nationalAddressErrors,
     form.fullName,
     form.email,
     form.phoneNumber,
@@ -277,6 +357,8 @@ export const useFormValidation = (
       form.taxRegistrationImagePath,
       existingImages?.taxRegistrationImagePath,
     );
+    const nationalAddressValid =
+      Object.keys(nationalAddressErrors).length === 0;
 
     if (mode === "edit") {
       const passwordError = form.password
@@ -296,7 +378,8 @@ export const useFormValidation = (
         !commercialImageError &&
         !taxImageError &&
         !passwordError &&
-        !confirmPasswordError
+        !confirmPasswordError &&
+        nationalAddressValid
       );
     }
 
@@ -318,9 +401,11 @@ export const useFormValidation = (
       !commercialImageError &&
       !taxImageError &&
       !passwordError &&
-      !confirmPasswordError
+      !confirmPasswordError &&
+      nationalAddressValid
     );
   }, [
+    nationalAddressErrors,
     form.fullName,
     form.email,
     form.phoneNumber,
@@ -373,6 +458,14 @@ export const useFormValidation = (
         case "taxRegistrationNumber":
           error = validateTaxNumber(value) || "";
           break;
+        case "nationalBuildingNumber":
+        case "nationalStreet":
+        case "nationalDistrict":
+        case "nationalCity":
+        case "nationalPostalCode":
+        case "nationalAdditionalNumber":
+          error = nationalAddressError(field, value, validation) || "";
+          break;
       }
 
       if (error) {
@@ -393,6 +486,7 @@ export const useFormValidation = (
       validatePassword,
       validateConfirmPassword,
       validateTaxNumber,
+      validation,
       form.password,
     ],
   );

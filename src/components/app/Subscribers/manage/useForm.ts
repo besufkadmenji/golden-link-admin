@@ -30,6 +30,12 @@ export const useForm = create<FormState>((set) => ({
     commercialRegistrationNumber: "",
     taxRegistrationNumber: "",
     type: "WAREHOUSE_OWNER",
+    nationalBuildingNumber: "",
+    nationalStreet: "",
+    nationalDistrict: "",
+    nationalCity: "",
+    nationalPostalCode: "",
+    nationalAdditionalNumber: "",
   },
   setForm: (form) =>
     set((state) => ({
@@ -55,6 +61,12 @@ export const useForm = create<FormState>((set) => ({
         commercialRegistrationImagePath: undefined,
         taxRegistrationImagePath: undefined,
         type: "WAREHOUSE_OWNER",
+        nationalBuildingNumber: "",
+        nationalStreet: "",
+        nationalDistrict: "",
+        nationalCity: "",
+        nationalPostalCode: "",
+        nationalAdditionalNumber: "",
       },
       existingCommercialRegistrationImage: null,
       existingTaxRegistrationImage: null,
@@ -117,6 +129,12 @@ export const useManageForm = (
           : "WAREHOUSE_OWNER",
       password: "",
       confirmPassword: "",
+      nationalBuildingNumber: subscriber.nationalBuildingNumber ?? "",
+      nationalStreet: subscriber.nationalStreet ?? "",
+      nationalDistrict: subscriber.nationalDistrict ?? "",
+      nationalCity: subscriber.nationalCity ?? "",
+      nationalPostalCode: subscriber.nationalPostalCode ?? "",
+      nationalAdditionalNumber: subscriber.nationalAdditionalNumber ?? "",
     });
     setExistingCommercialRegistrationImage(
       subscriber.commercialRegistrationImagePath || null,

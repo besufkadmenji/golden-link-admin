@@ -188,7 +188,8 @@
     "privacy_policy": "سياسة الخصوصية",
     "features_management": "إدارة مميزات المنصة",
     "contact_us": "إدارة رسائل تواصل معنا",
-    "notifications": "إدارة الإشعارات"
+    "notifications": "إدارة الإشعارات",
+    "e_invoices": "الفواتير الإلكترونية"
   },
   "reports": {
     "title": "التقارير",
@@ -407,7 +408,8 @@
     "messages": "لا توجد رسائل متاحة",
     "clients": "لا يوجد عملاء متاحون",
     "features": "لا توجد مميزات متاحة",
-    "packages": "لا توجد باقات متاحة"
+    "packages": "لا توجد باقات متاحة",
+    "eInvoices": "لا توجد فواتير إلكترونية بعد"
   },
   "admin_forgot_password_form": {
     "title": "استعادة كلمة المرور",
@@ -619,7 +621,8 @@
       "drivers": "السائقين",
       "notifications": "إدارة الإشعارات",
       "reports": "التقارير",
-      "features": "مميزات المنصة"
+      "features": "مميزات المنصة",
+      "e_invoices": "الفواتير الإلكترونية (زاتكا)"
     }
   },
   "activate_admin_confirmation": {
@@ -931,7 +934,8 @@
     "sections": {
       "subscriber_information": "معلومات المشترك",
       "login_information": "معلومات الدخول",
-      "tax_registration_information": "معلومات السجل الضريبي"
+      "tax_registration_information": "معلومات السجل الضريبي",
+      "national_address": "العنوان الوطني"
     },
     "labels": {
       "name": "الاسم",
@@ -943,7 +947,13 @@
       "password": "كلمة المرور",
       "confirm_password": "تأكيد كلمة المرور",
       "organization_name": "اسم المؤسسة",
-      "package": "الباقة"
+      "package": "الباقة",
+      "national_building_number": "رقم المبنى",
+      "national_street": "الشارع",
+      "national_district": "الحي",
+      "national_city": "المدينة",
+      "national_postal_code": "الرمز البريدي",
+      "national_additional_number": "الرقم الإضافي"
     },
     "placeholders": {
       "name": "ادخل اسم المشترك",
@@ -955,7 +965,13 @@
       "password": "ادخل كلمة المرور",
       "confirm_password": "ادخل تأكيد كلمة المرور",
       "organization_name": "ادخل اسم المؤسسة",
-      "package": "اختر باقة"
+      "package": "اختر باقة",
+      "national_building_number": "4 أرقام",
+      "national_street": "اسم الشارع",
+      "national_district": "اسم الحي",
+      "national_city": "المدينة",
+      "national_postal_code": "5 أرقام",
+      "national_additional_number": "4 أرقام"
     },
     "image": {
       "attach": "ارفق صورة السجل التجاري",
@@ -988,7 +1004,11 @@
       "commercialRegistrationNumberMinLength": "يجب أن يكون رقم التسجيل التجاري 5 أحرف على الأقل",
       "commercialRegistrationImageRequired": "صورة السجل التجاري مطلوبة عند إدخال رقم التسجيل التجاري",
       "taxRegistrationImageRequired": "صورة السجل الضريبي مطلوبة",
-      "packageRequired": "الباقة مطلوبة"
+      "packageRequired": "الباقة مطلوبة",
+      "nationalBuildingNumberInvalid": "يجب أن يتكون رقم المبنى من 4 أرقام.",
+      "nationalPostalCodeInvalid": "يجب أن يتكون الرمز البريدي من 5 أرقام.",
+      "nationalAdditionalNumberInvalid": "يجب أن يتكون الرقم الإضافي من 4 أرقام.",
+      "nationalTextLength": "يجب أن يكون بين 2 و 100 حرف."
     }
   },
   "edit_subscriber_form": {
@@ -999,7 +1019,8 @@
     "sections": {
       "subscriber_information": "معلومات المشترك",
       "login_information": "معلومات الدخول",
-      "tax_registration_information": "معلومات السجل الضريبي"
+      "tax_registration_information": "معلومات السجل الضريبي",
+      "national_address": "العنوان الوطني"
     },
     "labels": {
       "name": "الاسم",
@@ -1618,5 +1639,100 @@
     "thursday": "الخميس",
     "friday": "الجمعة",
     "saturday": "السبت"
+  },
+  "eInvoices": {
+    "title": "الفواتير الإلكترونية (زاتكا)",
+    "summary": "الفواتير",
+    "statuses": {
+      "PENDING": "قيد الانتظار",
+      "CLEARED": "معتمدة",
+      "CLEARED_WITH_WARNINGS": "معتمدة مع ملاحظات",
+      "REJECTED": "مرفوضة",
+      "FAILED": "فشل الإرسال"
+    },
+    "documentTypes": {
+      "INVOICE": "فاتورة ضريبية",
+      "CREDIT_NOTE": "إشعار دائن",
+      "DEBIT_NOTE": "إشعار مدين"
+    },
+    "filters": {
+      "status": "الحالة",
+      "documentType": "نوع المستند",
+      "issueDate": "تاريخ الإصدار"
+    },
+    "table": {
+      "invoiceNumber": "رقم الفاتورة",
+      "buyer": "المشتري",
+      "subscription": "الاشتراك",
+      "issuedAt": "تاريخ الإصدار",
+      "total": "الإجمالي شامل الضريبة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "actions": {
+      "view": "عرض",
+      "downloadPdf": "تحميل PDF",
+      "downloadXml": "تحميل XML",
+      "retry": "إعادة الإرسال للهيئة",
+      "reissue": "إعادة إصدار الفاتورة",
+      "resendEmail": "إعادة إرسال البريد"
+    },
+    "confirm": {
+      "retryTitle": "إعادة إرسال الفاتورة إلى الهيئة؟",
+      "retryDescription": "سيتم إرسال الفاتورة إلى هيئة الزكاة والضريبة والجمارك مرة أخرى.",
+      "reissueTitle": "إعادة إصدار هذه الفاتورة؟",
+      "reissueDescription": "سيتم إصدار فاتورة جديدة بالرقم التالي من بيانات المشترك الحالية وإرسالها إلى الهيئة، وتبقى الفاتورة المرفوضة في السجل.",
+      "resendTitle": "إعادة إرسال بريد الفاتورة؟",
+      "resendDescription": "سيستلم المشترك ملفي PDF وXML مرة أخرى."
+    },
+    "messages": {
+      "retryQueued": "سيتم إرسال الفاتورة إلى الهيئة مرة أخرى قريباً.",
+      "reissued": "تم إصدار الفاتورة الجديدة {number} ويجري إرسالها إلى الهيئة.",
+      "resendQueued": "سيتم إعادة إرسال بريد الفاتورة قريباً.",
+      "missingBuyerData": "أكمل بيانات المشترك أولاً: {fields}"
+    },
+    "missingFields": {
+      "taxRegistrationNumber": "الرقم الضريبي",
+      "nationalBuildingNumber": "رقم المبنى",
+      "nationalStreet": "الشارع",
+      "nationalDistrict": "الحي",
+      "nationalCity": "المدينة",
+      "nationalPostalCode": "الرمز البريدي"
+    },
+    "detail": {
+      "title": "الفاتورة الإلكترونية",
+      "amounts": {
+        "taxExclusive": "الإجمالي غير شامل الضريبة",
+        "vat": "ضريبة القيمة المضافة",
+        "taxInclusive": "الإجمالي شامل الضريبة"
+      },
+      "seller": "البائع",
+      "buyer": "المشتري",
+      "vatNumber": "الرقم الضريبي",
+      "crn": "السجل التجاري",
+      "address": "العنوان",
+      "zatcaErrors": "أخطاء الهيئة",
+      "zatcaWarnings": "ملاحظات الهيئة",
+      "noMessages": "لم تُرجع الهيئة أي أخطاء أو ملاحظات.",
+      "lastError": "آخر خطأ",
+      "timeline": "السجل الزمني",
+      "issued": "تاريخ الإصدار",
+      "submitted": "آخر إرسال للهيئة",
+      "cleared": "تاريخ الاعتماد",
+      "emailed": "أُرسلت للمشترك",
+      "attempts": "محاولات الإرسال",
+      "technical": "التفاصيل التقنية",
+      "uuid": "المعرّف الفريد (UUID)",
+      "icv": "عداد الفاتورة (ICV)",
+      "invoiceHash": "بصمة الفاتورة",
+      "previousHash": "بصمة الفاتورة السابقة",
+      "recipient": "مستلم البريد",
+      "reissueOf": "بديلة عن الفاتورة المرفوضة",
+      "reissuedAs": "أعيد إصدارها برقم",
+      "subscription": "الاشتراك",
+      "package": "الباقة",
+      "documentType": "نوع المستند",
+      "notYet": "—"
+    }
   }
 }

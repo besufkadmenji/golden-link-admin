@@ -17,6 +17,7 @@ import { UploadInput } from "../../shared/UploadInput";
 import { typeMap } from "../renderCell";
 import { useForm } from "./useForm";
 import { useFormValidation } from "./useFormValidation";
+import { NationalAddressSection } from "./NationalAddressSection";
 import { SuccessMessage } from "@/components/app/Subscribers/manage/SuccessMessage";
 import { useFormResetOnLeave } from "@/hooks/useFormResetOnLeave";
 import { useRequirePermission } from "@/hooks/useRequirePermission";
@@ -244,6 +245,15 @@ export const AddSubscriber = () => {
               </div>
             </div>
           </FormSection>
+          <NationalAddressSection
+            title={dict.add_new_subscriber_form.sections.national_address}
+            values={form}
+            onChange={(field, value) => {
+              setForm({ [field]: value });
+              clearError(field);
+            }}
+            errors={errors}
+          />
         </AppForm>
       </div>
       <SuccessMessage />

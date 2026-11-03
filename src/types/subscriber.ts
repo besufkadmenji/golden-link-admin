@@ -36,6 +36,13 @@ export interface SubscriberDetail extends Subscriber {
   taxRegistrationNumber: string;
   taxRegistrationImagePath: string;
   warehouseId?: string;
+  // Saudi national address (buyer address on ZATCA tax invoices)
+  nationalBuildingNumber?: string | null;
+  nationalStreet?: string | null;
+  nationalDistrict?: string | null;
+  nationalCity?: string | null;
+  nationalPostalCode?: string | null;
+  nationalAdditionalNumber?: string | null;
 }
 
 export interface Pagination {
@@ -95,6 +102,12 @@ export interface CreateSubscriberDto {
   type: SubscriberType;
   commercialRegistrationImagePath?: File;
   taxRegistrationImagePath?: File;
+  nationalBuildingNumber?: string;
+  nationalStreet?: string;
+  nationalDistrict?: string;
+  nationalCity?: string;
+  nationalPostalCode?: string;
+  nationalAdditionalNumber?: string;
 }
 
 export interface UpdateSubscriberDto {
@@ -110,4 +123,10 @@ export interface UpdateSubscriberDto {
   confirmPassword?: string;
   commercialRegistrationImagePath?: File;
   taxRegistrationImagePath?: File;
+  nationalBuildingNumber?: string;
+  nationalStreet?: string;
+  nationalDistrict?: string;
+  nationalCity?: string;
+  nationalPostalCode?: string;
+  nationalAdditionalNumber?: string;
 }

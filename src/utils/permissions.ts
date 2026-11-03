@@ -25,6 +25,11 @@ const FULL_ACCESS_TYPES = new Set(["ADMINISTRATOR"]);
 const PERMISSION_MODULE_ALIASES: Record<string, string> = {
   about: "settings",
   client: "clients",
+  e_invoice: "e_invoices",
+  e_invoices: "e_invoices",
+  einvoice: "e_invoices",
+  einvoices: "e_invoices",
+  zatca: "e_invoices",
   clients: "clients",
   feature: "features",
   features: "features",

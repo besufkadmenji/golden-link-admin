@@ -9,6 +9,7 @@ import {
   ReportsIcon,
   SettingsIcon,
   SubscribersIcon,
+  InvoiceIcon,
 } from "@/assets/icons/sidebar";
 import ChevronDown from "@/assets/icons/sidebar/chevron.down.svg";
 import MenuIcon from "@/assets/icons/menu.svg";
@@ -115,6 +116,13 @@ export const Sidebar = ({
             href="/packages"
             icon={<GiftIcon className="size-5" />}
             label={dict.navigation.package_management}
+          />
+        )}
+        {hasPermission("e_invoices", "read") && (
+          <OptionLink
+            href="/e-invoices"
+            icon={<InvoiceIcon className="size-5" />}
+            label={dict.navigation.e_invoices}
           />
         )}
         {hasPermission("reports", "read") && (

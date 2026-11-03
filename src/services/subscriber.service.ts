@@ -9,6 +9,33 @@ import {
   UpdateSubscriberDto,
 } from "@/types/subscriber";
 
+
+/** Only filled national-address fields are sent; the API validates the format of whatever it receives. */
+const appendNationalAddress = (
+  formData: FormData,
+  dto: Pick<
+    CreateSubscriberDto,
+    | "nationalBuildingNumber"
+    | "nationalStreet"
+    | "nationalDistrict"
+    | "nationalCity"
+    | "nationalPostalCode"
+    | "nationalAdditionalNumber"
+  >,
+) => {
+  for (const field of [
+    "nationalBuildingNumber",
+    "nationalStreet",
+    "nationalDistrict",
+    "nationalCity",
+    "nationalPostalCode",
+    "nationalAdditionalNumber",
+  ] as const) {
+    const value = dto[field]?.trim();
+    if (value) formData.append(field, value);
+  }
+};
+
 export class SubscriberService {
   /**
    * Get subscribers list
@@ -82,6 +109,7 @@ export class SubscriberService {
         dto.commercialRegistrationNumber,
       );
       formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      appendNationalAddress(formData, dto);
       formData.append("type", dto.type);
       formData.append("packageId", String(dto.packageId));
 
@@ -138,6 +166,7 @@ export class SubscriberService {
         dto.commercialRegistrationNumber,
       );
       formData.append("taxRegistrationNumber", dto.taxRegistrationNumber);
+      appendNationalAddress(formData, dto);
       formData.append("type", dto.type);
 
       if (dto.password) {

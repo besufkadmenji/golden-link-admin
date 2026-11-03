@@ -190,7 +190,8 @@
     "privacy_policy": "Privacy Policy",
     "features_management": "Platform Features Management",
     "contact_us": "Contact Us Messages Management",
-    "notifications": "Notifications Management"
+    "notifications": "Notifications Management",
+    "e_invoices": "E-Invoices (ZATCA)"
   },
   "reports": {
     "title": "Reports",
@@ -409,7 +410,8 @@
     "messages": "No messages available",
     "clients": "No clients available",
     "features": "No features available",
-    "packages": "No packages available"
+    "packages": "No packages available",
+    "eInvoices": "No e-invoices yet"
   },
   "admin_forgot_password_form": {
     "title": "Recover Password",
@@ -620,7 +622,8 @@
       "drivers": "Drivers",
       "notifications": "Notification Management",
       "reports": "Reports",
-      "features": "Platform Features"
+      "features": "Platform Features",
+      "e_invoices": "ZATCA E-Invoices"
     }
   },
   "activate_admin_confirmation": {
@@ -932,7 +935,8 @@
     "sections": {
       "subscriber_information": "Subscriber Information",
       "login_information": "Login Information",
-      "tax_registration_information": "Tax Registration Information"
+      "tax_registration_information": "Tax Registration Information",
+      "national_address": "National address"
     },
     "labels": {
       "name": "Name",
@@ -944,7 +948,13 @@
       "password": "Password",
       "confirm_password": "Confirm Password",
       "organization_name": "Organization Name",
-      "package": "Package"
+      "package": "Package",
+      "national_building_number": "Building number",
+      "national_street": "Street",
+      "national_district": "District",
+      "national_city": "City",
+      "national_postal_code": "Postal code",
+      "national_additional_number": "Additional number"
     },
     "placeholders": {
       "name": "Enter subscriber name",
@@ -956,7 +966,13 @@
       "password": "Enter password",
       "confirm_password": "Enter confirm password",
       "organization_name": "Enter organization name",
-      "package": "Select a package"
+      "package": "Select a package",
+      "national_building_number": "4 digits",
+      "national_street": "Street name",
+      "national_district": "District name",
+      "national_city": "City",
+      "national_postal_code": "5 digits",
+      "national_additional_number": "4 digits"
     },
     "image": {
       "attach": "Attach Commercial Registration Image",
@@ -989,7 +1005,11 @@
       "commercialRegistrationNumberMinLength": "Commercial registration number must be at least 5 characters long",
       "commercialRegistrationImageRequired": "Commercial registration image is required when commercial number is provided",
       "taxRegistrationImageRequired": "Tax registration image is required",
-      "packageRequired": "Package is required"
+      "packageRequired": "Package is required",
+      "nationalBuildingNumberInvalid": "Building number must be 4 digits.",
+      "nationalPostalCodeInvalid": "Postal code must be 5 digits.",
+      "nationalAdditionalNumberInvalid": "Additional number must be 4 digits.",
+      "nationalTextLength": "Must be between 2 and 100 characters."
     }
   },
   "edit_subscriber_form": {
@@ -1000,7 +1020,8 @@
     "sections": {
       "subscriber_information": "Subscriber Information",
       "login_information": "Login Information",
-      "tax_registration_information": "Tax Registration Information"
+      "tax_registration_information": "Tax Registration Information",
+      "national_address": "National address"
     },
     "labels": {
       "name": "Name",
@@ -1615,5 +1636,100 @@
     "thursday": "Thursday",
     "friday": "Friday",
     "saturday": "Saturday"
+  },
+  "eInvoices": {
+    "title": "ZATCA E-Invoices",
+    "summary": "Invoices",
+    "statuses": {
+      "PENDING": "Pending",
+      "CLEARED": "Cleared",
+      "CLEARED_WITH_WARNINGS": "Cleared with warnings",
+      "REJECTED": "Rejected",
+      "FAILED": "Failed"
+    },
+    "documentTypes": {
+      "INVOICE": "Tax invoice",
+      "CREDIT_NOTE": "Credit note",
+      "DEBIT_NOTE": "Debit note"
+    },
+    "filters": {
+      "status": "Status",
+      "documentType": "Document type",
+      "issueDate": "Issue date"
+    },
+    "table": {
+      "invoiceNumber": "Invoice number",
+      "buyer": "Buyer",
+      "subscription": "Subscription",
+      "issuedAt": "Issue date",
+      "total": "Total incl. VAT",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View",
+      "downloadPdf": "Download PDF",
+      "downloadXml": "Download XML",
+      "retry": "Retry clearance",
+      "reissue": "Re-issue invoice",
+      "resendEmail": "Resend email"
+    },
+    "confirm": {
+      "retryTitle": "Retry clearance?",
+      "retryDescription": "The invoice will be sent to ZATCA again.",
+      "reissueTitle": "Re-issue this invoice?",
+      "reissueDescription": "A new invoice with the next number will be issued from the subscriber's current data and sent to ZATCA. The rejected invoice stays in the history.",
+      "resendTitle": "Resend the invoice email?",
+      "resendDescription": "The subscriber will receive the PDF and XML again."
+    },
+    "messages": {
+      "retryQueued": "The invoice will be sent to ZATCA again shortly.",
+      "reissued": "New invoice {number} was issued and is being sent to ZATCA.",
+      "resendQueued": "The invoice email will be sent again shortly.",
+      "missingBuyerData": "Complete the subscriber's data first: {fields}"
+    },
+    "missingFields": {
+      "taxRegistrationNumber": "VAT number",
+      "nationalBuildingNumber": "Building number",
+      "nationalStreet": "Street",
+      "nationalDistrict": "District",
+      "nationalCity": "City",
+      "nationalPostalCode": "Postal code"
+    },
+    "detail": {
+      "title": "E-Invoice",
+      "amounts": {
+        "taxExclusive": "Total excl. VAT",
+        "vat": "VAT",
+        "taxInclusive": "Total incl. VAT"
+      },
+      "seller": "Seller",
+      "buyer": "Buyer",
+      "vatNumber": "VAT number",
+      "crn": "CR number",
+      "address": "Address",
+      "zatcaErrors": "ZATCA errors",
+      "zatcaWarnings": "ZATCA warnings",
+      "noMessages": "ZATCA returned no errors or warnings.",
+      "lastError": "Last error",
+      "timeline": "Timeline",
+      "issued": "Issued",
+      "submitted": "Last sent to ZATCA",
+      "cleared": "Cleared",
+      "emailed": "Emailed to subscriber",
+      "attempts": "Submission attempts",
+      "technical": "Technical details",
+      "uuid": "UUID",
+      "icv": "Invoice counter (ICV)",
+      "invoiceHash": "Invoice hash",
+      "previousHash": "Previous invoice hash",
+      "recipient": "Email recipient",
+      "reissueOf": "Replaces rejected invoice",
+      "reissuedAs": "Re-issued as",
+      "subscription": "Subscription",
+      "package": "Package",
+      "documentType": "Document type",
+      "notYet": "—"
+    }
   }
 }
